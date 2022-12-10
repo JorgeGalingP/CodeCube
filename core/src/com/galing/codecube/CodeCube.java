@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.screens.GameScreen;
 
 public class CodeCube extends Game {
@@ -19,9 +20,9 @@ public class CodeCube extends Game {
         // initialize spritebatch
         batch = new SpriteBatch();
 
-        // TODO load assets
-        // TODO create assets class
-        // Assets.load();
+        // load assets
+        AssetManager.load();
+        AssetManager.loadTiledMap();
 
         // set screen to main game
         this.setScreen(new GameScreen(this));
