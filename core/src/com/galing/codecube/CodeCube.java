@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.galing.codecube.screens.GameScreen;
 
 public class CodeCube extends Game {
 
@@ -22,7 +23,7 @@ public class CodeCube extends Game {
         // TODO create assets class
         // Assets.load();
 
-        // TODO set screen to main game
-        // this.setScreen();
+        // set screen to main game
+        this.setScreen(new GameScreen(this));
     }
 }
