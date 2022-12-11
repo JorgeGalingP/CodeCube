@@ -12,8 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.galing.codecube.CodeCube;
 
 public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Screen, GestureDetector.GestureListener {
-    public static final int SCREEN_WIDTH = 768;
-    public static final int SCREEN_HEIGHT = 1280;
+    public static final int WIDTH = 768;
+    public static final int HEIGHT = 1280;
 
     public CodeCube game;
 

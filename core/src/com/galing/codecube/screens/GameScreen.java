@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.board.BoardRenderer;
 
 public class GameScreen extends Screen {
     private enum GameState {
@@ -19,6 +20,8 @@ public class GameScreen extends Screen {
     private final OrthographicCamera camera;
     private final Stage stageGame;
 
+    private BoardRenderer boardRenderer;
+
     public GameScreen(final CodeCube game) {
         super(game);
 
@@ -29,11 +32,14 @@ public class GameScreen extends Screen {
         stageGame = new Stage(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera));
         inputMultiplexer.addProcessor(stageGame);
 
+        boardRenderer = new BoardRenderer(stageGame);
+
         setRunning();
     }
 
     @Override
     public void draw(float delta) {
+        boardRenderer.render();
         stageGame.draw();
     }
 
@@ -47,7 +53,14 @@ public class GameScreen extends Screen {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
+        boardRenderer.resize(width, height);
         stageGame.getViewport().update(width, height, false);
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        boardRenderer.dispose();
     }
 
     @Override
