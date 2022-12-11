@@ -18,7 +18,8 @@ public class BoardRenderer {
     public static final int NUM_TILES_HEIGHT = 20;
 
     private OrthogonalTiledMapRenderer tiledRender;
-    private TiledMapTileLayer mapStaticLayer;
+    private TiledMapTileLayer staticLayer;
+    private TiledMapTileLayer objectLayer;
     private OrthographicCamera camera;
     private Viewport viewport;
 
@@ -26,7 +27,8 @@ public class BoardRenderer {
         this.camera = (OrthographicCamera) stage.getCamera();
         this.viewport = stage.getViewport();
         tiledRender = new OrthogonalTiledMapRenderer(AssetManager.tileMap, UNIT_SCALE);
-        mapStaticLayer = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("static");
+        staticLayer = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("static");
+        objectLayer = (TiledMapTileLayer) tiledRender.getMap().getLayers().get("objects");
     }
 
     public void render() {
@@ -35,7 +37,8 @@ public class BoardRenderer {
 
         // render the tilemap
         tiledRender.getBatch().begin();
-        tiledRender.renderTileLayer(mapStaticLayer);
+        tiledRender.renderTileLayer(staticLayer);
+        tiledRender.renderTileLayer(objectLayer);
         tiledRender.getBatch().end();
     }
 
