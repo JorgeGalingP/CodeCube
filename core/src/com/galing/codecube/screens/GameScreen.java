@@ -33,6 +33,7 @@ public class GameScreen extends Screen {
         inputMultiplexer.addProcessor(stageGame);
 
         board = new Board(stageGame);
+        stageGame.addActor(board);
 
         setRunning();
     }

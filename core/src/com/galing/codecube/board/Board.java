@@ -1,9 +1,8 @@
 package com.galing.codecube.board;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -11,6 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.assets.AssetManager;
+import com.galing.codecube.objects.Box;
+import com.galing.codecube.objects.Button;
+import com.galing.codecube.objects.Control;
+import com.galing.codecube.objects.Floor;
+import com.galing.codecube.objects.Player;
+import com.galing.codecube.objects.Target;
+import com.galing.codecube.objects.Wall;
 import com.galing.codecube.screens.Screen;
 
 import java.util.HashMap;
@@ -55,22 +61,19 @@ public class Board extends Group {
     private final ShapeRenderer shapeRenderer;
 
     public Board(Stage stage) {
-        this.camera = (OrthographicCamera) stage.getCamera();
-        this.viewport = stage.getViewport();
-        tiledRender = new OrthogonalTiledMapRenderer(AssetManager.tileMap, UNIT_SCALE);
+        camera = (OrthographicCamera) stage.getCamera();
+        viewport = stage.getViewport();
         shapeRenderer = new ShapeRenderer();
+        tiledRender = new OrthogonalTiledMapRenderer(AssetManager.tileMap, UNIT_SCALE);
+
+        initializeLayerMap(BOARD_LAYER);
+        initializeLayerMap(OBJECTS_LAYER);
+        initializeLayerMap(CONTROLS_LAYER);
     }
 
     public void render() {
         camera.update();
-        tiledRender.setView(camera);
-
-        // render first layers of the tilemap
-        tiledRender.getBatch().begin();
-        tiledRender.renderTileLayer((TiledMapTileLayer) tiledRender.getMap().getLayers().get(BOARD_LAYER));
-        tiledRender.renderTileLayer((TiledMapTileLayer) tiledRender.getMap().getLayers().get(CONTROLS_LAYER));
-        tiledRender.getBatch().end();
-
+/*
         // render a matrix in top of the board
         shapeRenderer.setProjectionMatrix(camera.combined);
         Gdx.gl.glLineWidth(4);
@@ -83,11 +86,7 @@ public class Board extends Group {
             shapeRenderer.line(new Vector2(3, i), new Vector2(9, i));
         }
         shapeRenderer.end();
-
-        // render objects layers of the tilemap
-        tiledRender.getBatch().begin();
-        tiledRender.renderTileLayer((TiledMapTileLayer) tiledRender.getMap().getLayers().get(OBJECTS_LAYER));
-        tiledRender.getBatch().end();
+*/
     }
 
     public void resize(int width, int height) {
@@ -106,5 +105,54 @@ public class Board extends Group {
     public void dispose() {
         tiledRender.getBatch().dispose();
         shapeRenderer.dispose();
+    }
+
+    private void initializeLayerMap(String layerName) {
+        TiledMapTileLayer layer = (TiledMapTileLayer) AssetManager.tileMap.getLayers().get(layerName);
+
+        if (layer != null) {
+            int tilePosition = 0;
+
+            for (int y = 0; y < NUM_TILES_HEIGHT; y++) {
+                for (int x = 0; x < NUM_TILES_WIDTH; x++) {
+                    TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+
+                    if (cell != null) {
+                        TiledMapTile tile = cell.getTile();
+
+                        if (tile.getProperties() != null
+                                && tile.getProperties().containsKey("type")) {
+                            String type = tile.getProperties().get("type").toString();
+
+                            switch (type) {
+                                case "floor":
+                                    addActor(new Floor(tilePosition, tile.getProperties().get("subtype").toString()));
+                                    break;
+                                case "wall":
+                                    addActor(new Wall(tilePosition, tile.getProperties().get("subtype").toString()));
+                                    break;
+                                case "player":
+                                    addActor(new Player(tilePosition));
+                                    break;
+                                case "control":
+                                    addActor(new Control(tilePosition, tile.getProperties().get("color").toString()));
+                                    break;
+                                case "button":
+                                    addActor(new Button(tilePosition, tile.getProperties().get("color").toString()));
+                                    break;
+                                case "box":
+                                    addActor(new Box(tilePosition, tile.getProperties().get("variable").toString()));
+                                    break;
+                                case "target":
+                                    addActor(new Target(tilePosition, tile.getProperties().get("color").toString()));
+                                    break;
+                            }
+                        }
+                    }
+
+                    tilePosition++;
+                }
+            }
+        }
     }
 }
