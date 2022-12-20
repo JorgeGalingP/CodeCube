@@ -42,7 +42,7 @@ public class AssetManager {
     public static AtlasRegion player;
 
     public static void load() {
-        atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/atlasTileset.atlas"));
+        atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/tileset.atlas"));
 
         dirtFloor = atlasTileset.findRegion("dirtFloor");
         rockFloor = atlasTileset.findRegion("rockFloor");
