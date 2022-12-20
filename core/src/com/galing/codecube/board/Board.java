@@ -34,9 +34,6 @@ public class Board extends Group {
     }
 
     public BoardState state;
-    public static final String BOARD_LAYER = "board";
-    public static final String CONTROLS_LAYER = "controls";
-    public static final String OBJECTS_LAYER = "objects";
 
     public static final float TILE_SIZE = 64f;
     public static final float UNIT_SCALE = 1 / TILE_SIZE;
