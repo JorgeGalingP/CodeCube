@@ -8,7 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
-import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.board.Board;
 
 public class Tile extends Actor {
@@ -24,8 +23,6 @@ public class Tile extends Actor {
         setSize(SIZE, SIZE);
         setOrigin(Align.center);
         setPosition(positionVector.x, positionVector.y);
-
-        atlasRegion = AssetManager.greenBox;
     }
 
     public int getPosition() {
