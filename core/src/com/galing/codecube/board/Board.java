@@ -1,8 +1,11 @@
 package com.galing.codecube.board;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -72,10 +75,7 @@ public class Board extends Group {
         tiles = new Array<>(NUM_TILES_WIDTH * NUM_TILES_HEIGHT);
 
         // initialize actors
-        initializeLayerMap(BOARD_LAYER);
-        initializeLayerMap(CONTROLS_LAYER);
-        initializeLayerMap(OBJECTS_LAYER);
-
+        initializeLayersInMap();
         matrix = new Matrix();
 
         // add actors to board
@@ -120,15 +120,17 @@ public class Board extends Group {
         }
     }
 
-    private void initializeLayerMap(String layerName) {
-        TiledMapTileLayer layer = (TiledMapTileLayer) AssetManager.tileMap.getLayers().get(layerName);
+    private void initializeLayersInMap() {
+        MapLayers mapLayers = AssetManager.tileMap.getLayers();
 
-        if (layer != null) {
+        for (MapLayer layerMap : mapLayers) {
+            TiledMapTileLayer layer = (TiledMapTileLayer) mapLayers.get(layerMap.getName());
+
             int tilePosition = 0;
 
             for (int y = 0; y < NUM_TILES_HEIGHT; y++) {
                 for (int x = 0; x < NUM_TILES_WIDTH; x++) {
-                    TiledMapTileLayer.Cell cell = layer.getCell(x, y);
+                    Cell cell = layer.getCell(x, y);
 
                     if (cell != null) {
                         TiledMapTile mapTile = cell.getTile();
