@@ -33,7 +33,6 @@ public class Matrix extends Actor {
         shapeRenderer.end();
 
         batch.begin();
-        super.draw(batch, parentAlpha);
     }
 
     public void dispose() {
