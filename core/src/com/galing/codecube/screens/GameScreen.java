@@ -3,10 +3,12 @@ package com.galing.codecube.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.board.Board;
+import com.galing.codecube.controls.GameStack;
 
 public class GameScreen extends Screen {
     private enum GameState {
@@ -20,7 +22,9 @@ public class GameScreen extends Screen {
     private final OrthographicCamera camera;
     private final Stage stageGame;
 
-    private Board board;
+    private final Board board;
+
+    private final GameStack gameStack;
 
     public GameScreen(final CodeCube game) {
         super(game);
@@ -32,7 +36,10 @@ public class GameScreen extends Screen {
         stageGame = new Stage(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera));
         inputMultiplexer.addProcessor(stageGame);
 
-        board = new Board(stageGame);
+        gameStack = new GameStack(new Vector2(7, 9), 8, 1,
+                new Vector2(10, 7), 4, 3);
+        board = new Board(stageGame, gameStack);
+
         stageGame.addActor(board);
 
         setRunning();
@@ -48,6 +55,10 @@ public class GameScreen extends Screen {
     public void update(float delta) {
         if (state != GameState.PAUSED) {
             stageGame.act(delta);
+
+            if (state.equals(GameState.RUNNING) && board.isGameOver()) {
+                setGameOver();
+            }
         }
     }
 
