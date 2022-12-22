@@ -1,8 +1,6 @@
 package com.galing.codecube.board;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -42,8 +40,7 @@ public class Board extends Group {
     public static final int NUM_TILES_WIDTH = 12;
     public static final int NUM_TILES_HEIGHT = 20;
 
-    public final static HashMap<Integer, Vector2> positionHashMap = new LinkedHashMap<Integer,
-            Vector2>();
+    public final static HashMap<Integer, Vector2> positionHashMap = new LinkedHashMap<>();
 
     static {
         int tilePosition = 0; // positions go left to right and down to up
@@ -51,7 +48,7 @@ public class Board extends Group {
         for (int y = 0; y < Board.NUM_TILES_HEIGHT; y++) {
             for (int x = 0; x < Board.NUM_TILES_WIDTH; x++) {
                 positionHashMap.put(tilePosition,
-                        new Vector2(x * Board.TILE_SIZE * Board.UNIT_SCALE, y * Board.TILE_SIZE * Board.UNIT_SCALE));
+                        new Vector2(x, y));
                 tilePosition++;
             }
         }
@@ -62,6 +59,8 @@ public class Board extends Group {
     private final Viewport viewport;
 
     private final Array<Tile> tiles;
+
+    private Player player;
     private final Matrix matrix;
 
     public Board(Stage stage) {
@@ -71,21 +70,16 @@ public class Board extends Group {
 
         tiles = new Array<>(NUM_TILES_WIDTH * NUM_TILES_HEIGHT);
 
-        // initialize actors
-        initializeLayersInMap();
+        // initialize first layers
+        initializeLayer("board");
+        initializeLayer("controls");
+
+        // initialize matrix on top of board
         matrix = new Matrix();
-
-        // add actors to board
-        addToBoard(Floor.class);
-        addToBoard(Wall.class);
-        addToBoard(Button.class);
-        addToBoard(Control.class);
-        addToBoard(Box.class);
-
         addActor(matrix);
 
-        addToBoard(Target.class);
-        addToBoard(Player.class);
+        // initialize objects layer on top
+        initializeLayer("objects");
     }
 
     public void render() {
@@ -110,24 +104,15 @@ public class Board extends Group {
         matrix.dispose();
     }
 
-    private void addToBoard(Class<?> type) {
-        for (Tile tile : tiles) {
-            if (tile.getClass().equals(type))
-                addActor(tile);
-        }
-    }
+    private void initializeLayer(String layerName) {
+        TiledMapTileLayer mapLayer = (TiledMapTileLayer) AssetManager.tileMap.getLayers().get(layerName);
 
-    private void initializeLayersInMap() {
-        MapLayers mapLayers = AssetManager.tileMap.getLayers();
-
-        for (MapLayer layerMap : mapLayers) {
-            TiledMapTileLayer layer = (TiledMapTileLayer) mapLayers.get(layerMap.getName());
-
+        if (mapLayer != null) {
             int tilePosition = 0;
 
             for (int y = 0; y < NUM_TILES_HEIGHT; y++) {
                 for (int x = 0; x < NUM_TILES_WIDTH; x++) {
-                    Cell cell = layer.getCell(x, y);
+                    Cell cell = mapLayer.getCell(x, y);
 
                     if (cell != null) {
                         TiledMapTile mapTile = cell.getTile();
@@ -150,6 +135,7 @@ public class Board extends Group {
                                         break;
                                     case "player":
                                         tile = new Player(tilePosition);
+                                        this.player = (Player) tile;
                                         break;
                                     case "control":
                                         tile = new Control(tilePosition,
@@ -169,6 +155,10 @@ public class Board extends Group {
                                         break;
                                 }
 
+                                // add tile as actor to board group
+                                addActor(tile);
+
+                                // add tile to the tiles array
                                 tiles.add(tile);
                             }
                         }
