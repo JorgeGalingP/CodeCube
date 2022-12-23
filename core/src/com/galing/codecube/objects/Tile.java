@@ -15,36 +15,32 @@ public class Tile extends Actor {
     final float SIZE = Board.TILE_SIZE * Board.UNIT_SCALE;
 
     private AtlasRegion atlasRegion;
-    private int position;
-    private Vector2 positionVector;
+    private Vector2 coordinate;
 
-    public Tile(int position) {
-        setPosition(position);
+    public Tile(Vector2 coordinate) {
         setSize(SIZE, SIZE);
         setOrigin(Align.center);
-        setPosition(positionVector.x, positionVector.y);
+        setCoordinate(coordinate);
+        setPosition(coordinate.x, coordinate.y);
     }
 
-    public int getPosition() {
-        return this.position;
+    public Vector2 getCoordinate() {
+        return coordinate;
     }
 
-    public void setPosition(int position) {
-        this.position = position;
-        this.positionVector = new Vector2(Board.positionHashMap.get(position).x,
-                Board.positionHashMap.get(position).y);
+    public void setCoordinate(Vector2 coordinate) {
+        this.coordinate = coordinate;
     }
 
     public void setAtlasRegion(AtlasRegion atlasRegion) {
         this.atlasRegion = atlasRegion;
     }
 
-    public void addMovePositionAction(int position) {
-        setPosition(position);
+    public void addMovePositionAction(Vector2 position) {
+        setCoordinate(position);
 
         // perform move action
-        addAction(moveTo(this.positionVector.x,
-                this.positionVector.y, .3f));
+        addAction(moveTo(position.x, position.y, .3f));
     }
 
     public void addInOutAction() {
@@ -54,23 +50,21 @@ public class Tile extends Actor {
                 Actions.scaleTo(1f, 1f, .2f)));
     }
 
-    public void addInOutPositionAction(int position) {
-        setPosition(position);
+    public void addInOutPositionAction(Vector2 position) {
+        setCoordinate(position);
 
         // perform in and out action with movement
         addAction(Actions.sequence(
                 Actions.scaleTo(1.5f, 1.5f, .3f),
                 Actions.scaleTo(.05f, .05f, .3f),
                 Actions.alpha(0, .1f),
-                Actions.moveTo(this.positionVector.x,
-                        this.positionVector.y, .3f),
+                Actions.moveTo(position.x, position.y, .3f),
                 Actions.alpha(1, .1f),
                 Actions.scaleTo(1f, 1f, .3f)));
     }
 
     public void addResetPositionAction() {
-        addAction(moveTo(positionVector.x,
-                positionVector.y, .35f));
+        addAction(moveTo(this.coordinate.x, this.coordinate.y, .35f));
     }
 
     @Override

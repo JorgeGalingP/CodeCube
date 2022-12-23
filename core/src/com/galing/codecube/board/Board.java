@@ -2,6 +2,7 @@ package com.galing.codecube.board;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -26,9 +27,6 @@ import com.galing.codecube.objects.Tile;
 import com.galing.codecube.objects.Wall;
 import com.galing.codecube.screens.Screen;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-
 public class Board extends Group {
 
     private enum BoardState {
@@ -42,27 +40,13 @@ public class Board extends Group {
     public static final int NUM_TILES_WIDTH = 12;
     public static final int NUM_TILES_HEIGHT = 20;
 
-    public final static HashMap<Integer, Vector2> positionHashMap = new LinkedHashMap<>();
-
-    static {
-        int tilePosition = 0; // positions go left to right and down to up
-
-        for (int y = 0; y < Board.NUM_TILES_HEIGHT; y++) {
-            for (int x = 0; x < Board.NUM_TILES_WIDTH; x++) {
-                positionHashMap.put(tilePosition,
-                        new Vector2(x, y));
-                tilePosition++;
-            }
-        }
-    }
-
     private final OrthogonalTiledMapRenderer tiledRender;
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
     public BoardState state;
     private boolean inverse;
-    private final Array<Integer> floorPositions;
+    private final Array<Vector2> floorPositions;
 
     private final GameStack gameStack;
 
@@ -100,8 +84,15 @@ public class Board extends Group {
         addActor(matrix);
 
         // initialize objects layer on top
+        initializeLayer("player");
         initializeLayer("objects");
+
+        // TODO improve this to renderize player always on top of all targets
+        // being independent of getRandomPositionNoPlayer() position selection order
+        this.player.toFront();
+
         initializeLayer("boxes");
+
         setSize(Screen.WIDTH, Screen.HEIGHT);
     }
 
@@ -147,8 +138,6 @@ public class Board extends Group {
         TiledMapTileLayer mapLayer = (TiledMapTileLayer) AssetManager.tileMap.getLayers().get(layerName);
 
         if (mapLayer != null) {
-            int tilePosition = 0;
-
             for (int y = 0; y < NUM_TILES_HEIGHT; y++) {
                 for (int x = 0; x < NUM_TILES_WIDTH; x++) {
                     Cell cell = mapLayer.getCell(x, y);
@@ -162,10 +151,11 @@ public class Board extends Group {
 
                             if (type != null) {
                                 Tile tile = null;
+                                Vector2 tilePosition = new Vector2(x, y);
 
                                 switch (type) {
                                     case "floor":
-                                        floorPositions.add(tilePosition);
+                                        floorPositions.add(new Vector2(x, y));
 
                                         tile = new Floor(tilePosition,
                                                 mapTile.getProperties().get("subtype").toString());
@@ -175,7 +165,7 @@ public class Board extends Group {
                                                 mapTile.getProperties().get("subtype").toString());
                                         break;
                                     case "player":
-                                        int randomPlayerPosition =
+                                        Vector2 randomPlayerPosition =
                                                 floorPositions.get(random.nextInt((floorPositions.size)));
 
                                         tile = new Player(randomPlayerPosition);
@@ -195,7 +185,7 @@ public class Board extends Group {
                                         gameStack.attachDragListener((Box) tile);
                                         break;
                                     case "target":
-                                        tile = new Target(tilePosition,
+                                        tile = new Target(getRandomPositionNoPlayer(),
                                                 mapTile.getProperties().get("color").toString());
                                         break;
                                 }
@@ -208,8 +198,6 @@ public class Board extends Group {
                             }
                         }
                     }
-
-                    tilePosition++;
                 }
             }
         }
@@ -258,24 +246,30 @@ public class Board extends Group {
                 }
             } else
                 player.setPressed(false);
+
+            Gdx.app.log(Player.class.getSimpleName(), player.getCoordinate().toString());
         }
     }
 
     private void handleMovement(Box box) {
         switch (box.getMovement()) {
             case Box.UP:
-                int mov = inverse
-                        ? -player.getMovement(box)
-                        : player.getMovement(box);
-                int nextPos = player.getPosition() + mov;
+                Vector2 movement = player.getMovement(box);
+                if (inverse) {
+                    movement.x = -movement.x;
+                    movement.y = -movement.y;
+                }
+                Vector2 playerPosition = player.getCoordinate();
+                Vector2 newPosition = new Vector2(playerPosition.x + movement.x, playerPosition.y + movement.y);
 
-                if (isTileEmpty(nextPos)) {
+                if (isTileEmpty(newPosition)) {
                     // add new move
-                    playerMoves.add(new Vector2(player.getPosition(), nextPos));
+                    playerMoves.add(newPosition);
+                    playerMoves.add(new Vector2(newPosition));
 
                     // perform sequence of actions
                     box.addResetPositionAction();
-                    player.addMovePositionAction(nextPos);
+                    player.addMovePositionAction(newPosition);
                 } else {
                     addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
                 }
@@ -301,9 +295,9 @@ public class Board extends Group {
                 tile.addInOutPositionAction(getRandomPositionNoPlayer());
     }
 
-    private int getRandomPositionNoPlayer() {
-        int playerPositionIndex = floorPositions.indexOf(player.getPosition(), false);
-        Array<Integer> positions = new Array<>(floorPositions);
+    private Vector2 getRandomPositionNoPlayer() {
+        int playerPositionIndex = floorPositions.indexOf(player.getCoordinate(), false);
+        Array<Vector2> positions = new Array<>(floorPositions);
         positions.removeIndex(playerPositionIndex);
 
         return positions.get(random.nextInt((positions.size)));
@@ -311,16 +305,16 @@ public class Board extends Group {
 
     private boolean isPlayerInTarget() {
         for (Tile tile : tiles) {
-            if (tile.getPosition() == this.player.getPosition()
+            if (tile.getCoordinate() == this.player.getCoordinate()
                     && tile.getClass().equals(Target.class))
                 return true;
         }
         return false;
     }
 
-    private boolean isTileEmpty(int position) {
+    private boolean isTileEmpty(Vector2 position) {
         for (Tile tile : tiles) {
-            if (tile.getPosition() == position
+            if (tile.getCoordinate() == position
                     && tile.getClass().equals(Wall.class))
                 return false;
         }

@@ -1,11 +1,12 @@
 package com.galing.codecube.objects;
 
+import com.badlogic.gdx.math.Vector2;
 import com.galing.codecube.assets.AssetManager;
 
 public class Button extends Tile {
 
-    public Button(int position, String color) {
-        super(position);
+    public Button(Vector2 coordinate, String color) {
+        super(coordinate);
 
         switch (color) {
             case "green":

@@ -1,18 +1,18 @@
 package com.galing.codecube.objects;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.galing.codecube.assets.AssetManager;
-import com.galing.codecube.board.Board;
 
 public class Player extends Tile {
     public float stateTime;
     public boolean pressed;
 
-    public Player(int position) {
-        super(position);
+    public Player(Vector2 coordinate) {
+        super(coordinate);
         stateTime = 1f;
         pressed = false;
 
@@ -34,34 +34,34 @@ public class Player extends Tile {
         stateTime += delta;
     }
 
-    public int getMovement(Box box) {
-        int mov = 0;
+    public Vector2 getMovement(Box box) {
+        Vector2 movementVector = Vector2.Zero;
         int rotation = (int) getRotation();
 
         if (box.getMovement() == Box.UP) {
             switch (rotation) {
                 case 0:
                 case 360:
-                    mov = Board.NUM_TILES_WIDTH;
+                    movementVector = new Vector2(0, 1);
                     break;
                 case 180:
                 case -180:
-                    mov = -Board.NUM_TILES_WIDTH;
+                    movementVector = new Vector2(0, -1);
                     break;
                 case 90:
                 case -270:
-                    mov = -1;
+                    movementVector = new Vector2(-1, 0);
                     break;
                 case -90:
                 case 270:
-                    mov = 1;
+                    movementVector = new Vector2(1, 0);
                     break;
                 default:
                     break;
             }
         }
 
-        return mov;
+        return movementVector;
     }
 
     public void addRotationAction(Box box, boolean inverse) {

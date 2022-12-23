@@ -1,11 +1,12 @@
 package com.galing.codecube.objects;
 
+import com.badlogic.gdx.math.Vector2;
 import com.galing.codecube.assets.AssetManager;
 
 public class Floor extends Tile {
 
-    public Floor(int position, String subType) {
-        super(position);
+    public Floor(Vector2 coordinate, String subType) {
+        super(coordinate);
 
         switch (subType) {
             case "dirt":

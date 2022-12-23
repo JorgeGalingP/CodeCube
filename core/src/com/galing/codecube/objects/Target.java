@@ -1,10 +1,11 @@
 package com.galing.codecube.objects;
 
+import com.badlogic.gdx.math.Vector2;
 import com.galing.codecube.assets.AssetManager;
 
 public class Target extends Tile {
-    public Target(int position, String color) {
-        super(position);
+    public Target(Vector2 coordinate, String color) {
+        super(coordinate);
 
         switch (color) {
             case "green":

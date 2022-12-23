@@ -2,6 +2,7 @@ package com.galing.codecube.objects;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
+import com.badlogic.gdx.math.Vector2;
 import com.galing.codecube.assets.AssetManager;
 
 public class Box extends Tile {
@@ -16,8 +17,8 @@ public class Box extends Tile {
 
     int movement;
 
-    public Box(int position, String variable) {
-        super(position);
+    public Box(Vector2 coordinate, String variable) {
+        super(coordinate);
 
         this.stackType = null;
         this.stackPosition = null;
@@ -60,5 +61,13 @@ public class Box extends Tile {
     public void setPushedIdle() {
         setRotation(0);
         setScale(1f);
+    }
+
+    @Override
+    public String toString() {
+        return "Box{" +
+                "stackPosition=" + stackPosition +
+                ", movement=" + movement +
+                '}';
     }
 }
