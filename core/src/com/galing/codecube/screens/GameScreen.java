@@ -24,8 +24,6 @@ public class GameScreen extends Screen {
 
     private final Board board;
 
-    private final GameStack gameStack;
-
     public GameScreen(final CodeCube game) {
         super(game);
 
@@ -36,9 +34,8 @@ public class GameScreen extends Screen {
         stageGame = new Stage(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera));
         inputMultiplexer.addProcessor(stageGame);
 
-        gameStack = new GameStack(new Vector2(7, 9), 8, 1,
-                new Vector2(10, 7), 4, 3);
-        board = new Board(stageGame, gameStack);
+        board = new Board(stageGame, new GameStack(new Vector2(7, 9), 8, 1,
+                new Vector2(10, 7), 4, 3));
 
         stageGame.addActor(board);
 
@@ -90,8 +87,6 @@ public class GameScreen extends Screen {
     private void setGameOver() {
         state = GameState.GAME_OVER;
         Gdx.app.log("GAME_STATE", state.toString());
-
-        Gdx.app.exit();
     }
 
     public void setRunning() {
@@ -106,5 +101,9 @@ public class GameScreen extends Screen {
             state = GameState.PAUSED;
             Gdx.app.log("GAME_STATE", state.toString());
         }
+    }
+
+    public void exit() {
+        Gdx.app.exit();
     }
 }

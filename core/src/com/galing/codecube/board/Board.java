@@ -2,7 +2,6 @@ package com.galing.codecube.board;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -54,6 +53,7 @@ public class Board extends Group {
     private final Array<Vector2> playerMoves;
 
     private Player player;
+    private Target target;
     private final Matrix matrix;
 
     public Board(Stage stage, GameStack gameStack) {
@@ -84,13 +84,8 @@ public class Board extends Group {
         addActor(matrix);
 
         // initialize objects layer on top
-        initializeLayer("player");
         initializeLayer("objects");
-
-        // TODO improve this to renderize player always on top of all targets
-        // being independent of getRandomPositionNoPlayer() position selection order
-        this.player.toFront();
-
+        initializeLayer("player");
         initializeLayer("boxes");
 
         setSize(Screen.WIDTH, Screen.HEIGHT);
@@ -113,7 +108,7 @@ public class Board extends Group {
     }
 
     public void resize(int width, int height) {
-        this.viewport.update(width, height, true);
+        viewport.update(width, height, true);
 
         // resize using tile size
         camera.viewportWidth = Screen.WIDTH / TILE_SIZE;
@@ -165,11 +160,8 @@ public class Board extends Group {
                                                 mapTile.getProperties().get("subtype").toString());
                                         break;
                                     case "player":
-                                        Vector2 randomPlayerPosition =
-                                                floorPositions.get(random.nextInt((floorPositions.size)));
-
-                                        tile = new Player(randomPlayerPosition);
-                                        this.player = (Player) tile;
+                                        tile = new Player(getRandomPosition(true, Target.class));
+                                        player = (Player) tile;
                                         break;
                                     case "control":
                                         tile = new Control(tilePosition,
@@ -185,8 +177,9 @@ public class Board extends Group {
                                         gameStack.attachDragListener((Box) tile);
                                         break;
                                     case "target":
-                                        tile = new Target(getRandomPositionNoPlayer(),
+                                        tile = new Target(getRandomPosition(),
                                                 mapTile.getProperties().get("color").toString());
+                                        target = (Target) tile;
                                         break;
                                 }
 
@@ -237,6 +230,7 @@ public class Board extends Group {
                 // movement is finished
                 if (gameStack.isProgramEmpty()
                         && gameStack.isFunctionEmpty()) {
+
                     // check if current target is achieved
                     if (isPlayerInTarget()) {
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::resetTarget)));
@@ -246,8 +240,6 @@ public class Board extends Group {
                 }
             } else
                 player.setPressed(false);
-
-            Gdx.app.log(Player.class.getSimpleName(), player.getCoordinate().toString());
         }
     }
 
@@ -265,7 +257,6 @@ public class Board extends Group {
                 if (isTileEmpty(newPosition)) {
                     // add new move
                     playerMoves.add(newPosition);
-                    playerMoves.add(new Vector2(newPosition));
 
                     // perform sequence of actions
                     box.addResetPositionAction();
@@ -290,32 +281,37 @@ public class Board extends Group {
     }
 
     private void resetTarget() {
-        for (Tile tile : tiles)
-            if (tile.getClass().equals(Target.class))
-                tile.addInOutPositionAction(getRandomPositionNoPlayer());
+        target.addInOutPositionAction(getRandomPosition(true, Player.class));
     }
 
-    private Vector2 getRandomPositionNoPlayer() {
-        int playerPositionIndex = floorPositions.indexOf(player.getCoordinate(), false);
+    private Vector2 getRandomPosition() {
+        return getRandomPosition(false, null);
+    }
+
+    private Vector2 getRandomPosition(boolean exclude, Class<?> type) {
         Array<Vector2> positions = new Array<>(floorPositions);
-        positions.removeIndex(playerPositionIndex);
+
+        if (exclude) {
+            for (Tile tile : tiles)
+                if (tile.getClass().equals(type)) {
+                    int index = floorPositions.indexOf(tile.getCoordinate(), false);
+                    positions.removeIndex(index);
+                }
+        }
 
         return positions.get(random.nextInt((positions.size)));
     }
 
     private boolean isPlayerInTarget() {
-        for (Tile tile : tiles) {
-            if (tile.getCoordinate() == this.player.getCoordinate()
-                    && tile.getClass().equals(Target.class))
-                return true;
-        }
-        return false;
+        return target.getCoordinate().x == player.getCoordinate().x
+                && target.getCoordinate().y == player.getCoordinate().y;
     }
 
     private boolean isTileEmpty(Vector2 position) {
         for (Tile tile : tiles) {
-            if (tile.getCoordinate() == position
-                    && tile.getClass().equals(Wall.class))
+            if (tile.getClass().equals(Wall.class)
+                    && tile.getCoordinate().x == position.x
+                    && tile.getCoordinate().y == position.y)
                 return false;
         }
         return true;

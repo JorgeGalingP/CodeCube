@@ -25,6 +25,6 @@ public class CodeCube extends Game {
         AssetManager.loadTiledMap();
 
         // set screen to main game
-        this.setScreen(new GameScreen(this));
+        setScreen(new GameScreen(this));
     }
 }

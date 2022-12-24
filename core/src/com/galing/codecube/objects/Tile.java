@@ -29,7 +29,7 @@ public class Tile extends Actor {
     }
 
     public void setCoordinate(Vector2 coordinate) {
-        this.coordinate = coordinate;
+        this.coordinate = new Vector2(coordinate);
     }
 
     public void setAtlasRegion(AtlasRegion atlasRegion) {
@@ -64,7 +64,7 @@ public class Tile extends Actor {
     }
 
     public void addResetPositionAction() {
-        addAction(moveTo(this.coordinate.x, this.coordinate.y, .35f));
+        addAction(moveTo(coordinate.x, coordinate.y, .35f));
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.galing.codecube.controls;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -39,15 +38,15 @@ public class GameStack {
     }
 
     public int getProgramSize() {
-        return this.programStack.size();
+        return programStack.size();
     }
 
     public int getFunctionSize() {
-        return this.functionStack.size();
+        return functionStack.size();
     }
 
     public Box getProgramPeek() {
-        return this.programStack.peek();
+        return programStack.peek();
     }
 
     public void pushToProgram(Box box) {
@@ -95,11 +94,11 @@ public class GameStack {
     }
 
     public boolean isProgramEmpty() {
-        return this.programStack.empty();
+        return programStack.empty();
     }
 
     public boolean isFunctionEmpty() {
-        return this.functionStack.empty();
+        return functionStack.empty();
     }
 
     public void attachDragListener(Box box) {
@@ -163,13 +162,8 @@ public class GameStack {
                         // back to start
                         box.addResetPositionAction();
                     }
-                } else {
-                    // back to start
-                    box.addResetPositionAction();
-                }
-
-                Gdx.app.log("PROGRAM", programStack.toString());
-                Gdx.app.log("FUNCTION", functionStack.toString());
+                } else
+                    box.addResetPositionAction(); // back to start
             }
 
             @Override
