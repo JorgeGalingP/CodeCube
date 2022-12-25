@@ -72,4 +72,9 @@ public class Tile extends Actor {
         batch.draw(atlasRegion, getX(), getY(), getOriginX(), getOriginY(), SIZE, SIZE, getScaleX(), getScaleY(),
                 getRotation());
     }
+
+    public boolean equalCoordinate(Vector2 position) {
+        return position.x == getCoordinate().x
+                && position.y == getCoordinate().y;
+    }
 }

@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -49,7 +50,6 @@ public class Board extends Group {
 
     private final GameStack gameStack;
 
-    private final Array<Tile> tiles;
     private final Array<Vector2> playerMoves;
 
     private Player player;
@@ -58,30 +58,28 @@ public class Board extends Group {
 
     public Board(Stage stage, GameStack gameStack) {
         // initialize main variables
-        camera = (OrthographicCamera) stage.getCamera();
-        viewport = stage.getViewport();
-        tiledRender = new OrthogonalTiledMapRenderer(AssetManager.tileMap, UNIT_SCALE);
+        this.camera = (OrthographicCamera) stage.getCamera();
+        this.viewport = stage.getViewport();
+        this.tiledRender = new OrthogonalTiledMapRenderer(AssetManager.tileMap, UNIT_SCALE);
 
         // initialize Board variables
-        state = BoardState.RUNNING;
-        inverse = false;
-        floorPositions = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+        this.state = BoardState.RUNNING;
+        this.inverse = false;
+        this.floorPositions = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
 
         // initialize ControlGame
         this.gameStack = gameStack;
 
         // initialize Tile variables
-        tiles = new Array<>(NUM_TILES_WIDTH * NUM_TILES_HEIGHT);
-        playerMoves = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+        this.playerMoves = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
 
         // initialize board and controls layers
         initializeLayer("board");
         initializeLayer("controls");
 
-
         // initialize matrix on top of board
-        matrix = new Matrix();
-        addActor(matrix);
+        this.matrix = new Matrix();
+        addActor(this.matrix);
 
         // initialize objects layer on top
         initializeLayer("objects");
@@ -185,9 +183,6 @@ public class Board extends Group {
 
                                 // add tile as actor to board group
                                 addActor(tile);
-
-                                // add tile to the tiles array
-                                tiles.add(tile);
                             }
                         }
                     }
@@ -231,12 +226,11 @@ public class Board extends Group {
                 if (gameStack.isProgramEmpty()
                         && gameStack.isFunctionEmpty()) {
 
-                    // check if current target is achieved
-                    if (isPlayerInTarget()) {
+                    // check if player is in target's position
+                    if (player.equalCoordinate(target.getCoordinate()))
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::resetTarget)));
-                    } else {
+                    else
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
-                    }
                 }
             } else
                 player.setPressed(false);
@@ -261,9 +255,8 @@ public class Board extends Group {
                     // perform sequence of actions
                     box.addResetPositionAction();
                     player.addMovePositionAction(newPosition);
-                } else {
+                } else
                     addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
-                }
 
                 inverse = false;
             case Box.RIGHT:
@@ -292,9 +285,9 @@ public class Board extends Group {
         Array<Vector2> positions = new Array<>(floorPositions);
 
         if (exclude) {
-            for (Tile tile : tiles)
+            for (Actor tile : getChildren())
                 if (tile.getClass().equals(type)) {
-                    int index = floorPositions.indexOf(tile.getCoordinate(), false);
+                    int index = floorPositions.indexOf(((Tile) tile).getCoordinate(), false);
                     positions.removeIndex(index);
                 }
         }
@@ -302,16 +295,10 @@ public class Board extends Group {
         return positions.get(random.nextInt((positions.size)));
     }
 
-    private boolean isPlayerInTarget() {
-        return target.getCoordinate().x == player.getCoordinate().x
-                && target.getCoordinate().y == player.getCoordinate().y;
-    }
-
     private boolean isTileEmpty(Vector2 position) {
-        for (Tile tile : tiles) {
+        for (Actor tile : getChildren()) {
             if (tile.getClass().equals(Wall.class)
-                    && tile.getCoordinate().x == position.x
-                    && tile.getCoordinate().y == position.y)
+                    && ((Tile) tile).equalCoordinate(position))
                 return false;
         }
         return true;
