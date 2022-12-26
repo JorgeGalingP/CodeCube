@@ -11,70 +11,52 @@ import com.galing.codecube.objects.Control;
 
 import java.util.Stack;
 
-public class GameStack {
+public class StackControl extends GameControl {
 
-    private final Stack<Box> programStack;
-    private final Stack<Box> functionStack;
-
-    private final Vector2 programButtonPosition;
-    private final int programSize;
-    private final int programInitial;
-
-    private final Vector2 functionButtonPosition;
-    private final int functionSize;
-    private final int functionInitial;
-
-    public GameStack(Button programButton, Button functionButton, Array<Control> programControls,
-                     Array<Control> functionControls) {
-        this.programStack = new Stack<>();
-        this.functionStack = new Stack<>();
-
-        this.programButtonPosition = programButton.getCoordinate();
-        this.programSize = programControls.size;
-        this.programInitial = (int) programControls.first().getCoordinate().y;
-        this.functionButtonPosition = functionButton.getCoordinate();
-        this.functionSize = functionControls.size;
-        this.functionInitial = (int) functionControls.first().getCoordinate().y;
+    public StackControl(Button programButton, Button functionButton, Array<Control> programControls,
+                        Array<Control> functionControls) {
+        super("stack", programButton, functionButton, programControls, functionControls);
     }
 
     public int getProgramSize() {
-        return this.programStack.size();
+        return this.programList.size();
     }
 
     public int getFunctionSize() {
-        return this.functionStack.size();
+        return this.programList.size();
     }
 
-    public Box getProgramPeek() {
-        return this.programStack.peek();
+    @Override
+    public Box getNextBox() {
+        return (Box) ((Stack<Box>) this.programList).peek();
     }
 
     public void pushToProgram(Box box) {
-        if (programStack.empty())
+        if (((Stack<Box>) this.programList).empty())
             box.stackPosition = programInitial;
         else
-            box.stackPosition = programStack.peek().stackPosition + 1;
+            box.stackPosition = ((Stack<Box>) this.programList).peek().stackPosition + 1;
 
         box.stackType = 1;
-        programStack.push(box);
+        ((Stack<Box>) this.programList).push(box);
 
         box.setPushedIdle();
     }
 
     public void pushToFunction(Box box) {
-        if (functionStack.empty())
+        if (((Stack<Box>) this.functionList).empty())
             box.stackPosition = programInitial;
         else
-            box.stackPosition = functionStack.peek().stackPosition + 1;
+            box.stackPosition = ((Stack<Box>) this.functionList).peek().stackPosition + 1;
 
         box.stackType = 2;
-        functionStack.push(box);
+        ((Stack<Box>) this.functionList).push(box);
 
         box.setPushedIdle();
     }
 
     public Box popOutProgram() {
-        Box box = programStack.pop();
+        Box box = ((Stack<Box>) this.programList).pop();
         box.stackPosition = null;
         box.stackType = null;
 
@@ -84,7 +66,7 @@ public class GameStack {
     }
 
     public Box popOutFunction() {
-        Box box = functionStack.pop();
+        Box box = ((Stack<Box>) this.functionList).pop();
         box.stackPosition = null;
         box.stackType = null;
 
@@ -94,11 +76,11 @@ public class GameStack {
     }
 
     public boolean isProgramEmpty() {
-        return this.programStack.empty();
+        return ((Stack<Box>) this.programList).empty();
     }
 
     public boolean isFunctionEmpty() {
-        return this.functionStack.empty();
+        return ((Stack<Box>) this.functionList).empty();
     }
 
     public void attachDragListener(Box box) {
