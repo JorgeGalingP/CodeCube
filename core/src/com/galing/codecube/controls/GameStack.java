@@ -24,8 +24,6 @@ public class GameStack {
     private final int functionSize;
     private final int functionInitial;
 
-    public int controlSize;
-
     public GameStack(Button programButton, Button functionButton, Array<Control> programControls,
                      Array<Control> functionControls) {
         this.programStack = new Stack<>();
@@ -37,8 +35,6 @@ public class GameStack {
         this.functionButtonPosition = functionButton.getCoordinate();
         this.functionSize = functionControls.size;
         this.functionInitial = (int) functionControls.first().getCoordinate().y;
-
-        this.controlSize = 1;
     }
 
     public int getProgramSize() {
@@ -124,9 +120,9 @@ public class GameStack {
 
                 // is in target and is not in the stack
                 if ((lastTouch.x >= programButtonPosition.x - box.getWidth() / 2)
-                        && (lastTouch.x <= programButtonPosition.x + controlSize + box.getWidth() / 2)
+                        && (lastTouch.x <= programButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= programButtonPosition.y - box.getHeight() / 2)
-                        && (lastTouch.y <= programButtonPosition.y + controlSize + box.getHeight() / 2)
+                        && (lastTouch.y <= programButtonPosition.y + 1 + box.getHeight() / 2)
                         && box.stackPosition == null
                         && getProgramSize() != programSize) {
                     // push box to the stack
@@ -135,9 +131,9 @@ public class GameStack {
                     box.addAction(Actions.sequence(Actions.moveTo(programButtonPosition.x,
                             box.stackPosition + programInitial - 1, 0.15f)));
                 } else if ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
-                        && (lastTouch.x <= functionButtonPosition.x + controlSize + box.getWidth() / 2)
+                        && (lastTouch.x <= functionButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= functionButtonPosition.y - box.getHeight() / 2)
-                        && (lastTouch.y <= functionButtonPosition.y + controlSize + box.getHeight() / 2)
+                        && (lastTouch.y <= functionButtonPosition.y + 1 + box.getHeight() / 2)
                         && box.stackPosition == null
                         && getFunctionSize() != functionSize) {
                     // push box to the stack
