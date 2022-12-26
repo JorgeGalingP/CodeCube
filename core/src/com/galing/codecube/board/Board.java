@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.controls.GameStack;
+import com.galing.codecube.enums.ControlType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Control;
@@ -46,9 +47,15 @@ public class Board extends Group {
 
     public BoardState state;
     private boolean inverse;
-    private final Array<Vector2> floorPositions;
 
-    private final GameStack gameStack;
+    private Array<Tile> floor;
+    private Array<Tile> walls;
+    private Button programButton;
+    private Button functionButton;
+    private Array<Control> programControls;
+    private Array<Control> functionControls;
+
+    private GameStack gameControl;
 
     private final Array<Vector2> playerMoves;
 
@@ -56,7 +63,7 @@ public class Board extends Group {
     private Target target;
     private final Matrix matrix;
 
-    public Board(Stage stage, GameStack gameStack) {
+    public Board(Stage stage) {
         // initialize main variables
         this.camera = (OrthographicCamera) stage.getCamera();
         this.viewport = stage.getViewport();
@@ -65,17 +72,23 @@ public class Board extends Group {
         // initialize Board variables
         this.state = BoardState.RUNNING;
         this.inverse = false;
-        this.floorPositions = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
-
-        // initialize ControlGame
-        this.gameStack = gameStack;
 
         // initialize Tile variables
         this.playerMoves = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+        this.programButton = null;
+        this.functionButton = null;
+        this.programControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+        this.functionControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+        this.walls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+        this.floor = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
 
         // initialize board and controls layers
-        initializeLayer("board");
+        initializeLayer("walls");
+        initializeLayer("floor");
         initializeLayer("controls");
+
+        // initialize Game Control
+        this.gameControl = new GameStack(programButton, functionButton, programControls, functionControls);
 
         // initialize matrix on top of board
         this.matrix = new Matrix();
@@ -85,13 +98,12 @@ public class Board extends Group {
         initializeLayer("objects");
         initializeLayer("player");
         initializeLayer("boxes");
-
-        setSize(Screen.WIDTH, Screen.HEIGHT);
     }
 
     public boolean isGameOver() {
         return state.equals(BoardState.GAME_OVER);
     }
+
 
     @Override
     public void act(float delta) {
@@ -127,7 +139,8 @@ public class Board extends Group {
         this.state = BoardState.GAME_OVER;
     }
 
-    private void initializeLayer(String layerName) {
+    private Array<Tile> initializeLayer(String layerName) {
+        Array<Tile> tiles = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         TiledMapTileLayer mapLayer = (TiledMapTileLayer) AssetManager.tileMap.getLayers().get(layerName);
 
         if (mapLayer != null) {
@@ -148,14 +161,16 @@ public class Board extends Group {
 
                                 switch (type) {
                                     case "floor":
-                                        floorPositions.add(new Vector2(x, y));
-
                                         tile = new Floor(tilePosition,
                                                 mapTile.getProperties().get("subtype").toString());
+
+                                        floor.add((Floor) tile);
                                         break;
                                     case "wall":
                                         tile = new Wall(tilePosition,
                                                 mapTile.getProperties().get("subtype").toString());
+
+                                        walls.add((Wall) tile);
                                         break;
                                     case "player":
                                         tile = new Player(getRandomPosition(true, Target.class));
@@ -164,15 +179,28 @@ public class Board extends Group {
                                     case "control":
                                         tile = new Control(tilePosition,
                                                 mapTile.getProperties().get("color").toString());
+
+                                        if (((Control) tile).getType() == ControlType.PROGRAM)
+                                            this.programControls.add((Control) tile);
+
+                                        if (((Control) tile).getType() == ControlType.FUNCTION)
+                                            this.functionControls.add((Control) tile);
                                         break;
                                     case "button":
                                         tile = new Button(tilePosition,
                                                 mapTile.getProperties().get("color").toString());
+
+                                        if (((Button) tile).getType() == ControlType.PROGRAM)
+                                            this.programButton = (Button) tile;
+
+                                        if (((Button) tile).getType() == ControlType.FUNCTION)
+                                            this.functionButton = (Button) tile;
                                         break;
                                     case "box":
                                         tile = new Box(tilePosition,
                                                 mapTile.getProperties().get("variable").toString());
-                                        gameStack.attachDragListener((Box) tile);
+
+                                        gameControl.attachDragListener((Box) tile);
                                         break;
                                     case "target":
                                         tile = new Target(getRandomPosition(),
@@ -189,31 +217,33 @@ public class Board extends Group {
                 }
             }
         }
+
+        return tiles;
     }
 
     private void movePlayer() {
         if (state == BoardState.RUNNING) {
-            if (!gameStack.isProgramEmpty()) {
+            if (!gameControl.isProgramEmpty()) {
                 Box box;
 
-                switch (gameStack.getProgramPeek().getMovement()) {
+                switch (gameControl.getProgramPeek().getMovement()) {
                     case Box.UP:
                     case Box.RIGHT:
                     case Box.LEFT:
-                        box = gameStack.popOutProgram();
+                        box = gameControl.popOutProgram();
                         handleMovement(box);
                         break;
                     case Box.FUNCTION:
-                        if (!gameStack.isFunctionEmpty()) {
-                            box = gameStack.popOutFunction();
+                        if (!gameControl.isFunctionEmpty()) {
+                            box = gameControl.popOutFunction();
                             handleMovement(box);
                         } else {
-                            box = gameStack.popOutProgram();
+                            box = gameControl.popOutProgram();
                             box.addResetPositionAction();
                         }
                         break;
                     case Box.NEGATION:
-                        box = gameStack.popOutProgram();
+                        box = gameControl.popOutProgram();
                         box.addResetPositionAction();
 
                         inverse = !inverse;
@@ -223,8 +253,8 @@ public class Board extends Group {
                 player.resetStateTime();
 
                 // movement is finished
-                if (gameStack.isProgramEmpty()
-                        && gameStack.isFunctionEmpty()) {
+                if (gameControl.isProgramEmpty()
+                        && gameControl.isFunctionEmpty()) {
 
                     // check if player is in target's position
                     if (player.equalCoordinate(target.getCoordinate()))
@@ -282,12 +312,15 @@ public class Board extends Group {
     }
 
     private Vector2 getRandomPosition(boolean exclude, Class<?> type) {
-        Array<Vector2> positions = new Array<>(floorPositions);
+        Array<Vector2> positions = new Array<>(this.floor.size);
+        for (Tile floor : this.floor) {
+            positions.add(floor.getCoordinate());
+        }
 
         if (exclude) {
             for (Actor tile : getChildren())
                 if (tile.getClass().equals(type)) {
-                    int index = floorPositions.indexOf(((Tile) tile).getCoordinate(), false);
+                    int index = positions.indexOf(((Tile) tile).getCoordinate(), false);
                     positions.removeIndex(index);
                 }
         }

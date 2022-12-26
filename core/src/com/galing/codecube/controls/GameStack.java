@@ -4,7 +4,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.utils.Array;
 import com.galing.codecube.objects.Box;
+import com.galing.codecube.objects.Button;
+import com.galing.codecube.objects.Control;
 
 import java.util.Stack;
 
@@ -13,40 +16,41 @@ public class GameStack {
     private final Stack<Box> programStack;
     private final Stack<Box> functionStack;
 
-    private final Vector2 programPosition;
+    private final Vector2 programButtonPosition;
     private final int programSize;
     private final int programInitial;
 
-    private final Vector2 functionPosition;
+    private final Vector2 functionButtonPosition;
     private final int functionSize;
     private final int functionInitial;
 
     public int controlSize;
 
-    public GameStack(Vector2 programPosition, int programSize, int programInitial,
-                     Vector2 functionPosition, int functionSize, int functionInitial) {
+    public GameStack(Button programButton, Button functionButton, Array<Control> programControls,
+                     Array<Control> functionControls) {
         this.programStack = new Stack<>();
         this.functionStack = new Stack<>();
-        this.programPosition = programPosition;
-        this.programSize = programSize;
-        this.programInitial = programInitial;
-        this.functionPosition = functionPosition;
-        this.functionSize = functionSize;
-        this.functionInitial = functionInitial;
+
+        this.programButtonPosition = programButton.getCoordinate();
+        this.programSize = programControls.size;
+        this.programInitial = (int) programControls.first().getCoordinate().y;
+        this.functionButtonPosition = functionButton.getCoordinate();
+        this.functionSize = functionControls.size;
+        this.functionInitial = (int) functionControls.first().getCoordinate().y;
 
         this.controlSize = 1;
     }
 
     public int getProgramSize() {
-        return programStack.size();
+        return this.programStack.size();
     }
 
     public int getFunctionSize() {
-        return functionStack.size();
+        return this.functionStack.size();
     }
 
     public Box getProgramPeek() {
-        return programStack.peek();
+        return this.programStack.peek();
     }
 
     public void pushToProgram(Box box) {
@@ -94,11 +98,11 @@ public class GameStack {
     }
 
     public boolean isProgramEmpty() {
-        return programStack.empty();
+        return this.programStack.empty();
     }
 
     public boolean isFunctionEmpty() {
-        return functionStack.empty();
+        return this.functionStack.empty();
     }
 
     public void attachDragListener(Box box) {
@@ -110,11 +114,8 @@ public class GameStack {
                 // only can be moved if is not in the stack or is the peek of it
                 if (box.stackPosition == null
                         || (box.stackPosition == getProgramSize() && box.stackType == 1)
-                        || (box.stackPosition == getFunctionSize() && box.stackType == 2)) {
-                    // put box in front of others actors and perform moveBy action
-                    box.toFront();
+                        || (box.stackPosition == getFunctionSize() && box.stackType == 2))
                     box.moveBy(x - box.getWidth() / 2, y - box.getHeight() / 2);
-                }
             }
 
             @Override
@@ -122,27 +123,27 @@ public class GameStack {
                 lastTouch.set(event.getStageX(), event.getStageY());
 
                 // is in target and is not in the stack
-                if ((lastTouch.x >= programPosition.x - box.getWidth() / 2)
-                        && (lastTouch.x <= programPosition.x + controlSize + box.getWidth() / 2)
-                        && (lastTouch.y >= programPosition.y - box.getHeight() / 2)
-                        && (lastTouch.y <= programPosition.y + controlSize + box.getHeight() / 2)
+                if ((lastTouch.x >= programButtonPosition.x - box.getWidth() / 2)
+                        && (lastTouch.x <= programButtonPosition.x + controlSize + box.getWidth() / 2)
+                        && (lastTouch.y >= programButtonPosition.y - box.getHeight() / 2)
+                        && (lastTouch.y <= programButtonPosition.y + controlSize + box.getHeight() / 2)
                         && box.stackPosition == null
                         && getProgramSize() != programSize) {
                     // push box to the stack
                     pushToProgram(box);
 
-                    box.addAction(Actions.sequence(Actions.moveTo(programPosition.x,
+                    box.addAction(Actions.sequence(Actions.moveTo(programButtonPosition.x,
                             box.stackPosition + programInitial - 1, 0.15f)));
-                } else if ((lastTouch.x >= functionPosition.x - box.getWidth() / 2)
-                        && (lastTouch.x <= functionPosition.x + controlSize + box.getWidth() / 2)
-                        && (lastTouch.y >= functionPosition.y - box.getHeight() / 2)
-                        && (lastTouch.y <= functionPosition.y + controlSize + box.getHeight() / 2)
+                } else if ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
+                        && (lastTouch.x <= functionButtonPosition.x + controlSize + box.getWidth() / 2)
+                        && (lastTouch.y >= functionButtonPosition.y - box.getHeight() / 2)
+                        && (lastTouch.y <= functionButtonPosition.y + controlSize + box.getHeight() / 2)
                         && box.stackPosition == null
                         && getFunctionSize() != functionSize) {
                     // push box to the stack
                     pushToFunction(box);
 
-                    box.addAction(Actions.moveTo(functionPosition.x,
+                    box.addAction(Actions.moveTo(functionButtonPosition.x,
                             box.stackPosition + functionInitial - 1, 0.15f));
                 } else if (box.stackPosition != null
                         && box.stackType != null) {
@@ -162,8 +163,10 @@ public class GameStack {
                         // back to start
                         box.addResetPositionAction();
                     }
-                } else
-                    box.addResetPositionAction(); // back to start
+                } else {
+                    // back to start
+                    box.addResetPositionAction();
+                }
             }
 
             @Override
