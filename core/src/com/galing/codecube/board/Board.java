@@ -55,7 +55,7 @@ public class Board extends Group {
     private Array<Control> programControls;
     private Array<Control> functionControls;
 
-    private StackControl gameControl;
+    private final StackControl gameControl;
 
     private final Array<Vector2> playerMoves;
 
@@ -230,20 +230,20 @@ public class Board extends Group {
                     case Box.UP:
                     case Box.RIGHT:
                     case Box.LEFT:
-                        box = gameControl.popOutProgram();
+                        box = gameControl.removeFromProgram();
                         handleMovement(box);
                         break;
                     case Box.FUNCTION:
                         if (!gameControl.isFunctionEmpty()) {
-                            box = gameControl.popOutFunction();
+                            box = gameControl.removeFromFunction();
                             handleMovement(box);
                         } else {
-                            box = gameControl.popOutProgram();
+                            box = gameControl.removeFromProgram();
                             box.addResetPositionAction();
                         }
                         break;
                     case Box.NEGATION:
-                        box = gameControl.popOutProgram();
+                        box = gameControl.removeFromProgram();
                         box.addResetPositionAction();
 
                         inverse = !inverse;

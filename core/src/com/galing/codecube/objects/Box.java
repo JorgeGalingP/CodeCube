@@ -62,4 +62,12 @@ public class Box extends Tile {
         setRotation(0);
         setScale(1f);
     }
+
+    @Override
+    public String toString() {
+        return "Box{" +
+                "stackType=" + stackType +
+                ", stackPosition=" + stackPosition +
+                '}';
+    }
 }
