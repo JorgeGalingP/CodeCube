@@ -4,6 +4,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 
 import com.badlogic.gdx.math.Vector2;
 import com.galing.codecube.assets.AssetManager;
+import com.galing.codecube.enums.ControlType;
 
 public class Box extends Tile {
     public static final int UP = 0;
@@ -12,16 +13,16 @@ public class Box extends Tile {
     public static final int NEGATION = 3;
     public static final int FUNCTION = 4;
 
-    public Integer stackType;
-    public Integer stackPosition;
+    public ControlType controlType;
+    public Integer controlPosition;
 
     int movement;
 
     public Box(Vector2 coordinate, String variable) {
         super(coordinate);
 
-        this.stackType = null;
-        this.stackPosition = null;
+        this.controlType = null;
+        this.controlPosition = null;
 
         switch (variable) {
             case "up":
@@ -49,8 +50,17 @@ public class Box extends Tile {
         setRandomIdle();
     }
 
+    public void setControlType(ControlType controlType) {
+        this.controlType = controlType;
+    }
+
     public int getMovement() {
         return movement;
+    }
+
+    public void clearControl() {
+        controlPosition = null;
+        controlType = null;
     }
 
     public void setRandomIdle() {
@@ -64,10 +74,17 @@ public class Box extends Tile {
     }
 
     @Override
+    public void addResetPositionAction() {
+        setRandomIdle();
+        clearControl();
+        super.addResetPositionAction();
+    }
+
+    @Override
     public String toString() {
         return "Box{" +
-                "stackType=" + stackType +
-                ", stackPosition=" + stackPosition +
+                "cP=" + controlPosition +
+                ", coord=" + getCoordinate() +
                 '}';
     }
 }

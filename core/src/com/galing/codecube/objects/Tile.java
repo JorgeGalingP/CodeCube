@@ -43,6 +43,11 @@ public class Tile extends Actor {
         addAction(moveTo(position.x, position.y, .3f));
     }
 
+    public void addResetPositionAction() {
+        addAction(moveTo(coordinate.x, coordinate.y, .35f));
+    }
+
+
     public void addInOutAction() {
         // perform in and out action
         addAction(Actions.sequence(
@@ -61,10 +66,6 @@ public class Tile extends Actor {
                 Actions.moveTo(position.x, position.y, .3f),
                 Actions.alpha(1, .1f),
                 Actions.scaleTo(1f, 1f, .3f)));
-    }
-
-    public void addResetPositionAction() {
-        addAction(moveTo(coordinate.x, coordinate.y, .35f));
     }
 
     @Override

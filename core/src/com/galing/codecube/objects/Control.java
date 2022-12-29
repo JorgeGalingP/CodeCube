@@ -31,4 +31,11 @@ public class Control extends Tile {
     public ControlType getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "Control{" +
+                "coord=" + getCoordinate() +
+                '}';
+    }
 }

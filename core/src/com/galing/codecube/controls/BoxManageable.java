@@ -2,7 +2,7 @@ package com.galing.codecube.controls;
 
 import com.galing.codecube.objects.Box;
 
-public interface Controllable {
+public interface BoxManageable {
     Box getNextBox();
 
     void addToProgram(Box box);

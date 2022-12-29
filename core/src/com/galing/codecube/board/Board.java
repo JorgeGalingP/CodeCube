@@ -48,12 +48,12 @@ public class Board extends Group {
     public BoardState state;
     private boolean inverse;
 
-    private Array<Tile> floor;
-    private Array<Tile> walls;
+    private final Array<Tile> floor;
+    private final Array<Tile> walls;
     private Button programButton;
     private Button functionButton;
-    private Array<Control> programControls;
-    private Array<Control> functionControls;
+    private final Array<Control> programControls;
+    private final Array<Control> functionControls;
 
     private final StackControl gameControl;
 
@@ -231,6 +231,7 @@ public class Board extends Group {
                     case Box.RIGHT:
                     case Box.LEFT:
                         box = gameControl.removeFromProgram();
+
                         handleMovement(box);
                         break;
                     case Box.FUNCTION:

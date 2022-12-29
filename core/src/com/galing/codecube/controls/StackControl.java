@@ -24,48 +24,30 @@ public class StackControl extends GameControl<Stack<Box>> {
     @Override
     public void addToProgram(Box box) {
         if (isProgramEmpty())
-            box.stackPosition = getProgramInitial();
+            box.controlPosition = 0;
         else
-            box.stackPosition = this.getProgram().peek().stackPosition + 1;
+            box.controlPosition = getProgram().peek().controlPosition + 1;
 
-        box.stackType = 1;
-        this.getProgram().push(box);
-
-        box.setPushedIdle();
+        getProgram().push(box);
     }
 
     @Override
     public void addToFunction(Box box) {
         if (isFunctionEmpty())
-            box.stackPosition = getProgramInitial();
+            box.controlPosition = 0;
         else
-            box.stackPosition = this.getFunction().peek().stackPosition + 1;
+            box.controlPosition = getFunction().peek().controlPosition + 1;
 
-        box.stackType = 2;
-        this.getFunction().push(box);
-
-        box.setPushedIdle();
+        getFunction().push(box);
     }
 
     @Override
     public Box removeFromProgram() {
-        Box box = this.getProgram().pop();
-        box.stackPosition = null;
-        box.stackType = null;
-
-        box.setRandomIdle();
-
-        return box;
+        return getProgram().pop();
     }
 
     @Override
     public Box removeFromFunction() {
-        Box box = this.getFunction().pop();
-        box.stackPosition = null;
-        box.stackType = null;
-
-        box.setRandomIdle();
-
-        return box;
+        return getFunction().pop();
     }
 }
