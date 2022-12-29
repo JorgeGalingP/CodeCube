@@ -24,9 +24,9 @@ public class StackControl extends GameControl<Stack<Box>> {
     @Override
     public void addToProgram(Box box) {
         if (isProgramEmpty())
-            box.controlPosition = 0;
+            box.setControlPosition(0);
         else
-            box.controlPosition = getProgram().peek().controlPosition + 1;
+            box.setControlPosition(getProgram().peek().getControlPosition() + 1);
 
         getProgram().push(box);
     }
@@ -34,9 +34,9 @@ public class StackControl extends GameControl<Stack<Box>> {
     @Override
     public void addToFunction(Box box) {
         if (isFunctionEmpty())
-            box.controlPosition = 0;
+            box.setControlPosition(0);
         else
-            box.controlPosition = getFunction().peek().controlPosition + 1;
+            box.setControlPosition(getFunction().peek().getControlPosition() + 1);
 
         getFunction().push(box);
     }

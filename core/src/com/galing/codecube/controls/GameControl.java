@@ -92,9 +92,9 @@ public abstract class GameControl<T extends Collection<Box>> implements BoxManag
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 // only can be moved if is not in the stack or is the peek of it
-                if (box.controlPosition == null
-                        || (box.controlPosition + 1 == getProgramSize() && box.controlType.equals(ControlType.PROGRAM))
-                        || (box.controlPosition + 1 == getFunctionSize() && box.controlType.equals(ControlType.FUNCTION)))
+                if (box.getControlPosition() == null
+                        || (box.getControlPosition() + 1 == getProgramSize() && box.getControlType().equals(ControlType.PROGRAM))
+                        || (box.getControlPosition() + 1 == getFunctionSize() && box.getControlType().equals(ControlType.FUNCTION)))
                     box.moveBy(x - box.getWidth() / 2, y - box.getHeight() / 2);
             }
 
@@ -107,7 +107,7 @@ public abstract class GameControl<T extends Collection<Box>> implements BoxManag
                         && (lastTouch.x <= programButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= programButtonPosition.y - box.getHeight() / 2)
                         && (lastTouch.y <= programButtonPosition.y + 1 + box.getHeight() / 2)
-                        && box.controlPosition == null
+                        && box.getControlPosition() == null
                         && getProgramSize() != programSize) {
                     // push box to the stack
                     addToProgram(box);
@@ -115,14 +115,14 @@ public abstract class GameControl<T extends Collection<Box>> implements BoxManag
                     box.setPushedIdle();
 
                     // move box action
-                    Vector2 newPosition = getProgramControls().get(box.controlPosition).getCoordinate();
+                    Vector2 newPosition = getProgramControls().get(box.getControlPosition()).getCoordinate();
                     box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
 
                 } else if ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
                         && (lastTouch.x <= functionButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= functionButtonPosition.y - box.getHeight() / 2)
                         && (lastTouch.y <= functionButtonPosition.y + 1 + box.getHeight() / 2)
-                        && box.controlPosition == null
+                        && box.getControlPosition() == null
                         && getFunctionSize() != functionSize) {
                     // push box to the stack
                     addToFunction(box);
@@ -130,21 +130,21 @@ public abstract class GameControl<T extends Collection<Box>> implements BoxManag
                     box.setPushedIdle();
 
                     // move box action
-                    Vector2 newPosition = getFunctionControls().get(box.controlPosition).getCoordinate();
+                    Vector2 newPosition = getFunctionControls().get(box.getControlPosition()).getCoordinate();
                     box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
-                } else if (box.controlPosition != null
-                        && box.controlType != null) {
+                } else if (box.getControlPosition() != null
+                        && box.getControlType() != null) {
                     // element is already in the stack
-                    if (box.controlPosition + 1 == getProgramSize()
-                            && box.controlType.equals(ControlType.PROGRAM)) {
+                    if (box.getControlPosition() + 1 == getProgramSize()
+                            && box.getControlType().equals(ControlType.PROGRAM)) {
                         // pop peek element out of the stack and set back to original position
                         removeFromProgram();
 
                         // back to start
                         box.clearControl();
                         box.addResetPositionAction();
-                    } else if (box.controlPosition + 1 == getFunctionSize()
-                            && box.controlType.equals(ControlType.FUNCTION)) {
+                    } else if (box.getControlPosition() + 1 == getFunctionSize()
+                            && box.getControlType().equals(ControlType.FUNCTION)) {
                         // pop peek element out of the stack and set back to original position
                         removeFromFunction();
 

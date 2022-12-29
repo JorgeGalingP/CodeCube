@@ -21,8 +21,8 @@ public class Box extends Tile {
     public Box(Vector2 coordinate, String variable) {
         super(coordinate);
 
-        this.controlType = null;
-        this.controlPosition = null;
+        setControlType(null);
+        setControlPosition(null);
 
         switch (variable) {
             case "up":
@@ -50,8 +50,20 @@ public class Box extends Tile {
         setRandomIdle();
     }
 
+    public ControlType getControlType() {
+        return controlType;
+    }
+
     public void setControlType(ControlType controlType) {
         this.controlType = controlType;
+    }
+
+    public Integer getControlPosition() {
+        return controlPosition;
+    }
+
+    public void setControlPosition(Integer controlPosition) {
+        this.controlPosition = controlPosition;
     }
 
     public int getMovement() {
@@ -59,8 +71,8 @@ public class Box extends Tile {
     }
 
     public void clearControl() {
-        controlPosition = null;
-        controlType = null;
+        setControlType(null);
+        setControlPosition(null);
     }
 
     public void setRandomIdle() {
@@ -78,13 +90,5 @@ public class Box extends Tile {
         setRandomIdle();
         clearControl();
         super.addResetPositionAction();
-    }
-
-    @Override
-    public String toString() {
-        return "Box{" +
-                "cP=" + controlPosition +
-                ", coord=" + getCoordinate() +
-                '}';
     }
 }
