@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.assets.AssetManager;
-import com.galing.codecube.controls.StackControl;
+import com.galing.codecube.controls.SequenceControl;
 import com.galing.codecube.enums.ControlType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
@@ -55,7 +55,7 @@ public class Board extends Group {
     private final Array<Control> programControls;
     private final Array<Control> functionControls;
 
-    private final StackControl gameControl;
+    private final SequenceControl gameControl;
 
     private final Array<Vector2> playerMoves;
 
@@ -88,7 +88,7 @@ public class Board extends Group {
         initializeLayer("controls");
 
         // initialize Game Control
-        this.gameControl = new StackControl(programButton, functionButton, programControls, functionControls);
+        this.gameControl = new SequenceControl(programButton, functionButton, programControls, functionControls);
 
         // initialize matrix on top of board
         this.matrix = new Matrix();
