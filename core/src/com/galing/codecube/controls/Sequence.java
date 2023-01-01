@@ -1,5 +1,7 @@
 package com.galing.codecube.controls;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
@@ -30,6 +32,12 @@ public class Sequence extends Control<List<Box>> {
 
         box.setNext(true);
         getProgram().add(box);
+
+        box.setControlType(ContainerType.PROGRAM);
+        box.setPushedIdle();
+
+        Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
+        box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
 
     @Override
@@ -40,6 +48,12 @@ public class Sequence extends Control<List<Box>> {
 
         box.setNext(true);
         getFunction().add(box);
+
+        box.setControlType(ContainerType.FUNCTION);
+        box.setPushedIdle();
+
+        Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
+        box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
 
 
@@ -54,6 +68,10 @@ public class Sequence extends Control<List<Box>> {
             if (getFunctionSize() > 0)
                 getFunction().get(getFunctionSize() - 1).setNext(true);
         }
+
+        // back to start
+        box.clearControl();
+        box.addResetPositionAction();
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.galing.codecube.controls;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
 import com.galing.codecube.enums.ContainerType;
@@ -18,11 +17,11 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     private final Vector2 programButtonPosition;
     private final int programSize;
-    private final Array<Container> programControls;
+    private Array<Container> programControls;
 
     private final Vector2 functionButtonPosition;
     private final int functionSize;
-    private final Array<Container> functionControls;
+    private Array<Container> functionControls;
 
     public Control(Button programButton, Button functionButton,
                    Array<Container> programControls,
@@ -57,6 +56,14 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     public Array<Container> getFunctionControls() {
         return functionControls;
+    }
+
+    public void setProgramControls(Array<Container> programControls) {
+        this.programControls = programControls;
+    }
+
+    public void setFunctionControls(Array<Container> functionControls) {
+        this.functionControls = functionControls;
     }
 
     public boolean isProgramEmpty() {
@@ -115,13 +122,6 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && getProgramSize() != programSize) {
                     // push box to the stack
                     addToProgram(box);
-                    box.setControlType(ContainerType.PROGRAM);
-                    box.setPushedIdle();
-
-                    // move box action
-                    Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
-                    box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
-
                 } else if ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
                         && (lastTouch.x <= functionButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= functionButtonPosition.y - box.getHeight() / 2)
@@ -130,21 +130,11 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && getFunctionSize() != functionSize) {
                     // push box to the stack
                     addToFunction(box);
-                    box.setControlType(ContainerType.FUNCTION);
-                    box.setPushedIdle();
-
-                    // move box action
-                    Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
-                    box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
                 } else if (box.isNext() != null
                         && box.getControlType() != null) {
                     if (box.isNext()) {
                         // pop peek element out of the stack and set back to original position
                         remove(box);
-
-                        // back to start
-                        box.clearControl();
-                        box.addResetPositionAction();
                     }
                 } else {
                     // back to start

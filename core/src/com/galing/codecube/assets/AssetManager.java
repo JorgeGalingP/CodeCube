@@ -82,6 +82,6 @@ public class AssetManager {
             tileMap = null;
         }
 
-        tileMap = new TmxMapLoader().load("stages/sequence.tmx");
+        tileMap = new TmxMapLoader().load("stages/queue.tmx");
     }
 }

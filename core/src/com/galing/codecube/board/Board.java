@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.controls.Controllable;
-import com.galing.codecube.controls.Sequence;
+import com.galing.codecube.controls.Queue;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
@@ -89,7 +89,7 @@ public class Board extends Group {
         initializeLayer("controls");
 
         // initialize Game Control
-        this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls);
+        this.gameControl = new Queue(programButton, functionButton, programControls, functionControls);
 
         // initialize matrix on top of board
         this.matrix = new Matrix();

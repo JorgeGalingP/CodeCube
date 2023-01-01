@@ -8,18 +8,19 @@ import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
-public class Stack extends Control<java.util.Stack<Box>> {
+import java.util.ArrayDeque;
 
-    public Stack(Button programButton, Button functionButton, Array<Container> programControls,
+public class Queue extends Control<ArrayDeque<Box>> {
+    public Queue(Button programButton, Button functionButton, Array<Container> programControls,
                  Array<Container> functionControls) {
         super(programButton, functionButton, programControls, functionControls);
-        setProgram(new java.util.Stack<>());
-        setFunction(new java.util.Stack<>());
+        setProgram(new ArrayDeque<>());
+        setFunction(new ArrayDeque<>());
     }
 
     @Override
     public Box getNextBox() {
-        return this.getProgram().peek();
+        return this.getProgram().getLast();
     }
 
     @Override
@@ -29,11 +30,12 @@ public class Stack extends Control<java.util.Stack<Box>> {
                 programBox.setNext(false);
 
         box.setNext(true);
-        getProgram().push(box);
+        getProgram().addLast(box);
 
         box.setControlType(ContainerType.PROGRAM);
         box.setPushedIdle();
 
+        // TODO
         Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
@@ -45,11 +47,12 @@ public class Stack extends Control<java.util.Stack<Box>> {
                 programBox.setNext(false);
 
         box.setNext(true);
-        getFunction().push(box);
+        getFunction().addLast(box);
 
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
 
+        // TODO
         Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
@@ -57,13 +60,13 @@ public class Stack extends Control<java.util.Stack<Box>> {
     @Override
     public void remove(Box box) {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
-            getProgram().pop();
+            getProgram().remove(box);
             if (getProgramSize() > 0)
-                getProgram().get(getProgramSize() - 1).setNext(true);
+                getProgram().getLast().setNext(true);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
-            getFunction().pop();
+            getFunction().remove(box);
             if (getFunctionSize() > 0)
-                getFunction().get(getFunctionSize() - 1).setNext(true);
+                getFunction().getLast().setNext(true);
         }
 
         // back to start
@@ -73,11 +76,11 @@ public class Stack extends Control<java.util.Stack<Box>> {
 
     @Override
     public Box removeFromProgram() {
-        return getProgram().pop();
+        return getProgram().removeLast();
     }
 
     @Override
     public Box removeFromFunction() {
-        return getFunction().pop();
+        return getFunction().removeLast();
     }
 }
