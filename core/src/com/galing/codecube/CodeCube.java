@@ -21,8 +21,8 @@ public class CodeCube extends Game {
         batch = new SpriteBatch();
 
         // load assets
-        AssetManager.load();
-        AssetManager.loadTiledMap();
+        AssetManager.loadAssets();
+        AssetManager.loadMap();
 
         // set screen to main game
         setScreen(new GameScreen(this));

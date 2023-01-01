@@ -70,12 +70,17 @@ public class GameScreen extends Screen {
 
     @Override
     public boolean keyDown(int keycode) {
+        if (state.equals(GameState.PAUSED)) {
+            if (keycode == Input.Keys.ESCAPE)
+                Gdx.app.exit();
+        }
+
         if (state.equals(GameState.RUNNING)) {
             if (keycode == Input.Keys.ESCAPE)
                 setPause();
+            if (keycode == Input.Keys.TAB)
+                board.resetTarget();
         }
-        if (keycode == Input.Keys.ESCAPE)
-            Gdx.app.exit();
 
         return true;
     }

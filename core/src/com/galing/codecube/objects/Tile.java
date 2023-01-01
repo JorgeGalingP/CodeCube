@@ -61,7 +61,7 @@ public class Tile extends Actor {
         // perform in and out action with movement
         addAction(Actions.sequence(
                 Actions.scaleTo(1.5f, 1.5f, .3f),
-                Actions.scaleTo(.05f, .05f, .3f),
+                Actions.scaleTo(.0f, .0f, .3f),
                 Actions.alpha(0, .1f),
                 Actions.moveTo(position.x, position.y, .3f),
                 Actions.alpha(1, .1f),

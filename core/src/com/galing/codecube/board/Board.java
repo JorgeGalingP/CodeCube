@@ -15,11 +15,12 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.assets.AssetManager;
-import com.galing.codecube.controls.SequenceControl;
-import com.galing.codecube.enums.ControlType;
+import com.galing.codecube.controls.Controllable;
+import com.galing.codecube.controls.Sequence;
+import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
-import com.galing.codecube.objects.Control;
+import com.galing.codecube.objects.Container;
 import com.galing.codecube.objects.Floor;
 import com.galing.codecube.objects.Matrix;
 import com.galing.codecube.objects.Player;
@@ -52,10 +53,10 @@ public class Board extends Group {
     private final Array<Tile> walls;
     private Button programButton;
     private Button functionButton;
-    private final Array<Control> programControls;
-    private final Array<Control> functionControls;
+    private final Array<Container> programControls;
+    private final Array<Container> functionControls;
 
-    private final SequenceControl gameControl;
+    private final Controllable gameControl;
 
     private final Array<Vector2> playerMoves;
 
@@ -88,7 +89,7 @@ public class Board extends Group {
         initializeLayer("controls");
 
         // initialize Game Control
-        this.gameControl = new SequenceControl(programButton, functionButton, programControls, functionControls);
+        this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls);
 
         // initialize matrix on top of board
         this.matrix = new Matrix();
@@ -177,23 +178,23 @@ public class Board extends Group {
                                         player = (Player) tile;
                                         break;
                                     case "control":
-                                        tile = new Control(tilePosition,
+                                        tile = new Container(tilePosition,
                                                 mapTile.getProperties().get("color").toString());
 
-                                        if (((Control) tile).getType() == ControlType.PROGRAM)
-                                            this.programControls.add((Control) tile);
+                                        if (((Container) tile).getType() == ContainerType.PROGRAM)
+                                            this.programControls.add((Container) tile);
 
-                                        if (((Control) tile).getType() == ControlType.FUNCTION)
-                                            this.functionControls.add((Control) tile);
+                                        if (((Container) tile).getType() == ContainerType.FUNCTION)
+                                            this.functionControls.add((Container) tile);
                                         break;
                                     case "button":
                                         tile = new Button(tilePosition,
                                                 mapTile.getProperties().get("color").toString());
 
-                                        if (((Button) tile).getType() == ControlType.PROGRAM)
+                                        if (((Button) tile).getType() == ContainerType.PROGRAM)
                                             this.programButton = (Button) tile;
 
-                                        if (((Button) tile).getType() == ControlType.FUNCTION)
+                                        if (((Button) tile).getType() == ContainerType.FUNCTION)
                                             this.functionButton = (Button) tile;
                                         break;
                                     case "box":
@@ -304,7 +305,7 @@ public class Board extends Group {
         }
     }
 
-    private void resetTarget() {
+    public void resetTarget() {
         target.addInOutPositionAction(getRandomPosition(true, Player.class));
     }
 

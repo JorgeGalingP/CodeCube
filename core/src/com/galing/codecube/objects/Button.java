@@ -2,10 +2,10 @@ package com.galing.codecube.objects;
 
 import com.badlogic.gdx.math.Vector2;
 import com.galing.codecube.assets.AssetManager;
-import com.galing.codecube.enums.ControlType;
+import com.galing.codecube.enums.ContainerType;
 
 public class Button extends Tile {
-    public ControlType type;
+    public ContainerType type;
 
     public Button(Vector2 coordinate, String color) {
         super(coordinate);
@@ -19,16 +19,16 @@ public class Button extends Tile {
                 break;
             case "blue":
                 setAtlasRegion(AssetManager.blueButton);
-                type = ControlType.PROGRAM;
+                type = ContainerType.PROGRAM;
                 break;
             case "yellow":
                 setAtlasRegion(AssetManager.yellowButton);
-                type = ControlType.FUNCTION;
+                type = ContainerType.FUNCTION;
                 break;
         }
     }
 
-    public ControlType getType() {
+    public ContainerType getType() {
         return type;
     }
 }

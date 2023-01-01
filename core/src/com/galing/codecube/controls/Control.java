@@ -5,28 +5,28 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
-import com.galing.codecube.enums.ControlType;
+import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
-import com.galing.codecube.objects.Control;
+import com.galing.codecube.objects.Container;
 
 import java.util.Collection;
 
-public abstract class GameControl<T extends Collection<Box>> implements BoxManageable {
+public abstract class Control<T extends Collection<Box>> implements Controllable {
     private T program;
     private T function;
 
     private final Vector2 programButtonPosition;
     private final int programSize;
-    private final Array<Control> programControls;
+    private final Array<Container> programControls;
 
     private final Vector2 functionButtonPosition;
     private final int functionSize;
-    private final Array<Control> functionControls;
+    private final Array<Container> functionControls;
 
-    public GameControl(Button programButton, Button functionButton,
-                       Array<Control> programControls,
-                       Array<Control> functionControls) {
+    public Control(Button programButton, Button functionButton,
+                   Array<Container> programControls,
+                   Array<Container> functionControls) {
         this.programButtonPosition = programButton.getCoordinate();
         this.programSize = programControls.size;
         this.functionButtonPosition = functionButton.getCoordinate();
@@ -51,28 +51,28 @@ public abstract class GameControl<T extends Collection<Box>> implements BoxManag
         this.function = function;
     }
 
-    public Array<Control> getProgramControls() {
+    public Array<Container> getProgramControls() {
         return programControls;
     }
 
-    public Array<Control> getFunctionControls() {
+    public Array<Container> getFunctionControls() {
         return functionControls;
     }
 
     public boolean isProgramEmpty() {
-        return this.program.isEmpty();
+        return program.isEmpty();
     }
 
     public boolean isFunctionEmpty() {
-        return this.function.isEmpty();
+        return function.isEmpty();
     }
 
     public int getProgramSize() {
-        return this.program.size();
+        return program.size();
     }
 
     public int getFunctionSize() {
-        return this.function.size();
+        return function.size();
     }
 
     public abstract Box getNextBox();
@@ -80,6 +80,8 @@ public abstract class GameControl<T extends Collection<Box>> implements BoxManag
     public abstract void addToProgram(Box box);
 
     public abstract void addToFunction(Box box);
+
+    public abstract void remove(Box box);
 
     public abstract Box removeFromProgram();
 
@@ -92,9 +94,9 @@ public abstract class GameControl<T extends Collection<Box>> implements BoxManag
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 // only can be moved if is not in the stack or is the peek of it
-                if (box.getControlPosition() == null
-                        || (box.getControlPosition() + 1 == getProgramSize() && box.getControlType().equals(ControlType.PROGRAM))
-                        || (box.getControlPosition() + 1 == getFunctionSize() && box.getControlType().equals(ControlType.FUNCTION)))
+                if (box.isNext() == null
+                        || (box.isNext()
+                        && (box.getControlType().equals(ContainerType.PROGRAM) || box.getControlType().equals(ContainerType.FUNCTION))))
                     box.moveBy(x - box.getWidth() / 2, y - box.getHeight() / 2);
             }
 
@@ -102,51 +104,43 @@ public abstract class GameControl<T extends Collection<Box>> implements BoxManag
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 lastTouch.set(event.getStageX(), event.getStageY());
 
+                // Gdx.app.log("!", box.isTouchable());this.bounds.overlaps(obstacle.getBounds())
+
                 // is in target and is not in the stack
                 if ((lastTouch.x >= programButtonPosition.x - box.getWidth() / 2)
                         && (lastTouch.x <= programButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= programButtonPosition.y - box.getHeight() / 2)
                         && (lastTouch.y <= programButtonPosition.y + 1 + box.getHeight() / 2)
-                        && box.getControlPosition() == null
+                        && box.isNext() == null
                         && getProgramSize() != programSize) {
                     // push box to the stack
                     addToProgram(box);
-                    box.setControlType(ControlType.PROGRAM);
+                    box.setControlType(ContainerType.PROGRAM);
                     box.setPushedIdle();
 
                     // move box action
-                    Vector2 newPosition = getProgramControls().get(box.getControlPosition()).getCoordinate();
+                    Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
                     box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
 
                 } else if ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
                         && (lastTouch.x <= functionButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= functionButtonPosition.y - box.getHeight() / 2)
                         && (lastTouch.y <= functionButtonPosition.y + 1 + box.getHeight() / 2)
-                        && box.getControlPosition() == null
+                        && box.isNext() == null
                         && getFunctionSize() != functionSize) {
                     // push box to the stack
                     addToFunction(box);
-                    box.setControlType(ControlType.FUNCTION);
+                    box.setControlType(ContainerType.FUNCTION);
                     box.setPushedIdle();
 
                     // move box action
-                    Vector2 newPosition = getFunctionControls().get(box.getControlPosition()).getCoordinate();
+                    Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
                     box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
-                } else if (box.getControlPosition() != null
+                } else if (box.isNext() != null
                         && box.getControlType() != null) {
-                    // element is already in the stack
-                    if (box.getControlPosition() + 1 == getProgramSize()
-                            && box.getControlType().equals(ControlType.PROGRAM)) {
+                    if (box.isNext()) {
                         // pop peek element out of the stack and set back to original position
-                        removeFromProgram();
-
-                        // back to start
-                        box.clearControl();
-                        box.addResetPositionAction();
-                    } else if (box.getControlPosition() + 1 == getFunctionSize()
-                            && box.getControlType().equals(ControlType.FUNCTION)) {
-                        // pop peek element out of the stack and set back to original position
-                        removeFromFunction();
+                        remove(box);
 
                         // back to start
                         box.clearControl();

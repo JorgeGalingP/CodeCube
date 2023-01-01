@@ -41,7 +41,7 @@ public class AssetManager {
 
     public static AtlasRegion player;
 
-    public static void load() {
+    public static void loadAssets() {
         atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/tileset.atlas"));
 
         dirtFloor = atlasTileset.findRegion("dirtFloor");
@@ -76,7 +76,7 @@ public class AssetManager {
         player = atlasTileset.findRegion("player");
     }
 
-    public static void loadTiledMap() {
+    public static void loadMap() {
         if (tileMap != null) {
             tileMap.dispose();
             tileMap = null;

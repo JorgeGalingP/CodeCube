@@ -4,7 +4,7 @@ import static com.badlogic.gdx.math.MathUtils.random;
 
 import com.badlogic.gdx.math.Vector2;
 import com.galing.codecube.assets.AssetManager;
-import com.galing.codecube.enums.ControlType;
+import com.galing.codecube.enums.ContainerType;
 
 public class Box extends Tile {
     public static final int UP = 0;
@@ -13,16 +13,15 @@ public class Box extends Tile {
     public static final int NEGATION = 3;
     public static final int FUNCTION = 4;
 
-    public ControlType controlType;
-    public Integer controlPosition;
-
-    int movement;
+    public ContainerType containerType;
+    public Boolean isNext;
+    public int movement;
 
     public Box(Vector2 coordinate, String variable) {
         super(coordinate);
 
+        setNext(null);
         setControlType(null);
-        setControlPosition(null);
 
         switch (variable) {
             case "up":
@@ -50,20 +49,20 @@ public class Box extends Tile {
         setRandomIdle();
     }
 
-    public ControlType getControlType() {
-        return controlType;
+    public ContainerType getControlType() {
+        return containerType;
     }
 
-    public void setControlType(ControlType controlType) {
-        this.controlType = controlType;
+    public void setControlType(ContainerType containerType) {
+        this.containerType = containerType;
     }
 
-    public Integer getControlPosition() {
-        return controlPosition;
+    public Boolean isNext() {
+        return isNext;
     }
 
-    public void setControlPosition(Integer controlPosition) {
-        this.controlPosition = controlPosition;
+    public void setNext(Boolean next) {
+        isNext = next;
     }
 
     public int getMovement() {
@@ -72,7 +71,7 @@ public class Box extends Tile {
 
     public void clearControl() {
         setControlType(null);
-        setControlPosition(null);
+        setNext(null);
     }
 
     public void setRandomIdle() {
@@ -90,5 +89,12 @@ public class Box extends Tile {
         setRandomIdle();
         clearControl();
         super.addResetPositionAction();
+    }
+
+    @Override
+    public String toString() {
+        return "Box{" +
+                "controlPosition=" + isNext() +
+                '}';
     }
 }
