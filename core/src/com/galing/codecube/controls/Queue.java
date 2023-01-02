@@ -79,20 +79,18 @@ public class Queue extends Control<ArrayDeque<Box>> {
     @Override
     public Box removeFromProgram() {
         Box box = getProgram().removeFirst();
-        addRightAction();
+        if (getProgramSize() > 0)
+            getProgram().forEach(x -> x.addAction(moveTo(x.getX() + 1, x.getY(), .3f)));
+
         return box;
     }
 
     @Override
     public Box removeFromFunction() {
-        return getFunction().removeFirst();
-    }
+        Box box = getFunction().removeFirst();
+        if (getFunctionSize() > 0)
+            getFunction().forEach(x -> x.addAction(moveTo(x.getX() + 1, x.getY(), .3f)));
 
-    private void addRightAction() {
-        if (getProgramSize() > 0) {
-            for (Box box : getProgram()) {
-                box.addAction(moveTo(box.getX() + 1, box.getY(), .3f));
-            }
-        }
+        return box;
     }
 }
