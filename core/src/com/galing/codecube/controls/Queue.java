@@ -1,5 +1,7 @@
 package com.galing.codecube.controls;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
@@ -76,11 +78,21 @@ public class Queue extends Control<ArrayDeque<Box>> {
 
     @Override
     public Box removeFromProgram() {
-        return getProgram().removeFirst();
+        Box box = getProgram().removeFirst();
+        addRightAction();
+        return box;
     }
 
     @Override
     public Box removeFromFunction() {
         return getFunction().removeFirst();
+    }
+
+    private void addRightAction() {
+        if (getProgramSize() > 0) {
+            for (Box box : getProgram()) {
+                box.addAction(moveTo(box.getX() + 1, box.getY(), .3f));
+            }
+        }
     }
 }
