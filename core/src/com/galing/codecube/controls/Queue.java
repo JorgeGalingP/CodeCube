@@ -20,7 +20,7 @@ public class Queue extends Control<ArrayDeque<Box>> {
 
     @Override
     public Box getNextBox() {
-        return this.getProgram().getLast();
+        return this.getProgram().getFirst();
     }
 
     @Override
@@ -35,8 +35,8 @@ public class Queue extends Control<ArrayDeque<Box>> {
         box.setControlType(ContainerType.PROGRAM);
         box.setPushedIdle();
 
-        // TODO
-        Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
+        Vector2 newPosition =
+                getProgramControls().get(getProgramControls().size - getProgramSize()).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
 
@@ -52,8 +52,8 @@ public class Queue extends Control<ArrayDeque<Box>> {
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
 
-        // TODO
-        Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
+        Vector2 newPosition =
+                getFunctionControls().get(getFunctionControls().size - getFunctionSize()).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
 
@@ -76,11 +76,11 @@ public class Queue extends Control<ArrayDeque<Box>> {
 
     @Override
     public Box removeFromProgram() {
-        return getProgram().removeLast();
+        return getProgram().removeFirst();
     }
 
     @Override
     public Box removeFromFunction() {
-        return getFunction().removeLast();
+        return getFunction().removeFirst();
     }
 }
