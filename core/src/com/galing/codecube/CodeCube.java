@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.galing.codecube.assets.AssetManager;
-import com.galing.codecube.enums.BoardType;
-import com.galing.codecube.screens.GameScreen;
+import com.galing.codecube.screens.MenuScreen;
 
 public class CodeCube extends Game {
 
@@ -25,6 +24,6 @@ public class CodeCube extends Game {
         AssetManager.loadAssets();
 
         // set screen to main game
-        setScreen(new GameScreen(this, BoardType.QUEUE));
+        setScreen(new MenuScreen(this));
     }
 }

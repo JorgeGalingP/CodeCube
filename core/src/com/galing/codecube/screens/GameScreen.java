@@ -26,8 +26,6 @@ public class GameScreen extends Screen {
     public GameScreen(final CodeCube game, BoardType type) {
         super(game);
 
-        AssetManager.loadMap(type);
-
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.update();
@@ -35,6 +33,7 @@ public class GameScreen extends Screen {
         stageGame = new Stage(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera));
         inputMultiplexer.addProcessor(stageGame);
 
+        AssetManager.loadMap(type);
         board = new Board(stageGame, type);
 
         stageGame.addActor(board);
