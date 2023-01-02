@@ -6,7 +6,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.board.Board;
+import com.galing.codecube.enums.BoardType;
 
 public class GameScreen extends Screen {
     private enum GameState {
@@ -21,8 +23,10 @@ public class GameScreen extends Screen {
 
     private final Board board;
 
-    public GameScreen(final CodeCube game) {
+    public GameScreen(final CodeCube game, BoardType type) {
         super(game);
+
+        AssetManager.loadMap(type);
 
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
@@ -31,7 +35,7 @@ public class GameScreen extends Screen {
         stageGame = new Stage(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera));
         inputMultiplexer.addProcessor(stageGame);
 
-        board = new Board(stageGame);
+        board = new Board(stageGame, type);
 
         stageGame.addActor(board);
 

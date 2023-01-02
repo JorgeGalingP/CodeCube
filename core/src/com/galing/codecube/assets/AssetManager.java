@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.galing.codecube.enums.BoardType;
 
 public class AssetManager {
     public static TiledMap tileMap;
@@ -76,12 +77,12 @@ public class AssetManager {
         player = atlasTileset.findRegion("player");
     }
 
-    public static void loadMap() {
+    public static void loadMap(BoardType type) {
         if (tileMap != null) {
             tileMap.dispose();
             tileMap = null;
         }
 
-        tileMap = new TmxMapLoader().load("stages/queue.tmx");
+        tileMap = new TmxMapLoader().load("stages/" + type.getType() + ".tmx");
     }
 }

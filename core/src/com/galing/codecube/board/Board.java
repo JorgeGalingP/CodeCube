@@ -17,6 +17,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.controls.Controllable;
 import com.galing.codecube.controls.Queue;
+import com.galing.codecube.controls.Sequence;
+import com.galing.codecube.controls.Stack;
+import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
@@ -64,7 +67,7 @@ public class Board extends Group {
     private Target target;
     private final Matrix matrix;
 
-    public Board(Stage stage) {
+    public Board(Stage stage, BoardType type) {
         // initialize main variables
         this.camera = (OrthographicCamera) stage.getCamera();
         this.viewport = stage.getViewport();
@@ -88,8 +91,13 @@ public class Board extends Group {
         initializeLayer("floor");
         initializeLayer("controls");
 
-        // initialize Game Control
-        this.gameControl = new Queue(programButton, functionButton, programControls, functionControls);
+        // initialize Control
+        if (type.equals(BoardType.STACK))
+            this.gameControl = new Stack(programButton, functionButton, programControls, functionControls);
+        else if (type.equals(BoardType.QUEUE))
+            this.gameControl = new Queue(programButton, functionButton, programControls, functionControls);
+        else
+            this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls);
 
         // initialize matrix on top of board
         this.matrix = new Matrix();
