@@ -1,0 +1,251 @@
+
+UI.png
+size: 1911, 1296
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+BG
+  rotate: false
+  xy: 2, 782
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+backBtn
+  rotate: false
+  xy: 1032, 1038
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+blueBG
+  rotate: false
+  xy: 1292, 6
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+blueBtnNormal
+  rotate: false
+  xy: 2, 341
+  size: 256, 271
+  orig: 256, 271
+  offset: 0, 0
+  index: -1
+blueBtnTapped
+  rotate: false
+  xy: 516, 1038
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+blueRectInactive
+  rotate: false
+  xy: 1548, 968
+  size: 359, 162
+  orig: 359, 162
+  offset: 0, 0
+  index: -1
+blueRectNormal
+  rotate: false
+  xy: 516, 616
+  size: 359, 162
+  orig: 359, 162
+  offset: 0, 0
+  index: -1
+blueRectTapped
+  rotate: false
+  xy: 1550, 60
+  size: 358, 152
+  orig: 358, 152
+  offset: 0, 0
+  index: -1
+borderCircle
+  rotate: false
+  xy: 776, 264
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+circle
+  rotate: false
+  xy: 774, 1038
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+closeBtn
+  rotate: false
+  xy: 260, 83
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+cornerSquare
+  rotate: false
+  xy: 1032, 780
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+cornerSquare2
+  rotate: false
+  xy: 776, 6
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+greenBtnNormal
+  rotate: false
+  xy: 2, 68
+  size: 256, 271
+  orig: 256, 271
+  offset: 0, 0
+  index: -1
+greenBtnTapped
+  rotate: false
+  xy: 516, 780
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+greenRectNormal
+  rotate: false
+  xy: 1548, 804
+  size: 359, 162
+  orig: 359, 162
+  offset: 0, 0
+  index: -1
+greenRectTapped
+  rotate: false
+  xy: 1550, 368
+  size: 359, 152
+  orig: 359, 152
+  offset: 0, 0
+  index: -1
+homeBtn
+  rotate: false
+  xy: 1290, 1038
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+pauseBtn
+  rotate: false
+  xy: 1034, 6
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+playBtn
+  rotate: false
+  xy: 774, 780
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+rect2
+  rotate: false
+  xy: 2, 614
+  size: 512, 166
+  orig: 512, 166
+  offset: 0, 0
+  index: -1
+roundEdgeRect
+  rotate: false
+  xy: 2, 2
+  size: 256, 64
+  orig: 256, 64
+  offset: 0, 0
+  index: -1
+settingsBtn
+  rotate: false
+  xy: 1034, 264
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+shareIcon
+  rotate: false
+  xy: 1393, 522
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+soundOffBtn
+  rotate: false
+  xy: 877, 522
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+soundOnBtn
+  rotate: false
+  xy: 1290, 780
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+tickIcon
+  rotate: false
+  xy: 518, 358
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+toggleOff
+  rotate: false
+  xy: 1651, 667
+  size: 256, 135
+  orig: 256, 135
+  offset: 0, 0
+  index: -1
+toggleOn
+  rotate: false
+  xy: 1651, 530
+  size: 256, 135
+  orig: 256, 135
+  offset: 0, 0
+  index: -1
+trophyIcon
+  rotate: false
+  xy: 1292, 264
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+whiteBG
+  rotate: false
+  xy: 518, 100
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+yellowBtnNormal
+  rotate: false
+  xy: 260, 341
+  size: 256, 271
+  orig: 256, 271
+  offset: 0, 0
+  index: -1
+yellowBtnTapped
+  rotate: false
+  xy: 1135, 522
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+yellowRectNormal
+  rotate: false
+  xy: 1548, 1132
+  size: 359, 162
+  orig: 359, 162
+  offset: 0, 0
+  index: -1
+yellowRectTapped
+  rotate: false
+  xy: 1550, 214
+  size: 358, 152
+  orig: 358, 152
+  offset: 0, 0
+  index: -1

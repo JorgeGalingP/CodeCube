@@ -1,15 +1,54 @@
 package com.galing.codecube.assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.enums.BoardType;
 
 public class AssetManager {
     public static TiledMap tileMap;
+
     public static TextureAtlas atlasTileset;
+    public static TextureAtlas atlasUI;
+
+    public static AtlasRegion bg;
+    public static AtlasRegion blueWindow;
+    public static AtlasRegion whiteWindow;
+    public static AtlasRegion roundWindow;
+    public static AtlasRegion rectWindow;
+    public static AtlasRegion squareWindow;
+    public static NinePatchDrawable squareCircleWindow;
+
+    public static NinePatchDrawable blueNoPressed;
+    public static AtlasRegion bluePressed;
+    public static AtlasRegion yellowNoPressed;
+    public static AtlasRegion yellowPressed;
+    public static AtlasRegion greenNoPressed;
+    public static AtlasRegion greenPressed;
+    public static AtlasRegion blueNoPressedRect;
+    public static AtlasRegion bluePressedRect;
+    public static AtlasRegion yellowNoPressedRect;
+    public static AtlasRegion yellowPressedRect;
+    public static AtlasRegion greenNoPressedRect;
+    public static AtlasRegion greenPressedRect;
+
+    public static AtlasRegion closeIcon;
+    public static AtlasRegion tickIcon;
+    public static AtlasRegion settingsIcon;
+    public static AtlasRegion pauseIcon;
+    public static AtlasRegion trophyIcon;
+    public static AtlasRegion shareIcon;
+    public static AtlasRegion playIcon;
+    public static AtlasRegion homeIcon;
+    public static AtlasRegion backIcon;
+    public static AtlasRegion soundOnIcon;
+    public static AtlasRegion soundOffIcon;
+    public static AtlasRegion toggleOnIcon;
+    public static AtlasRegion toggleOffIcon;
 
     public static AtlasRegion dirtFloor;
     public static AtlasRegion rockFloor;
@@ -44,7 +83,16 @@ public class AssetManager {
 
     public static void loadAssets() {
         atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/tileset.atlas"));
+        atlasUI = new TextureAtlas(Gdx.files.internal("atlas/UI.atlas"));
 
+        // UI
+        bg = atlasUI.findRegion("BG");
+        squareCircleWindow = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("rect2"), 12
+                , 12, 12, 12));
+        blueNoPressed = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("blueBtnNormal"), 12
+                , 12, 12, 12));
+
+        // Tileset
         dirtFloor = atlasTileset.findRegion("dirtFloor");
         rockFloor = atlasTileset.findRegion("rockFloor");
         oceanFloor = atlasTileset.findRegion("oceanFloor");
