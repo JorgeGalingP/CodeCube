@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.enums.BoardType;
@@ -31,7 +32,7 @@ public class MenuScreen extends Screen {
 
     @Override
     public void show() {
-        // create Table
+        // create table
         Table table = new Table();
         table.setFillParent(true);
         table.center();
@@ -69,8 +70,10 @@ public class MenuScreen extends Screen {
             }
         });
 
-        //Add buttons to table
-        //table.setBackground((Drawable) AssetManager.bg);
+        // add background to table
+        table.setBackground(new TextureRegionDrawable(AssetManager.bg));
+
+        // add buttons and padding to table
         table.add(title).padBottom(175);
         table.row();
         table.add(sequenceButton).width(350).height(200).pad(15);
@@ -80,7 +83,7 @@ public class MenuScreen extends Screen {
         table.add(stackButton).width(350).height(200).pad(15);
         table.row();
 
-        //Add table to stage
+        // add table to stage
         stage.addActor(table);
     }
 }
