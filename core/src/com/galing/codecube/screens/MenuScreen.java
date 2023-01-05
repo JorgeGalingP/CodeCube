@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.enums.BoardType;
@@ -19,8 +18,6 @@ public class MenuScreen extends Screen {
 
     @Override
     public void draw(float delta) {
-        ScreenUtils.clear(1, 1, 1, 1);
-
         if (Gdx.input.isTouched()) {
             game.setScreen(new GameScreen(game, BoardType.SEQUENCE));
             dispose();
@@ -28,17 +25,16 @@ public class MenuScreen extends Screen {
     }
 
     @Override
+    public void update(float delta) {
+
+    }
+
+    @Override
     public void show() {
-        super.show();
-
-        //Stage should control input:
-        Gdx.input.setInputProcessor(stage);
-
         // create Table
         Table table = new Table();
         table.setFillParent(true);
-        table.bottom();
-        table.padBottom(75);
+        table.center();
 
         // create buttons
         TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(AssetManager.blueNoPressed,
@@ -74,6 +70,7 @@ public class MenuScreen extends Screen {
         });
 
         //Add buttons to table
+        //table.setBackground((Drawable) AssetManager.bg);
         table.add(title).padBottom(175);
         table.row();
         table.add(sequenceButton).width(350).height(200).pad(15);
@@ -85,19 +82,5 @@ public class MenuScreen extends Screen {
 
         //Add table to stage
         stage.addActor(table);
-    }
-
-    @Override
-    public void update(float delta) {
-
-    }
-
-    @Override
-    public void render(float delta) {
-        stage.act();
-        batch.begin();
-        batch.draw(AssetManager.bg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.end();
-        stage.draw();
     }
 }

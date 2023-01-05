@@ -24,13 +24,10 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
 
     public Screen(CodeCube game) {
         this.game = game;
-
-        this.stage = game.stage;
-        this.stage.clear();
-        this.batch = game.batch;
-
-        camera = new OrthographicCamera();
-        camera.setToOrtho(false);
+        this.camera = game.getCamera();
+        this.stage = game.getStage();
+        // TODO this.stage.clear();
+        this.batch = game.getBatch();
 
         GestureDetector detector = new GestureDetector(20, .5f, 2, .15f, this);
 
@@ -64,7 +61,7 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override

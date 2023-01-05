@@ -2,7 +2,6 @@ package com.galing.codecube.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.CodeCube;
@@ -26,16 +25,17 @@ public class GameScreen extends Screen {
     public GameScreen(final CodeCube game, BoardType type) {
         super(game);
 
-        OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        camera.update();
-
+        // need to create a new stage
         stageGame = new Stage(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera));
+
+        // add stage to the Input Multiplexer
         inputMultiplexer.addProcessor(stageGame);
 
+        // load board
         AssetManager.loadMap(type);
         board = new Board(stageGame, type);
 
+        // add actors
         stageGame.addActor(board);
 
         setRunning();
