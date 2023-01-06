@@ -24,6 +24,13 @@ public class Tile extends Actor {
         setPosition(coordinate.x, coordinate.y);
     }
 
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        batch.draw(atlasRegion, getX(), getY(), getOriginX(), getOriginY(), SIZE, SIZE, getScaleX(), getScaleY(),
+                getRotation());
+    }
+
+
     public Vector2 getCoordinate() {
         return coordinate;
     }
@@ -44,9 +51,8 @@ public class Tile extends Actor {
     }
 
     public void addResetPositionAction() {
-        addAction(moveTo(coordinate.x, coordinate.y, .35f));
+        addAction(moveTo(coordinate.x, coordinate.y, .3f));
     }
-
 
     public void addInOutAction() {
         // perform in and out action
@@ -68,13 +74,7 @@ public class Tile extends Actor {
                 Actions.scaleTo(1f, 1f, .3f)));
     }
 
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-        batch.draw(atlasRegion, getX(), getY(), getOriginX(), getOriginY(), SIZE, SIZE, getScaleX(), getScaleY(),
-                getRotation());
-    }
-
-    public boolean equalCoordinate(Vector2 position) {
+    public boolean isEqualCoordinate(Vector2 position) {
         return position.x == getCoordinate().x
                 && position.y == getCoordinate().y;
     }

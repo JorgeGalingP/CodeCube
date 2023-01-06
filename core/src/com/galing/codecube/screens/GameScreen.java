@@ -25,6 +25,8 @@ public class GameScreen extends Screen {
     public GameScreen(final CodeCube game, BoardType type) {
         super(game);
 
+        Gdx.app.log("!", type.toString());
+
         // need to create a new stage
         stageGame = new Stage(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera));
 

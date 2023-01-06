@@ -26,7 +26,7 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
         this.game = game;
         this.camera = game.getCamera();
         this.stage = game.getStage();
-        // TODO this.stage.clear();
+        this.stage.clear();
         this.batch = game.getBatch();
 
         GestureDetector detector = new GestureDetector(20, .5f, 2, .15f, this);

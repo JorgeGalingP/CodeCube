@@ -87,10 +87,10 @@ public class AssetManager {
 
         // UI
         bg = atlasUI.findRegion("BG");
-        squareCircleWindow = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("rect2"), 12
-                , 12, 12, 12));
-        blueNoPressed = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("blueBtnNormal"), 12
-                , 12, 12, 12));
+        squareCircleWindow = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("rect2"), 25
+                , 25, 25, 25));
+        blueNoPressed = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("blueBtnNormal"), 25
+                , 25, 25, 25));
 
         // Tileset
         dirtFloor = atlasTileset.findRegion("dirtFloor");

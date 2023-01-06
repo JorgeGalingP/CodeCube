@@ -1,7 +1,6 @@
 package com.galing.codecube.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -19,10 +18,6 @@ public class MenuScreen extends Screen {
 
     @Override
     public void draw(float delta) {
-        if (Gdx.input.isTouched()) {
-            game.setScreen(new GameScreen(game, BoardType.SEQUENCE));
-            dispose();
-        }
     }
 
     @Override

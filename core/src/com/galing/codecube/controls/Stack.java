@@ -1,7 +1,9 @@
 package com.galing.codecube.controls;
 
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
@@ -35,7 +37,12 @@ public class Stack extends Control<java.util.Stack<Box>> {
         box.setPushedIdle();
 
         Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
-        box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
+        MoveToAction action = Actions.action(MoveToAction.class);
+        action.setPosition(newPosition.x, newPosition.y);
+        action.setDuration(.75f);
+        action.setInterpolation(Interpolation.bounceOut);
+
+        box.addAction(action);
     }
 
     @Override
@@ -51,7 +58,13 @@ public class Stack extends Control<java.util.Stack<Box>> {
         box.setPushedIdle();
 
         Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
-        box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
+
+        MoveToAction action = Actions.action(MoveToAction.class);
+        action.setPosition(newPosition.x, newPosition.y);
+        action.setDuration(.75f);
+        action.setInterpolation(Interpolation.bounceOut);
+
+        box.addAction(action);
     }
 
     @Override

@@ -267,7 +267,7 @@ public class Board extends Group {
                         && gameControl.isFunctionEmpty()) {
 
                     // check if player is in target's position
-                    if (player.equalCoordinate(target.getCoordinate()))
+                    if (player.isEqualCoordinate(target.getCoordinate()))
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::resetTarget)));
                     else
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
@@ -341,7 +341,7 @@ public class Board extends Group {
     private boolean isTileEmpty(Vector2 position) {
         for (Actor tile : getChildren()) {
             if (tile.getClass().equals(Wall.class)
-                    && ((Tile) tile).equalCoordinate(position))
+                    && ((Tile) tile).isEqualCoordinate(position))
                 return false;
         }
         return true;
