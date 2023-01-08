@@ -1,13 +1,13 @@
 package com.galing.codecube.enums;
 
-public enum BoardType {
-    SEQUENCE("sequence"),
-    STACK("stack"),
-    QUEUE("queue");
+public enum Difficulty {
+    EASY("easy"),
+    NORMAL("normal"),
+    HARD("hard");
 
     private final String type;
 
-    BoardType(String type) {
+    Difficulty(String type) {
         this.type = type;
     }
 
@@ -15,4 +15,3 @@ public enum BoardType {
         return type;
     }
 }
-

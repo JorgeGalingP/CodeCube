@@ -1,6 +1,6 @@
 package com.galing.codecube.screens;
 
- import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.Difficulty;
 
 public class MenuScreen extends Screen {
 
@@ -49,19 +50,19 @@ public class MenuScreen extends Screen {
         sequenceButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game, BoardType.SEQUENCE));
+                game.setScreen(new GameScreen(game, Difficulty.EASY, BoardType.SEQUENCE));
             }
         });
         queueButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game, BoardType.QUEUE));
+                game.setScreen(new GameScreen(game, Difficulty.EASY, BoardType.QUEUE));
             }
         });
         stackButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game, BoardType.STACK));
+                game.setScreen(new GameScreen(game, Difficulty.EASY, BoardType.STACK));
             }
         });
 
@@ -69,7 +70,7 @@ public class MenuScreen extends Screen {
         table.setBackground(new TextureRegionDrawable(AssetManager.bg));
 
         // add buttons and padding to table
-        table.add(title).padBottom(175);
+        table.add(title).padBottom(150);
         table.row();
         table.add(sequenceButton).width(350).height(200).pad(15);
         table.row();

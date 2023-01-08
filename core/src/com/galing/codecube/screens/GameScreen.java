@@ -8,8 +8,10 @@ import com.galing.codecube.CodeCube;
 import com.galing.codecube.assets.AssetManager;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.Difficulty;
 
 public class GameScreen extends Screen {
+
     private enum GameState {
         RUNNING, PAUSED, GAME_OVER;
     }
@@ -22,10 +24,8 @@ public class GameScreen extends Screen {
 
     private final Board board;
 
-    public GameScreen(final CodeCube game, BoardType type) {
+    public GameScreen(final CodeCube game, Difficulty difficulty, BoardType type) {
         super(game);
-
-        Gdx.app.log("!", type.toString());
 
         // need to create a new stage
         stageGame = new Stage(new ExtendViewport(VIEWPORT_WIDTH, VIEWPORT_HEIGHT, camera));
@@ -34,8 +34,8 @@ public class GameScreen extends Screen {
         inputMultiplexer.addProcessor(stageGame);
 
         // load board
-        AssetManager.loadMap(type);
-        board = new Board(stageGame, type);
+        AssetManager.loadMap(difficulty, type);
+        board = new Board(stageGame, difficulty, type);
 
         // add actors
         stageGame.addActor(board);

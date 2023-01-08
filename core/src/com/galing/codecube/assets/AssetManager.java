@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.Difficulty;
 
 public class AssetManager {
     public static TiledMap tileMap;
@@ -125,12 +126,12 @@ public class AssetManager {
         player = atlasTileset.findRegion("player");
     }
 
-    public static void loadMap(BoardType type) {
+    public static void loadMap(Difficulty difficulty, BoardType type) {
         if (tileMap != null) {
             tileMap.dispose();
             tileMap = null;
         }
 
-        tileMap = new TmxMapLoader().load("stages/" + type.getType() + ".tmx");
+        tileMap = new TmxMapLoader().load("stages/" + type.getType() + "_" + difficulty.getType() + ".tmx");
     }
 }

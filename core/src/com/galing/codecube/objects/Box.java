@@ -90,11 +90,4 @@ public class Box extends Tile {
         clearControl();
         super.addResetPositionAction();
     }
-
-    @Override
-    public String toString() {
-        return "Box{" +
-                "controlPosition=" + isNext() +
-                '}';
-    }
 }

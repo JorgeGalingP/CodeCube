@@ -6,13 +6,30 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.galing.codecube.enums.Difficulty;
 
 public class Matrix extends Actor {
 
     private final ShapeRenderer shapeRenderer;
+    private final int x;
+    private final int y;
+    private final int j;
+    private final int k;
 
-    public Matrix() {
+    public Matrix(Difficulty difficulty) {
         shapeRenderer = new ShapeRenderer();
+
+        if (difficulty.equals(Difficulty.EASY)) {
+            x = 4;
+            y = 8;
+            j = 13;
+            k = 17;
+        } else {
+            x = 3;
+            y = 9;
+            j = 12;
+            k = 18;
+        }
     }
 
     @Override
@@ -24,11 +41,11 @@ public class Matrix extends Actor {
         Gdx.gl.glLineWidth(4);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
         shapeRenderer.setColor(Color.WHITE);
-        for (int i = 3; i <= 9; i++) {
-            shapeRenderer.line(new Vector2(i, 18), new Vector2(i, 12));
+        for (int i = x; i <= y; i++) {
+            shapeRenderer.line(new Vector2(i, k), new Vector2(i, j));
         }
-        for (int i = 12; i <= 18; i++) {
-            shapeRenderer.line(new Vector2(3, i), new Vector2(9, i));
+        for (int i = j; i <= k; i++) {
+            shapeRenderer.line(new Vector2(x, i), new Vector2(y, i));
         }
         shapeRenderer.end();
 

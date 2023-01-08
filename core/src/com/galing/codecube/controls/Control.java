@@ -28,10 +28,18 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                    Array<Container> functionControls) {
         this.programButtonPosition = programButton.getCoordinate();
         this.programSize = programControls.size;
-        this.functionButtonPosition = functionButton.getCoordinate();
-        this.functionSize = functionControls.size;
         this.programControls = programControls;
-        this.functionControls = functionControls;
+
+        if (functionButton != null
+                && functionControls != null) {
+            this.functionButtonPosition = functionButton.getCoordinate();
+            this.functionSize = functionControls.size;
+            this.functionControls = functionControls;
+        } else {
+            this.functionButtonPosition = null;
+            this.functionSize = 0;
+            this.functionControls = null;
+        }
     }
 
     public T getProgram() {
@@ -103,15 +111,15 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                 // only can be moved if is not in the stack or is the peek of it
                 if (box.isNext() == null
                         || (box.isNext()
-                        && (box.getControlType().equals(ContainerType.PROGRAM) || box.getControlType().equals(ContainerType.FUNCTION))))
+                        && (box.getControlType().equals(ContainerType.PROGRAM) || box.getControlType().equals(ContainerType.FUNCTION)))) {
+                    box.toFront();
                     box.moveBy(x - box.getWidth() / 2, y - box.getHeight() / 2);
+                }
             }
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 lastTouch.set(event.getStageX(), event.getStageY());
-
-                // Gdx.app.log("!", box.isTouchable());this.bounds.overlaps(obstacle.getBounds())
 
                 // is in target and is not in the stack
                 if ((lastTouch.x >= programButtonPosition.x - box.getWidth() / 2)

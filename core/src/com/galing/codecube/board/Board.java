@@ -21,6 +21,7 @@ import com.galing.codecube.controls.Sequence;
 import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.ContainerType;
+import com.galing.codecube.enums.Difficulty;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
@@ -67,7 +68,7 @@ public class Board extends Group {
     private Target target;
     private final Matrix matrix;
 
-    public Board(Stage stage, BoardType type) {
+    public Board(Stage stage, Difficulty difficulty, BoardType type) {
         // initialize main variables
         this.camera = (OrthographicCamera) stage.getCamera();
         this.viewport = stage.getViewport();
@@ -100,7 +101,7 @@ public class Board extends Group {
             this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls);
 
         // initialize matrix on top of board
-        this.matrix = new Matrix();
+        this.matrix = new Matrix(difficulty);
         addActor(this.matrix);
 
         // initialize objects layer on top
@@ -173,13 +174,13 @@ public class Board extends Group {
                                         tile = new Floor(tilePosition,
                                                 mapTile.getProperties().get("subtype").toString());
 
-                                        floor.add((Floor) tile);
+                                        floor.add(tile);
                                         break;
                                     case "wall":
                                         tile = new Wall(tilePosition,
                                                 mapTile.getProperties().get("subtype").toString());
 
-                                        walls.add((Wall) tile);
+                                        walls.add(tile);
                                         break;
                                     case "player":
                                         tile = new Player(getRandomPosition(true, Target.class));
