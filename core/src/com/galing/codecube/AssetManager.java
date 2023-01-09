@@ -1,4 +1,4 @@
-package com.galing.codecube.assets;
+package com.galing.codecube;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.enums.BoardType;
-import com.galing.codecube.enums.Difficulty;
 
 public class AssetManager {
     public static TiledMap tileMap;
@@ -82,7 +81,7 @@ public class AssetManager {
 
     public static AtlasRegion player;
 
-    public static void loadAssets() {
+    public static void load() {
         atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/tileset.atlas"));
         atlasUI = new TextureAtlas(Gdx.files.internal("atlas/UI.atlas"));
 
@@ -126,12 +125,12 @@ public class AssetManager {
         player = atlasTileset.findRegion("player");
     }
 
-    public static void loadMap(Difficulty difficulty, BoardType type) {
+    public static void loadMap(BoardType type) {
         if (tileMap != null) {
             tileMap.dispose();
             tileMap = null;
         }
 
-        tileMap = new TmxMapLoader().load("stages/" + type.getType() + "_" + difficulty.getType() + ".tmx");
+        tileMap = new TmxMapLoader().load("stages/" + type.getType() + "_" + Settings.selectedDifficulty + ".tmx");
     }
 }

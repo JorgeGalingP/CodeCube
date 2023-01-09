@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.galing.codecube.assets.AssetManager;
+import com.galing.codecube.AssetManager;
 import com.galing.codecube.controls.Controllable;
 import com.galing.codecube.controls.Queue;
 import com.galing.codecube.controls.Sequence;
@@ -68,7 +68,7 @@ public class Board extends Group {
     private Target target;
     private final Matrix matrix;
 
-    public Board(Stage stage, Difficulty difficulty, BoardType type) {
+    public Board(Stage stage, BoardType type) {
         // initialize main variables
         this.camera = (OrthographicCamera) stage.getCamera();
         this.viewport = stage.getViewport();
@@ -101,7 +101,7 @@ public class Board extends Group {
             this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls);
 
         // initialize matrix on top of board
-        this.matrix = new Matrix(difficulty);
+        this.matrix = new Matrix();
         addActor(this.matrix);
 
         // initialize objects layer on top

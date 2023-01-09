@@ -8,11 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.AssetManager;
 import com.galing.codecube.CodeCube;
-import com.galing.codecube.enums.BoardType;
 
-public class MenuScreen extends Screen {
+public class DifficultyScreen extends Screen {
 
-    public MenuScreen(CodeCube game) {
+    public DifficultyScreen(CodeCube game) {
         super(game);
     }
 
@@ -41,27 +40,15 @@ public class MenuScreen extends Screen {
                 AssetManager.squareCircleWindow, new BitmapFont());
 
         TextButton title = new TextButton("Code Cube", squareStyle);
-        TextButton sequenceButton = new TextButton("Sequence", buttonStyle);
-        TextButton queueButton = new TextButton("Queue", buttonStyle);
-        TextButton stackButton = new TextButton("Stack", buttonStyle);
+        TextButton easyButton = new TextButton("EASY", buttonStyle);
+        TextButton normalButton = new TextButton("NORMAL", buttonStyle);
+        TextButton hardButton = new TextButton("HARD", buttonStyle);
+        TextButton backButton = new TextButton("Back", buttonStyle);
 
-        // add listeners to buttons
-        sequenceButton.addListener(new ClickListener() {
+        backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game, BoardType.SEQUENCE));
-            }
-        });
-        queueButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game, BoardType.QUEUE));
-            }
-        });
-        stackButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game, BoardType.STACK));
+                game.setScreen(new MenuScreen(game));
             }
         });
 
@@ -69,13 +56,15 @@ public class MenuScreen extends Screen {
         table.setBackground(new TextureRegionDrawable(AssetManager.bg));
 
         // add buttons and padding to table
-        table.add(title).padBottom(150);
+        table.add(title).padBottom(75);
         table.row();
-        table.add(sequenceButton).width(350).height(200).pad(15);
+        table.add(easyButton).width(350).height(200).pad(15);
         table.row();
-        table.add(queueButton).width(350).height(200).pad(15);
+        table.add(normalButton).width(350).height(200).pad(15);
         table.row();
-        table.add(stackButton).width(350).height(200).pad(15);
+        table.add(hardButton).width(350).height(200).pad(15);
+        table.row();
+        table.add(backButton).width(350).height(200).pad(50);
         table.row();
 
         // add table to stage

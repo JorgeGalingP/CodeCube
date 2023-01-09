@@ -5,8 +5,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.galing.codecube.assets.AssetManager;
-import com.galing.codecube.screens.MenuScreen;
+import com.galing.codecube.screens.DifficultyScreen;
 import com.galing.codecube.screens.Screen;
 
 public class CodeCube extends Game {
@@ -27,11 +26,14 @@ public class CodeCube extends Game {
         // initialize spritebatch
         batch = new SpriteBatch();
 
+        // load settings
+        Settings.load();
+
         // load assets
-        AssetManager.loadAssets();
+        AssetManager.load();
 
         // set screen to main game
-        setScreen(new MenuScreen(this));
+        setScreen(new DifficultyScreen(this));
     }
 
     public Stage getStage() {

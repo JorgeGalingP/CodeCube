@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.CodeCube;
-import com.galing.codecube.assets.AssetManager;
+import com.galing.codecube.AssetManager;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.Difficulty;
@@ -24,7 +24,7 @@ public class GameScreen extends Screen {
 
     private final Board board;
 
-    public GameScreen(final CodeCube game, Difficulty difficulty, BoardType type) {
+    public GameScreen(final CodeCube game, BoardType type) {
         super(game);
 
         // need to create a new stage
@@ -34,8 +34,8 @@ public class GameScreen extends Screen {
         inputMultiplexer.addProcessor(stageGame);
 
         // load board
-        AssetManager.loadMap(difficulty, type);
-        board = new Board(stageGame, difficulty, type);
+        AssetManager.loadMap(type);
+        board = new Board(stageGame, type);
 
         // add actors
         stageGame.addActor(board);

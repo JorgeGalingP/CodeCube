@@ -1,7 +1,7 @@
 package com.galing.codecube.objects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.galing.codecube.assets.AssetManager;
+import com.galing.codecube.AssetManager;
 
 public class Target extends Tile {
     public Target(Vector2 coordinate, String color) {

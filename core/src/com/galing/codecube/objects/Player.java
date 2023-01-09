@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.galing.codecube.assets.AssetManager;
+import com.galing.codecube.AssetManager;
 
 public class Player extends Tile {
     public float stateTime;

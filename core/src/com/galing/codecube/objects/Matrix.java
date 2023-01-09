@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.galing.codecube.Settings;
 import com.galing.codecube.enums.Difficulty;
 
 public class Matrix extends Actor {
@@ -16,10 +17,10 @@ public class Matrix extends Actor {
     private final int j;
     private final int k;
 
-    public Matrix(Difficulty difficulty) {
+    public Matrix() {
         shapeRenderer = new ShapeRenderer();
 
-        if (difficulty.equals(Difficulty.EASY)) {
+        if (Settings.selectedDifficulty.equals(Difficulty.EASY)) {
             x = 4;
             y = 8;
             j = 13;

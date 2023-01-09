@@ -3,7 +3,7 @@ package com.galing.codecube.objects;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 import com.badlogic.gdx.math.Vector2;
-import com.galing.codecube.assets.AssetManager;
+import com.galing.codecube.AssetManager;
 import com.galing.codecube.enums.ContainerType;
 
 public class Box extends Tile {
