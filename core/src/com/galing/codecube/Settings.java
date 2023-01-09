@@ -11,13 +11,11 @@ public class Settings {
     private final static Preferences preferences = Gdx.app.getPreferences("com.galing.codecube");
 
     public static void load() {
-        selectedDifficulty = Difficulty.EASY;
-        //selectedDifficulty = pref.getBoolean("animationWalkIsON", false);
+        selectedDifficulty = Difficulty.valueOf(preferences.getString("selectedDifficulty", "EASY"));
     }
 
     public static void save() {
         preferences.putString("selectedDifficulty", String.valueOf(selectedDifficulty));
         preferences.flush();
-
     }
 }

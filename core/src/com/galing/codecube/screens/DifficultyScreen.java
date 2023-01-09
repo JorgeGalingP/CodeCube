@@ -8,6 +8,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.AssetManager;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.Settings;
+import com.galing.codecube.enums.Difficulty;
 
 public class DifficultyScreen extends Screen {
 
@@ -45,9 +47,28 @@ public class DifficultyScreen extends Screen {
         TextButton hardButton = new TextButton("HARD", buttonStyle);
         TextButton backButton = new TextButton("Back", buttonStyle);
 
+        easyButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Settings.selectedDifficulty = Difficulty.EASY;
+            }
+        });
+        normalButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Settings.selectedDifficulty = Difficulty.NORMAL;
+            }
+        });
+        hardButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Settings.selectedDifficulty = Difficulty.HARD;
+            }
+        });
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Settings.save();
                 game.setScreen(new MenuScreen(game));
             }
         });
