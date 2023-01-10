@@ -34,10 +34,7 @@ public class ModeScreen extends Screen {
         table.center();
 
         // set textures
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
         TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
-        TextureRegionDrawable bluePressed = new TextureRegionDrawable(AssetManager.bluePressed);
-        TextureRegionDrawable greenNoPressed = new TextureRegionDrawable(AssetManager.greenNoPressed);
         TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
         TextureRegionDrawable backIcon = new TextureRegionDrawable(AssetManager.backIcon);
 
