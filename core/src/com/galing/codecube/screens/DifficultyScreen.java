@@ -33,43 +33,37 @@ public class DifficultyScreen extends Screen {
         table.setFillParent(true);
         table.center();
 
-        // create buttons
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(AssetManager.blueNoPressed,
-                AssetManager.blueNoPressed,
-                AssetManager.blueNoPressed, new BitmapFont());
-        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(AssetManager.squareCircleWindow,
-                AssetManager.squareCircleWindow,
-                AssetManager.squareCircleWindow, new BitmapFont());
+        // set textures
+        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
+        TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
 
-        TextButton title = new TextButton("Code Cube", squareStyle);
+        // create buttons
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(blueNoPressed, greenPressed,
+                blueNoPressed, new BitmapFont());
+
         TextButton easyButton = new TextButton("EASY", buttonStyle);
         TextButton normalButton = new TextButton("NORMAL", buttonStyle);
         TextButton hardButton = new TextButton("HARD", buttonStyle);
-        TextButton backButton = new TextButton("Back", buttonStyle);
 
         easyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.selectedDifficulty = Difficulty.EASY;
+                saveSettings();
             }
         });
         normalButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.selectedDifficulty = Difficulty.NORMAL;
+                saveSettings();
             }
         });
         hardButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Settings.selectedDifficulty = Difficulty.HARD;
-            }
-        });
-        backButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Settings.save();
-                game.setScreen(new MenuScreen(game));
+                saveSettings();
             }
         });
 
@@ -77,18 +71,19 @@ public class DifficultyScreen extends Screen {
         table.setBackground(new TextureRegionDrawable(AssetManager.bg));
 
         // add buttons and padding to table
-        table.add(title).padBottom(75);
+        table.add(easyButton).width(350).height(200).pad(50);
         table.row();
-        table.add(easyButton).width(350).height(200).pad(15);
+        table.add(normalButton).width(350).height(200).pad(50);
         table.row();
-        table.add(normalButton).width(350).height(200).pad(15);
-        table.row();
-        table.add(hardButton).width(350).height(200).pad(15);
-        table.row();
-        table.add(backButton).width(350).height(200).pad(50);
+        table.add(hardButton).width(350).height(200).pad(50);
         table.row();
 
         // add table to stage
         stage.addActor(table);
+    }
+
+    private void saveSettings() {
+        Settings.save();
+        game.setScreen(new MenuScreen(game));
     }
 }

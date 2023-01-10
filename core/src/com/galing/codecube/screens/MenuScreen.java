@@ -2,6 +2,7 @@ package com.galing.codecube.screens;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -31,16 +32,25 @@ public class MenuScreen extends Screen {
         table.setFillParent(true);
         table.center();
 
+        // set textures
+        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
+        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
+        TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
+        TextureRegionDrawable playIcon = new TextureRegionDrawable(AssetManager.playIcon);
+
         // create buttons
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(AssetManager.blueNoPressed,
-                AssetManager.blueNoPressed,
-                AssetManager.blueNoPressed, new BitmapFont());
-        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(AssetManager.squareCircleWindow,
-                AssetManager.squareCircleWindow,
-                AssetManager.squareCircleWindow, new BitmapFont());
+        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(blueNoPressed,
+                greenPressed, blueNoPressed, new BitmapFont());
+        ImageButton.ImageButtonStyle imageButtonStyle =
+                new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, playIcon, playIcon,
+                        playIcon);
+        imageButtonStyle.imageUp.setMinHeight(125f);
+        imageButtonStyle.imageUp.setMinWidth(125f);
+        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
+                squareCircleWindow, new BitmapFont());
 
         TextButton title = new TextButton("Code Cube", squareStyle);
-        TextButton playButton = new TextButton("Play", buttonStyle);
+        ImageButton playButton = new ImageButton(imageButtonStyle);
         TextButton difficultyButton = new TextButton("Difficulty", buttonStyle);
 
         // add listeners to buttons

@@ -1,12 +1,10 @@
 package com.galing.codecube;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.enums.BoardType;
 
 public class AssetManager {
@@ -21,9 +19,9 @@ public class AssetManager {
     public static AtlasRegion roundWindow;
     public static AtlasRegion rectWindow;
     public static AtlasRegion squareWindow;
-    public static NinePatchDrawable squareCircleWindow;
+    public static AtlasRegion squareCircleWindow;
 
-    public static NinePatchDrawable blueNoPressed;
+    public static AtlasRegion blueNoPressed;
     public static AtlasRegion bluePressed;
     public static AtlasRegion yellowNoPressed;
     public static AtlasRegion yellowPressed;
@@ -87,10 +85,14 @@ public class AssetManager {
 
         // UI
         bg = atlasUI.findRegion("BG");
-        squareCircleWindow = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("rect2"), 25
-                , 25, 25, 25));
-        blueNoPressed = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("blueBtnNormal"), 25
-                , 25, 25, 25));
+        squareCircleWindow = atlasUI.findRegion("rect2");
+        bluePressed = atlasUI.findRegion("blueBtnTapped");
+        blueNoPressed = atlasUI.findRegion("blueBtnNormal");
+        playIcon = atlasUI.findRegion("playBtn");
+        greenPressed = atlasUI.findRegion("greenBtnTapped");
+        greenNoPressed = atlasUI.findRegion("greenBtnNormal");
+        playIcon = atlasUI.findRegion("playBtn");
+        backIcon = atlasUI.findRegion("backBtn");
 
         // Tileset
         dirtFloor = atlasTileset.findRegion("dirtFloor");
