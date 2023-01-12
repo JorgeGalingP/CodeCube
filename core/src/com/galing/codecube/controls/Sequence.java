@@ -3,6 +3,7 @@ package com.galing.codecube.controls;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
@@ -16,7 +17,8 @@ public class Sequence extends Control<List<Box>> {
                     Array<Container> functionControls) {
         super(programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayList<>());
-        setFunction(new ArrayList<>());
+        setFunction1(new ArrayList<>());
+        setFunction2(new ArrayList<>());
     }
 
     @Override
@@ -42,12 +44,16 @@ public class Sequence extends Control<List<Box>> {
 
     @Override
     public void addToFunction(Box box) {
-        if (!isFunctionEmpty())
-            for (Box programBox : this.getFunction())
-                programBox.setIsTouchable(false);
+        if (!isFunctionEmpty()) {
+            for (Box f1Box : this.getFunction1())
+                f1Box.setIsTouchable(false);
+            for (Box f2Box : this.getFunction2())
+                f2Box.setIsTouchable(false);
+        }
 
         box.setIsTouchable(true);
-        getFunction().add(box);
+        getFunction1().add(box);
+        getFunction2().add(box);
 
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
@@ -64,7 +70,9 @@ public class Sequence extends Control<List<Box>> {
             if (getProgramSize() > 0)
                 getProgram().get(getProgramSize() - 1).setIsTouchable(true);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
-            getFunction().remove(box);
+            getFunction1().remove(box);
+            getFunction2().remove(box);
+
             if (getFunctionSize() > 0)
                 getFunction().get(getFunctionSize() - 1).setIsTouchable(true);
         }
@@ -81,6 +89,21 @@ public class Sequence extends Control<List<Box>> {
 
     @Override
     public Box removeFromFunction() {
-        return getFunction().remove(0);
+        int c = (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
+        if (c == 2)
+            return getFunction2().remove(0);
+        else {
+            return getFunction1().remove(0);
+        }
+    }
+
+    @Override
+    public boolean isFunctionEmpty() {
+        int c = (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
+        if (c == 2)
+            return getFunction2().isEmpty();
+        else {
+            return getFunction1().isEmpty();
+        }
     }
 }

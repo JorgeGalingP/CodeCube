@@ -16,7 +16,8 @@ public class Stack extends Control<java.util.Stack<Box>> {
                  Array<Container> functionControls) {
         super(programButton, functionButton, programControls, functionControls);
         setProgram(new java.util.Stack<>());
-        setFunction(new java.util.Stack<>());
+        setFunction1(new java.util.Stack<>());
+        setFunction2(new java.util.Stack<>());
     }
 
     @Override

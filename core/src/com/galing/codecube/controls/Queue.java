@@ -17,7 +17,8 @@ public class Queue extends Control<ArrayDeque<Box>> {
                  Array<Container> functionControls) {
         super(programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayDeque<>());
-        setFunction(new ArrayDeque<>());
+        setFunction1(new ArrayDeque<>());
+        setFunction2(new ArrayDeque<>());
     }
 
     @Override

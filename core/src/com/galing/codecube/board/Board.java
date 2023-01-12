@@ -293,12 +293,17 @@ public class Board extends Group {
                     playerMoves.add(newPosition);
 
                     // perform sequence of actions
-                    box.addResetPositionAction();
+                    if (gameControl.hasTwoFunctions())
+                        box.addInOutAction();
+                    else
+                        box.addResetPositionAction();
+
                     player.addMovePositionAction(newPosition);
                 } else
                     addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
 
                 inverse = false;
+                break;
             case RIGHT:
             case LEFT:
                 box.addResetPositionAction();

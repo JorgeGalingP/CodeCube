@@ -1,9 +1,11 @@
 package com.galing.codecube.controls;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
@@ -14,6 +16,7 @@ import java.util.Collection;
 public abstract class Control<T extends Collection<Box>> implements Controllable {
     private T program;
     private T function;
+    private T function2;
 
     private final Vector2 programButtonPosition;
     private final int programSize;
@@ -54,8 +57,20 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         return function;
     }
 
-    public void setFunction(T function) {
+    public T getFunction1() {
+        return function;
+    }
+
+    public T getFunction2() {
+        return function2;
+    }
+
+    public void setFunction1(T function) {
         this.function = function;
+    }
+
+    public void setFunction2(T function) {
+        this.function2 = function;
     }
 
     public Array<Container> getProgramControls() {
@@ -88,6 +103,10 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     public int getFunctionSize() {
         return function.size();
+    }
+
+    public boolean hasTwoFunctions() {
+        return (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count() == 2;
     }
 
     public abstract Box getNextBox();
@@ -150,6 +169,9 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                     box.clearControl();
                     box.addResetPositionAction();
                 }
+
+                Gdx.app.log("1", function.toString());
+                Gdx.app.log("2", function2.toString());
             }
 
             @Override
