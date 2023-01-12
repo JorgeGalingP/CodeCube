@@ -21,7 +21,6 @@ import com.galing.codecube.controls.Sequence;
 import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.ContainerType;
-import com.galing.codecube.enums.Difficulty;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
@@ -236,15 +235,15 @@ public class Board extends Group {
             if (!gameControl.isProgramEmpty()) {
                 Box box;
 
-                switch (gameControl.getNextBox().getMovement()) {
-                    case Box.UP:
-                    case Box.RIGHT:
-                    case Box.LEFT:
+                switch (gameControl.getNextBox().getType()) {
+                    case UP:
+                    case RIGHT:
+                    case LEFT:
                         box = gameControl.removeFromProgram();
 
                         handleMovement(box);
                         break;
-                    case Box.FUNCTION:
+                    case FUNCTION:
                         if (!gameControl.isFunctionEmpty()) {
                             box = gameControl.removeFromFunction();
                             handleMovement(box);
@@ -253,7 +252,7 @@ public class Board extends Group {
                             box.addResetPositionAction();
                         }
                         break;
-                    case Box.NEGATION:
+                    case NEGATION:
                         box = gameControl.removeFromProgram();
                         box.addResetPositionAction();
 
@@ -279,8 +278,8 @@ public class Board extends Group {
     }
 
     private void handleMovement(Box box) {
-        switch (box.getMovement()) {
-            case Box.UP:
+        switch (box.getType()) {
+            case UP:
                 Vector2 movement = player.getMovement(box);
                 if (inverse) {
                     movement.x = -movement.x;
@@ -300,14 +299,14 @@ public class Board extends Group {
                     addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
 
                 inverse = false;
-            case Box.RIGHT:
-            case Box.LEFT:
+            case RIGHT:
+            case LEFT:
                 box.addResetPositionAction();
                 player.addRotationAction(box, inverse);
 
                 inverse = false;
                 break;
-            case Box.NEGATION:
+            case NEGATION:
                 box.addResetPositionAction();
                 inverse = !inverse;
                 break;

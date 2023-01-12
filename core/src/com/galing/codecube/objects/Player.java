@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.galing.codecube.AssetManager;
+import com.galing.codecube.enums.BoxType;
 
 public class Player extends Tile {
     public float stateTime;
@@ -38,7 +39,7 @@ public class Player extends Tile {
         Vector2 movementVector = Vector2.Zero;
         int rotation = (int) getRotation();
 
-        if (box.getMovement() == Box.UP) {
+        if (box.getType().equals(BoxType.UP)) {
             switch (rotation) {
                 case 0:
                 case 360:
@@ -66,14 +67,14 @@ public class Player extends Tile {
 
     public void addRotationAction(Box box, boolean inverse) {
         RotateToAction action;
-        switch (box.getMovement()) {
-            case Box.LEFT:
+        switch (box.getType()) {
+            case LEFT:
                 action = Actions.rotateTo((getRotation() + (inverse ? -90f : 90f)) % 360,
                         .25f);
                 action.setUseShortestDirection(true);
                 addAction(action);
                 break;
-            case Box.RIGHT:
+            case RIGHT:
                 action = Actions.rotateTo((getRotation() + (inverse ? 90f : -90f)) % 360,
                         .25f);
                 action.setUseShortestDirection(true);

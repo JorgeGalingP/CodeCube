@@ -28,9 +28,9 @@ public class Sequence extends Control<List<Box>> {
     public void addToProgram(Box box) {
         if (!isProgramEmpty())
             for (Box programBox : this.getProgram())
-                programBox.setNext(false);
+                programBox.setIsTouchable(false);
 
-        box.setNext(true);
+        box.setIsTouchable(true);
         getProgram().add(box);
 
         box.setControlType(ContainerType.PROGRAM);
@@ -44,9 +44,9 @@ public class Sequence extends Control<List<Box>> {
     public void addToFunction(Box box) {
         if (!isFunctionEmpty())
             for (Box programBox : this.getFunction())
-                programBox.setNext(false);
+                programBox.setIsTouchable(false);
 
-        box.setNext(true);
+        box.setIsTouchable(true);
         getFunction().add(box);
 
         box.setControlType(ContainerType.FUNCTION);
@@ -62,11 +62,11 @@ public class Sequence extends Control<List<Box>> {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().remove(box);
             if (getProgramSize() > 0)
-                getProgram().get(getProgramSize() - 1).setNext(true);
+                getProgram().get(getProgramSize() - 1).setIsTouchable(true);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().remove(box);
             if (getFunctionSize() > 0)
-                getFunction().get(getFunctionSize() - 1).setNext(true);
+                getFunction().get(getFunctionSize() - 1).setIsTouchable(true);
         }
 
         // back to start

@@ -29,9 +29,9 @@ public class Queue extends Control<ArrayDeque<Box>> {
     public void addToProgram(Box box) {
         if (!isProgramEmpty())
             for (Box programBox : this.getProgram())
-                programBox.setNext(false);
+                programBox.setIsTouchable(false);
 
-        box.setNext(true);
+        box.setIsTouchable(true);
         getProgram().addLast(box);
 
         box.setControlType(ContainerType.PROGRAM);
@@ -46,9 +46,9 @@ public class Queue extends Control<ArrayDeque<Box>> {
     public void addToFunction(Box box) {
         if (!isFunctionEmpty())
             for (Box programBox : this.getFunction())
-                programBox.setNext(false);
+                programBox.setIsTouchable(false);
 
-        box.setNext(true);
+        box.setIsTouchable(true);
         getFunction().addLast(box);
 
         box.setControlType(ContainerType.FUNCTION);
@@ -64,11 +64,11 @@ public class Queue extends Control<ArrayDeque<Box>> {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().remove(box);
             if (getProgramSize() > 0)
-                getProgram().getLast().setNext(true);
+                getProgram().getLast().setIsTouchable(true);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().remove(box);
             if (getFunctionSize() > 0)
-                getFunction().getLast().setNext(true);
+                getFunction().getLast().setIsTouchable(true);
         }
 
         // back to start

@@ -28,9 +28,9 @@ public class Stack extends Control<java.util.Stack<Box>> {
     public void addToProgram(Box box) {
         if (!isProgramEmpty())
             for (Box programBox : this.getProgram())
-                programBox.setNext(false);
+                programBox.setIsTouchable(false);
 
-        box.setNext(true);
+        box.setIsTouchable(true);
         getProgram().push(box);
 
         box.setControlType(ContainerType.PROGRAM);
@@ -49,9 +49,9 @@ public class Stack extends Control<java.util.Stack<Box>> {
     public void addToFunction(Box box) {
         if (!isFunctionEmpty())
             for (Box programBox : this.getFunction())
-                programBox.setNext(false);
+                programBox.setIsTouchable(false);
 
-        box.setNext(true);
+        box.setIsTouchable(true);
         getFunction().push(box);
 
         box.setControlType(ContainerType.FUNCTION);
@@ -72,11 +72,11 @@ public class Stack extends Control<java.util.Stack<Box>> {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().pop();
             if (getProgramSize() > 0)
-                getProgram().get(getProgramSize() - 1).setNext(true);
+                getProgram().get(getProgramSize() - 1).setIsTouchable(true);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().pop();
             if (getFunctionSize() > 0)
-                getFunction().get(getFunctionSize() - 1).setNext(true);
+                getFunction().get(getFunctionSize() - 1).setIsTouchable(true);
         }
 
         // back to start

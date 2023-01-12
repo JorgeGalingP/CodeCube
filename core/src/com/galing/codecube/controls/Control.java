@@ -109,8 +109,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
                 // only can be moved if is not in the stack or is the peek of it
-                if (box.isNext() == null
-                        || (box.isNext()
+                if (box.getIsTouchable() == null
+                        || (box.getIsTouchable()
                         && (box.getControlType().equals(ContainerType.PROGRAM) || box.getControlType().equals(ContainerType.FUNCTION)))) {
                     box.toFront();
                     box.moveBy(x - box.getWidth() / 2, y - box.getHeight() / 2);
@@ -126,21 +126,22 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && (lastTouch.x <= programButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= programButtonPosition.y - box.getHeight() / 2)
                         && (lastTouch.y <= programButtonPosition.y + 1 + box.getHeight() / 2)
-                        && box.isNext() == null
+                        && box.getIsTouchable() == null
                         && getProgramSize() != programSize) {
                     // push box to the stack
                     addToProgram(box);
-                } else if ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
+                } else if (functionButtonPosition != null
+                        && ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
                         && (lastTouch.x <= functionButtonPosition.x + 1 + box.getWidth() / 2)
                         && (lastTouch.y >= functionButtonPosition.y - box.getHeight() / 2)
                         && (lastTouch.y <= functionButtonPosition.y + 1 + box.getHeight() / 2)
-                        && box.isNext() == null
-                        && getFunctionSize() != functionSize) {
+                        && box.getIsTouchable() == null
+                        && getFunctionSize() != functionSize)) {
                     // push box to the stack
                     addToFunction(box);
-                } else if (box.isNext() != null
+                } else if (box.getIsTouchable() != null
                         && box.getControlType() != null) {
-                    if (box.isNext()) {
+                    if (box.getIsTouchable()) {
                         // pop peek element out of the stack and set back to original position
                         remove(box);
                     }
