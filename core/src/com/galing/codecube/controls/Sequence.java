@@ -8,15 +8,15 @@ import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Stack;
 
 public class Sequence extends Control<List<Box>> {
     public Sequence(Button programButton, Button functionButton, Array<Container> programControls,
                     Array<Container> functionControls) {
         super(programButton, functionButton, programControls, functionControls);
-        setProgram(new Stack<>());
-        setFunction(new Stack<>());
+        setProgram(new ArrayList<>());
+        setFunction(new ArrayList<>());
     }
 
     @Override
