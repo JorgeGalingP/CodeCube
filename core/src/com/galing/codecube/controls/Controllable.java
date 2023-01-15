@@ -22,5 +22,5 @@ public interface Controllable {
 
     void attachDragListener(Box box);
 
-    boolean hasTwoFunctions();
+    boolean hasSeveralFunctions();
 }

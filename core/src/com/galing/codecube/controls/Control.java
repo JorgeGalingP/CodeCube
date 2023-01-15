@@ -81,14 +81,6 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         return functionControls;
     }
 
-    public void setProgramControls(Array<Container> programControls) {
-        this.programControls = programControls;
-    }
-
-    public void setFunctionControls(Array<Container> functionControls) {
-        this.functionControls = functionControls;
-    }
-
     public boolean isProgramEmpty() {
         return program.isEmpty();
     }
@@ -105,8 +97,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         return function.size();
     }
 
-    public boolean hasTwoFunctions() {
-        return (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count() == 2;
+    public boolean hasSeveralFunctions() {
+        return (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count() > 1;
     }
 
     public abstract Box getNextBox();

@@ -113,7 +113,6 @@ public class Board extends Group {
         return state.equals(BoardState.GAME_OVER);
     }
 
-
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -142,6 +141,10 @@ public class Board extends Group {
     public void dispose() {
         tiledRender.getBatch().dispose();
         matrix.dispose();
+    }
+
+    public void resetTarget() {
+        target.addInOutPositionAction(getRandomPosition(true, Player.class));
     }
 
     private void setBoardStateGameOver() {
@@ -292,12 +295,7 @@ public class Board extends Group {
                     // add new move
                     playerMoves.add(newPosition);
 
-                    // perform sequence of actions
-                    if (gameControl.hasTwoFunctions())
-                        box.addInOutAction();
-                    else
-                        box.addResetPositionAction();
-
+                    handleAnimation(box);
                     player.addMovePositionAction(newPosition);
                 } else
                     addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
@@ -306,20 +304,26 @@ public class Board extends Group {
                 break;
             case RIGHT:
             case LEFT:
-                box.addResetPositionAction();
+                handleAnimation(box);
                 player.addRotationAction(box, inverse);
 
                 inverse = false;
                 break;
             case NEGATION:
-                box.addResetPositionAction();
+                handleAnimation(box);
                 inverse = !inverse;
                 break;
         }
     }
 
-    public void resetTarget() {
-        target.addInOutPositionAction(getRandomPosition(true, Player.class));
+    private void handleAnimation(Box box) {
+        if (box.getControlType().equals(ContainerType.FUNCTION)) {
+            if (gameControl.hasSeveralFunctions())
+                box.addInOutAction();
+            else
+                box.addResetPositionAction();
+        } else
+            box.addResetPositionAction();
     }
 
     private Vector2 getRandomPosition() {
