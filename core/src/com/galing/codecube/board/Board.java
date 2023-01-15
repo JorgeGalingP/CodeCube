@@ -34,6 +34,8 @@ import com.galing.codecube.objects.Wall;
 import com.galing.codecube.screens.Screen;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Board extends Group {
 
@@ -155,7 +157,7 @@ public class Board extends Group {
     }
 
     public void resetTarget() {
-        target.addInOutPositionAction(getRandomPosition(true, Player.class));
+        target.addInOutPositionAction(getRandomPosition(Player.class));
     }
 
     private void setBoardStateGameOver() {
@@ -196,7 +198,7 @@ public class Board extends Group {
                                         walls.add(tile);
                                         break;
                                     case "player":
-                                        tile = new Player(getRandomPosition(true, Target.class));
+                                        tile = new Player(getRandomPosition(Target.class));
                                         player = (Player) tile;
                                         break;
                                     case "control":
@@ -227,7 +229,7 @@ public class Board extends Group {
                                             this.numberOfFunctionTiles++;
                                         break;
                                     case "target":
-                                        tile = new Target(getRandomPosition(),
+                                        tile = new Target(getRandomPosition(Arrays.asList(Player.class, Target.class)),
                                                 mapTile.getProperties().get("color").toString());
                                         target = (Target) tile;
                                         break;
@@ -338,19 +340,19 @@ public class Board extends Group {
             box.addResetPositionAction();
     }
 
-    private Vector2 getRandomPosition() {
-        return getRandomPosition(false, null);
+    private Vector2 getRandomPosition(Class<?> type) {
+        return getRandomPosition(Collections.singletonList(type));
     }
 
-    private Vector2 getRandomPosition(boolean exclude, Class<?> type) {
+    private Vector2 getRandomPosition(List<Class<?>> types) {
         Array<Vector2> positions = new Array<>(this.floor.size);
         for (Tile floor : this.floor) {
             positions.add(floor.getCoordinate());
         }
 
-        if (exclude) {
+        if (!types.isEmpty()) {
             for (Actor tile : getChildren())
-                if (tile.getClass().equals(type)) {
+                if (types.contains(tile.getClass())) {
                     int index = positions.indexOf(((Tile) tile).getCoordinate(), false);
                     positions.removeIndex(index);
                 }
