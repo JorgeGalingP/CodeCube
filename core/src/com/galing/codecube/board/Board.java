@@ -49,7 +49,7 @@ public class Board extends Group {
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
-    public BoardState state;
+    private BoardState state;
     private boolean inverse;
 
     private final Array<Tile> floor;

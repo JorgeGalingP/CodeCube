@@ -44,12 +44,8 @@ public class Sequence extends Control<List<Box>> {
 
     @Override
     public void addToFunction(Box box) {
-        if (!isFunctionEmpty()) {
-            for (Box f1Box : this.getFunction1())
-                f1Box.setIsTouchable(false);
-            for (Box f2Box : this.getFunction2())
-                f2Box.setIsTouchable(false);
-        }
+        if (!isFunctionEmpty())
+            this.getFunction().forEach(b -> box.setIsTouchable(false));
 
         box.setIsTouchable(true);
         getFunction1().add(box);

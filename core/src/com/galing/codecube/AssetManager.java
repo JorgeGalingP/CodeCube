@@ -133,8 +133,7 @@ public class AssetManager {
             tileMap = null;
         }
 
-        tileMap =
-                new TmxMapLoader().load("stages/" + type.getType() + "_" + Settings.selectedDifficulty.toString().toLowerCase() +
-                        ".tmx");
+        tileMap = new TmxMapLoader().load("stages/" + type.getType() + "_" +
+                Settings.selectedDifficulty.toString().toLowerCase() + ".tmx");
     }
 }

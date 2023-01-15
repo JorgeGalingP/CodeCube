@@ -18,12 +18,12 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     private T function;
     private T function2;
 
-    private final Vector2 programButtonPosition;
-    private final int programSize;
+    private Vector2 programButtonPosition;
+    private int programSize;
     private Array<Container> programControls;
 
-    private final Vector2 functionButtonPosition;
-    private final int functionSize;
+    private Vector2 functionButtonPosition;
+    private int functionSize;
     private Array<Container> functionControls;
 
     public Control(Button programButton, Button functionButton,
@@ -32,16 +32,15 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         this.programButtonPosition = programButton.getCoordinate();
         this.programSize = programControls.size;
         this.programControls = programControls;
+        this.functionButtonPosition = null;
+        this.functionSize = 0;
+        this.functionControls = null;
 
         if (functionButton != null
                 && functionControls != null) {
             this.functionButtonPosition = functionButton.getCoordinate();
             this.functionSize = functionControls.size;
             this.functionControls = functionControls;
-        } else {
-            this.functionButtonPosition = null;
-            this.functionSize = 0;
-            this.functionControls = null;
         }
     }
 
@@ -161,9 +160,6 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                     box.clearControl();
                     box.addResetPositionAction();
                 }
-
-                Gdx.app.log("1", function.toString());
-                Gdx.app.log("2", function2.toString());
             }
 
             @Override

@@ -4,11 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.galing.codecube.CodeCube;
 import com.galing.codecube.AssetManager;
+import com.galing.codecube.CodeCube;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
-import com.galing.codecube.enums.Difficulty;
 
 public class GameScreen extends Screen {
 
