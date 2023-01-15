@@ -1,6 +1,5 @@
 package com.galing.codecube.controls;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -12,11 +11,11 @@ import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
 import java.util.Collection;
+import java.util.List;
 
 public abstract class Control<T extends Collection<Box>> implements Controllable {
     private T program;
-    private T function;
-    private T function2;
+    private List<T> function;
 
     private Vector2 programButtonPosition;
     private int programSize;
@@ -28,7 +27,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     public Control(Button programButton, Button functionButton,
                    Array<Container> programControls,
-                   Array<Container> functionControls) {
+                   Array<Container> functionControls,
+                   int numberOfFunctionTiles) {
         this.programButtonPosition = programButton.getCoordinate();
         this.programSize = programControls.size;
         this.programControls = programControls;
@@ -36,8 +36,7 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         this.functionSize = 0;
         this.functionControls = null;
 
-        if (functionButton != null
-                && functionControls != null) {
+        if (numberOfFunctionTiles > 0) {
             this.functionButtonPosition = functionButton.getCoordinate();
             this.functionSize = functionControls.size;
             this.functionControls = functionControls;
@@ -52,24 +51,12 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         this.program = program;
     }
 
-    public T getFunction() {
+    public List<T> getFunction() {
         return function;
     }
 
-    public T getFunction1() {
-        return function;
-    }
-
-    public T getFunction2() {
-        return function2;
-    }
-
-    public void setFunction1(T function) {
+    public void setFunction(List<T> function) {
         this.function = function;
-    }
-
-    public void setFunction2(T function) {
-        this.function2 = function;
     }
 
     public Array<Container> getProgramControls() {
@@ -85,7 +72,10 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     }
 
     public boolean isFunctionEmpty() {
-        return function.isEmpty();
+        int count =
+                (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
+
+        return count <= 0 || getFunction().get(count - 1).isEmpty();
     }
 
     public int getProgramSize() {
@@ -93,7 +83,7 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     }
 
     public int getFunctionSize() {
-        return function.size();
+        return function.get(0).size();
     }
 
     public boolean hasSeveralFunctions() {

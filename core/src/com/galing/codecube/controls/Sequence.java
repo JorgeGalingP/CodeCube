@@ -11,14 +11,18 @@ import com.galing.codecube.objects.Container;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Sequence extends Control<List<Box>> {
     public Sequence(Button programButton, Button functionButton, Array<Container> programControls,
-                    Array<Container> functionControls) {
-        super(programButton, functionButton, programControls, functionControls);
+                    Array<Container> functionControls,
+                    int numberOfFunctionTiles) {
+        super(programButton, functionButton, programControls, functionControls, numberOfFunctionTiles);
         setProgram(new ArrayList<>());
-        setFunction1(new ArrayList<>());
-        setFunction2(new ArrayList<>());
+        setFunction(IntStream.range(0, numberOfFunctionTiles)
+                .mapToObj(i -> new ArrayList<Box>())
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -45,11 +49,10 @@ public class Sequence extends Control<List<Box>> {
     @Override
     public void addToFunction(Box box) {
         if (!isFunctionEmpty())
-            this.getFunction().forEach(b -> box.setIsTouchable(false));
+            getFunction().forEach(f -> f.forEach(b -> b.setIsTouchable(false)));
 
         box.setIsTouchable(true);
-        getFunction1().add(box);
-        getFunction2().add(box);
+        getFunction().forEach(f -> f.add(box));
 
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
@@ -58,7 +61,6 @@ public class Sequence extends Control<List<Box>> {
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
 
-
     @Override
     public void remove(Box box) {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
@@ -66,11 +68,10 @@ public class Sequence extends Control<List<Box>> {
             if (getProgramSize() > 0)
                 getProgram().get(getProgramSize() - 1).setIsTouchable(true);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
-            getFunction1().remove(box);
-            getFunction2().remove(box);
+            getFunction().forEach(function -> function.remove(box));
 
             if (getFunctionSize() > 0)
-                getFunction().get(getFunctionSize() - 1).setIsTouchable(true);
+                getFunction().get(0).get(getFunctionSize() - 1).setIsTouchable(true);
         }
 
         // back to start
@@ -85,21 +86,8 @@ public class Sequence extends Control<List<Box>> {
 
     @Override
     public Box removeFromFunction() {
-        int c = (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
-        if (c == 2)
-            return getFunction2().remove(0);
-        else {
-            return getFunction1().remove(0);
-        }
-    }
-
-    @Override
-    public boolean isFunctionEmpty() {
-        int c = (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
-        if (c == 2)
-            return getFunction2().isEmpty();
-        else {
-            return getFunction1().isEmpty();
-        }
+        int count =
+                (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
+        return getFunction().get(count - 1).remove(0);
     }
 }

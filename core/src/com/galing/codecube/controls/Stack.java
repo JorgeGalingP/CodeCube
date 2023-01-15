@@ -5,19 +5,24 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 public class Stack extends Control<java.util.Stack<Box>> {
 
     public Stack(Button programButton, Button functionButton, Array<Container> programControls,
-                 Array<Container> functionControls) {
-        super(programButton, functionButton, programControls, functionControls);
+                 Array<Container> functionControls, int numberOfFunctionTiles) {
+        super(programButton, functionButton, programControls, functionControls, numberOfFunctionTiles);
         setProgram(new java.util.Stack<>());
-        setFunction1(new java.util.Stack<>());
-        setFunction2(new java.util.Stack<>());
+        setFunction(IntStream.range(0, numberOfFunctionTiles)
+                .mapToObj(i -> new java.util.Stack<Box>())
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -49,11 +54,10 @@ public class Stack extends Control<java.util.Stack<Box>> {
     @Override
     public void addToFunction(Box box) {
         if (!isFunctionEmpty())
-            for (Box programBox : this.getFunction())
-                programBox.setIsTouchable(false);
+            getFunction().forEach(f -> f.forEach(b -> b.setIsTouchable(false)));
 
         box.setIsTouchable(true);
-        getFunction().push(box);
+        getFunction().forEach(f -> f.push(box));
 
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
@@ -75,9 +79,10 @@ public class Stack extends Control<java.util.Stack<Box>> {
             if (getProgramSize() > 0)
                 getProgram().get(getProgramSize() - 1).setIsTouchable(true);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
-            getFunction().pop();
+            getFunction().forEach(java.util.Stack::pop);
+
             if (getFunctionSize() > 0)
-                getFunction().get(getFunctionSize() - 1).setIsTouchable(true);
+                getFunction().get(0).get(getFunctionSize() - 1).setIsTouchable(true);
         }
 
         // back to start
@@ -92,6 +97,8 @@ public class Stack extends Control<java.util.Stack<Box>> {
 
     @Override
     public Box removeFromFunction() {
-        return getFunction().pop();
+        int count =
+                (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
+        return getFunction().get(count - 1).pop();
     }
 }

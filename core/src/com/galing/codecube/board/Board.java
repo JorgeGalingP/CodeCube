@@ -20,6 +20,7 @@ import com.galing.codecube.controls.Queue;
 import com.galing.codecube.controls.Sequence;
 import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
@@ -31,6 +32,8 @@ import com.galing.codecube.objects.Target;
 import com.galing.codecube.objects.Tile;
 import com.galing.codecube.objects.Wall;
 import com.galing.codecube.screens.Screen;
+
+import java.util.Arrays;
 
 public class Board extends Group {
 
@@ -58,6 +61,7 @@ public class Board extends Group {
     private Button functionButton;
     private final Array<Container> programControls;
     private final Array<Container> functionControls;
+    private int numberOfFunctionTiles;
 
     private final Controllable gameControl;
 
@@ -83,6 +87,7 @@ public class Board extends Group {
         this.functionButton = null;
         this.programControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.functionControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+        this.numberOfFunctionTiles = 0;
         this.walls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.floor = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
 
@@ -90,14 +95,6 @@ public class Board extends Group {
         initializeLayer("walls");
         initializeLayer("floor");
         initializeLayer("controls");
-
-        // initialize Control
-        if (type.equals(BoardType.STACK))
-            this.gameControl = new Stack(programButton, functionButton, programControls, functionControls);
-        else if (type.equals(BoardType.QUEUE))
-            this.gameControl = new Queue(programButton, functionButton, programControls, functionControls);
-        else
-            this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls);
 
         // initialize matrix on top of board
         this.matrix = new Matrix();
@@ -107,6 +104,20 @@ public class Board extends Group {
         initializeLayer("objects");
         initializeLayer("player");
         initializeLayer("boxes");
+
+        // initialize Control
+        if (type.equals(BoardType.STACK))
+            this.gameControl = new Stack(programButton, functionButton, programControls, functionControls,
+                    numberOfFunctionTiles);
+        else if (type.equals(BoardType.QUEUE))
+            this.gameControl = new Queue(programButton, functionButton, programControls, functionControls,
+                    numberOfFunctionTiles);
+        else
+            this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls,
+                    numberOfFunctionTiles);
+
+        // add drag listener for each box
+        Arrays.stream(this.getChildren().toArray()).filter(a -> a.getClass().equals(Box.class)).forEach(b -> gameControl.attachDragListener((Box) b));
     }
 
     public boolean isGameOver() {
@@ -212,7 +223,8 @@ public class Board extends Group {
                                         tile = new Box(tilePosition,
                                                 mapTile.getProperties().get("variable").toString());
 
-                                        gameControl.attachDragListener((Box) tile);
+                                        if (((Box) tile).getType().equals(BoxType.FUNCTION))
+                                            this.numberOfFunctionTiles++;
                                         break;
                                     case "target":
                                         tile = new Target(getRandomPosition(),

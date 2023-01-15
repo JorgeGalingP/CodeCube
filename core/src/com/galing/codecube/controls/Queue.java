@@ -5,20 +5,24 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
 import java.util.ArrayDeque;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Queue extends Control<ArrayDeque<Box>> {
     public Queue(Button programButton, Button functionButton, Array<Container> programControls,
-                 Array<Container> functionControls) {
-        super(programButton, functionButton, programControls, functionControls);
+                 Array<Container> functionControls, int numberOfFunctionTiles) {
+        super(programButton, functionButton, programControls, functionControls, numberOfFunctionTiles);
         setProgram(new ArrayDeque<>());
-        setFunction1(new ArrayDeque<>());
-        setFunction2(new ArrayDeque<>());
+        setFunction(IntStream.range(0, numberOfFunctionTiles)
+                .mapToObj(i -> new ArrayDeque<Box>())
+                .collect(Collectors.toList()));
     }
 
     @Override
@@ -46,11 +50,10 @@ public class Queue extends Control<ArrayDeque<Box>> {
     @Override
     public void addToFunction(Box box) {
         if (!isFunctionEmpty())
-            for (Box programBox : this.getFunction())
-                programBox.setIsTouchable(false);
+            getFunction().forEach(f -> f.forEach(b -> b.setIsTouchable(false)));
 
         box.setIsTouchable(true);
-        getFunction().addLast(box);
+        getFunction().forEach(f -> f.addLast(box));
 
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
@@ -67,9 +70,10 @@ public class Queue extends Control<ArrayDeque<Box>> {
             if (getProgramSize() > 0)
                 getProgram().getLast().setIsTouchable(true);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
-            getFunction().remove(box);
+            getFunction().forEach(function -> function.remove(box));
+
             if (getFunctionSize() > 0)
-                getFunction().getLast().setIsTouchable(true);
+                getFunction().get(0).getLast().setIsTouchable(true);
         }
 
         // back to start
@@ -88,9 +92,12 @@ public class Queue extends Control<ArrayDeque<Box>> {
 
     @Override
     public Box removeFromFunction() {
-        Box box = getFunction().removeFirst();
-        if (getFunctionSize() > 0)
-            getFunction().forEach(x -> x.addAction(moveTo(x.getX() + 1, x.getY(), .3f)));
+        int count =
+                (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
+        Box box = getFunction().get(count - 1).removeFirst();
+
+        if (getFunctionSize() > 0 && !hasSeveralFunctions())
+            getFunction().forEach(f -> f.forEach(b -> b.addAction(moveTo(b.getX() + 1, b.getY(), .3f))));
 
         return box;
     }
