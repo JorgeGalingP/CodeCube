@@ -20,7 +20,6 @@ import com.galing.codecube.controls.Queue;
 import com.galing.codecube.controls.Sequence;
 import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
-import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
@@ -63,7 +62,6 @@ public class Board extends Group {
     private Button functionButton;
     private final Array<Container> programControls;
     private final Array<Container> functionControls;
-    private int numberOfFunctionTiles;
 
     private final Controllable gameControl;
 
@@ -89,7 +87,6 @@ public class Board extends Group {
         this.functionButton = null;
         this.programControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.functionControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
-        this.numberOfFunctionTiles = 0;
         this.walls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.floor = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
 
@@ -109,14 +106,11 @@ public class Board extends Group {
 
         // initialize Control
         if (type.equals(BoardType.STACK))
-            this.gameControl = new Stack(programButton, functionButton, programControls, functionControls,
-                    numberOfFunctionTiles);
+            this.gameControl = new Stack(programButton, functionButton, programControls, functionControls);
         else if (type.equals(BoardType.QUEUE))
-            this.gameControl = new Queue(programButton, functionButton, programControls, functionControls,
-                    numberOfFunctionTiles);
+            this.gameControl = new Queue(programButton, functionButton, programControls, functionControls);
         else
-            this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls,
-                    numberOfFunctionTiles);
+            this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls);
 
         // add drag listener for each box
         Arrays.stream(this.getChildren().toArray()).filter(a -> a.getClass().equals(Box.class)).forEach(b -> gameControl.attachDragListener((Box) b));
@@ -224,9 +218,6 @@ public class Board extends Group {
                                     case "box":
                                         tile = new Box(tilePosition,
                                                 mapTile.getProperties().get("variable").toString());
-
-                                        if (((Box) tile).getType().equals(BoxType.FUNCTION))
-                                            this.numberOfFunctionTiles++;
                                         break;
                                     case "target":
                                         tile = new Target(getRandomPosition(Arrays.asList(Player.class, Target.class)),
@@ -331,12 +322,10 @@ public class Board extends Group {
     }
 
     private void handleAnimation(Box box) {
-        if (box.getControlType().equals(ContainerType.FUNCTION)) {
-            if (gameControl.hasSeveralFunctions())
-                box.addInOutAction();
-            else
-                box.addResetPositionAction();
-        } else
+        if (box.getControlType().equals(ContainerType.FUNCTION)
+                && gameControl.hasSeveralFunctions())
+            box.addInOutAction();
+        else
             box.addResetPositionAction();
     }
 

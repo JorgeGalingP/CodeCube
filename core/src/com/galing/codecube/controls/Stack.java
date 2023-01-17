@@ -11,18 +11,16 @@ import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
 
 public class Stack extends Control<java.util.Stack<Box>> {
 
     public Stack(Button programButton, Button functionButton, Array<Container> programControls,
-                 Array<Container> functionControls, int numberOfFunctionTiles) {
-        super(programButton, functionButton, programControls, functionControls, numberOfFunctionTiles);
+                 Array<Container> functionControls) {
+        super(programButton, functionButton, programControls, functionControls);
         setProgram(new java.util.Stack<>());
-        setFunction(IntStream.range(0, numberOfFunctionTiles)
-                .mapToObj(i -> new java.util.Stack<Box>())
-                .collect(Collectors.toList()));
+        setFunction(new ArrayList<>());
+        getFunction().add(new java.util.Stack<>());
     }
 
     @Override
@@ -86,7 +84,6 @@ public class Stack extends Control<java.util.Stack<Box>> {
         }
 
         // back to start
-        box.clearControl();
         box.addResetPositionAction();
     }
 

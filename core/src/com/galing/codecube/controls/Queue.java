@@ -12,17 +12,15 @@ import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
 import java.util.ArrayDeque;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
 
 public class Queue extends Control<ArrayDeque<Box>> {
     public Queue(Button programButton, Button functionButton, Array<Container> programControls,
-                 Array<Container> functionControls, int numberOfFunctionTiles) {
-        super(programButton, functionButton, programControls, functionControls, numberOfFunctionTiles);
+                 Array<Container> functionControls) {
+        super(programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayDeque<>());
-        setFunction(IntStream.range(0, numberOfFunctionTiles)
-                .mapToObj(i -> new ArrayDeque<Box>())
-                .collect(Collectors.toList()));
+        setFunction(new ArrayList<>());
+        getFunction().add(new ArrayDeque<>());
     }
 
     @Override
@@ -77,7 +75,6 @@ public class Queue extends Control<ArrayDeque<Box>> {
         }
 
         // back to start
-        box.clearControl();
         box.addResetPositionAction();
     }
 

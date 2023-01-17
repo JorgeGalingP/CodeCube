@@ -1,5 +1,6 @@
 package com.galing.codecube.controls;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
@@ -11,18 +12,14 @@ import com.galing.codecube.objects.Container;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Sequence extends Control<List<Box>> {
     public Sequence(Button programButton, Button functionButton, Array<Container> programControls,
-                    Array<Container> functionControls,
-                    int numberOfFunctionTiles) {
-        super(programButton, functionButton, programControls, functionControls, numberOfFunctionTiles);
+                    Array<Container> functionControls) {
+        super(programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayList<>());
-        setFunction(IntStream.range(0, numberOfFunctionTiles)
-                .mapToObj(i -> new ArrayList<Box>())
-                .collect(Collectors.toList()));
+        setFunction(new ArrayList<>());
+        getFunction().add(new ArrayList<>());
     }
 
     @Override
@@ -32,33 +29,29 @@ public class Sequence extends Control<List<Box>> {
 
     @Override
     public void addToProgram(Box box) {
-        if (!isProgramEmpty())
-            for (Box programBox : this.getProgram())
-                programBox.setIsTouchable(false);
+        pushToProgram(box);
 
-        box.setIsTouchable(true);
         getProgram().add(box);
-
-        box.setControlType(ContainerType.PROGRAM);
-        box.setPushedIdle();
 
         Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
+
+        if (box.getType().equals(BoxType.FUNCTION)
+                && numberOfFunctions() != getFunction().size()) {
+            getFunction().add(new ArrayList<>(getFunction().get(0)));
+        }
     }
 
     @Override
     public void addToFunction(Box box) {
-        if (!isFunctionEmpty())
-            getFunction().forEach(f -> f.forEach(b -> b.setIsTouchable(false)));
+        pushToFunction(box);
 
-        box.setIsTouchable(true);
         getFunction().forEach(f -> f.add(box));
-
-        box.setControlType(ContainerType.FUNCTION);
-        box.setPushedIdle();
 
         Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
+
+        Gdx.app.log("ADD", getFunction() + "");
     }
 
     @Override
@@ -67,21 +60,30 @@ public class Sequence extends Control<List<Box>> {
             getProgram().remove(box);
             if (getProgramSize() > 0)
                 getProgram().get(getProgramSize() - 1).setIsTouchable(true);
+
+            if (box.getType().equals(BoxType.FUNCTION)
+                    && getFunction().size() > 1) {
+                getFunction().remove(getFunction().size() - 1);
+            }
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().forEach(function -> function.remove(box));
 
             if (getFunctionSize() > 0)
-                getFunction().get(0).get(getFunctionSize() - 1).setIsTouchable(true);
+                getFunction().forEach(function -> function.get(getFunctionSize() - 1).setIsTouchable(true));
         }
 
         // back to start
-        box.clearControl();
         box.addResetPositionAction();
     }
 
     @Override
     public Box removeFromProgram() {
-        return getProgram().remove(0);
+        Box box = getProgram().remove(0);
+        if (box.getType().equals(BoxType.FUNCTION)
+                && getFunction().size() > 1) {
+            getFunction().remove(getFunction().size() - 1);
+        }
+        return box;
     }
 
     @Override
