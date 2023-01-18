@@ -1,6 +1,5 @@
 package com.galing.codecube.controls;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
@@ -50,8 +49,6 @@ public class Sequence extends Control<List<Box>> {
 
         Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
-
-        Gdx.app.log("ADD", getFunction() + "");
     }
 
     @Override
@@ -61,10 +58,7 @@ public class Sequence extends Control<List<Box>> {
             if (getProgramSize() > 0)
                 getProgram().get(getProgramSize() - 1).setIsTouchable(true);
 
-            if (box.getType().equals(BoxType.FUNCTION)
-                    && getFunction().size() > 1) {
-                getFunction().remove(getFunction().size() - 1);
-            }
+            removeFunctionMethod(box);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().forEach(function -> function.remove(box));
 
@@ -79,17 +73,13 @@ public class Sequence extends Control<List<Box>> {
     @Override
     public Box removeFromProgram() {
         Box box = getProgram().remove(0);
-        if (box.getType().equals(BoxType.FUNCTION)
-                && getFunction().size() > 1) {
-            getFunction().remove(getFunction().size() - 1);
-        }
+        removeFunctionMethod(box);
+
         return box;
     }
 
     @Override
     public Box removeFromFunction() {
-        int count =
-                (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
-        return getFunction().get(count - 1).remove(0);
+        return getFunction().get(numberOfFunctions() - 1).remove(0);
     }
 }

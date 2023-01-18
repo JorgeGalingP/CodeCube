@@ -17,9 +17,9 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     private T program;
     private List<T> function;
 
-    private Vector2 programButtonPosition;
-    private int programSize;
-    private Array<Container> programControls;
+    private final Vector2 programButtonPosition;
+    private final int programSize;
+    private final Array<Container> programControls;
 
     private Vector2 functionButtonPosition;
     private int functionSize;
@@ -42,6 +42,14 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         }
     }
 
+    public Array<Container> getProgramControls() {
+        return programControls;
+    }
+
+    public Array<Container> getFunctionControls() {
+        return functionControls;
+    }
+
     public T getProgram() {
         return program;
     }
@@ -58,12 +66,17 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         this.function = function;
     }
 
-    public Array<Container> getProgramControls() {
-        return programControls;
+    public int getProgramSize() {
+        return program.size();
     }
 
-    public Array<Container> getFunctionControls() {
-        return functionControls;
+    public int getFunctionSize() {
+        int count = numberOfFunctions();
+
+        if (count > 0)
+            return function.get(count - 1).size();
+
+        return function.get(0).size();
     }
 
     public boolean isProgramEmpty() {
@@ -71,27 +84,12 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     }
 
     public boolean isFunctionEmpty() {
-        int count = (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
+        int count = numberOfFunctions();
 
-        if (count > 0) {
+        if (count > 0)
             return function.get(count - 1).isEmpty();
-        }
 
         return function.get(0).isEmpty();
-    }
-
-    public int getProgramSize() {
-        return program.size();
-    }
-
-    public int getFunctionSize() {
-        int count = (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
-
-        if (count > 0) {
-            return function.get(count - 1).size();
-        }
-
-        return function.get(0).size();
     }
 
     public boolean hasSeveralFunctions() {
@@ -118,6 +116,13 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         box.setIsTouchable(true);
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
+    }
+
+    public void removeFunctionMethod(Box box) {
+        if (box.getType().equals(BoxType.FUNCTION)
+                && getFunction().size() > 1) {
+            getFunction().remove(getFunction().size() - 1);
+        }
     }
 
     public abstract Box getNextBox();
