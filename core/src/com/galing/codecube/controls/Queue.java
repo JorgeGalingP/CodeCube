@@ -30,31 +30,25 @@ public class Queue extends Control<ArrayDeque<Box>> {
 
     @Override
     public void addToProgram(Box box) {
-        if (!isProgramEmpty())
-            for (Box programBox : this.getProgram())
-                programBox.setIsTouchable(false);
+        pushToProgram(box);
 
-        box.setIsTouchable(true);
         getProgram().addLast(box);
-
-        box.setControlType(ContainerType.PROGRAM);
-        box.setPushedIdle();
 
         Vector2 newPosition =
                 getProgramControls().get(getProgramControls().size - getProgramSize()).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
+
+        if (box.getType().equals(BoxType.FUNCTION)
+                && numberOfFunctions() != getFunction().size()) {
+            getFunction().add(new ArrayDeque<>(getFunction().get(0)));
+        }
     }
 
     @Override
     public void addToFunction(Box box) {
-        if (!isFunctionEmpty())
-            getFunction().forEach(f -> f.forEach(b -> b.setIsTouchable(false)));
+        pushToFunction(box);
 
-        box.setIsTouchable(true);
         getFunction().forEach(f -> f.addLast(box));
-
-        box.setControlType(ContainerType.FUNCTION);
-        box.setPushedIdle();
 
         Vector2 newPosition =
                 getFunctionControls().get(getFunctionControls().size - getFunctionSize()).getCoordinate();
@@ -67,6 +61,8 @@ public class Queue extends Control<ArrayDeque<Box>> {
             getProgram().remove(box);
             if (getProgramSize() > 0)
                 getProgram().getLast().setIsTouchable(true);
+
+            removeFunctionMethod(box);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().forEach(function -> function.remove(box));
 
@@ -82,7 +78,9 @@ public class Queue extends Control<ArrayDeque<Box>> {
     public Box removeFromProgram() {
         Box box = getProgram().removeFirst();
         if (getProgramSize() > 0)
-            getProgram().forEach(x -> x.addAction(moveTo(x.getX() + 1, x.getY(), .3f)));
+            getProgram().forEach(this::addSlideAction);
+
+        removeFunctionMethod(box);
 
         return box;
     }
@@ -94,8 +92,12 @@ public class Queue extends Control<ArrayDeque<Box>> {
         Box box = getFunction().get(count - 1).removeFirst();
 
         if (getFunctionSize() > 0 && !hasSeveralFunctions())
-            getFunction().forEach(f -> f.forEach(b -> b.addAction(moveTo(b.getX() + 1, b.getY(), .3f))));
+            getFunction().forEach(f -> f.forEach(this::addSlideAction));
 
         return box;
+    }
+
+    private void addSlideAction(Box box) {
+        box.addAction(moveTo(box.getX() + 1, box.getY(), .3f));
     }
 }
