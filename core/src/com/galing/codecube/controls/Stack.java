@@ -30,44 +30,26 @@ public class Stack extends Control<java.util.Stack<Box>> {
 
     @Override
     public void addToProgram(Box box) {
-        if (!isProgramEmpty())
-            for (Box programBox : this.getProgram())
-                programBox.setIsTouchable(false);
-
-        box.setIsTouchable(true);
+        pushToProgram(box);
         getProgram().push(box);
 
-        box.setControlType(ContainerType.PROGRAM);
-        box.setPushedIdle();
-
         Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
-        MoveToAction action = Actions.action(MoveToAction.class);
-        action.setPosition(newPosition.x, newPosition.y);
-        action.setDuration(.75f);
-        action.setInterpolation(Interpolation.bounceOut);
+        addBounceAction(box, newPosition);
 
-        box.addAction(action);
+        if (box.getType().equals(BoxType.FUNCTION)
+                && numberOfFunctions() != getFunction().size()) {
+            getFunction().add((java.util.Stack<Box>) getFunction().get(0).clone()); // TODO
+        }
     }
 
     @Override
     public void addToFunction(Box box) {
-        if (!isFunctionEmpty())
-            getFunction().forEach(f -> f.forEach(b -> b.setIsTouchable(false)));
+        pushToFunction(box);
 
-        box.setIsTouchable(true);
         getFunction().forEach(f -> f.push(box));
 
-        box.setControlType(ContainerType.FUNCTION);
-        box.setPushedIdle();
-
         Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
-
-        MoveToAction action = Actions.action(MoveToAction.class);
-        action.setPosition(newPosition.x, newPosition.y);
-        action.setDuration(.75f);
-        action.setInterpolation(Interpolation.bounceOut);
-
-        box.addAction(action);
+        addBounceAction(box, newPosition);
     }
 
     @Override
@@ -76,6 +58,8 @@ public class Stack extends Control<java.util.Stack<Box>> {
             getProgram().pop();
             if (getProgramSize() > 0)
                 getProgram().get(getProgramSize() - 1).setIsTouchable(true);
+
+            removeFunctionMethod(box);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().forEach(java.util.Stack::pop);
 
@@ -89,7 +73,10 @@ public class Stack extends Control<java.util.Stack<Box>> {
 
     @Override
     public Box removeFromProgram() {
-        return getProgram().pop();
+        Box box = getProgram().pop();
+        removeFunctionMethod(box);
+
+        return box;
     }
 
     @Override
@@ -97,5 +84,14 @@ public class Stack extends Control<java.util.Stack<Box>> {
         int count =
                 (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
         return getFunction().get(count - 1).pop();
+    }
+
+    private void addBounceAction(Box box, Vector2 position) {
+        MoveToAction action = Actions.action(MoveToAction.class);
+        action.setPosition(position.x, position.y);
+        action.setDuration(.75f);
+        action.setInterpolation(Interpolation.bounceOut);
+
+        box.addAction(action);
     }
 }
