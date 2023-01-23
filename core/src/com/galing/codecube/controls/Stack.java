@@ -37,9 +37,8 @@ public class Stack extends Control<java.util.Stack<Box>> {
         addBounceAction(box, newPosition);
 
         if (box.getType().equals(BoxType.FUNCTION)
-                && numberOfFunctions() != getFunction().size()) {
+                && numberOfFunctions() != getFunction().size())
             getFunction().add((java.util.Stack<Box>) getFunction().get(0).clone()); // TODO
-        }
     }
 
     @Override

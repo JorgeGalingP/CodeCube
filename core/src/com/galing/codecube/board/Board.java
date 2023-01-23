@@ -21,6 +21,7 @@ import com.galing.codecube.controls.Sequence;
 import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.ContainerType;
+import com.galing.codecube.enums.TargetType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
@@ -68,7 +69,7 @@ public class Board extends Group {
     private final Array<Vector2> playerMoves;
 
     private Player player;
-    private Target target;
+    private Target winTarget;
     private final Matrix matrix;
 
     public Board(Stage stage, BoardType type) {
@@ -151,7 +152,7 @@ public class Board extends Group {
     }
 
     public void resetTarget() {
-        target.addInOutPositionAction(getRandomPosition(Player.class));
+        winTarget.addInOutPositionAction(getRandomPosition(Player.class));
     }
 
     private void setBoardStateGameOver() {
@@ -222,7 +223,8 @@ public class Board extends Group {
                                     case "target":
                                         tile = new Target(getRandomPosition(Arrays.asList(Player.class, Target.class)),
                                                 mapTile.getProperties().get("color").toString());
-                                        target = (Target) tile;
+                                        if (((Target) tile).getType().equals(TargetType.WIN))
+                                            winTarget = (Target) tile;
                                         break;
                                 }
 
@@ -275,7 +277,7 @@ public class Board extends Group {
                         && gameControl.isFunctionEmpty()) {
 
                     // check if player is in target's position
-                    if (player.isEqualCoordinate(target.getCoordinate()))
+                    if (player.isEqualCoordinate(winTarget.getCoordinate()))
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::resetTarget)));
                     else
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));

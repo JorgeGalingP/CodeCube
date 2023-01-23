@@ -13,7 +13,7 @@ public class Target extends Tile {
 
         switch (color) {
             case "green":
-                setType(TargetType.SUCCESS);
+                setType(TargetType.WIN);
                 setAtlasRegion(AssetManager.greenTarget);
                 break;
             case "red":
