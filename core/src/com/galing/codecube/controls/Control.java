@@ -35,7 +35,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         this.functionSize = 0;
         this.functionControls = null;
 
-        if (functionControls != null) {
+        if (functionControls != null
+                && !functionControls.isEmpty()) {
             this.functionButtonPosition = functionButton.getCoordinate();
             this.functionSize = functionControls.size;
             this.functionControls = functionControls;
