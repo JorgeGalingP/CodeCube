@@ -70,6 +70,7 @@ public class Board extends Group {
 
     private Player player;
     private Target winTarget;
+    private Array<Target> failTargets;
     private final Matrix matrix;
 
     public Board(Stage stage, BoardType type) {
@@ -90,6 +91,7 @@ public class Board extends Group {
         this.functionControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.walls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.floor = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+        this.failTargets = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
 
         // initialize board and controls layers
         initializeLayer("walls");
@@ -225,6 +227,9 @@ public class Board extends Group {
                                                 mapTile.getProperties().get("color").toString());
                                         if (((Target) tile).getType().equals(TargetType.WIN))
                                             winTarget = (Target) tile;
+                                        else
+                                            failTargets.add((Target) tile);
+
                                         break;
                                 }
 
@@ -272,7 +277,15 @@ public class Board extends Group {
 
                 player.resetStateTime();
 
-                // movement is finished
+                // if player reach fail target
+                for (Target target : failTargets)
+                    if (player.isEqualCoordinate(target.getCoordinate())) {
+                        player.addRemoveAction();
+                        addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
+                    }
+
+
+                // if movement is finished
                 if (gameControl.isProgramEmpty()
                         && gameControl.isFunctionEmpty()) {
 

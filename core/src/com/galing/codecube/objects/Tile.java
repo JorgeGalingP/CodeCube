@@ -50,6 +50,14 @@ public class Tile extends Actor {
         addAction(moveTo(position.x, position.y, .3f));
     }
 
+    public void addRemoveAction() {
+        addAction(Actions.sequence(
+                Actions.scaleTo(1.5f, 1.5f, .3f),
+                Actions.scaleTo(.0f, .0f, .3f),
+                Actions.alpha(0, .1f),
+                Actions.removeActor()));
+    }
+
     public void addResetPositionAction() {
         addAction(moveTo(coordinate.x, coordinate.y, .3f));
     }
