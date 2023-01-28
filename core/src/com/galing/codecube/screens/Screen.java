@@ -22,7 +22,7 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
     public Stage stage;
     public InputMultiplexer inputMultiplexer;
 
-    public Screen(CodeCube game) {
+    public Screen(final CodeCube game) {
         this.game = game;
         this.camera = game.getCamera();
         this.stage = game.getStage();

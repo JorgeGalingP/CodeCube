@@ -93,6 +93,7 @@ public class AssetManager {
         greenNoPressed = atlasUI.findRegion("greenBtnNormal");
         playIcon = atlasUI.findRegion("playBtn");
         backIcon = atlasUI.findRegion("backBtn");
+        pauseIcon = atlasUI.findRegion("pauseBtn");
 
         // Tileset
         dirtFloor = atlasTileset.findRegion("dirtFloor");

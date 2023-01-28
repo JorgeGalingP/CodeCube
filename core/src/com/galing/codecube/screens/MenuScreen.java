@@ -44,8 +44,9 @@ public class MenuScreen extends Screen {
         ImageButton.ImageButtonStyle imageButtonStyle =
                 new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, playIcon, playIcon,
                         playIcon);
-        imageButtonStyle.imageUp.setMinHeight(125f);
+        imageButtonStyle.imageDown.setMinHeight(125f);
         imageButtonStyle.imageUp.setMinWidth(125f);
+        imageButtonStyle.imageChecked.setMinWidth(125f);
         TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
                 squareCircleWindow, new BitmapFont());
 
