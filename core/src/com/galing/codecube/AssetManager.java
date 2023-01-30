@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.enums.BoardType;
 
 public class AssetManager {
@@ -47,6 +49,9 @@ public class AssetManager {
     public static AtlasRegion soundOffIcon;
     public static AtlasRegion toggleOnIcon;
     public static AtlasRegion toggleOffIcon;
+
+    public static ImageButton.ImageButtonStyle pauseButtonStyle;
+    public static ImageButton.ImageButtonStyle debugButtonStyle;
 
     public static AtlasRegion dirtFloor;
     public static AtlasRegion rockFloor;
@@ -94,6 +99,17 @@ public class AssetManager {
         playIcon = atlasUI.findRegion("playBtn");
         backIcon = atlasUI.findRegion("backBtn");
         pauseIcon = atlasUI.findRegion("pauseBtn");
+        trophyIcon = atlasUI.findRegion("trophyIcon");
+
+        // Buttons
+        TextureRegionDrawable bluePressed = new TextureRegionDrawable(AssetManager.bluePressed);
+        TextureRegionDrawable greenNoPressed = new TextureRegionDrawable(AssetManager.greenNoPressed);
+        TextureRegionDrawable pauseIcon = new TextureRegionDrawable(AssetManager.pauseIcon);
+        TextureRegionDrawable trophyIcon = new TextureRegionDrawable(AssetManager.trophyIcon);
+        pauseButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, bluePressed, pauseIcon,
+                pauseIcon, pauseIcon);
+        debugButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, greenNoPressed, trophyIcon,
+                trophyIcon, trophyIcon);
 
         // Tileset
         dirtFloor = atlasTileset.findRegion("dirtFloor");

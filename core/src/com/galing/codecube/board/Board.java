@@ -245,6 +245,11 @@ public class Board extends Group {
         return tiles;
     }
 
+    public void setDebugMode() {
+        this.player.debug = !this.player.debug;
+        this.player.setListener();
+    }
+
     private void movePlayer() {
         if (state == BoardState.RUNNING) {
             if (!gameControl.isProgramEmpty()) {

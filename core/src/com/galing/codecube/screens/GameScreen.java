@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.AssetManager;
 import com.galing.codecube.CodeCube;
@@ -28,6 +27,7 @@ public class GameScreen extends Screen {
     private final Stage stageGame;
 
     private final Button pauseButton;
+    private final Button debugButton;
 
     private final Board board;
 
@@ -49,16 +49,19 @@ public class GameScreen extends Screen {
         board = new Board(stageGame, type);
 
         // initialize buttons
-        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
-        TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
-        TextureRegionDrawable pauseIcon = new TextureRegionDrawable(AssetManager.pauseIcon);
-        ImageButton.ImageButtonStyle imageButtonStyle =
-                new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, pauseIcon, pauseIcon,
-                        pauseIcon);
-        imageButtonStyle.imageDown.setMinHeight(50f);
-        imageButtonStyle.imageUp.setMinWidth(50f);
-        imageButtonStyle.imageChecked.setMinWidth(50f);
-        pauseButton = new ImageButton(imageButtonStyle);
+        ImageButton.ImageButtonStyle pauseButtonStyle =
+                AssetManager.pauseButtonStyle;
+        pauseButtonStyle.imageDown.setMinHeight(50f);
+        pauseButtonStyle.imageUp.setMinWidth(50f);
+        pauseButtonStyle.imageChecked.setMinWidth(50f);
+
+        ImageButton.ImageButtonStyle debugButtonStyle =
+                AssetManager.debugButtonStyle;
+        debugButtonStyle.imageDown.setMinHeight(50f);
+        debugButtonStyle.imageUp.setMinWidth(50f);
+        debugButtonStyle.imageChecked.setMinWidth(50f);
+
+        pauseButton = new ImageButton(pauseButtonStyle);
         pauseButton.setSize(stage.getViewport().getWorldWidth() * .1f,
                 stage.getViewport().getWorldWidth() * .1f);
         pauseButton.setPosition(stage.getViewport().getWorldWidth() - pauseButton.getWidth() - 25,
@@ -70,9 +73,22 @@ public class GameScreen extends Screen {
             }
         });
 
+        debugButton = new ImageButton(debugButtonStyle);
+        debugButton.setSize(stage.getViewport().getWorldWidth() * .1f,
+                stage.getViewport().getWorldWidth() * .1f);
+        debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 35,
+                stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
+        debugButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                board.setDebugMode();
+            }
+        });
+
         // add actors
         stageGame.addActor(board);
         stage.addActor(pauseButton);
+        stage.addActor(debugButton);
 
         setRunning();
     }
@@ -95,6 +111,8 @@ public class GameScreen extends Screen {
 
         pauseButton.setPosition(stage.getViewport().getWorldWidth() - pauseButton.getWidth() - 25,
                 stage.getViewport().getWorldHeight() - pauseButton.getHeight() - 25);
+        debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 35,
+                stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
     }
 
     @Override
@@ -144,6 +162,9 @@ public class GameScreen extends Screen {
     public void setPause() {
         if (state == GameState.RUNNING) {
             state = GameState.PAUSED;
+            Gdx.app.log("GAME_STATE", state.toString());
+        } else if (state == GameState.PAUSED) {
+            state = GameState.RUNNING;
             Gdx.app.log("GAME_STATE", state.toString());
         }
     }

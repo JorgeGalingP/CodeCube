@@ -1,6 +1,7 @@
 package com.galing.codecube.objects;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
@@ -11,28 +12,60 @@ import com.galing.codecube.enums.BoxType;
 public class Player extends Tile {
     public float stateTime;
     public boolean pressed;
+    public boolean debug;
+    public EventListener listener;
 
     public Player(Vector2 coordinate) {
         super(coordinate);
         stateTime = 1f;
         pressed = false;
+        debug = false;
 
         setAtlasRegion(AssetManager.player);
 
-        addListener(new ClickListener() {
+        this.listener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 addAction(Actions.sequence(Actions.run(() -> addInOutAction()),
                         Actions.delay(.5f),
                         Actions.run(() -> pressed = true)));
             }
-        });
+        };
+
+        addListener(this.listener);
     }
 
     @Override
     public void act(float delta) {
         super.act(delta);
         stateTime += delta;
+    }
+
+    public void setListener() {
+        removeListener(this.listener);
+
+        if (debug)
+            this.listener = new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    addAction(Actions.sequence(Actions.run(() -> addInOutAction()),
+                            Actions.delay(.5f),
+                            Actions.run(() -> pressed = true),
+                            Actions.delay(.5f),
+                            Actions.run(() -> pressed = false)));
+                }
+            };
+        else
+            this.listener = new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    addAction(Actions.sequence(Actions.run(() -> addInOutAction()),
+                            Actions.delay(.5f),
+                            Actions.run(() -> pressed = true)));
+                }
+            };
+
+        addListener(this.listener);
     }
 
     public Vector2 getMovement(Box box) {
