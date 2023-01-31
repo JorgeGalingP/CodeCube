@@ -45,6 +45,7 @@ public class AssetManager {
     public static AtlasRegion playIcon;
     public static AtlasRegion homeIcon;
     public static AtlasRegion backIcon;
+    public static AtlasRegion debugIcon;
     public static AtlasRegion soundOnIcon;
     public static AtlasRegion soundOffIcon;
     public static AtlasRegion toggleOnIcon;
@@ -99,17 +100,17 @@ public class AssetManager {
         playIcon = atlasUI.findRegion("playBtn");
         backIcon = atlasUI.findRegion("backBtn");
         pauseIcon = atlasUI.findRegion("pauseBtn");
-        trophyIcon = atlasUI.findRegion("trophyIcon");
+        debugIcon = atlasUI.findRegion("debugIcon");
 
         // Buttons
         TextureRegionDrawable bluePressed = new TextureRegionDrawable(AssetManager.bluePressed);
         TextureRegionDrawable greenNoPressed = new TextureRegionDrawable(AssetManager.greenNoPressed);
         TextureRegionDrawable pauseIcon = new TextureRegionDrawable(AssetManager.pauseIcon);
-        TextureRegionDrawable trophyIcon = new TextureRegionDrawable(AssetManager.trophyIcon);
+        TextureRegionDrawable debugIcon = new TextureRegionDrawable(AssetManager.debugIcon);
         pauseButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, bluePressed, pauseIcon,
                 pauseIcon, pauseIcon);
-        debugButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, greenNoPressed, trophyIcon,
-                trophyIcon, trophyIcon);
+        debugButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, greenNoPressed, debugIcon,
+                debugIcon, debugIcon);
 
         // Tileset
         dirtFloor = atlasTileset.findRegion("dirtFloor");

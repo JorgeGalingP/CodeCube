@@ -1,250 +1,257 @@
 
 UI.png
-size: 1911, 1296
+size: 1912, 1352
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 BG
   rotate: false
-  xy: 2, 782
+  xy: 2, 838
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
 backBtn
   rotate: false
-  xy: 1032, 1038
+  xy: 1032, 1094
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 blueBG
   rotate: false
-  xy: 1292, 6
+  xy: 1651, 578
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 blueBtnNormal
   rotate: false
-  xy: 2, 341
+  xy: 2, 397
   size: 256, 271
   orig: 256, 271
   offset: 0, 0
   index: -1
 blueBtnTapped
   rotate: false
-  xy: 516, 1038
+  xy: 516, 1094
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 blueRectInactive
   rotate: false
-  xy: 1548, 968
+  xy: 1137, 156
   size: 359, 162
   orig: 359, 162
   offset: 0, 0
   index: -1
 blueRectNormal
   rotate: false
-  xy: 516, 616
+  xy: 516, 672
   size: 359, 162
   orig: 359, 162
   offset: 0, 0
   index: -1
 blueRectTapped
   rotate: false
-  xy: 1550, 60
+  xy: 1239, 2
   size: 358, 152
   orig: 358, 152
   offset: 0, 0
   index: -1
 borderCircle
   rotate: false
-  xy: 776, 264
+  xy: 1034, 320
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 circle
   rotate: false
-  xy: 774, 1038
+  xy: 774, 1094
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 closeBtn
   rotate: false
-  xy: 260, 83
+  xy: 260, 139
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 cornerSquare
   rotate: false
-  xy: 1032, 780
+  xy: 518, 156
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 cornerSquare2
   rotate: false
-  xy: 776, 6
+  xy: 1135, 578
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+debugIcon
+  rotate: false
+  xy: 518, 414
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 greenBtnNormal
   rotate: false
-  xy: 2, 68
+  xy: 2, 124
   size: 256, 271
   orig: 256, 271
   offset: 0, 0
   index: -1
 greenBtnTapped
   rotate: false
-  xy: 516, 780
+  xy: 516, 836
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 greenRectNormal
   rotate: false
-  xy: 1548, 804
+  xy: 1498, 156
   size: 359, 162
   orig: 359, 162
   offset: 0, 0
   index: -1
 greenRectTapped
   rotate: false
-  xy: 1550, 368
+  xy: 518, 2
   size: 359, 152
   orig: 359, 152
   offset: 0, 0
   index: -1
 homeBtn
   rotate: false
-  xy: 1290, 1038
+  xy: 1393, 578
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 pauseBtn
   rotate: false
-  xy: 1034, 6
+  xy: 1290, 836
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 playBtn
   rotate: false
-  xy: 774, 780
+  xy: 774, 836
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 rect2
   rotate: false
-  xy: 2, 614
+  xy: 2, 670
   size: 512, 166
   orig: 512, 166
   offset: 0, 0
   index: -1
 roundEdgeRect
   rotate: false
-  xy: 2, 2
+  xy: 2, 58
   size: 256, 64
   orig: 256, 64
   offset: 0, 0
   index: -1
 settingsBtn
   rotate: false
-  xy: 1034, 264
+  xy: 1292, 320
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 shareIcon
   rotate: false
-  xy: 1393, 522
+  xy: 1548, 836
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 soundOffBtn
   rotate: false
-  xy: 877, 522
+  xy: 877, 578
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 soundOnBtn
   rotate: false
-  xy: 1290, 780
+  xy: 1550, 320
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 tickIcon
   rotate: false
-  xy: 518, 358
+  xy: 1032, 836
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 toggleOff
   rotate: false
-  xy: 1651, 667
+  xy: 260, 2
   size: 256, 135
   orig: 256, 135
   offset: 0, 0
   index: -1
 toggleOn
   rotate: false
-  xy: 1651, 530
+  xy: 1599, 19
   size: 256, 135
   orig: 256, 135
   offset: 0, 0
   index: -1
 trophyIcon
   rotate: false
-  xy: 1292, 264
+  xy: 1548, 1094
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 whiteBG
   rotate: false
-  xy: 518, 100
+  xy: 776, 320
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 yellowBtnNormal
   rotate: false
-  xy: 260, 341
+  xy: 260, 397
   size: 256, 271
   orig: 256, 271
   offset: 0, 0
   index: -1
 yellowBtnTapped
   rotate: false
-  xy: 1135, 522
+  xy: 1290, 1094
   size: 256, 256
   orig: 256, 256
   offset: 0, 0
   index: -1
 yellowRectNormal
   rotate: false
-  xy: 1548, 1132
+  xy: 776, 156
   size: 359, 162
   orig: 359, 162
   offset: 0, 0
   index: -1
 yellowRectTapped
   rotate: false
-  xy: 1550, 214
+  xy: 879, 2
   size: 358, 152
   orig: 358, 152
   offset: 0, 0
