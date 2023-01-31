@@ -38,7 +38,7 @@ public class Stack extends Control<java.util.Stack<Box>> {
 
         if (box.getType().equals(BoxType.FUNCTION)
                 && numberOfFunctions() != getFunction().size())
-            getFunction().add((java.util.Stack<Box>) getFunction().get(0).clone()); // TODO
+            getFunction().add((java.util.Stack<Box>) getFunction().get(0).clone());
     }
 
     @Override
@@ -55,15 +55,13 @@ public class Stack extends Control<java.util.Stack<Box>> {
     public void remove(Box box) {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().pop();
-            if (getProgramSize() > 0)
-                getProgram().get(getProgramSize() - 1).setIsTouchable(true);
 
+            handleProgramTouchable();
             removeFunctionMethod(box);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().forEach(java.util.Stack::pop);
 
-            if (getFunctionSize() > 0)
-                getFunction().get(0).get(getFunctionSize() - 1).setIsTouchable(true);
+            handleFunctionTouchable();
         }
 
         // back to start
@@ -73,7 +71,9 @@ public class Stack extends Control<java.util.Stack<Box>> {
     @Override
     public Box removeFromProgram() {
         Box box = getProgram().pop();
+
         removeFunctionMethod(box);
+        handleProgramTouchable();
 
         return box;
     }
@@ -82,7 +82,23 @@ public class Stack extends Control<java.util.Stack<Box>> {
     public Box removeFromFunction() {
         int count =
                 (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
-        return getFunction().get(count - 1).pop();
+
+        Box box = getFunction().get(count - 1).pop();
+        handleFunctionTouchable();
+
+        return box;
+    }
+
+    @Override
+    public void handleProgramTouchable() {
+        if (getProgramSize() > 0)
+            getProgram().get(getProgramSize() - 1).setIsTouchable(true);
+    }
+
+    @Override
+    public void handleFunctionTouchable() {
+        if (getFunctionSize() > 0)
+            getFunction().get(0).get(getFunctionSize() - 1).setIsTouchable(true);
     }
 
     private void addBounceAction(Box box, Vector2 position) {

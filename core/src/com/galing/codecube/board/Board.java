@@ -289,7 +289,6 @@ public class Board extends Group {
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
                     }
 
-
                 // if movement is finished
                 if (gameControl.isProgramEmpty()
                         && gameControl.isFunctionEmpty()) {

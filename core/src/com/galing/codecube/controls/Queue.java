@@ -59,15 +59,13 @@ public class Queue extends Control<ArrayDeque<Box>> {
     public void remove(Box box) {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().remove(box);
-            if (getProgramSize() > 0)
-                getProgram().getLast().setIsTouchable(true);
 
+            handleProgramTouchable();
             removeFunctionMethod(box);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().forEach(function -> function.remove(box));
 
-            if (getFunctionSize() > 0)
-                getFunction().get(0).getLast().setIsTouchable(true);
+            handleFunctionTouchable();
         }
 
         // back to start
@@ -81,6 +79,7 @@ public class Queue extends Control<ArrayDeque<Box>> {
             getProgram().forEach(this::addSlideAction);
 
         removeFunctionMethod(box);
+        handleProgramTouchable();
 
         return box;
     }
@@ -94,7 +93,21 @@ public class Queue extends Control<ArrayDeque<Box>> {
         if (getFunctionSize() > 0 && !hasSeveralFunctions())
             getFunction().forEach(f -> f.forEach(this::addSlideAction));
 
+        handleFunctionTouchable();
+
         return box;
+    }
+
+    @Override
+    public void handleProgramTouchable() {
+        if (getProgramSize() > 0)
+            getProgram().getLast().setIsTouchable(true);
+    }
+
+    @Override
+    public void handleFunctionTouchable() {
+        if (getFunctionSize() > 0)
+            getFunction().get(0).getLast().setIsTouchable(true);
     }
 
     private void addSlideAction(Box box) {

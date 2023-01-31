@@ -55,15 +55,13 @@ public class Sequence extends Control<List<Box>> {
     public void remove(Box box) {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().remove(box);
-            if (getProgramSize() > 0)
-                getProgram().get(getProgramSize() - 1).setIsTouchable(true);
 
+            handleProgramTouchable();
             removeFunctionMethod(box);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
             getFunction().forEach(function -> function.remove(box));
 
-            if (getFunctionSize() > 0)
-                getFunction().forEach(function -> function.get(getFunctionSize() - 1).setIsTouchable(true));
+            handleFunctionTouchable();
         }
 
         // back to start
@@ -74,12 +72,28 @@ public class Sequence extends Control<List<Box>> {
     public Box removeFromProgram() {
         Box box = getProgram().remove(0);
         removeFunctionMethod(box);
+        handleProgramTouchable();
 
         return box;
     }
 
     @Override
     public Box removeFromFunction() {
-        return getFunction().get(numberOfFunctions() - 1).remove(0);
+        Box box = getFunction().get(numberOfFunctions() - 1).remove(0);
+        handleFunctionTouchable();
+
+        return box;
+    }
+
+    @Override
+    public void handleProgramTouchable() {
+        if (getProgramSize() > 0)
+            getProgram().get(getProgramSize() - 1).setIsTouchable(true);
+    }
+
+    @Override
+    public void handleFunctionTouchable() {
+        if (getFunctionSize() > 0)
+            getFunction().forEach(function -> function.get(getFunctionSize() - 1).setIsTouchable(true));
     }
 }

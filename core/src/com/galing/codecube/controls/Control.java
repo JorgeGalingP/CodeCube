@@ -1,5 +1,6 @@
 package com.galing.codecube.controls;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -138,6 +139,10 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     public abstract Box removeFromFunction();
 
+    public abstract void handleProgramTouchable();
+
+    public abstract void handleFunctionTouchable();
+
     public void attachDragListener(Box box) {
         box.addListener(new DragListener() {
             private final Vector2 lastTouch = new Vector2();
@@ -185,6 +190,9 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                     // back to start
                     box.addResetPositionAction();
                 }
+
+                Gdx.app.log("P", getProgram().toString());
+                Gdx.app.log("F", getFunction().toString());
             }
 
             @Override
