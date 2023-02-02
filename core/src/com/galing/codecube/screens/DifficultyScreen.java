@@ -1,6 +1,5 @@
 package com.galing.codecube.screens;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -33,17 +32,10 @@ public class DifficultyScreen extends Screen {
         table.setFillParent(true);
         table.center();
 
-        // set textures
-        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
-        TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
-
         // create buttons
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(blueNoPressed, greenPressed,
-                blueNoPressed, new BitmapFont());
-
-        TextButton easyButton = new TextButton("EASY", buttonStyle);
-        TextButton normalButton = new TextButton("NORMAL", buttonStyle);
-        TextButton hardButton = new TextButton("HARD", buttonStyle);
+        TextButton easyButton = new TextButton("Fácil", AssetManager.fontButtonStyle);
+        TextButton normalButton = new TextButton("Normal", AssetManager.fontButtonStyle);
+        TextButton hardButton = new TextButton("Difícil", AssetManager.fontButtonStyle);
 
         easyButton.addListener(new ClickListener() {
             @Override

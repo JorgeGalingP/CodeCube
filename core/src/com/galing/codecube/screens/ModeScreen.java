@@ -1,6 +1,5 @@
 package com.galing.codecube.screens;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -33,23 +32,14 @@ public class ModeScreen extends Screen {
         table.setFillParent(true);
         table.center();
 
-        // set textures
-        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
-        TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
-        TextureRegionDrawable backIcon = new TextureRegionDrawable(AssetManager.backIcon);
-
         // create buttons
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(blueNoPressed, blueNoPressed,
-                blueNoPressed, new BitmapFont());
-        ImageButton.ImageButtonStyle imageButtonStyle =
-                new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, backIcon, backIcon,
-                        backIcon);
+        ImageButton.ImageButtonStyle imageButtonStyle = AssetManager.backButtonStyle;
         imageButtonStyle.imageUp.setMinHeight(125f);
         imageButtonStyle.imageUp.setMinWidth(125f);
 
-        TextButton sequenceButton = new TextButton("Sequence", buttonStyle);
-        TextButton queueButton = new TextButton("Queue", buttonStyle);
-        TextButton stackButton = new TextButton("Stack", buttonStyle);
+        TextButton sequenceButton = new TextButton("Secuencial", AssetManager.fontButtonStyle);
+        TextButton queueButton = new TextButton("Cola", AssetManager.fontButtonStyle);
+        TextButton stackButton = new TextButton("Pila", AssetManager.fontButtonStyle);
         ImageButton backButton = new ImageButton(imageButtonStyle);
 
         // add listeners to buttons

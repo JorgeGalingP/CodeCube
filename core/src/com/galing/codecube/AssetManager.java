@@ -1,11 +1,15 @@
 package com.galing.codecube;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.enums.BoardType;
 
@@ -14,6 +18,8 @@ public class AssetManager {
 
     public static TextureAtlas atlasTileset;
     public static TextureAtlas atlasUI;
+
+    public static BitmapFont basicFont;
 
     public static AtlasRegion bg;
     public static AtlasRegion blueWindow;
@@ -51,7 +57,10 @@ public class AssetManager {
     public static AtlasRegion toggleOnIcon;
     public static AtlasRegion toggleOffIcon;
 
+    public static TextButton.TextButtonStyle fontButtonStyle;
+    public static ImageButton.ImageButtonStyle playButtonStyle;
     public static ImageButton.ImageButtonStyle pauseButtonStyle;
+    public static ImageButton.ImageButtonStyle backButtonStyle;
     public static ImageButton.ImageButtonStyle debugButtonStyle;
 
     public static AtlasRegion dirtFloor;
@@ -89,6 +98,15 @@ public class AssetManager {
         atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/tileset.atlas"));
         atlasUI = new TextureAtlas(Gdx.files.internal("atlas/UI.atlas"));
 
+        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter basicParameters = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        basicParameters.size = 40;
+        basicParameters.borderColor = Color.BLACK;
+        basicParameters.borderWidth = 1.5f;
+        basicParameters.shadowColor = Color.BLACK;
+        basicParameters.shadowOffsetX = 2;
+        basicFont = fontGenerator.generateFont(basicParameters);
+
         // UI
         bg = atlasUI.findRegion("BG");
         squareCircleWindow = atlasUI.findRegion("rect2");
@@ -104,11 +122,22 @@ public class AssetManager {
 
         // Buttons
         TextureRegionDrawable bluePressed = new TextureRegionDrawable(AssetManager.bluePressed);
+        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
+        TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
         TextureRegionDrawable greenNoPressed = new TextureRegionDrawable(AssetManager.greenNoPressed);
+        TextureRegionDrawable playIcon = new TextureRegionDrawable(AssetManager.playIcon);
         TextureRegionDrawable pauseIcon = new TextureRegionDrawable(AssetManager.pauseIcon);
+        TextureRegionDrawable backIcon = new TextureRegionDrawable(AssetManager.backIcon);
         TextureRegionDrawable debugIcon = new TextureRegionDrawable(AssetManager.debugIcon);
+
+        fontButtonStyle = new TextButton.TextButtonStyle(blueNoPressed,
+                greenPressed, blueNoPressed, basicFont);
+        playButtonStyle = new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, playIcon,
+                playIcon, playIcon);
         pauseButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, bluePressed, pauseIcon,
                 pauseIcon, pauseIcon);
+        backButtonStyle = new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, backIcon,
+                backIcon, backIcon);
         debugButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, greenNoPressed, debugIcon,
                 debugIcon, debugIcon);
 

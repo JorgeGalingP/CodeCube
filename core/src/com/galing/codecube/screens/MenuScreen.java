@@ -1,6 +1,5 @@
 package com.galing.codecube.screens;
 
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -34,25 +33,19 @@ public class MenuScreen extends Screen {
 
         // set textures
         TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
-        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
-        TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
-        TextureRegionDrawable playIcon = new TextureRegionDrawable(AssetManager.playIcon);
 
         // create buttons
-        TextButton.TextButtonStyle buttonStyle = new TextButton.TextButtonStyle(blueNoPressed,
-                greenPressed, blueNoPressed, new BitmapFont());
-        ImageButton.ImageButtonStyle imageButtonStyle =
-                new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, playIcon, playIcon,
-                        playIcon);
-        imageButtonStyle.imageDown.setMinHeight(125f);
-        imageButtonStyle.imageUp.setMinWidth(125f);
-        imageButtonStyle.imageChecked.setMinWidth(125f);
+        ImageButton.ImageButtonStyle playButtonStyle =
+                AssetManager.playButtonStyle;
+        playButtonStyle.imageDown.setMinHeight(125f);
+        playButtonStyle.imageUp.setMinWidth(125f);
+        playButtonStyle.imageChecked.setMinWidth(125f);
         TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, new BitmapFont());
+                squareCircleWindow, AssetManager.basicFont);
 
         TextButton title = new TextButton("Code Cube", squareStyle);
-        ImageButton playButton = new ImageButton(imageButtonStyle);
-        TextButton difficultyButton = new TextButton("Difficulty", buttonStyle);
+        ImageButton playButton = new ImageButton(playButtonStyle);
+        TextButton difficultyButton = new TextButton("DIFICULTAD", AssetManager.fontButtonStyle);
 
         // add listeners to buttons
         playButton.addListener(new ClickListener() {
