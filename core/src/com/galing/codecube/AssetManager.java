@@ -2,6 +2,7 @@ package com.galing.codecube;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
@@ -100,7 +101,9 @@ public class AssetManager {
 
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter basicParameters = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        basicParameters.size = 40;
+        basicParameters.minFilter = Texture.TextureFilter.Linear;
+        basicParameters.magFilter = Texture.TextureFilter.Linear;
+        basicParameters.size = 50;
         basicParameters.borderColor = Color.BLACK;
         basicParameters.borderWidth = 1.5f;
         basicParameters.shadowColor = Color.BLACK;
