@@ -60,7 +60,7 @@ public class AssetManager {
 
     public static TextButton.TextButtonStyle fontButtonStyle;
     public static ImageButton.ImageButtonStyle playButtonStyle;
-    public static ImageButton.ImageButtonStyle pauseButtonStyle;
+    public static ImageButton.ImageButtonStyle homeButtonStyle;
     public static ImageButton.ImageButtonStyle backButtonStyle;
     public static ImageButton.ImageButtonStyle debugButtonStyle;
 
@@ -96,9 +96,11 @@ public class AssetManager {
     public static AtlasRegion player;
 
     public static void load() {
+        // Atlas
         atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/tileset.atlas"));
         atlasUI = new TextureAtlas(Gdx.files.internal("atlas/UI.atlas"));
 
+        // Font
         FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter basicParameters = new FreeTypeFontGenerator.FreeTypeFontParameter();
         basicParameters.minFilter = Texture.TextureFilter.Linear;
@@ -116,6 +118,7 @@ public class AssetManager {
         bluePressed = atlasUI.findRegion("blueBtnTapped");
         blueNoPressed = atlasUI.findRegion("blueBtnNormal");
         playIcon = atlasUI.findRegion("playBtn");
+        homeIcon = atlasUI.findRegion("homeBtn");
         greenPressed = atlasUI.findRegion("greenBtnTapped");
         greenNoPressed = atlasUI.findRegion("greenBtnNormal");
         playIcon = atlasUI.findRegion("playBtn");
@@ -129,6 +132,7 @@ public class AssetManager {
         TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
         TextureRegionDrawable greenNoPressed = new TextureRegionDrawable(AssetManager.greenNoPressed);
         TextureRegionDrawable playIcon = new TextureRegionDrawable(AssetManager.playIcon);
+        TextureRegionDrawable homeIcon = new TextureRegionDrawable(AssetManager.homeIcon);
         TextureRegionDrawable pauseIcon = new TextureRegionDrawable(AssetManager.pauseIcon);
         TextureRegionDrawable backIcon = new TextureRegionDrawable(AssetManager.backIcon);
         TextureRegionDrawable debugIcon = new TextureRegionDrawable(AssetManager.debugIcon);
@@ -137,8 +141,8 @@ public class AssetManager {
                 greenPressed, blueNoPressed, basicFont);
         playButtonStyle = new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, playIcon,
                 playIcon, playIcon);
-        pauseButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, bluePressed, pauseIcon,
-                pauseIcon, pauseIcon);
+        homeButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, bluePressed, homeIcon,
+                homeIcon, homeIcon);
         backButtonStyle = new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, backIcon,
                 backIcon, backIcon);
         debugButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, greenNoPressed, debugIcon,

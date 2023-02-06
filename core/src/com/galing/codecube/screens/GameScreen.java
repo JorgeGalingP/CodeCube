@@ -26,7 +26,7 @@ public class GameScreen extends Screen {
     public GameState state;
     private final Stage stageGame;
 
-    private final Button pauseButton;
+    private final Button homeButton;
     private final Button debugButton;
 
     private final Board board;
@@ -49,11 +49,11 @@ public class GameScreen extends Screen {
         board = new Board(stageGame, type);
 
         // initialize buttons
-        ImageButton.ImageButtonStyle pauseButtonStyle =
-                AssetManager.pauseButtonStyle;
-        pauseButtonStyle.imageDown.setMinHeight(50f);
-        pauseButtonStyle.imageUp.setMinWidth(50f);
-        pauseButtonStyle.imageChecked.setMinWidth(50f);
+        ImageButton.ImageButtonStyle homeButtonStyle =
+                AssetManager.homeButtonStyle;
+        homeButtonStyle.imageDown.setMinHeight(50f);
+        homeButtonStyle.imageUp.setMinWidth(50f);
+        homeButtonStyle.imageChecked.setMinWidth(50f);
 
         ImageButton.ImageButtonStyle debugButtonStyle =
                 AssetManager.debugButtonStyle;
@@ -61,15 +61,15 @@ public class GameScreen extends Screen {
         debugButtonStyle.imageUp.setMinWidth(50f);
         debugButtonStyle.imageChecked.setMinWidth(50f);
 
-        pauseButton = new ImageButton(pauseButtonStyle);
-        pauseButton.setSize(stage.getViewport().getWorldWidth() * .1f,
+        homeButton = new ImageButton(homeButtonStyle);
+        homeButton.setSize(stage.getViewport().getWorldWidth() * .1f,
                 stage.getViewport().getWorldWidth() * .1f);
-        pauseButton.setPosition(stage.getViewport().getWorldWidth() - pauseButton.getWidth() - 25,
-                stage.getViewport().getWorldHeight() - pauseButton.getHeight() - 25);
-        pauseButton.addListener(new ClickListener() {
+        homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
+                stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
+        homeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                setPause();
+                game.setScreen(new ModeScreen(game));
             }
         });
 
@@ -87,7 +87,7 @@ public class GameScreen extends Screen {
 
         // add actors
         stageGame.addActor(board);
-        stage.addActor(pauseButton);
+        stage.addActor(homeButton);
         stage.addActor(debugButton);
 
         setRunning();
@@ -109,8 +109,8 @@ public class GameScreen extends Screen {
             }
         }
 
-        pauseButton.setPosition(stage.getViewport().getWorldWidth() - pauseButton.getWidth() - 25,
-                stage.getViewport().getWorldHeight() - pauseButton.getHeight() - 25);
+        homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
+                stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
         debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 35,
                 stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
     }
