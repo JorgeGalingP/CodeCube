@@ -149,7 +149,8 @@ public class GameScreen extends Screen {
     private void setGameOver() {
         state = GameState.GAME_OVER;
         Gdx.app.log("GAME_STATE", state.toString());
-        Gdx.app.exit();
+        // Gdx.app.exit();
+        game.setScreen(new MenuScreen(game));
     }
 
     public void setRunning() {
