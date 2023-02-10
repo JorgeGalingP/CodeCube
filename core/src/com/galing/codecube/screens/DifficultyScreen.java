@@ -32,10 +32,18 @@ public class DifficultyScreen extends Screen {
         table.setFillParent(true);
         table.center();
 
+        // create label
+        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
+        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
+                squareCircleWindow, AssetManager.basicFont);
+
+        TextButton selectedTitle =
+                new TextButton("Dificultad actual: " + Difficulty.toString(Settings.selectedDifficulty), squareStyle);
+
         // create buttons
-        TextButton easyButton = new TextButton("Fácil", AssetManager.fontButtonStyle);
-        TextButton normalButton = new TextButton("Normal", AssetManager.fontButtonStyle);
-        TextButton hardButton = new TextButton("Difícil", AssetManager.fontButtonStyle);
+        TextButton easyButton = new TextButton(Difficulty.toString(Difficulty.EASY), AssetManager.fontButtonStyle);
+        TextButton normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL), AssetManager.fontButtonStyle);
+        TextButton hardButton = new TextButton(Difficulty.toString(Difficulty.HARD), AssetManager.fontButtonStyle);
 
         easyButton.addListener(new ClickListener() {
             @Override
@@ -63,11 +71,13 @@ public class DifficultyScreen extends Screen {
         table.setBackground(new TextureRegionDrawable(AssetManager.bg));
 
         // add buttons and padding to table
-        table.add(easyButton).width(350).height(200).pad(50);
+        table.add(selectedTitle).padBottom(100);
         table.row();
-        table.add(normalButton).width(350).height(200).pad(50);
+        table.add(easyButton).width(350).height(200).pad(25);
         table.row();
-        table.add(hardButton).width(350).height(200).pad(50);
+        table.add(normalButton).width(350).height(200).pad(25);
+        table.row();
+        table.add(hardButton).width(350).height(200).pad(25);
         table.row();
 
         // add table to stage

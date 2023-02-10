@@ -37,9 +37,10 @@ public class ModeScreen extends Screen {
         imageButtonStyle.imageUp.setMinHeight(125f);
         imageButtonStyle.imageUp.setMinWidth(125f);
 
-        TextButton sequenceButton = new TextButton("Secuencial", AssetManager.fontButtonStyle);
-        TextButton queueButton = new TextButton("Cola", AssetManager.fontButtonStyle);
-        TextButton stackButton = new TextButton("Pila", AssetManager.fontButtonStyle);
+        TextButton sequenceButton = new TextButton(BoardType.toString(BoardType.SEQUENCE),
+                AssetManager.fontButtonStyle);
+        TextButton stackButton = new TextButton(BoardType.toString(BoardType.STACK), AssetManager.fontButtonStyle);
+        TextButton queueButton = new TextButton(BoardType.toString(BoardType.QUEUE), AssetManager.fontButtonStyle);
         ImageButton backButton = new ImageButton(imageButtonStyle);
 
         // add listeners to buttons
@@ -49,16 +50,16 @@ public class ModeScreen extends Screen {
                 game.setScreen(new GameScreen(game, BoardType.SEQUENCE));
             }
         });
-        queueButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new GameScreen(game, BoardType.QUEUE));
-            }
-        });
         stackButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new GameScreen(game, BoardType.STACK));
+            }
+        });
+        queueButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new GameScreen(game, BoardType.QUEUE));
             }
         });
         backButton.addListener(new ClickListener() {
@@ -74,9 +75,9 @@ public class ModeScreen extends Screen {
         // add buttons and padding to table
         table.add(sequenceButton).width(350).height(200).pad(25);
         table.row();
-        table.add(queueButton).width(350).height(200).pad(25);
-        table.row();
         table.add(stackButton).width(350).height(200).pad(25);
+        table.row();
+        table.add(queueButton).width(350).height(200).pad(25);
         table.row();
         table.add(backButton).width(350).height(200).pad(125);
         table.row();

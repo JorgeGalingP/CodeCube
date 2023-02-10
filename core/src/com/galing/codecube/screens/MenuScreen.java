@@ -46,6 +46,7 @@ public class MenuScreen extends Screen {
         TextButton title = new TextButton("Code Cube", squareStyle);
         ImageButton playButton = new ImageButton(playButtonStyle);
         TextButton difficultyButton = new TextButton("DIFICULTAD", AssetManager.fontButtonStyle);
+        TextButton helpButton = new TextButton("¿CÓMO JUGAR?", AssetManager.fontButtonStyle);
 
         // add listeners to buttons
         playButton.addListener(new ClickListener() {
@@ -60,6 +61,12 @@ public class MenuScreen extends Screen {
                 game.setScreen(new DifficultyScreen(game));
             }
         });
+        helpButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                // TODO
+            }
+        });
 
         // add background to table
         table.setBackground(new TextureRegionDrawable(AssetManager.bg));
@@ -67,9 +74,11 @@ public class MenuScreen extends Screen {
         // add buttons and padding to table
         table.add(title).padBottom(150);
         table.row();
-        table.add(playButton).width(350).height(200).pad(50);
+        table.add(playButton).width(350).height(200).pad(25);
         table.row();
-        table.add(difficultyButton).width(350).height(200).pad(50);
+        table.add(difficultyButton).width(350).height(200).pad(25);
+        table.row();
+        table.add(helpButton).width(350).height(200).pad(25);
         table.row();
 
         // add table to stage

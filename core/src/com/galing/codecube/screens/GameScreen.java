@@ -7,17 +7,22 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.AssetManager;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.Settings;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.Difficulty;
 
 public class GameScreen extends Screen {
 
     private enum GameState {
-        RUNNING, PAUSED, GAME_OVER;
+        INIT, RUNNING, PAUSED, GAME_OVER;
     }
 
     public static final int VIEWPORT_WIDTH = 12;
@@ -25,15 +30,19 @@ public class GameScreen extends Screen {
 
     public GameState state;
     private final Stage stageGame;
+    private final BoardType boardType;
 
     private final Button homeButton;
     private final Button debugButton;
 
     private final Board board;
 
-    public GameScreen(final CodeCube game, BoardType type) {
+    private Table initTable;
+
+    public GameScreen(final CodeCube game, BoardType boardType) {
         super(game);
 
+        this.boardType = boardType;
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.update();
@@ -45,8 +54,8 @@ public class GameScreen extends Screen {
         inputMultiplexer.addProcessor(stageGame);
 
         // load board
-        AssetManager.loadMap(type);
-        board = new Board(stageGame, type);
+        AssetManager.loadMap(boardType);
+        board = new Board(stageGame, boardType);
 
         // initialize buttons
         ImageButton.ImageButtonStyle homeButtonStyle =
@@ -64,8 +73,6 @@ public class GameScreen extends Screen {
         homeButton = new ImageButton(homeButtonStyle);
         homeButton.setSize(stage.getViewport().getWorldWidth() * .1f,
                 stage.getViewport().getWorldWidth() * .1f);
-        homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
-                stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
         homeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -76,21 +83,47 @@ public class GameScreen extends Screen {
         debugButton = new ImageButton(debugButtonStyle);
         debugButton.setSize(stage.getViewport().getWorldWidth() * .1f,
                 stage.getViewport().getWorldWidth() * .1f);
-        debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 35,
-                stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
         debugButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 board.setDebugMode();
             }
         });
+    }
 
-        // add actors
-        stageGame.addActor(board);
-        stage.addActor(homeButton);
-        stage.addActor(debugButton);
+    @Override
+    public void show() {
+        setInit();
 
-        setRunning();
+        // create table
+        initTable = new Table();
+        initTable.setFillParent(true);
+        initTable.center();
+
+        // set textures
+        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
+        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
+                squareCircleWindow, AssetManager.basicFont);
+
+        TextButton selectedTitle =
+                new TextButton("Has seleccionado " + BoardType.toString(boardType) + "\n con dificultad " + Difficulty.toString(Settings.selectedDifficulty),
+                        squareStyle);
+        TextButton areYouReadyTitle = new TextButton("¿Estás preparado?", squareStyle);
+        TextButton touchTitle = new TextButton("Pulsa para comenzar el juego.", squareStyle);
+
+        // add background to table
+        initTable.setBackground(new TextureRegionDrawable(AssetManager.bg));
+
+        // add buttons and padding to table
+        initTable.add(selectedTitle).padBottom(25);
+        initTable.row();
+        initTable.add(areYouReadyTitle).padBottom(150);
+        initTable.row();
+        initTable.add(touchTitle).pad(25);
+        initTable.row();
+
+        // add table to stage
+        stage.addActor(initTable);
     }
 
     @Override
@@ -101,18 +134,29 @@ public class GameScreen extends Screen {
 
     @Override
     public void update(float delta) {
-        if (state != GameState.PAUSED) {
-            stageGame.act(delta);
+        if (state == GameState.INIT) {
+            if (Gdx.input.justTouched()) {
+                initTable.remove();
 
-            if (state.equals(GameState.RUNNING) && board.isGameOver()) {
-                setGameOver();
+                // add actors
+                stageGame.addActor(board);
+                stage.addActor(homeButton);
+                stage.addActor(debugButton);
+
+                setRunning();
             }
         }
+        if (state != GameState.INIT && state != GameState.PAUSED) {
+            stageGame.act(delta);
 
-        homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
-                stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
-        debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 35,
-                stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
+            homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
+                    stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
+            debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 35,
+                    stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
+
+            if (state.equals(GameState.RUNNING) && board.isGameOver())
+                setGameOver();
+        }
     }
 
     @Override
@@ -145,17 +189,9 @@ public class GameScreen extends Screen {
         return true;
     }
 
-
-    private void setGameOver() {
-        state = GameState.GAME_OVER;
-        Gdx.app.log("GAME_STATE", state.toString());
-        // Gdx.app.exit();
-        game.setScreen(new MenuScreen(game));
-    }
-
-    public void setRunning() {
+    public void setInit() {
         if (state != GameState.GAME_OVER) {
-            state = GameState.RUNNING;
+            state = GameState.INIT;
             Gdx.app.log("GAME_STATE", state.toString());
         }
     }
@@ -168,5 +204,19 @@ public class GameScreen extends Screen {
             state = GameState.RUNNING;
             Gdx.app.log("GAME_STATE", state.toString());
         }
+    }
+
+    public void setRunning() {
+        if (state != GameState.GAME_OVER) {
+            state = GameState.RUNNING;
+            Gdx.app.log("GAME_STATE", state.toString());
+        }
+    }
+
+    private void setGameOver() {
+        state = GameState.GAME_OVER;
+        Gdx.app.log("GAME_STATE", state.toString());
+        // Gdx.app.exit();
+        game.setScreen(new MenuScreen(game));
     }
 }

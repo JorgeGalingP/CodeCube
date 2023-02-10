@@ -14,5 +14,22 @@ public enum BoardType {
     public String getType() {
         return type;
     }
+
+    public static String toString(BoardType boardType) {
+        String type = "";
+        switch (boardType) {
+            case SEQUENCE:
+                type = "Lista";
+                break;
+            case STACK:
+                type = "Pila";
+                break;
+            case QUEUE:
+                type = "Cola";
+                break;
+        }
+
+        return type;
+    }
 }
 
