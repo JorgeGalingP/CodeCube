@@ -38,7 +38,8 @@ public class DifficultyScreen extends Screen {
                 squareCircleWindow, AssetManager.basicFont);
 
         TextButton selectedTitle =
-                new TextButton("Dificultad actual: " + Difficulty.toString(Settings.selectedDifficulty), squareStyle);
+                new TextButton("Dificultad seleccionada: " + Difficulty.toString(Settings.selectedDifficulty),
+                        squareStyle);
 
         // create buttons
         TextButton easyButton = new TextButton(Difficulty.toString(Difficulty.EASY), AssetManager.fontButtonStyle);
