@@ -15,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.enums.BoardType;
 
 public class AssetManager {
+    com.badlogic.gdx.assets.AssetManager manager;
+
     public static TiledMap tileMap;
 
     public static TextureAtlas atlasTileset;
@@ -95,7 +97,15 @@ public class AssetManager {
 
     public static AtlasRegion player;
 
-    public static void load() {
+    public void load() {
+        // Load
+        manager = new com.badlogic.gdx.assets.AssetManager();
+
+        /*
+        manager.load("atlas/tileset.atlas", TextureAtlas.class);
+        manager.load("atlas/UI.atlas", TextureAtlas.class);
+        //manager.load("fonts/font.ttf", BitmapFont.class);
+        */
         // Atlas
         atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/tileset.atlas"));
         atlasUI = new TextureAtlas(Gdx.files.internal("atlas/UI.atlas"));
@@ -179,6 +189,8 @@ public class AssetManager {
         redButton = atlasTileset.findRegion("redButton");
 
         player = atlasTileset.findRegion("player");
+
+        manager.finishLoading();
     }
 
     public static void loadMap(BoardType type) {
@@ -189,5 +201,9 @@ public class AssetManager {
 
         tileMap = new TmxMapLoader().load("stages/" + type.getType() + "_" +
                 Settings.selectedDifficulty.toString().toLowerCase() + ".tmx");
+    }
+
+    public com.badlogic.gdx.assets.AssetManager getManager() {
+        return manager;
     }
 }

@@ -61,6 +61,7 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
 
     @Override
     public void resize(int width, int height) {
+        camera.setToOrtho(false, width, height);
         stage.getViewport().update(width, height, true);
     }
 

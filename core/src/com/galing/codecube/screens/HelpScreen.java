@@ -1,6 +1,7 @@
 package com.galing.codecube.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -20,9 +21,16 @@ public class HelpScreen extends Screen {
 
     @Override
     public void draw(float delta) {
-        batch.begin();
-        batch.draw(AssetManager.bg, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        batch.end();
+        //Clear screen
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.act();
+        stage.getBatch().begin();
+        stage.getBatch().draw(AssetManager.bg, 0, 0, stage.getWidth(), stage.getHeight());
+        stage.getBatch().end();
+
+        stage.draw();
     }
 
     @Override
@@ -34,8 +42,8 @@ public class HelpScreen extends Screen {
     public void show() {
         // create tables
         Table helpTable = new Table();
-        helpTable.center();
-        helpTable.pad(100).defaults().space(75);
+        helpTable.pad(50).defaults().space(75);
+        helpTable.top();
 
         Table backTable = new Table();
         backTable.setFillParent(true);
@@ -82,7 +90,7 @@ public class HelpScreen extends Screen {
         // create scrollPane
         scrollPane = new ScrollPane(helpTable);
         scrollPane.setFlickScroll(true);
-        scrollPane.setBounds(0, 0, stage.getWidth(), stage.getHeight());
+        scrollPane.setSmoothScrolling(true);
 
         // add table to stage
         stage.addActor(scrollPane);
@@ -93,8 +101,5 @@ public class HelpScreen extends Screen {
     public void resize(int width, int height) {
         super.resize(width, height);
         scrollPane.setBounds(0, 0, stage.getWidth(), stage.getHeight());
-        /*batch.begin();
-        batch.draw(AssetManager.bg, 0, 0, stage.getWidth(), stage.getHeight());
-        batch.end();*/
     }
 }
