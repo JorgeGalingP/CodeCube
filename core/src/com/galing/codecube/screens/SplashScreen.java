@@ -10,8 +10,12 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
@@ -40,12 +44,49 @@ public class SplashScreen extends Screen {
         splashImage.setPosition(stage.getWidth() / 2 - splashImage.getWidth() / 2,
                 stage.getHeight() + splashImage.getHeight());
         splashImage.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
-                parallel(fadeIn(2f, Interpolation.pow5),
-                        scaleTo(2f, 2f, 2.5f, Interpolation.pow5),
+                parallel(fadeIn(2f),
+                        scaleTo(1.75f, 1.75f, 2.25f, Interpolation.swing),
                         moveTo(stage.getWidth() / 2 - splashImage.getWidth() / 2,
                                 stage.getHeight() / 2 - splashImage.getHeight() / 2, 2f, Interpolation.swing)),
-                delay(1f), fadeOut(1.25f), run(() -> game.setScreen(new MenuScreen(game)))));
+                delay(.5f),
+                scaleTo(2.25f, 2.25f, 1.25f, Interpolation.elasticOut),
+                delay(.5f),
+                fadeOut(1.25f),
+                run(this::addTitle)));
 
         stage.addActor(splashImage);
+    }
+
+    private void addTitle() {
+        // set textures
+        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
+
+        // create buttons
+        ImageButton.ImageButtonStyle playButtonStyle =
+                Assets.playButtonStyle;
+        playButtonStyle.imageDown.setMinHeight(125f);
+        playButtonStyle.imageUp.setMinWidth(125f);
+        playButtonStyle.imageChecked.setMinWidth(125f);
+        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
+                squareCircleWindow, Assets.basicFont);
+
+        TextButton title = new TextButton("¡Toca para comenzar!", squareStyle);
+        title.setOrigin(title.getWidth() / 2, title.getHeight() / 2);
+        title.setPosition(stage.getWidth() / 2 - title.getWidth() / 2,
+                stage.getHeight() * 0.1f);
+
+        stage.addActor(title);
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+                game.setScreen(new MenuScreen(game));
+
+                return true;
+            }
+
+        });
     }
 }
