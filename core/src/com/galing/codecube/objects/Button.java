@@ -1,7 +1,7 @@
 package com.galing.codecube.objects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.enums.ContainerType;
 
 public class Button extends Tile {
@@ -12,17 +12,17 @@ public class Button extends Tile {
 
         switch (color) {
             case "green":
-                setAtlasRegion(AssetManager.greenButton);
+                setAtlasRegion(Assets.greenButton);
                 break;
             case "red":
-                setAtlasRegion(AssetManager.redButton);
+                setAtlasRegion(Assets.redButton);
                 break;
             case "blue":
-                setAtlasRegion(AssetManager.blueButton);
+                setAtlasRegion(Assets.blueButton);
                 type = ContainerType.PROGRAM;
                 break;
             case "yellow":
-                setAtlasRegion(AssetManager.yellowButton);
+                setAtlasRegion(Assets.yellowButton);
                 type = ContainerType.FUNCTION;
                 break;
         }

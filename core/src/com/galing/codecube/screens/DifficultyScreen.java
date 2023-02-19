@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.Settings;
 import com.galing.codecube.enums.Difficulty;
@@ -33,18 +33,18 @@ public class DifficultyScreen extends Screen {
         table.center();
 
         // create label
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
+        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
         TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, AssetManager.basicFont);
+                squareCircleWindow, Assets.basicFont);
 
         TextButton selectedTitle =
                 new TextButton("Dificultad seleccionada: " + Difficulty.toString(Settings.selectedDifficulty),
                         squareStyle);
 
         // create buttons
-        TextButton easyButton = new TextButton(Difficulty.toString(Difficulty.EASY), AssetManager.fontButtonStyle);
-        TextButton normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL), AssetManager.fontButtonStyle);
-        TextButton hardButton = new TextButton(Difficulty.toString(Difficulty.HARD), AssetManager.fontButtonStyle);
+        TextButton easyButton = new TextButton(Difficulty.toString(Difficulty.EASY), Assets.fontButtonStyle);
+        TextButton normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL), Assets.fontButtonStyle);
+        TextButton hardButton = new TextButton(Difficulty.toString(Difficulty.HARD), Assets.fontButtonStyle);
 
         easyButton.addListener(new ClickListener() {
             @Override
@@ -69,7 +69,7 @@ public class DifficultyScreen extends Screen {
         });
 
         // add background to table
-        table.setBackground(new TextureRegionDrawable(AssetManager.bg));
+        table.setBackground(new TextureRegionDrawable(Assets.bg));
 
         // add buttons and padding to table
         table.add(selectedTitle).padBottom(100);

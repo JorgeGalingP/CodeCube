@@ -1,7 +1,7 @@
 package com.galing.codecube.objects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 
 public class Floor extends Tile {
 
@@ -10,16 +10,16 @@ public class Floor extends Tile {
 
         switch (subType) {
             case "dirt":
-                setAtlasRegion(AssetManager.dirtFloor);
+                setAtlasRegion(Assets.dirtFloor);
                 break;
             case "rock":
-                setAtlasRegion(AssetManager.rockFloor);
+                setAtlasRegion(Assets.rockFloor);
                 break;
             case "ocean":
-                setAtlasRegion(AssetManager.oceanFloor);
+                setAtlasRegion(Assets.oceanFloor);
                 break;
             case "dessert":
-                setAtlasRegion(AssetManager.dessertFloor);
+                setAtlasRegion(Assets.dessertFloor);
                 break;
         }
     }

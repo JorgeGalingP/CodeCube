@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.enums.BoxType;
 
 public class Player extends Tile {
@@ -21,7 +21,7 @@ public class Player extends Tile {
         pressed = false;
         debug = false;
 
-        setAtlasRegion(AssetManager.player);
+        setAtlasRegion(Assets.player);
 
         this.listener = new ClickListener() {
             @Override

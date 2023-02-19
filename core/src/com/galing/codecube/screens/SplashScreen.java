@@ -13,7 +13,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 
 public class SplashScreen extends Screen {
@@ -33,7 +33,7 @@ public class SplashScreen extends Screen {
 
     @Override
     public void show() {
-        TextureRegionDrawable splashTex = new TextureRegionDrawable(AssetManager.debugIcon);
+        TextureRegionDrawable splashTex = new TextureRegionDrawable(Assets.debugIcon);
 
         Image splashImage = new Image(splashTex);
         splashImage.setOrigin(splashImage.getWidth() / 2, splashImage.getHeight() / 2);

@@ -3,7 +3,7 @@ package com.galing.codecube.objects;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 import com.badlogic.gdx.math.Vector2;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 
@@ -22,23 +22,23 @@ public class Box extends Tile {
         switch (variable) {
             case "up":
                 type = BoxType.UP;
-                setAtlasRegion(AssetManager.greenBox);
+                setAtlasRegion(Assets.greenBox);
                 break;
             case "right":
                 type = BoxType.RIGHT;
-                setAtlasRegion(AssetManager.blueBox);
+                setAtlasRegion(Assets.blueBox);
                 break;
             case "left":
                 type = BoxType.LEFT;
-                setAtlasRegion(AssetManager.redBox);
+                setAtlasRegion(Assets.redBox);
                 break;
             case "negation":
                 type = BoxType.NEGATION;
-                setAtlasRegion(AssetManager.greyBox);
+                setAtlasRegion(Assets.greyBox);
                 break;
             case "function":
                 type = BoxType.FUNCTION;
-                setAtlasRegion(AssetManager.yellowBox);
+                setAtlasRegion(Assets.yellowBox);
                 break;
         }
 

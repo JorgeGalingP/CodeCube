@@ -1,12 +1,16 @@
 package com.galing.codecube;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -14,8 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.enums.BoardType;
 
-public class AssetManager {
-    com.badlogic.gdx.assets.AssetManager manager;
+public class Assets {
+    private final AssetManager manager;
 
     public static TiledMap tileMap;
 
@@ -97,30 +101,57 @@ public class AssetManager {
 
     public static AtlasRegion player;
 
-    public void load() {
-        // Load
-        manager = new com.badlogic.gdx.assets.AssetManager();
+    public Assets(AssetManager manager) {
+        this.manager = manager;
+    }
 
-        /*
+    public void queueAssets() {
+        // load atlas
         manager.load("atlas/tileset.atlas", TextureAtlas.class);
         manager.load("atlas/UI.atlas", TextureAtlas.class);
-        //manager.load("fonts/font.ttf", BitmapFont.class);
-        */
-        // Atlas
-        atlasTileset = new TextureAtlas(Gdx.files.internal("atlas/tileset.atlas"));
-        atlasUI = new TextureAtlas(Gdx.files.internal("atlas/UI.atlas"));
 
-        // Font
-        FreeTypeFontGenerator fontGenerator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/font.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter basicParameters = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        basicParameters.minFilter = Texture.TextureFilter.Linear;
-        basicParameters.magFilter = Texture.TextureFilter.Linear;
-        basicParameters.size = 50;
-        basicParameters.borderColor = Color.BLACK;
-        basicParameters.borderWidth = 1.5f;
-        basicParameters.shadowColor = Color.BLACK;
-        basicParameters.shadowOffsetX = 2;
-        basicFont = fontGenerator.generateFont(basicParameters);
+        // set handle resolver for TMX files as TileMap
+        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+
+        // load stages
+        manager.load("stages/sequence_easy.tmx", TiledMap.class);
+        manager.load("stages/sequence_normal.tmx", TiledMap.class);
+        manager.load("stages/sequence_hard.tmx", TiledMap.class);
+        manager.load("stages/stack_easy.tmx", TiledMap.class);
+        manager.load("stages/stack_normal.tmx", TiledMap.class);
+        manager.load("stages/stack_hard.tmx", TiledMap.class);
+        manager.load("stages/queue_easy.tmx", TiledMap.class);
+        manager.load("stages/queue_normal.tmx", TiledMap.class);
+        manager.load("stages/queue_hard.tmx", TiledMap.class);
+
+        // set handle resolver for TTF files as BitmapFont
+        FileHandleResolver resolver = new InternalFileHandleResolver();
+        manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+
+        // generate basic font
+        FreetypeFontLoader.FreeTypeFontLoaderParameter basicParameters =
+                new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        basicParameters.fontFileName = "fonts/font.ttf";
+        basicParameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
+        basicParameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
+        basicParameters.fontParameters.size = 50;
+        basicParameters.fontParameters.borderColor = Color.BLACK;
+        basicParameters.fontParameters.borderWidth = 1.5f;
+        basicParameters.fontParameters.shadowColor = Color.BLACK;
+        basicParameters.fontParameters.shadowOffsetX = 2;
+
+        // load font
+        manager.load("fonts/font.ttf", BitmapFont.class, basicParameters);
+    }
+
+    public void loadAssets() {
+        // atlas
+        atlasTileset = manager.get("atlas/tileset.atlas", TextureAtlas.class);
+        atlasUI = manager.get("atlas/UI.atlas", TextureAtlas.class);
+
+        // font
+        basicFont = manager.get("fonts/font.ttf", BitmapFont.class);
 
         // UI
         bg = atlasUI.findRegion("BG");
@@ -136,16 +167,16 @@ public class AssetManager {
         pauseIcon = atlasUI.findRegion("pauseBtn");
         debugIcon = atlasUI.findRegion("debugIcon");
 
-        // Buttons
-        TextureRegionDrawable bluePressed = new TextureRegionDrawable(AssetManager.bluePressed);
-        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(AssetManager.blueNoPressed);
-        TextureRegionDrawable greenPressed = new TextureRegionDrawable(AssetManager.greenPressed);
-        TextureRegionDrawable greenNoPressed = new TextureRegionDrawable(AssetManager.greenNoPressed);
-        TextureRegionDrawable playIcon = new TextureRegionDrawable(AssetManager.playIcon);
-        TextureRegionDrawable homeIcon = new TextureRegionDrawable(AssetManager.homeIcon);
-        TextureRegionDrawable pauseIcon = new TextureRegionDrawable(AssetManager.pauseIcon);
-        TextureRegionDrawable backIcon = new TextureRegionDrawable(AssetManager.backIcon);
-        TextureRegionDrawable debugIcon = new TextureRegionDrawable(AssetManager.debugIcon);
+        // buttons
+        TextureRegionDrawable bluePressed = new TextureRegionDrawable(Assets.bluePressed);
+        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(Assets.blueNoPressed);
+        TextureRegionDrawable greenPressed = new TextureRegionDrawable(Assets.greenPressed);
+        TextureRegionDrawable greenNoPressed = new TextureRegionDrawable(Assets.greenNoPressed);
+        TextureRegionDrawable playIcon = new TextureRegionDrawable(Assets.playIcon);
+        TextureRegionDrawable homeIcon = new TextureRegionDrawable(Assets.homeIcon);
+        TextureRegionDrawable pauseIcon = new TextureRegionDrawable(Assets.pauseIcon);
+        TextureRegionDrawable backIcon = new TextureRegionDrawable(Assets.backIcon);
+        TextureRegionDrawable debugIcon = new TextureRegionDrawable(Assets.debugIcon);
 
         fontButtonStyle = new TextButton.TextButtonStyle(blueNoPressed,
                 greenPressed, blueNoPressed, basicFont);
@@ -158,7 +189,7 @@ public class AssetManager {
         debugButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, greenNoPressed, debugIcon,
                 debugIcon, debugIcon);
 
-        // Tileset
+        // tileset
         dirtFloor = atlasTileset.findRegion("dirtFloor");
         rockFloor = atlasTileset.findRegion("rockFloor");
         oceanFloor = atlasTileset.findRegion("oceanFloor");
@@ -189,21 +220,15 @@ public class AssetManager {
         redButton = atlasTileset.findRegion("redButton");
 
         player = atlasTileset.findRegion("player");
-
-        manager.finishLoading();
     }
 
-    public static void loadMap(BoardType type) {
+    public void selectMap(BoardType type) {
         if (tileMap != null) {
             tileMap.dispose();
             tileMap = null;
         }
 
-        tileMap = new TmxMapLoader().load("stages/" + type.getType() + "_" +
-                Settings.selectedDifficulty.toString().toLowerCase() + ".tmx");
-    }
-
-    public com.badlogic.gdx.assets.AssetManager getManager() {
-        return manager;
+        tileMap = manager.get("stages/" + type.getType() + "_" +
+                Settings.selectedDifficulty.toString().toLowerCase() + ".tmx", TiledMap.class);
     }
 }

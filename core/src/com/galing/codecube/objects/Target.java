@@ -1,7 +1,7 @@
 package com.galing.codecube.objects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.enums.TargetType;
 
 public class Target extends Tile {
@@ -14,14 +14,14 @@ public class Target extends Tile {
         switch (color) {
             case "green":
                 setType(TargetType.WIN);
-                setAtlasRegion(AssetManager.greenTarget);
+                setAtlasRegion(Assets.greenTarget);
                 break;
             case "red":
                 setType(TargetType.FAIL);
-                setAtlasRegion(AssetManager.redTarget);
+                setAtlasRegion(Assets.redTarget);
                 break;
             case "white":
-                setAtlasRegion(AssetManager.whiteTarget);
+                setAtlasRegion(Assets.whiteTarget);
                 break;
         }
     }

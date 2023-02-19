@@ -1,7 +1,7 @@
 package com.galing.codecube.objects;
 
 import com.badlogic.gdx.math.Vector2;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 
 public class Wall extends Tile {
 
@@ -10,10 +10,10 @@ public class Wall extends Tile {
 
         switch (subType) {
             case "wood":
-                setAtlasRegion(AssetManager.woodWall);
+                setAtlasRegion(Assets.woodWall);
                 break;
             case "rock":
-                setAtlasRegion(AssetManager.rockWall);
+                setAtlasRegion(Assets.rockWall);
                 break;
         }
 

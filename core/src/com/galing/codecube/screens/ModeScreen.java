@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.BoardType;
 
@@ -33,14 +33,14 @@ public class ModeScreen extends Screen {
         table.center();
 
         // create buttons
-        ImageButton.ImageButtonStyle imageButtonStyle = AssetManager.backButtonStyle;
+        ImageButton.ImageButtonStyle imageButtonStyle = Assets.backButtonStyle;
         imageButtonStyle.imageUp.setMinHeight(125f);
         imageButtonStyle.imageUp.setMinWidth(125f);
 
         TextButton sequenceButton = new TextButton(BoardType.toString(BoardType.SEQUENCE),
-                AssetManager.fontButtonStyle);
-        TextButton stackButton = new TextButton(BoardType.toString(BoardType.STACK), AssetManager.fontButtonStyle);
-        TextButton queueButton = new TextButton(BoardType.toString(BoardType.QUEUE), AssetManager.fontButtonStyle);
+                Assets.fontButtonStyle);
+        TextButton stackButton = new TextButton(BoardType.toString(BoardType.STACK), Assets.fontButtonStyle);
+        TextButton queueButton = new TextButton(BoardType.toString(BoardType.QUEUE), Assets.fontButtonStyle);
         ImageButton backButton = new ImageButton(imageButtonStyle);
 
         // add listeners to buttons
@@ -70,7 +70,7 @@ public class ModeScreen extends Screen {
         });
 
         // add background to table
-        table.setBackground(new TextureRegionDrawable(AssetManager.bg));
+        table.setBackground(new TextureRegionDrawable(Assets.bg));
 
         // add buttons and padding to table
         table.add(sequenceButton).width(350).height(200).pad(25);

@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.controls.Controllable;
 import com.galing.codecube.controls.Queue;
 import com.galing.codecube.controls.Sequence;
@@ -77,7 +77,7 @@ public class Board extends Group {
         // initialize main variables
         this.camera = (OrthographicCamera) stage.getCamera();
         this.viewport = stage.getViewport();
-        this.tiledRender = new OrthogonalTiledMapRenderer(AssetManager.tileMap, UNIT_SCALE);
+        this.tiledRender = new OrthogonalTiledMapRenderer(Assets.tileMap, UNIT_SCALE);
 
         // initialize Board variables
         this.state = BoardState.RUNNING;
@@ -163,7 +163,7 @@ public class Board extends Group {
 
     private Array<Tile> initializeLayer(String layerName) {
         Array<Tile> tiles = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
-        TiledMapTileLayer mapLayer = (TiledMapTileLayer) AssetManager.tileMap.getLayers().get(layerName);
+        TiledMapTileLayer mapLayer = (TiledMapTileLayer) Assets.tileMap.getLayers().get(layerName);
 
         if (mapLayer != null) {
             for (int y = 0; y < NUM_TILES_HEIGHT; y++) {

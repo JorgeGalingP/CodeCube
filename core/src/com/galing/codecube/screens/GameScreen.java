@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.Settings;
 import com.galing.codecube.board.Board;
@@ -54,18 +54,18 @@ public class GameScreen extends Screen {
         inputMultiplexer.addProcessor(stageGame);
 
         // load board
-        AssetManager.loadMap(boardType);
+        game.getAssets().selectMap(boardType);
         board = new Board(stageGame, boardType);
 
         // initialize buttons
         ImageButton.ImageButtonStyle homeButtonStyle =
-                AssetManager.homeButtonStyle;
+                Assets.homeButtonStyle;
         homeButtonStyle.imageDown.setMinHeight(50f);
         homeButtonStyle.imageUp.setMinWidth(50f);
         homeButtonStyle.imageChecked.setMinWidth(50f);
 
         ImageButton.ImageButtonStyle debugButtonStyle =
-                AssetManager.debugButtonStyle;
+                Assets.debugButtonStyle;
         debugButtonStyle.imageDown.setMinHeight(50f);
         debugButtonStyle.imageUp.setMinWidth(50f);
         debugButtonStyle.imageChecked.setMinWidth(50f);
@@ -101,9 +101,9 @@ public class GameScreen extends Screen {
         initTable.center();
 
         // set textures
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
+        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
         TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, AssetManager.basicFont);
+                squareCircleWindow, Assets.basicFont);
 
         TextButton selectedTitle =
                 new TextButton("Has seleccionado " + BoardType.toString(boardType) + "\n con dificultad " + Difficulty.toString(Settings.selectedDifficulty),
@@ -112,7 +112,7 @@ public class GameScreen extends Screen {
         TextButton touchTitle = new TextButton("Pulsa para comenzar el juego.", squareStyle);
 
         // add background to table
-        initTable.setBackground(new TextureRegionDrawable(AssetManager.bg));
+        initTable.setBackground(new TextureRegionDrawable(Assets.bg));
 
         // add buttons and padding to table
         initTable.add(selectedTitle).padBottom(25);

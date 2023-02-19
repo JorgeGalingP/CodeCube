@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 
 public class HelpScreen extends Screen {
@@ -27,7 +27,7 @@ public class HelpScreen extends Screen {
 
         stage.act();
         stage.getBatch().begin();
-        stage.getBatch().draw(AssetManager.bg, 0, 0, stage.getWidth(), stage.getHeight());
+        stage.getBatch().draw(Assets.bg, 0, 0, stage.getWidth(), stage.getHeight());
         stage.getBatch().end();
 
         stage.draw();
@@ -50,7 +50,7 @@ public class HelpScreen extends Screen {
         backTable.bottom();
 
         // create back button
-        ImageButton.ImageButtonStyle imageButtonStyle = AssetManager.backButtonStyle;
+        ImageButton.ImageButtonStyle imageButtonStyle = Assets.backButtonStyle;
         imageButtonStyle.imageUp.setMinHeight(125f);
         imageButtonStyle.imageUp.setMinWidth(125f);
 
@@ -66,9 +66,9 @@ public class HelpScreen extends Screen {
         backTable.row();
 
         // set textures
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
+        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
         TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, AssetManager.basicFont);
+                squareCircleWindow, Assets.basicFont);
 
         TextButton one = new TextButton("Lorem ipsum dolor sit amet,\n consectetur adipiscing elit,\n sed do eiusmod " +
                 "tempor incididunt ut labore et dolore magna aliqua.", squareStyle);

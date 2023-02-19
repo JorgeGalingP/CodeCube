@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.galing.codecube.AssetManager;
+import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 
 public class MenuScreen extends Screen {
@@ -32,21 +32,21 @@ public class MenuScreen extends Screen {
         table.center();
 
         // set textures
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(AssetManager.squareCircleWindow);
+        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
 
         // create buttons
         ImageButton.ImageButtonStyle playButtonStyle =
-                AssetManager.playButtonStyle;
+                Assets.playButtonStyle;
         playButtonStyle.imageDown.setMinHeight(125f);
         playButtonStyle.imageUp.setMinWidth(125f);
         playButtonStyle.imageChecked.setMinWidth(125f);
         TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, AssetManager.basicFont);
+                squareCircleWindow, Assets.basicFont);
 
         TextButton title = new TextButton("Code Cube", squareStyle);
         ImageButton playButton = new ImageButton(playButtonStyle);
-        TextButton difficultyButton = new TextButton("DIFICULTAD", AssetManager.fontButtonStyle);
-        TextButton helpButton = new TextButton("¿CÓMO JUGAR?", AssetManager.fontButtonStyle);
+        TextButton difficultyButton = new TextButton("DIFICULTAD", Assets.fontButtonStyle);
+        TextButton helpButton = new TextButton("¿CÓMO JUGAR?", Assets.fontButtonStyle);
 
         // add listeners to buttons
         playButton.addListener(new ClickListener() {
@@ -69,7 +69,7 @@ public class MenuScreen extends Screen {
         });
 
         // add background to table
-        table.setBackground(new TextureRegionDrawable(AssetManager.bg));
+        table.setBackground(new TextureRegionDrawable(Assets.bg));
 
         // add buttons and padding to table
         table.add(title).padBottom(150);
