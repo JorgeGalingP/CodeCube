@@ -3,7 +3,6 @@ package com.galing.codecube.screens;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeOut;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
@@ -13,6 +12,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -50,14 +50,12 @@ public class SplashScreen extends Screen {
                                 stage.getHeight() / 2 - splashImage.getHeight() / 2, 2f, Interpolation.swing)),
                 delay(.5f),
                 scaleTo(2.25f, 2.25f, 1.25f, Interpolation.elasticOut),
-                delay(.5f),
-                fadeOut(1.25f),
-                run(this::addTitle)));
+                run(this::addTapToStartTitle)));
 
         stage.addActor(splashImage);
     }
 
-    private void addTitle() {
+    private void addTapToStartTitle() {
         // set textures
         TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
 
@@ -74,6 +72,10 @@ public class SplashScreen extends Screen {
         title.setOrigin(title.getWidth() / 2, title.getHeight() / 2);
         title.setPosition(stage.getWidth() / 2 - title.getWidth() / 2,
                 stage.getHeight() * 0.1f);
+        title.setColor(title.getColor().r, title.getColor().g, title.getColor().b, 0);
+        title.addAction(Actions.parallel(
+                Actions.scaleTo(1f, 1f, 1.5f),
+                Actions.alpha(1, 1.5f)));
 
         stage.addActor(title);
 

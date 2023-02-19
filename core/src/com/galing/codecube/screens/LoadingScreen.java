@@ -37,16 +37,17 @@ public class LoadingScreen extends Screen {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(Color.BLACK);
-        shapeRenderer.rect(32, camera.viewportHeight / 2 - 8, camera.viewportWidth - 64, 16);
+        shapeRenderer.rect(32, stage.getHeight() / 2 - 8, stage.getWidth() - 64, 16);
 
         shapeRenderer.setColor(Color.BLUE);
-        shapeRenderer.rect(32, camera.viewportHeight / 2 - 8,
-                game.getAssetManager().getProgress() * (camera.viewportWidth - 64), 16);
+        shapeRenderer.rect(32, stage.getHeight() / 2 - 8,
+                game.getAssetManager().getProgress() * (stage.getWidth() - 64), 16);
         shapeRenderer.end();
     }
 
     @Override
     public void show() {
+        shapeRenderer.setProjectionMatrix(camera.combined);
         game.getAssets().queueAssets();
     }
 
