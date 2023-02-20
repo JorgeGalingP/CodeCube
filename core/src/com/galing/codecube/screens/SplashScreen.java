@@ -73,22 +73,18 @@ public class SplashScreen extends Screen {
         title.setPosition(stage.getWidth() / 2 - title.getWidth() / 2,
                 stage.getHeight() * 0.1f);
         title.setColor(title.getColor().r, title.getColor().g, title.getColor().b, 0);
-        title.addAction(Actions.parallel(
-                Actions.scaleTo(1f, 1f, 1.5f),
-                Actions.alpha(1, 1.5f)));
+        title.addAction(Actions.parallel(Actions.alpha(1, 1.5f), run(() ->
+                Gdx.input.setInputProcessor(new InputAdapter() {
+                    @Override
+                    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                        game.setScreen(new MenuScreen(game));
+                        return true;
+                    }
+                })
+        )));
 
         stage.addActor(title);
 
-        Gdx.input.setInputProcessor(new InputAdapter() {
 
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
-                game.setScreen(new MenuScreen(game));
-
-                return true;
-            }
-
-        });
     }
 }
