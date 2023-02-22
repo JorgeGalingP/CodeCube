@@ -199,7 +199,7 @@ public class Assets {
         woodWall = atlasTileset.findRegion("woodWall");
 
         blueBox = atlasTileset.findRegion("blueBox");
-        yellowBox = atlasTileset.findRegion("yellowSquareBox");
+        yellowBox = atlasTileset.findRegion("yellowBox");
         greenBox = atlasTileset.findRegion("greenBox");
         redBox = atlasTileset.findRegion("redBox");
         greyBox = atlasTileset.findRegion("greyBox");
