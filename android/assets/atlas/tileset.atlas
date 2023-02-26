@@ -1,6 +1,6 @@
 
 tileset.png
-size: 332, 268
+size: 332, 466
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
@@ -11,128 +11,233 @@ blueBox
   orig: 64, 64
   offset: 0, 0
   index: -1
-blueButton
+boardCornerBottomLeft
   rotate: false
   xy: 67, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-blueControl
+boardCornerBottomRight
   rotate: false
   xy: 133, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dessertFloor
+boardCornerTopLeft
   rotate: false
   xy: 199, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dirtFloor
+boardCornerTopRight
   rotate: false
   xy: 265, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-greenBox
+boardLaneBottom
   rotate: false
   xy: 1, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-greenTarget
+boardLaneLeft
   rotate: false
   xy: 67, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-greyBox
+boardLaneRight
   rotate: false
   xy: 133, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-oceanFloor
+boardLaneTop
   rotate: false
   xy: 199, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-player
+button
   rotate: false
   xy: 265, 69
-  size: 64, 62
-  orig: 64, 62
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
-redBox
+buttonFunction
   rotate: false
   xy: 1, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-redTarget
+buttonFunctionVertical
   rotate: false
   xy: 67, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-rockFloor
+buttonVertical
   rotate: false
   xy: 133, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-rockWall
+control
   rotate: false
   xy: 199, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-whiteTarget
+controlFinal
   rotate: false
   xy: 265, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-woodWall
+controlFinalVertical
   rotate: false
   xy: 1, 201
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-yellowBox
+controlFunction
   rotate: false
   xy: 67, 201
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-yellowButton
+controlFunctionFinal
   rotate: false
   xy: 133, 201
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-yellowControl
+controlFunctionFinalVertical
   rotate: false
   xy: 199, 201
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+controlFunctionVertical
+  rotate: false
+  xy: 265, 201
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+controlVertical
+  rotate: false
+  xy: 1, 267
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dessertFloor
+  rotate: false
+  xy: 67, 267
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+dirtFloor
+  rotate: false
+  xy: 133, 267
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+greenBox
+  rotate: false
+  xy: 199, 267
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+greenTarget
+  rotate: false
+  xy: 265, 267
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+greyBox
+  rotate: false
+  xy: 1, 333
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+oceanFloor
+  rotate: false
+  xy: 67, 333
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+player
+  rotate: false
+  xy: 133, 333
+  size: 64, 62
+  orig: 64, 62
+  offset: 0, 0
+  index: -1
+redBox
+  rotate: false
+  xy: 199, 333
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+redTarget
+  rotate: false
+  xy: 265, 333
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+rockFloor
+  rotate: false
+  xy: 1, 399
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+rockWall
+  rotate: false
+  xy: 67, 399
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+whiteTarget
+  rotate: false
+  xy: 133, 399
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+yellowBox
+  rotate: false
+  xy: 199, 399
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

@@ -75,8 +75,24 @@ public class Assets {
     public static AtlasRegion oceanFloor;
     public static AtlasRegion dessertFloor;
 
+    public static AtlasRegion boardCornerTopLeft;
+    public static AtlasRegion boardCornerTopRight;
+    public static AtlasRegion boardCornerBottomLeft;
+    public static AtlasRegion boardCornerBottomRight;
+    public static AtlasRegion boardLaneLeft;
+    public static AtlasRegion boardLaneRight;
+    public static AtlasRegion boardLaneBottom;
+    public static AtlasRegion boardLaneTop;
     public static AtlasRegion rockWall;
-    public static AtlasRegion woodWall;
+
+    public static AtlasRegion cornerTopLeft;
+    public static AtlasRegion cornerTopRight;
+    public static AtlasRegion cornerBottomLeft;
+    public static AtlasRegion cornerBottomRight;
+    public static AtlasRegion laneLeft;
+    public static AtlasRegion laneRight;
+    public static AtlasRegion laneBottom;
+    public static AtlasRegion laneTop;
 
     public static AtlasRegion greenBox;
     public static AtlasRegion blueBox;
@@ -89,15 +105,19 @@ public class Assets {
     public static AtlasRegion redTarget;
     public static AtlasRegion whiteTarget;
 
-    public static AtlasRegion greenControl;
-    public static AtlasRegion blueControl;
-    public static AtlasRegion redControl;
-    public static AtlasRegion yellowControl;
+    public static AtlasRegion control;
+    public static AtlasRegion controlVertical;
+    public static AtlasRegion controlFinal;
+    public static AtlasRegion controlFinalVertical;
+    public static AtlasRegion controlFunction;
+    public static AtlasRegion controlFunctionVertical;
+    public static AtlasRegion controlFunctionFinal;
+    public static AtlasRegion controlFunctionFinalVertical;
 
-    public static AtlasRegion greenButton;
-    public static AtlasRegion blueButton;
-    public static AtlasRegion redButton;
-    public static AtlasRegion yellowButton;
+    public static AtlasRegion button;
+    public static AtlasRegion buttonVertical;
+    public static AtlasRegion buttonFunction;
+    public static AtlasRegion buttonFunctionVertical;
 
     public static AtlasRegion player;
 
@@ -195,8 +215,24 @@ public class Assets {
         oceanFloor = atlasTileset.findRegion("oceanFloor");
         dessertFloor = atlasTileset.findRegion("dessertFloor");
 
+        boardCornerTopLeft = atlasTileset.findRegion("boardCornerTopLeft");
+        boardCornerTopRight = atlasTileset.findRegion("boardCornerTopRight");
+        boardCornerBottomLeft = atlasTileset.findRegion("boardCornerBottomLeft");
+        boardCornerBottomRight = atlasTileset.findRegion("boardCornerBottomRight");
+        boardLaneLeft = atlasTileset.findRegion("boardLaneLeft");
+        boardLaneTop = atlasTileset.findRegion("boardLaneTop");
+        boardLaneRight = atlasTileset.findRegion("boardLaneRight");
+        boardLaneBottom = atlasTileset.findRegion("boardLaneBottom");
+
+        cornerTopLeft = atlasTileset.findRegion("cornerTopLeft");
+        cornerTopRight = atlasTileset.findRegion("cornerTopRight");
+        cornerBottomLeft = atlasTileset.findRegion("cornerBottomLeft");
+        cornerBottomRight = atlasTileset.findRegion("cornerBottomRight");
+        laneLeft = atlasTileset.findRegion("laneLeft");
+        laneTop = atlasTileset.findRegion("laneTop");
+        laneRight = atlasTileset.findRegion("laneRight");
+        laneBottom = atlasTileset.findRegion("laneBottom");
         rockWall = atlasTileset.findRegion("rockWall");
-        woodWall = atlasTileset.findRegion("woodWall");
 
         blueBox = atlasTileset.findRegion("blueBox");
         yellowBox = atlasTileset.findRegion("yellowBox");
@@ -209,15 +245,19 @@ public class Assets {
         redTarget = atlasTileset.findRegion("redTarget");
         whiteTarget = atlasTileset.findRegion("whiteTarget");
 
-        blueControl = atlasTileset.findRegion("blueControl");
-        yellowControl = atlasTileset.findRegion("yellowControl");
-        greenControl = atlasTileset.findRegion("greenControl");
-        redControl = atlasTileset.findRegion("redControl");
+        control = atlasTileset.findRegion("control");
+        controlVertical = atlasTileset.findRegion("controlVertical");
+        controlFinal = atlasTileset.findRegion("controlFinal");
+        controlFinalVertical = atlasTileset.findRegion("controlFinalVertical");
+        controlFunction = atlasTileset.findRegion("controlFunction");
+        controlFunctionVertical = atlasTileset.findRegion("controlFunctionVertical");
+        controlFunctionFinal = atlasTileset.findRegion("controlFunctionFinal");
+        controlFunctionFinalVertical = atlasTileset.findRegion("controlFunctionFinalVertical");
 
-        blueButton = atlasTileset.findRegion("blueButton");
-        yellowButton = atlasTileset.findRegion("yellowButton");
-        greenButton = atlasTileset.findRegion("greenButton");
-        redButton = atlasTileset.findRegion("redButton");
+        button = atlasTileset.findRegion("button");
+        buttonVertical = atlasTileset.findRegion("buttonVertical");
+        buttonFunction = atlasTileset.findRegion("buttonFunction");
+        buttonFunctionVertical = atlasTileset.findRegion("buttonFunctionVertical");
 
         player = atlasTileset.findRegion("player");
     }

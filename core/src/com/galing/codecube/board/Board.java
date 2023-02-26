@@ -58,7 +58,6 @@ public class Board extends Group {
     private boolean inverse;
 
     private final Array<Tile> floor;
-    private final Array<Tile> walls;
     private Button programButton;
     private Button functionButton;
     private final Array<Container> programControls;
@@ -70,7 +69,7 @@ public class Board extends Group {
 
     private Player player;
     private Target winTarget;
-    private Array<Target> failTargets;
+    private final Array<Target> failTargets;
     private final Matrix matrix;
 
     public Board(Stage stage, BoardType type) {
@@ -89,7 +88,6 @@ public class Board extends Group {
         this.functionButton = null;
         this.programControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.functionControls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
-        this.walls = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.floor = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
         this.failTargets = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
 
@@ -191,8 +189,6 @@ public class Board extends Group {
                                     case "wall":
                                         tile = new Wall(tilePosition,
                                                 mapTile.getProperties().get("subtype").toString());
-
-                                        walls.add(tile);
                                         break;
                                     case "player":
                                         tile = new Player(getRandomPosition(Target.class));
@@ -200,23 +196,26 @@ public class Board extends Group {
                                         break;
                                     case "control":
                                         tile = new Container(tilePosition,
-                                                mapTile.getProperties().get("color").toString());
+                                                mapTile.getProperties().get("container").toString(),
+                                                mapTile.getProperties().get("direction").toString(),
+                                                Boolean.parseBoolean(mapTile.getProperties().get("isFinal").toString()));
 
                                         if (((Container) tile).getType() == ContainerType.PROGRAM)
-                                            this.programControls.add((Container) tile);
+                                            programControls.add((Container) tile);
 
                                         if (((Container) tile).getType() == ContainerType.FUNCTION)
-                                            this.functionControls.add((Container) tile);
+                                            functionControls.add((Container) tile);
                                         break;
                                     case "button":
                                         tile = new Button(tilePosition,
-                                                mapTile.getProperties().get("color").toString());
+                                                mapTile.getProperties().get("container").toString(),
+                                                mapTile.getProperties().get("direction").toString());
 
                                         if (((Button) tile).getType() == ContainerType.PROGRAM)
-                                            this.programButton = (Button) tile;
+                                            programButton = (Button) tile;
 
                                         if (((Button) tile).getType() == ContainerType.FUNCTION)
-                                            this.functionButton = (Button) tile;
+                                            functionButton = (Button) tile;
                                         break;
                                     case "box":
                                         tile = new Box(tilePosition,
@@ -229,7 +228,6 @@ public class Board extends Group {
                                             winTarget = (Target) tile;
                                         else
                                             failTargets.add((Target) tile);
-
                                         break;
                                 }
 
@@ -322,6 +320,7 @@ public class Board extends Group {
                     handleAnimation(box);
                     player.addMovePositionAction(newPosition);
                 } else
+                    // if next tile is a wall, then set game over
                     addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
 
                 inverse = false;
