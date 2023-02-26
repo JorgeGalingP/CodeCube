@@ -7,25 +7,37 @@ import com.galing.codecube.enums.ContainerType;
 public class Button extends Tile {
     public ContainerType type;
 
-    public Button(Vector2 coordinate, String color) {
+    public Button(Vector2 coordinate, String container, String direction) {
         super(coordinate);
 
-        switch (color) {
-            case "green":
-                setAtlasRegion(Assets.greenButton);
+        switch (container) {
+            case "program":
+                this.type = ContainerType.PROGRAM;
+
+                switch (direction) {
+                    case "horizontal":
+                        setAtlasRegion(Assets.button);
+                        break;
+                    case "vertical":
+                        setAtlasRegion(Assets.buttonVertical);
+                        break;
+                }
                 break;
-            case "red":
-                setAtlasRegion(Assets.redButton);
-                break;
-            case "blue":
-                setAtlasRegion(Assets.blueButton);
-                type = ContainerType.PROGRAM;
-                break;
-            case "yellow":
-                setAtlasRegion(Assets.yellowButton);
-                type = ContainerType.FUNCTION;
+            case "function":
+                this.type = ContainerType.FUNCTION;
+
+                switch (direction) {
+                    case "horizontal":
+                        setAtlasRegion(Assets.buttonFunction);
+                        break;
+                    case "vertical":
+                        setAtlasRegion(Assets.buttonFunctionVertical);
+                        break;
+                }
                 break;
         }
+
+
     }
 
     public ContainerType getType() {

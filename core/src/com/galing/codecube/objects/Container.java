@@ -7,25 +7,57 @@ import com.galing.codecube.enums.ContainerType;
 public class Container extends Tile {
     public ContainerType type;
 
-    public Container(Vector2 coordinate, String color) {
+    public Container(Vector2 coordinate, String container, String direction, boolean isFinal) {
         super(coordinate);
 
-        switch (color) {
-            case "green":
-                setAtlasRegion(Assets.greenControl);
+        switch (container) {
+            case "program":
+                this.type = ContainerType.PROGRAM;
+
+                if (isFinal)
+                    switch (direction) {
+                        case "horizontal":
+                            setAtlasRegion(Assets.controlFinal);
+                            break;
+                        case "vertical":
+                            setAtlasRegion(Assets.controlFinalVertical);
+                            break;
+                    }
+                else
+                    switch (direction) {
+                        case "horizontal":
+                            setAtlasRegion(Assets.control);
+                            break;
+                        case "vertical":
+                            setAtlasRegion(Assets.controlVertical);
+                            break;
+                    }
                 break;
-            case "red":
-                setAtlasRegion(Assets.redControl);
-                break;
-            case "blue":
-                setAtlasRegion(Assets.blueControl);
-                type = ContainerType.PROGRAM;
-                break;
-            case "yellow":
-                setAtlasRegion(Assets.yellowControl);
-                type = ContainerType.FUNCTION;
+            case "function":
+                this.type = ContainerType.FUNCTION;
+
+                if (isFinal)
+                    switch (direction) {
+                        case "horizontal":
+                            setAtlasRegion(Assets.controlFunctionFinal);
+                            break;
+                        case "vertical":
+                            setAtlasRegion(Assets.controlFunctionFinalVertical);
+                            break;
+                    }
+                else
+                    switch (direction) {
+                        case "horizontal":
+                            setAtlasRegion(Assets.controlFunction);
+                            break;
+                        case "vertical":
+                            setAtlasRegion(Assets.controlFunctionVertical);
+                            break;
+                    }
                 break;
         }
+
+
     }
 
     public ContainerType getType() {
