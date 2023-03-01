@@ -39,9 +39,9 @@ public class Matrix extends Actor {
 
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setTransformMatrix(batch.getTransformMatrix());
-        Gdx.gl.glLineWidth(2.5f);
+        Gdx.gl.glLineWidth(4f);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
-        shapeRenderer.setColor(Color.WHITE);
+        shapeRenderer.setColor(Color.BLACK);
 
         for (int i = x; i <= y; i++)
             shapeRenderer.line(new Vector2(i, k), new Vector2(i, j));
