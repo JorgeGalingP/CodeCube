@@ -4,112 +4,112 @@ size: 332, 466
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-blueBox
+barrelsFloor
   rotate: false
   xy: 1, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-boardCornerBottomLeft
+blueBox
   rotate: false
   xy: 67, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-boardCornerBottomRight
+boardCornerBottomLeft
   rotate: false
   xy: 133, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-boardCornerTopLeft
+boardCornerBottomRight
   rotate: false
   xy: 199, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-boardCornerTopRight
+boardCornerTopLeft
   rotate: false
   xy: 265, 3
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-boardLaneBottom
+boardCornerTopRight
   rotate: false
   xy: 1, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-boardLaneLeft
+boardLaneBottom
   rotate: false
   xy: 67, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-boardLaneRight
+boardLaneLeft
   rotate: false
   xy: 133, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-boardLaneTop
+boardLaneRight
   rotate: false
   xy: 199, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-button
+boardLaneTop
   rotate: false
   xy: 265, 69
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-buttonFunction
+button
   rotate: false
   xy: 1, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-buttonFunctionVertical
+buttonFunction
   rotate: false
   xy: 67, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-buttonVertical
+buttonFunctionVertical
   rotate: false
   xy: 133, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-control
+buttonVertical
   rotate: false
   xy: 199, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-controlFinal
+campfireFloor
   rotate: false
   xy: 265, 135
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-controlFinalVertical
+control
   rotate: false
   xy: 1, 201
   size: 64, 64
@@ -123,81 +123,81 @@ controlFunction
   orig: 64, 64
   offset: 0, 0
   index: -1
-controlFunctionFinal
+crackedFloor
   rotate: false
   xy: 133, 201
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-controlFunctionFinalVertical
+decorativeFloor
   rotate: false
   xy: 199, 201
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-controlFunctionVertical
+emptyFloor
   rotate: false
   xy: 265, 201
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-controlVertical
+grassFloor
   rotate: false
   xy: 1, 267
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dessertFloor
+greenBox
   rotate: false
   xy: 67, 267
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-dirtFloor
+greenTarget
   rotate: false
   xy: 133, 267
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-greenBox
+greyBox
   rotate: false
   xy: 199, 267
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-greenTarget
+oceanFloor
   rotate: false
   xy: 265, 267
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-greyBox
+plantsFloor
   rotate: false
   xy: 1, 333
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-oceanFloor
-  rotate: false
-  xy: 67, 333
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 player
   rotate: false
-  xy: 133, 333
+  xy: 67, 333
   size: 64, 62
   orig: 64, 62
+  offset: 0, 0
+  index: -1
+puddleFloor
+  rotate: false
+  xy: 133, 333
+  size: 64, 64
+  orig: 64, 64
   offset: 0, 0
   index: -1
 redBox
@@ -214,30 +214,23 @@ redTarget
   orig: 64, 64
   offset: 0, 0
   index: -1
-rockFloor
+tileFloor
   rotate: false
   xy: 1, 399
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-rockWall
+woodFloor
   rotate: false
   xy: 67, 399
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
-whiteTarget
-  rotate: false
-  xy: 133, 399
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 yellowBox
   rotate: false
-  xy: 199, 399
+  xy: 133, 399
   size: 64, 64
   orig: 64, 64
   offset: 0, 0

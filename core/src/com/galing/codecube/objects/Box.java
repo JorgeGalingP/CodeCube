@@ -77,7 +77,7 @@ public class Box extends Tile {
 
     public void setPushedIdle() {
         setRotation(0);
-        setScale(.85f);
+        setScale(.8f);
     }
 
     @Override

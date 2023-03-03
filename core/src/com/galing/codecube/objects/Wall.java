@@ -9,32 +9,29 @@ public class Wall extends Tile {
         super(coordinate);
 
         switch (subtype) {
-            case "boardCornerTopLeft":
+            case "cornerTopLeft":
                 setAtlasRegion(Assets.boardCornerTopLeft);
                 break;
-            case "boardCornerTopRight":
+            case "cornerTopRight":
                 setAtlasRegion(Assets.boardCornerTopRight);
                 break;
-            case "boardCornerBottomLeft":
+            case "cornerBottomLeft":
                 setAtlasRegion(Assets.boardCornerBottomLeft);
                 break;
-            case "boardCornerBottomRight":
+            case "cornerBottomRight":
                 setAtlasRegion(Assets.boardCornerBottomRight);
                 break;
-            case "boardLaneLeft":
+            case "laneLeft":
                 setAtlasRegion(Assets.boardLaneLeft);
                 break;
-            case "boardLaneRight":
+            case "laneRight":
                 setAtlasRegion(Assets.boardLaneRight);
                 break;
-            case "boardLaneBottom":
+            case "laneBottom":
                 setAtlasRegion(Assets.boardLaneBottom);
                 break;
-            case "boardLaneTop":
+            case "laneTop":
                 setAtlasRegion(Assets.boardLaneTop);
-                break;
-            case "rock":
-                setAtlasRegion(Assets.rockWall);
                 break;
         }
 

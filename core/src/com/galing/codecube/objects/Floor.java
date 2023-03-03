@@ -9,17 +9,38 @@ public class Floor extends Tile {
         super(coordinate);
 
         switch (subType) {
-            case "dirt":
-                setAtlasRegion(Assets.dirtFloor);
+            case "barrels":
+                setAtlasRegion(Assets.barrelsFloor);
                 break;
-            case "rock":
-                setAtlasRegion(Assets.rockFloor);
+            case "campfire":
+                setAtlasRegion(Assets.campfireFloor);
+                break;
+            case "cracked":
+                setAtlasRegion(Assets.crackedFloor);
+                break;
+            case "decorative":
+                setAtlasRegion(Assets.decorativeFloor);
+                break;
+            case "empty":
+                setAtlasRegion(Assets.emptyFloor);
+                break;
+            case "grass":
+                setAtlasRegion(Assets.grassFloor);
                 break;
             case "ocean":
                 setAtlasRegion(Assets.oceanFloor);
                 break;
-            case "dessert":
-                setAtlasRegion(Assets.dessertFloor);
+            case "plants":
+                setAtlasRegion(Assets.plantsFloor);
+                break;
+            case "puddle":
+                setAtlasRegion(Assets.puddleFloor);
+                break;
+            case "tile":
+                setAtlasRegion(Assets.tileFloor);
+                break;
+            case "wood":
+                setAtlasRegion(Assets.woodFloor);
                 break;
         }
     }

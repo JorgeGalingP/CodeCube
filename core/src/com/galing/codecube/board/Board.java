@@ -196,14 +196,12 @@ public class Board extends Group {
                                         break;
                                     case "control":
                                         tile = new Container(tilePosition,
-                                                mapTile.getProperties().get("container").toString(),
-                                                mapTile.getProperties().get("direction").toString(),
-                                                Boolean.parseBoolean(mapTile.getProperties().get("isFinal").toString()));
+                                                mapTile.getProperties().get("container").toString());
 
-                                        if (((Container) tile).getType() == ContainerType.PROGRAM)
+                                        if (((Container) tile).getType().equals(ContainerType.PROGRAM))
                                             programControls.add((Container) tile);
 
-                                        if (((Container) tile).getType() == ContainerType.FUNCTION)
+                                        if (((Container) tile).getType().equals(ContainerType.FUNCTION))
                                             functionControls.add((Container) tile);
                                         break;
                                     case "button":
@@ -211,10 +209,10 @@ public class Board extends Group {
                                                 mapTile.getProperties().get("container").toString(),
                                                 mapTile.getProperties().get("direction").toString());
 
-                                        if (((Button) tile).getType() == ContainerType.PROGRAM)
+                                        if (((Button) tile).getType().equals(ContainerType.PROGRAM))
                                             programButton = (Button) tile;
 
-                                        if (((Button) tile).getType() == ContainerType.FUNCTION)
+                                        if (((Button) tile).getType().equals(ContainerType.FUNCTION))
                                             functionButton = (Button) tile;
                                         break;
                                     case "box":

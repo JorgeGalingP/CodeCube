@@ -70,10 +70,17 @@ public class Assets {
     public static ImageButton.ImageButtonStyle backButtonStyle;
     public static ImageButton.ImageButtonStyle debugButtonStyle;
 
-    public static AtlasRegion dirtFloor;
-    public static AtlasRegion rockFloor;
+    public static AtlasRegion barrelsFloor;
+    public static AtlasRegion campfireFloor;
+    public static AtlasRegion crackedFloor;
+    public static AtlasRegion decorativeFloor;
+    public static AtlasRegion emptyFloor;
+    public static AtlasRegion grassFloor;
     public static AtlasRegion oceanFloor;
-    public static AtlasRegion dessertFloor;
+    public static AtlasRegion plantsFloor;
+    public static AtlasRegion puddleFloor;
+    public static AtlasRegion tileFloor;
+    public static AtlasRegion woodFloor;
 
     public static AtlasRegion boardCornerTopLeft;
     public static AtlasRegion boardCornerTopRight;
@@ -106,13 +113,7 @@ public class Assets {
     public static AtlasRegion whiteTarget;
 
     public static AtlasRegion control;
-    public static AtlasRegion controlVertical;
-    public static AtlasRegion controlFinal;
-    public static AtlasRegion controlFinalVertical;
     public static AtlasRegion controlFunction;
-    public static AtlasRegion controlFunctionVertical;
-    public static AtlasRegion controlFunctionFinal;
-    public static AtlasRegion controlFunctionFinalVertical;
 
     public static AtlasRegion button;
     public static AtlasRegion buttonVertical;
@@ -210,10 +211,18 @@ public class Assets {
                 debugIcon, debugIcon);
 
         // tileset
-        dirtFloor = atlasTileset.findRegion("dirtFloor");
-        rockFloor = atlasTileset.findRegion("rockFloor");
         oceanFloor = atlasTileset.findRegion("oceanFloor");
-        dessertFloor = atlasTileset.findRegion("dessertFloor");
+        barrelsFloor = atlasTileset.findRegion("barrelsFloor");
+        campfireFloor = atlasTileset.findRegion("campfireFloor");
+        crackedFloor = atlasTileset.findRegion("crackedFloor");
+        decorativeFloor = atlasTileset.findRegion("decorativeFloor");
+        emptyFloor = atlasTileset.findRegion("emptyFloor");
+        grassFloor = atlasTileset.findRegion("grassFloor");
+        oceanFloor = atlasTileset.findRegion("oceanFloor");
+        plantsFloor = atlasTileset.findRegion("plantsFloor");
+        puddleFloor = atlasTileset.findRegion("puddleFloor");
+        tileFloor = atlasTileset.findRegion("tileFloor");
+        woodFloor = atlasTileset.findRegion("woodFloor");
 
         boardCornerTopLeft = atlasTileset.findRegion("boardCornerTopLeft");
         boardCornerTopRight = atlasTileset.findRegion("boardCornerTopRight");
@@ -246,13 +255,7 @@ public class Assets {
         whiteTarget = atlasTileset.findRegion("whiteTarget");
 
         control = atlasTileset.findRegion("control");
-        controlVertical = atlasTileset.findRegion("controlVertical");
-        controlFinal = atlasTileset.findRegion("controlFinal");
-        controlFinalVertical = atlasTileset.findRegion("controlFinalVertical");
         controlFunction = atlasTileset.findRegion("controlFunction");
-        controlFunctionVertical = atlasTileset.findRegion("controlFunctionVertical");
-        controlFunctionFinal = atlasTileset.findRegion("controlFunctionFinal");
-        controlFunctionFinalVertical = atlasTileset.findRegion("controlFunctionFinalVertical");
 
         button = atlasTileset.findRegion("button");
         buttonVertical = atlasTileset.findRegion("buttonVertical");
