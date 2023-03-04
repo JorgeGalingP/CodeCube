@@ -20,9 +20,6 @@ public class Target extends Tile {
                 setType(TargetType.FAIL);
                 setAtlasRegion(Assets.redTarget);
                 break;
-            case "white":
-                setAtlasRegion(Assets.whiteTarget);
-                break;
         }
     }
 

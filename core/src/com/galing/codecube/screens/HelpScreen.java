@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 
@@ -50,11 +49,7 @@ public class HelpScreen extends Screen {
         backTable.bottom();
 
         // create back button
-        ImageButton.ImageButtonStyle imageButtonStyle = Assets.backButtonStyle;
-        imageButtonStyle.imageUp.setMinHeight(125f);
-        imageButtonStyle.imageUp.setMinWidth(125f);
-
-        ImageButton backButton = new ImageButton(imageButtonStyle);
+        ImageButton backButton = new ImageButton(Assets.backButtonStyle);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -66,20 +61,16 @@ public class HelpScreen extends Screen {
         backTable.row();
 
         // set textures
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
-        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, Assets.basicFont);
-
         TextButton one = new TextButton("Lorem ipsum dolor sit amet,\n consectetur adipiscing elit,\n sed do eiusmod " +
-                "tempor incididunt ut labore et dolore magna aliqua.", squareStyle);
+                "tempor incididunt ut labore et dolore magna aliqua.", Assets.greyPanelStyle);
         TextButton two = new TextButton("Ut enim ad minim veniam,\n quis nostrud exercitation ullamco laboris nisi ut" +
                 " " +
-                "aliquip ex ea commodo consequat.", squareStyle);
+                "aliquip ex ea commodo consequat.", Assets.greyPanelStyle);
         TextButton three = new TextButton("Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
-                "dolore eu fugiat nulla pariatur.", squareStyle);
+                "dolore eu fugiat nulla pariatur.", Assets.greyPanelStyle);
         TextButton four = new TextButton("Excepteur sint occaecat cupidatat non proident,\n sunt in culpa qui officia" +
                 " " +
-                "deserunt mollit anim id est laborum.", squareStyle);
+                "deserunt mollit anim id est laborum.", Assets.greyPanelStyle);
 
         // add buttons and padding to table
         helpTable.add(one);

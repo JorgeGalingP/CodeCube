@@ -33,15 +33,11 @@ public class ModeScreen extends Screen {
         table.center();
 
         // create buttons
-        ImageButton.ImageButtonStyle imageButtonStyle = Assets.backButtonStyle;
-        imageButtonStyle.imageUp.setMinHeight(125f);
-        imageButtonStyle.imageUp.setMinWidth(125f);
-
         TextButton sequenceButton = new TextButton(BoardType.toString(BoardType.SEQUENCE),
-                Assets.fontButtonStyle);
-        TextButton stackButton = new TextButton(BoardType.toString(BoardType.STACK), Assets.fontButtonStyle);
-        TextButton queueButton = new TextButton(BoardType.toString(BoardType.QUEUE), Assets.fontButtonStyle);
-        ImageButton backButton = new ImageButton(imageButtonStyle);
+                Assets.futureFontLargeButtonStyle);
+        TextButton stackButton = new TextButton(BoardType.toString(BoardType.STACK), Assets.futureFontLargeButtonStyle);
+        TextButton queueButton = new TextButton(BoardType.toString(BoardType.QUEUE), Assets.futureFontLargeButtonStyle);
+        ImageButton backButton = new ImageButton(Assets.backButtonStyle);
 
         // add listeners to buttons
         sequenceButton.addListener(new ClickListener() {

@@ -14,7 +14,6 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.Assets;
@@ -37,7 +36,7 @@ public class SplashScreen extends Screen {
 
     @Override
     public void show() {
-        TextureRegionDrawable splashTex = new TextureRegionDrawable(Assets.debugIcon);
+        TextureRegionDrawable splashTex = new TextureRegionDrawable(Assets.zoomIcon);
 
         Image splashImage = new Image(splashTex);
         splashImage.setOrigin(splashImage.getWidth() / 2, splashImage.getHeight() / 2);
@@ -56,19 +55,8 @@ public class SplashScreen extends Screen {
     }
 
     private void addTapToStartTitle() {
-        // set textures
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
-
         // create buttons
-        ImageButton.ImageButtonStyle playButtonStyle =
-                Assets.playButtonStyle;
-        playButtonStyle.imageDown.setMinHeight(125f);
-        playButtonStyle.imageUp.setMinWidth(125f);
-        playButtonStyle.imageChecked.setMinWidth(125f);
-        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, Assets.basicFont);
-
-        TextButton title = new TextButton("¡Toca para comenzar!", squareStyle);
+        TextButton title = new TextButton("¡Toca para comenzar!", Assets.greyPanelStyle);
         title.setOrigin(title.getWidth() / 2, title.getHeight() / 2);
         title.setPosition(stage.getWidth() / 2 - title.getWidth() / 2,
                 stage.getHeight() * 0.1f);

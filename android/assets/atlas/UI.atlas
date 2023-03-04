@@ -1,258 +1,335 @@
 
 UI.png
-size: 1912, 1352
+size: 1207, 516
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
-BG
+audioOff
   rotate: false
-  xy: 2, 838
+  xy: 516, 167
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+audioOn
+  rotate: false
+  xy: 822, 112
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+background
+  rotate: false
+  xy: 2, 2
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
-backBtn
+barsHorizontal
   rotate: false
-  xy: 1032, 1094
-  size: 256, 256
-  orig: 256, 256
+  xy: 708, 265
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-blueBG
+blueBoxCheckmark
   rotate: false
-  xy: 1651, 578
-  size: 256, 256
-  orig: 256, 256
+  xy: 1167, 338
+  size: 38, 36
+  orig: 38, 36
   offset: 0, 0
   index: -1
-blueBtnNormal
+blueBoxCross
   rotate: false
-  xy: 2, 397
-  size: 256, 271
-  orig: 256, 271
+  xy: 1167, 376
+  size: 38, 36
+  orig: 38, 36
   offset: 0, 0
   index: -1
-blueBtnTapped
+checkmark
   rotate: false
-  xy: 516, 1094
-  size: 256, 256
-  orig: 256, 256
+  xy: 912, 316
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-blueRectInactive
+cross
   rotate: false
-  xy: 1137, 156
-  size: 359, 162
-  orig: 359, 162
+  xy: 1026, 6
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-blueRectNormal
+exclamation
   rotate: false
-  xy: 516, 672
-  size: 359, 162
-  orig: 359, 162
+  xy: 822, 10
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-blueRectTapped
+exitLeft
   rotate: false
-  xy: 1239, 2
-  size: 358, 152
-  orig: 358, 152
+  xy: 924, 108
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-borderCircle
+gear
   rotate: false
-  xy: 1034, 320
-  size: 256, 256
-  orig: 256, 256
+  xy: 618, 163
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-circle
+greyCheckmarkGrey
   rotate: false
-  xy: 774, 1094
-  size: 256, 256
-  orig: 256, 256
+  xy: 771, 39
+  size: 21, 20
+  orig: 21, 20
   offset: 0, 0
   index: -1
-closeBtn
+greyCheckmarkWhite
   rotate: false
-  xy: 260, 139
-  size: 256, 256
-  orig: 256, 256
+  xy: 1167, 316
+  size: 21, 20
+  orig: 21, 20
   offset: 0, 0
   index: -1
-cornerSquare
+greyCrossGrey
   rotate: false
-  xy: 518, 156
-  size: 256, 256
-  orig: 256, 256
+  xy: 1167, 296
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
-cornerSquare2
+greyCrossWhite
   rotate: false
-  xy: 1135, 578
-  size: 256, 256
-  orig: 256, 256
+  xy: 1187, 296
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
-debugIcon
+greyPanel
   rotate: false
-  xy: 518, 414
-  size: 256, 256
-  orig: 256, 256
+  xy: 720, 163
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-greenBtnNormal
+home
   rotate: false
-  xy: 2, 124
-  size: 256, 271
-  orig: 256, 271
+  xy: 618, 61
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-greenBtnTapped
+information
   rotate: false
-  xy: 516, 836
-  size: 256, 256
-  orig: 256, 256
+  xy: 810, 265
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-greenRectNormal
+largeBlueButton
   rotate: false
-  xy: 1498, 156
-  size: 359, 162
-  orig: 359, 162
+  xy: 708, 414
+  size: 190, 49
+  orig: 190, 49
   offset: 0, 0
   index: -1
-greenRectTapped
+largeGreenButton
   rotate: false
-  xy: 518, 2
-  size: 359, 152
-  orig: 359, 152
+  xy: 900, 465
+  size: 190, 49
+  orig: 190, 49
   offset: 0, 0
   index: -1
-homeBtn
+largeOutlineBlueButton
   rotate: false
-  xy: 1393, 578
-  size: 256, 256
-  orig: 256, 256
+  xy: 516, 414
+  size: 190, 49
+  orig: 190, 49
   offset: 0, 0
   index: -1
-pauseBtn
+largeOutlineYellowButton
   rotate: false
-  xy: 1290, 836
-  size: 256, 256
-  orig: 256, 256
+  xy: 516, 465
+  size: 190, 49
+  orig: 190, 49
   offset: 0, 0
   index: -1
-playBtn
+largePressedBlueButton
   rotate: false
-  xy: 774, 836
-  size: 256, 256
-  orig: 256, 256
+  xy: 516, 269
+  size: 190, 45
+  orig: 190, 45
   offset: 0, 0
   index: -1
-rect2
+largePressedGreenButton
   rotate: false
-  xy: 2, 670
-  size: 512, 166
-  orig: 512, 166
+  xy: 900, 418
+  size: 190, 45
+  orig: 190, 45
   offset: 0, 0
   index: -1
-roundEdgeRect
+largePressedRedButton
   rotate: false
-  xy: 2, 58
-  size: 256, 64
-  orig: 256, 64
+  xy: 516, 316
+  size: 190, 45
+  orig: 190, 45
   offset: 0, 0
   index: -1
-settingsBtn
+largePressedYellowButton
   rotate: false
-  xy: 1292, 320
-  size: 256, 256
-  orig: 256, 256
+  xy: 708, 367
+  size: 190, 45
+  orig: 190, 45
   offset: 0, 0
   index: -1
-shareIcon
+largeRedButton
   rotate: false
-  xy: 1548, 836
-  size: 256, 256
-  orig: 256, 256
+  xy: 516, 363
+  size: 190, 49
+  orig: 190, 49
   offset: 0, 0
   index: -1
-soundOffBtn
+largeYellowButton
   rotate: false
-  xy: 877, 578
-  size: 256, 256
-  orig: 256, 256
+  xy: 708, 465
+  size: 190, 49
+  orig: 190, 49
   offset: 0, 0
   index: -1
-soundOnBtn
+menuList
   rotate: false
-  xy: 1550, 320
-  size: 256, 256
-  orig: 256, 256
+  xy: 912, 214
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-tickIcon
+musicOff
   rotate: false
-  xy: 1032, 836
-  size: 256, 256
-  orig: 256, 256
+  xy: 924, 6
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-toggleOff
+musicOn
   rotate: false
-  xy: 260, 2
-  size: 256, 135
-  orig: 256, 135
+  xy: 1026, 108
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-toggleOn
+question
   rotate: false
-  xy: 1599, 19
-  size: 256, 135
-  orig: 256, 135
+  xy: 516, 65
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-trophyIcon
+redCircle
   rotate: false
-  xy: 1548, 1094
-  size: 256, 256
-  orig: 256, 256
+  xy: 873, 227
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: -1
-whiteBG
+return
   rotate: false
-  xy: 776, 320
-  size: 256, 256
-  orig: 256, 256
+  xy: 1014, 210
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-yellowBtnNormal
+right
   rotate: false
-  xy: 260, 397
-  size: 256, 271
-  orig: 256, 271
+  xy: 1014, 312
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-yellowBtnTapped
+share
   rotate: false
-  xy: 1290, 1094
-  size: 256, 256
-  orig: 256, 256
+  xy: 720, 61
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1
-yellowRectNormal
+smallBlueButton
   rotate: false
-  xy: 776, 156
-  size: 359, 162
-  orig: 359, 162
+  xy: 822, 214
+  size: 49, 49
+  orig: 49, 49
   offset: 0, 0
   index: -1
-yellowRectTapped
+smallGreenButton
   rotate: false
-  xy: 879, 2
-  size: 358, 152
-  orig: 358, 152
+  xy: 1116, 312
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+smallOutlineBlueButton
+  rotate: false
+  xy: 1116, 261
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+smallOutlineYellowButton
+  rotate: false
+  xy: 567, 14
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+smallPressedBlueButton
+  rotate: false
+  xy: 1116, 214
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+smallPressedGreenButton
+  rotate: false
+  xy: 669, 14
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+smallPressedRedButton
+  rotate: false
+  xy: 720, 14
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+smallPressedYellowButton
+  rotate: false
+  xy: 618, 14
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+smallRedButton
+  rotate: false
+  xy: 516, 14
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+smallYellowButton
+  rotate: false
+  xy: 1116, 363
+  size: 49, 49
+  orig: 49, 49
+  offset: 0, 0
+  index: -1
+zoom
+  rotate: false
+  xy: 1092, 414
+  size: 100, 100
+  orig: 100, 100
   offset: 0, 0
   index: -1

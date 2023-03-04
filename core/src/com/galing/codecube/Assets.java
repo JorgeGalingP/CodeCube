@@ -6,6 +6,7 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.enums.BoardType;
 
@@ -27,44 +29,65 @@ public class Assets {
     public static TextureAtlas atlasUI;
 
     public static BitmapFont basicFont;
+    public static BitmapFont futureFont;
 
     public static AtlasRegion bg;
-    public static AtlasRegion blueWindow;
-    public static AtlasRegion whiteWindow;
-    public static AtlasRegion roundWindow;
-    public static AtlasRegion rectWindow;
-    public static AtlasRegion squareWindow;
-    public static AtlasRegion squareCircleWindow;
+    public static AtlasRegion greyPanel;
 
-    public static AtlasRegion blueNoPressed;
-    public static AtlasRegion bluePressed;
-    public static AtlasRegion yellowNoPressed;
-    public static AtlasRegion yellowPressed;
-    public static AtlasRegion greenNoPressed;
-    public static AtlasRegion greenPressed;
-    public static AtlasRegion blueNoPressedRect;
-    public static AtlasRegion bluePressedRect;
-    public static AtlasRegion yellowNoPressedRect;
-    public static AtlasRegion yellowPressedRect;
-    public static AtlasRegion greenNoPressedRect;
-    public static AtlasRegion greenPressedRect;
+    public static AtlasRegion smallOutlineBlueButton;
+    public static AtlasRegion largeOutlineBlueButton;
+    public static AtlasRegion smallOutlineYellowButton;
+    public static AtlasRegion largeOutlineYellowButton;
 
-    public static AtlasRegion closeIcon;
-    public static AtlasRegion tickIcon;
-    public static AtlasRegion settingsIcon;
-    public static AtlasRegion pauseIcon;
-    public static AtlasRegion trophyIcon;
-    public static AtlasRegion shareIcon;
-    public static AtlasRegion playIcon;
+    public static AtlasRegion checkmarkBlueButton;
+    public static AtlasRegion crossBlueButton;
+    public static AtlasRegion redCircleButton;
+
+    public static AtlasRegion smallBlueButton;
+    public static AtlasRegion smallPressedBlueButton;
+    public static AtlasRegion smallYellowButton;
+    public static AtlasRegion smallPressedYellowButton;
+    public static AtlasRegion smallGreenButton;
+    public static AtlasRegion smallPressedGreenButton;
+    public static AtlasRegion smallRedButton;
+    public static AtlasRegion smallPressedRedButton;
+
+    public static AtlasRegion largeBlueButton;
+    public static AtlasRegion largePressedBlueButton;
+    public static AtlasRegion largeYellowButton;
+    public static AtlasRegion largePressedYellowButton;
+    public static AtlasRegion largeGreenButton;
+    public static AtlasRegion largePressedGreenButton;
+    public static AtlasRegion largeRedButton;
+    public static AtlasRegion largePressedRedButton;
+
+    public static AtlasRegion greyCheckmarkIcon;
+    public static AtlasRegion greyCrossIcon;
+    public static AtlasRegion whiteCheckmarkIcon;
+    public static AtlasRegion whiteCrossIcon;
+    public static AtlasRegion exclamationIcon;
+    public static AtlasRegion musicOffIcon;
+    public static AtlasRegion musicOnIcon;
+    public static AtlasRegion crossIcon;
+    public static AtlasRegion questionIcon;
     public static AtlasRegion homeIcon;
-    public static AtlasRegion backIcon;
-    public static AtlasRegion debugIcon;
-    public static AtlasRegion soundOnIcon;
-    public static AtlasRegion soundOffIcon;
-    public static AtlasRegion toggleOnIcon;
-    public static AtlasRegion toggleOffIcon;
+    public static AtlasRegion shareIcon;
+    public static AtlasRegion audioOnIcon;
+    public static AtlasRegion audioOffIcon;
+    public static AtlasRegion exitLeftIcon;
+    public static AtlasRegion gearIcon;
+    public static AtlasRegion menuListIcon;
+    public static AtlasRegion returnIcon;
+    public static AtlasRegion barsHorizontalIcon;
+    public static AtlasRegion informationIcon;
+    public static AtlasRegion checkmarkIcon;
+    public static AtlasRegion rightIcon;
+    public static AtlasRegion zoomIcon;
 
-    public static TextButton.TextButtonStyle fontButtonStyle;
+    public static TextButton.TextButtonStyle greyPanelStyle;
+
+    public static TextButton.TextButtonStyle basicFontLargeButtonStyle;
+    public static TextButton.TextButtonStyle futureFontLargeButtonStyle;
     public static ImageButton.ImageButtonStyle playButtonStyle;
     public static ImageButton.ImageButtonStyle homeButtonStyle;
     public static ImageButton.ImageButtonStyle backButtonStyle;
@@ -90,16 +113,6 @@ public class Assets {
     public static AtlasRegion boardLaneRight;
     public static AtlasRegion boardLaneBottom;
     public static AtlasRegion boardLaneTop;
-    public static AtlasRegion rockWall;
-
-    public static AtlasRegion cornerTopLeft;
-    public static AtlasRegion cornerTopRight;
-    public static AtlasRegion cornerBottomLeft;
-    public static AtlasRegion cornerBottomRight;
-    public static AtlasRegion laneLeft;
-    public static AtlasRegion laneRight;
-    public static AtlasRegion laneBottom;
-    public static AtlasRegion laneTop;
 
     public static AtlasRegion greenBox;
     public static AtlasRegion blueBox;
@@ -110,8 +123,6 @@ public class Assets {
 
     public static AtlasRegion greenTarget;
     public static AtlasRegion redTarget;
-    public static AtlasRegion whiteTarget;
-
     public static AtlasRegion control;
     public static AtlasRegion controlFunction;
 
@@ -162,8 +173,17 @@ public class Assets {
         basicParameters.fontParameters.shadowColor = Color.BLACK;
         basicParameters.fontParameters.shadowOffsetX = 2;
 
+        // generate future font
+        FreetypeFontLoader.FreeTypeFontLoaderParameter futureParameters =
+                new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        futureParameters.fontFileName = "fonts/futureFont.ttf";
+        futureParameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
+        futureParameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
+        futureParameters.fontParameters.size = 20;
+
         // load font
         manager.load("fonts/font.ttf", BitmapFont.class, basicParameters);
+        manager.load("fonts/futureFont.ttf", BitmapFont.class, futureParameters);
     }
 
     public void loadAssets() {
@@ -171,44 +191,169 @@ public class Assets {
         atlasTileset = manager.get("atlas/tileset.atlas", TextureAtlas.class);
         atlasUI = manager.get("atlas/UI.atlas", TextureAtlas.class);
 
-        // font
+        // fonts
         basicFont = manager.get("fonts/font.ttf", BitmapFont.class);
+        futureFont = manager.get("fonts/futureFont.ttf", BitmapFont.class);
 
         // UI
-        bg = atlasUI.findRegion("BG");
-        squareCircleWindow = atlasUI.findRegion("rect2");
-        bluePressed = atlasUI.findRegion("blueBtnTapped");
-        blueNoPressed = atlasUI.findRegion("blueBtnNormal");
-        playIcon = atlasUI.findRegion("playBtn");
-        homeIcon = atlasUI.findRegion("homeBtn");
-        greenPressed = atlasUI.findRegion("greenBtnTapped");
-        greenNoPressed = atlasUI.findRegion("greenBtnNormal");
-        playIcon = atlasUI.findRegion("playBtn");
-        backIcon = atlasUI.findRegion("backBtn");
-        pauseIcon = atlasUI.findRegion("pauseBtn");
-        debugIcon = atlasUI.findRegion("debugIcon");
+        bg = atlasUI.findRegion("background");
+        greyPanel = atlasUI.findRegion("greyPanel");
 
         // buttons
-        TextureRegionDrawable bluePressed = new TextureRegionDrawable(Assets.bluePressed);
-        TextureRegionDrawable blueNoPressed = new TextureRegionDrawable(Assets.blueNoPressed);
-        TextureRegionDrawable greenPressed = new TextureRegionDrawable(Assets.greenPressed);
-        TextureRegionDrawable greenNoPressed = new TextureRegionDrawable(Assets.greenNoPressed);
-        TextureRegionDrawable playIcon = new TextureRegionDrawable(Assets.playIcon);
-        TextureRegionDrawable homeIcon = new TextureRegionDrawable(Assets.homeIcon);
-        TextureRegionDrawable pauseIcon = new TextureRegionDrawable(Assets.pauseIcon);
-        TextureRegionDrawable backIcon = new TextureRegionDrawable(Assets.backIcon);
-        TextureRegionDrawable debugIcon = new TextureRegionDrawable(Assets.debugIcon);
+        smallOutlineBlueButton = atlasUI.findRegion("smallOutlineBlueButton");
+        largeOutlineBlueButton = atlasUI.findRegion("largeOutlineBlueButton");
+        smallOutlineYellowButton = atlasUI.findRegion("smallOutlineYellowButton");
+        largeOutlineYellowButton = atlasUI.findRegion("largeOutlineYellowButton");
 
-        fontButtonStyle = new TextButton.TextButtonStyle(blueNoPressed,
-                greenPressed, blueNoPressed, basicFont);
-        playButtonStyle = new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, playIcon,
-                playIcon, playIcon);
-        homeButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, bluePressed, homeIcon,
-                homeIcon, homeIcon);
-        backButtonStyle = new ImageButton.ImageButtonStyle(blueNoPressed, greenPressed, greenPressed, backIcon,
-                backIcon, backIcon);
-        debugButtonStyle = new ImageButton.ImageButtonStyle(bluePressed, greenNoPressed, greenNoPressed, debugIcon,
-                debugIcon, debugIcon);
+        checkmarkBlueButton = atlasUI.findRegion("blueBoxCheckmark");
+        crossBlueButton = atlasUI.findRegion("blueBoxCross");
+        redCircleButton = atlasUI.findRegion("redCircle");
+
+        smallBlueButton = atlasUI.findRegion("smallBlueButton");
+        smallPressedBlueButton = atlasUI.findRegion("smallPressedBlueButton");
+        smallYellowButton = atlasUI.findRegion("smallYellowButton");
+        smallPressedYellowButton = atlasUI.findRegion("smallPressedYellowButton");
+        smallGreenButton = atlasUI.findRegion("smallGreenButton");
+        smallPressedGreenButton = atlasUI.findRegion("smallPressedGreenButton");
+        smallRedButton = atlasUI.findRegion("smallRedButton");
+        smallPressedRedButton = atlasUI.findRegion("smallPressedRedButton");
+
+        largeBlueButton = atlasUI.findRegion("largeBlueButton");
+        largePressedBlueButton = atlasUI.findRegion("largePressedBlueButton");
+        largeYellowButton = atlasUI.findRegion("largeYellowButton");
+        largePressedYellowButton = atlasUI.findRegion("largePressedYellowButton");
+        largeGreenButton = atlasUI.findRegion("largeGreenButton");
+        largePressedGreenButton = atlasUI.findRegion("largePressedGreenButton");
+        largeRedButton = atlasUI.findRegion("largeRedButton");
+        largePressedRedButton = atlasUI.findRegion("largePressedRedButton");
+
+        // icons
+        greyCheckmarkIcon = atlasUI.findRegion("greyCheckmarkGrey");
+        greyCrossIcon = atlasUI.findRegion("greyCrossGrey");
+        whiteCheckmarkIcon = atlasUI.findRegion("greyCheckmarkWhite");
+        whiteCrossIcon = atlasUI.findRegion("greyCrossWhite");
+
+        exclamationIcon = atlasUI.findRegion("exclamation");
+        musicOffIcon = atlasUI.findRegion("musicOff");
+        musicOnIcon = atlasUI.findRegion("musicOn");
+        crossIcon = atlasUI.findRegion("cross");
+        questionIcon = atlasUI.findRegion("question");
+        homeIcon = atlasUI.findRegion("home");
+        shareIcon = atlasUI.findRegion("share");
+        audioOnIcon = atlasUI.findRegion("audioOn");
+        audioOffIcon = atlasUI.findRegion("audioOff");
+        exitLeftIcon = atlasUI.findRegion("exitLeft");
+        gearIcon = atlasUI.findRegion("gear");
+        menuListIcon = atlasUI.findRegion("menuList");
+        returnIcon = atlasUI.findRegion("return");
+        barsHorizontalIcon = atlasUI.findRegion("barsHorizontal");
+        informationIcon = atlasUI.findRegion("information");
+        checkmarkIcon = atlasUI.findRegion("checkmark");
+        rightIcon = atlasUI.findRegion("right");
+        zoomIcon = atlasUI.findRegion("zoom");
+
+        // buttons
+        TextureRegionDrawable smallBlueButton = new TextureRegionDrawable(Assets.smallBlueButton);
+        TextureRegionDrawable smallPressedBlueButton = new TextureRegionDrawable(Assets.smallPressedBlueButton);
+        TextureRegionDrawable smallGreenButton = new TextureRegionDrawable(Assets.smallGreenButton);
+        TextureRegionDrawable smallPressedGreenButton = new TextureRegionDrawable(Assets.smallPressedGreenButton);
+        TextureRegionDrawable smallYellowButton = new TextureRegionDrawable(Assets.smallYellowButton);
+        TextureRegionDrawable smallPressedYellowButton = new TextureRegionDrawable(Assets.smallPressedYellowButton);
+        TextureRegionDrawable smallRedButton = new TextureRegionDrawable(Assets.smallRedButton);
+        TextureRegionDrawable smallPressedRedButton = new TextureRegionDrawable(Assets.smallPressedRedButton);
+
+        TextureRegionDrawable largeBlueButton = new TextureRegionDrawable(Assets.largeBlueButton);
+        TextureRegionDrawable largePressedBlueButton = new TextureRegionDrawable(Assets.largePressedBlueButton);
+        TextureRegionDrawable largeGreenButton = new TextureRegionDrawable(Assets.largeGreenButton);
+        TextureRegionDrawable largePressedGreenButton = new TextureRegionDrawable(Assets.largePressedGreenButton);
+        TextureRegionDrawable largeYellowButton = new TextureRegionDrawable(Assets.largeYellowButton);
+        TextureRegionDrawable largePressedYellowButton = new TextureRegionDrawable(Assets.largePressedYellowButton);
+        TextureRegionDrawable largeRedButton = new TextureRegionDrawable(Assets.largeRedButton);
+        TextureRegionDrawable largePressedRedButton = new TextureRegionDrawable(Assets.largePressedRedButton);
+
+        // icons
+        TextureRegionDrawable greyCheckmarkIcon = new TextureRegionDrawable(Assets.greyCheckmarkIcon);
+        TextureRegionDrawable greyCrossIcon = new TextureRegionDrawable(Assets.greyCrossIcon);
+        TextureRegionDrawable whiteCheckmarkIcon = new TextureRegionDrawable(Assets.whiteCheckmarkIcon);
+        TextureRegionDrawable whiteCrossIcon = new TextureRegionDrawable(Assets.whiteCrossIcon);
+        TextureRegionDrawable exclamationIcon = new TextureRegionDrawable(Assets.exclamationIcon);
+        TextureRegionDrawable musicOffIcon = new TextureRegionDrawable(Assets.musicOffIcon);
+        TextureRegionDrawable musicOnIcon = new TextureRegionDrawable(Assets.musicOnIcon);
+        TextureRegionDrawable crossIcon = new TextureRegionDrawable(Assets.crossIcon);
+        TextureRegionDrawable questionIcon = new TextureRegionDrawable(Assets.questionIcon);
+        TextureRegionDrawable homeIcon = new TextureRegionDrawable(Assets.homeIcon);
+        TextureRegionDrawable shareIcon = new TextureRegionDrawable(Assets.shareIcon);
+        TextureRegionDrawable audioOnIcon = new TextureRegionDrawable(Assets.audioOnIcon);
+        TextureRegionDrawable audioOffIcon = new TextureRegionDrawable(Assets.audioOffIcon);
+        TextureRegionDrawable exitLeftIcon = new TextureRegionDrawable(Assets.exitLeftIcon);
+        TextureRegionDrawable gearIcon = new TextureRegionDrawable(Assets.gearIcon);
+        TextureRegionDrawable menuListIcon = new TextureRegionDrawable(Assets.menuListIcon);
+        TextureRegionDrawable returnIcon = new TextureRegionDrawable(Assets.returnIcon);
+        TextureRegionDrawable barsHorizontalIcon = new TextureRegionDrawable(Assets.barsHorizontalIcon);
+        TextureRegionDrawable informationIcon = new TextureRegionDrawable(Assets.informationIcon);
+        TextureRegionDrawable checkmarkIcon = new TextureRegionDrawable(Assets.checkmarkIcon);
+        TextureRegionDrawable rightIcon = new TextureRegionDrawable(Assets.rightIcon);
+        TextureRegionDrawable zoomIcon = new TextureRegionDrawable(Assets.zoomIcon);
+
+        // button styles
+        NinePatchDrawable smallBlueButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallBlueButton,
+                12, 12, 12, 12));
+        NinePatchDrawable smallPressedBlueButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.smallPressedBlueButton, 12, 12, 12, 12));
+        NinePatchDrawable largeBlueButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.largeBlueButton,
+                12, 12, 12, 12));
+        NinePatchDrawable largePressedBlueButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.largePressedBlueButton, 12, 12, 12, 12));
+
+
+        NinePatchDrawable smallGreenButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallGreenButton,
+                12, 12, 12, 12));
+        NinePatchDrawable smallPressedGreenButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.smallPressedGreenButton, 12, 12, 12, 12));
+        NinePatchDrawable largeGreenButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.largeGreenButton,
+                12, 12, 12, 12));
+        NinePatchDrawable largePressedGreenButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.largePressedGreenButton, 12, 12, 12, 12));
+
+
+        NinePatchDrawable smallYellowButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallYellowButton,
+                12, 12, 12, 12));
+        NinePatchDrawable smallPressedYellowButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.smallPressedYellowButton, 12, 12, 12, 12));
+        NinePatchDrawable largeYellowButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.largeYellowButton,
+                12, 12, 12, 12));
+        NinePatchDrawable largePressedYellowButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.largePressedYellowButton, 12, 12, 12, 12));
+
+
+        NinePatchDrawable smallRedButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallRedButton,
+                12, 12, 12, 12));
+        NinePatchDrawable smallPressedRedButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.smallPressedRedButton, 12, 12, 12, 12));
+        NinePatchDrawable largeRedButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.largeRedButton,
+                12, 12, 12, 12));
+        NinePatchDrawable largePressedRedButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.largePressedRedButton, 12, 12, 12, 12));
+
+
+        basicFontLargeButtonStyle = new TextButton.TextButtonStyle(largeBlueButtonNinePatch,
+                largePressedGreenButtonNinePatch, largeBlueButtonNinePatch, basicFont);
+        futureFontLargeButtonStyle = new TextButton.TextButtonStyle(largeBlueButtonNinePatch,
+                largePressedGreenButtonNinePatch, largeBlueButtonNinePatch, futureFont);
+        playButtonStyle = new ImageButton.ImageButtonStyle(largeYellowButtonNinePatch, largePressedBlueButtonNinePatch,
+                largePressedBlueButtonNinePatch, rightIcon, rightIcon, rightIcon);
+        homeButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
+                smallPressedGreenButtonNinePatch, homeIcon, homeIcon, homeIcon);
+        backButtonStyle = new ImageButton.ImageButtonStyle(largeBlueButtonNinePatch, largePressedGreenButtonNinePatch,
+                largePressedGreenButtonNinePatch, returnIcon, returnIcon, returnIcon);
+        debugButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
+                smallPressedGreenButtonNinePatch, zoomIcon, zoomIcon, zoomIcon);
+
+        // panel style
+        NinePatchDrawable greyPanelNinePatchDrawable = new NinePatchDrawable(new NinePatch(Assets.greyPanel,
+                12, 12, 12, 12));
+        greyPanelStyle = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
+                greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.futureFont);
 
         // tileset
         oceanFloor = atlasTileset.findRegion("oceanFloor");
@@ -233,16 +378,6 @@ public class Assets {
         boardLaneRight = atlasTileset.findRegion("boardLaneRight");
         boardLaneBottom = atlasTileset.findRegion("boardLaneBottom");
 
-        cornerTopLeft = atlasTileset.findRegion("cornerTopLeft");
-        cornerTopRight = atlasTileset.findRegion("cornerTopRight");
-        cornerBottomLeft = atlasTileset.findRegion("cornerBottomLeft");
-        cornerBottomRight = atlasTileset.findRegion("cornerBottomRight");
-        laneLeft = atlasTileset.findRegion("laneLeft");
-        laneTop = atlasTileset.findRegion("laneTop");
-        laneRight = atlasTileset.findRegion("laneRight");
-        laneBottom = atlasTileset.findRegion("laneBottom");
-        rockWall = atlasTileset.findRegion("rockWall");
-
         blueBox = atlasTileset.findRegion("blueBox");
         yellowBox = atlasTileset.findRegion("yellowBox");
         greenBox = atlasTileset.findRegion("greenBox");
@@ -252,8 +387,6 @@ public class Assets {
 
         greenTarget = atlasTileset.findRegion("greenTarget");
         redTarget = atlasTileset.findRegion("redTarget");
-        whiteTarget = atlasTileset.findRegion("whiteTarget");
-
         control = atlasTileset.findRegion("control");
         controlFunction = atlasTileset.findRegion("controlFunction");
 

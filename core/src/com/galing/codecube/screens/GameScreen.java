@@ -101,15 +101,11 @@ public class GameScreen extends Screen {
         initTable.center();
 
         // set textures
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
-        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, Assets.basicFont);
-
         TextButton selectedTitle =
                 new TextButton("Has seleccionado " + BoardType.toString(boardType) + "\n con dificultad " + Difficulty.toString(Settings.selectedDifficulty),
-                        squareStyle);
-        TextButton areYouReadyTitle = new TextButton("¿Estás preparado?", squareStyle);
-        TextButton touchTitle = new TextButton("Pulsa para comenzar el juego.", squareStyle);
+                        Assets.greyPanelStyle);
+        TextButton areYouReadyTitle = new TextButton("¿Estás preparado?", Assets.greyPanelStyle);
+        TextButton touchTitle = new TextButton("Pulsa para comenzar el juego.", Assets.greyPanelStyle);
 
         // add background to table
         initTable.setBackground(new TextureRegionDrawable(Assets.bg));

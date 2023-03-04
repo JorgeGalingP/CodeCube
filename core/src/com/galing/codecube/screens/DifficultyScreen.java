@@ -33,18 +33,15 @@ public class DifficultyScreen extends Screen {
         table.center();
 
         // create label
-        TextureRegionDrawable squareCircleWindow = new TextureRegionDrawable(Assets.squareCircleWindow);
-        TextButton.TextButtonStyle squareStyle = new TextButton.TextButtonStyle(squareCircleWindow, squareCircleWindow,
-                squareCircleWindow, Assets.basicFont);
-
         TextButton selectedTitle =
                 new TextButton("Dificultad seleccionada: " + Difficulty.toString(Settings.selectedDifficulty),
-                        squareStyle);
+                        Assets.greyPanelStyle);
 
         // create buttons
-        TextButton easyButton = new TextButton(Difficulty.toString(Difficulty.EASY), Assets.fontButtonStyle);
-        TextButton normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL), Assets.fontButtonStyle);
-        TextButton hardButton = new TextButton(Difficulty.toString(Difficulty.HARD), Assets.fontButtonStyle);
+        TextButton easyButton = new TextButton(Difficulty.toString(Difficulty.EASY), Assets.futureFontLargeButtonStyle);
+        TextButton normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL),
+                Assets.futureFontLargeButtonStyle);
+        TextButton hardButton = new TextButton(Difficulty.toString(Difficulty.HARD), Assets.futureFontLargeButtonStyle);
 
         easyButton.addListener(new ClickListener() {
             @Override
