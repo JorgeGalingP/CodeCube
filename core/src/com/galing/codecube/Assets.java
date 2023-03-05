@@ -29,8 +29,12 @@ public class Assets {
     public static TextureAtlas atlasTileset;
     public static TextureAtlas atlasUI;
 
-    public static BitmapFont basicFont;
-    public static BitmapFont vagaRoundBoldFont;
+    public static BitmapFont vagaRoundBoldWhite25;
+    public static BitmapFont vagaRoundBoldGray25;
+    public static BitmapFont vagaRoundBoldWhite30;
+    public static BitmapFont vagaRoundBoldGray30;
+    public static BitmapFont vagaRoundBoldWhite35;
+    public static BitmapFont vagaRoundBoldGray35;
 
     public static Sound clickSound;
 
@@ -89,8 +93,8 @@ public class Assets {
 
     public static TextButton.TextButtonStyle greyPanelStyle;
 
-    public static TextButton.TextButtonStyle basicFontLargeButtonStyle;
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeButtonStyle;
+    public static TextButton.TextButtonStyle vagaRoundBoldFontLargeSelectedButtonStyle;
     public static ImageButton.ImageButtonStyle playButtonStyle;
     public static ImageButton.ImageButtonStyle homeButtonStyle;
     public static ImageButton.ImageButtonStyle backButtonStyle;
@@ -167,39 +171,62 @@ public class Assets {
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
-        // generate basic font
-        FreetypeFontLoader.FreeTypeFontLoaderParameter basicParameters =
-                new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        basicParameters.fontFileName = "fonts/basic.ttf";
-        basicParameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
-        basicParameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
-        basicParameters.fontParameters.size = 50;
-        basicParameters.fontParameters.borderColor = Color.BLACK;
-        basicParameters.fontParameters.borderWidth = 1.5f;
-        basicParameters.fontParameters.shadowColor = Color.BLACK;
-        basicParameters.fontParameters.shadowOffsetX = 2;
-
         // generate vaga round bold font
-        FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldWhiteParameters =
+        FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldWhite25Parameters =
                 new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        vagaRoundBoldWhiteParameters.fontFileName = "fonts/vagaRoundBold.ttf";
-        vagaRoundBoldWhiteParameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
-        vagaRoundBoldWhiteParameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
-        vagaRoundBoldWhiteParameters.fontParameters.size = 25;
-        vagaRoundBoldWhiteParameters.fontParameters.color = Color.WHITE;
+        vagaRoundBoldWhite25Parameters.fontFileName = "fonts/vagaRoundBold.ttf";
+        vagaRoundBoldWhite25Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldWhite25Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldWhite25Parameters.fontParameters.size = 25;
+        vagaRoundBoldWhite25Parameters.fontParameters.color = Color.WHITE;
 
-        FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldGreyParameters =
+        FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldGray25Parameters =
                 new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        vagaRoundBoldGreyParameters.fontFileName = "fonts/vagaRoundBold.ttf";
-        vagaRoundBoldGreyParameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
-        vagaRoundBoldGreyParameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
-        vagaRoundBoldGreyParameters.fontParameters.size = 25;
-        vagaRoundBoldGreyParameters.fontParameters.color = Color.DARK_GRAY;
+        vagaRoundBoldGray25Parameters.fontFileName = "fonts/vagaRoundBold.ttf";
+        vagaRoundBoldGray25Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldGray25Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldGray25Parameters.fontParameters.size = 25;
+        vagaRoundBoldGray25Parameters.fontParameters.color = Color.LIGHT_GRAY;
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldWhite30Parameters =
+                new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        vagaRoundBoldWhite30Parameters.fontFileName = "fonts/vagaRoundBold.ttf";
+        vagaRoundBoldWhite30Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldWhite30Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldWhite30Parameters.fontParameters.size = 30;
+        vagaRoundBoldWhite30Parameters.fontParameters.color = Color.WHITE;
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldGray30Parameters =
+                new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        vagaRoundBoldGray30Parameters.fontFileName = "fonts/vagaRoundBold.ttf";
+        vagaRoundBoldGray30Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldGray30Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldGray30Parameters.fontParameters.size = 30;
+        vagaRoundBoldGray30Parameters.fontParameters.color = Color.LIGHT_GRAY;
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldWhite35Parameters =
+                new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        vagaRoundBoldWhite35Parameters.fontFileName = "fonts/vagaRoundBold.ttf";
+        vagaRoundBoldWhite35Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldWhite35Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldWhite35Parameters.fontParameters.size = 35;
+        vagaRoundBoldWhite35Parameters.fontParameters.color = Color.WHITE;
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldGray35Parameters =
+                new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        vagaRoundBoldGray35Parameters.fontFileName = "fonts/vagaRoundBold.ttf";
+        vagaRoundBoldGray35Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldGray35Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
+        vagaRoundBoldGray35Parameters.fontParameters.size = 35;
+        vagaRoundBoldGray35Parameters.fontParameters.color = Color.LIGHT_GRAY;
 
         // load font
-        manager.load("fonts/font.ttf", BitmapFont.class, basicParameters);
-        manager.load("fonts/vagaRoundBold.ttf", BitmapFont.class, vagaRoundBoldWhiteParameters);
-        manager.load("fonts/vagaRoundBold.ttf", BitmapFont.class, vagaRoundBoldGreyParameters);
+        manager.load("vagaRoundBoldWhite25.ttf", BitmapFont.class, vagaRoundBoldWhite25Parameters);
+        manager.load("vagaRoundBoldGray25.ttf", BitmapFont.class, vagaRoundBoldGray25Parameters);
+        manager.load("vagaRoundBoldWhite30.ttf", BitmapFont.class, vagaRoundBoldWhite30Parameters);
+        manager.load("vagaRoundBoldGray30.ttf", BitmapFont.class, vagaRoundBoldGray30Parameters);
+        manager.load("vagaRoundBoldWhite35.ttf", BitmapFont.class, vagaRoundBoldWhite35Parameters);
+        manager.load("vagaRoundBoldGray35.ttf", BitmapFont.class, vagaRoundBoldGray35Parameters);
     }
 
     public void loadAssets() {
@@ -211,8 +238,12 @@ public class Assets {
         atlasUI = manager.get("atlas/UI.atlas", TextureAtlas.class);
 
         // fonts
-        basicFont = manager.get("fonts/font.ttf", BitmapFont.class);
-        vagaRoundBoldFont = manager.get("fonts/vagaRoundBold.ttf", BitmapFont.class);
+        vagaRoundBoldWhite25 = manager.get("vagaRoundBoldWhite25.ttf", BitmapFont.class);
+        vagaRoundBoldGray25 = manager.get("vagaRoundBoldGray25.ttf", BitmapFont.class);
+        vagaRoundBoldWhite30 = manager.get("vagaRoundBoldWhite30.ttf", BitmapFont.class);
+        vagaRoundBoldGray30 = manager.get("vagaRoundBoldGray30.ttf", BitmapFont.class);
+        vagaRoundBoldWhite35 = manager.get("vagaRoundBoldWhite35.ttf", BitmapFont.class);
+        vagaRoundBoldGray35 = manager.get("vagaRoundBoldGray35.ttf", BitmapFont.class);
 
         // UI
         bg = atlasUI.findRegion("background");
@@ -351,10 +382,10 @@ public class Assets {
         NinePatchDrawable largePressedRedButtonNinePatch =
                 new NinePatchDrawable(new NinePatch(Assets.largePressedRedButton, 12, 12, 12, 12));
 
-        basicFontLargeButtonStyle = new TextButton.TextButtonStyle(largeBlueButtonNinePatch,
-                largePressedBlueButtonNinePatch, largeBlueButtonNinePatch, basicFont);
         vagaRoundBoldFontLargeButtonStyle = new TextButton.TextButtonStyle(largeBlueButtonNinePatch,
-                largePressedBlueButtonNinePatch, largeBlueButtonNinePatch, vagaRoundBoldFont);
+                largePressedBlueButtonNinePatch, largeBlueButtonNinePatch, vagaRoundBoldWhite25);
+        vagaRoundBoldFontLargeSelectedButtonStyle = new TextButton.TextButtonStyle(largeGreenButtonNinePatch,
+                largePressedGreenButtonNinePatch, largeGreenButtonNinePatch, vagaRoundBoldWhite25);
         playButtonStyle = new ImageButton.ImageButtonStyle(largeYellowButtonNinePatch,
                 largePressedYellowButtonNinePatch,
                 largePressedYellowButtonNinePatch, rightIcon, rightIcon, rightIcon);
@@ -369,7 +400,7 @@ public class Assets {
         NinePatchDrawable greyPanelNinePatchDrawable = new NinePatchDrawable(new NinePatch(Assets.greyPanel,
                 12, 12, 12, 12));
         greyPanelStyle = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
-                greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldFont);
+                greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldGray25);
         greyPanelStyle.fontColor = Color.GRAY;
 
         // tileset
