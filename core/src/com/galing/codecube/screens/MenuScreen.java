@@ -34,25 +34,28 @@ public class MenuScreen extends Screen {
 
         // create buttons
         ImageButton playButton = new ImageButton(Assets.playButtonStyle);
-        TextButton difficultyButton = new TextButton("DIFICULTAD", Assets.futureFontLargeButtonStyle);
-        TextButton helpButton = new TextButton("¿CÓMO JUGAR?", Assets.futureFontLargeButtonStyle);
+        TextButton difficultyButton = new TextButton("DIFICULTAD", Assets.vagaRoundBoldFontLargeButtonStyle);
+        TextButton helpButton = new TextButton("¿CÓMO JUGAR?", Assets.vagaRoundBoldFontLargeButtonStyle);
 
         // add listeners to buttons
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Assets.clickSound.play();
                 game.setScreen(new ModeScreen(game));
             }
         });
         difficultyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Assets.clickSound.play();
                 game.setScreen(new DifficultyScreen(game));
             }
         });
         helpButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Assets.clickSound.play();
                 game.setScreen(new HelpScreen(game));
             }
         });

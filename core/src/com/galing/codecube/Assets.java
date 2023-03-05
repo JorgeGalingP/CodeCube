@@ -3,6 +3,7 @@ package com.galing.codecube;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -29,8 +30,9 @@ public class Assets {
     public static TextureAtlas atlasUI;
 
     public static BitmapFont basicFont;
-    public static BitmapFont futureFont;
     public static BitmapFont vagaRoundBoldFont;
+
+    public static Sound clickSound;
 
     public static AtlasRegion bg;
     public static AtlasRegion greyPanel;
@@ -88,7 +90,7 @@ public class Assets {
     public static TextButton.TextButtonStyle greyPanelStyle;
 
     public static TextButton.TextButtonStyle basicFontLargeButtonStyle;
-    public static TextButton.TextButtonStyle futureFontLargeButtonStyle;
+    public static TextButton.TextButtonStyle vagaRoundBoldFontLargeButtonStyle;
     public static ImageButton.ImageButtonStyle playButtonStyle;
     public static ImageButton.ImageButtonStyle homeButtonStyle;
     public static ImageButton.ImageButtonStyle backButtonStyle;
@@ -139,6 +141,9 @@ public class Assets {
     }
 
     public void queueAssets() {
+        // load sounds
+        manager.load("sounds/click.ogg", Sound.class);
+
         // load atlas
         manager.load("atlas/tileset.atlas", TextureAtlas.class);
         manager.load("atlas/UI.atlas", TextureAtlas.class);
@@ -174,14 +179,6 @@ public class Assets {
         basicParameters.fontParameters.shadowColor = Color.BLACK;
         basicParameters.fontParameters.shadowOffsetX = 2;
 
-        // generate future font
-        FreetypeFontLoader.FreeTypeFontLoaderParameter futureParameters =
-                new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        futureParameters.fontFileName = "fonts/future.ttf";
-        futureParameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
-        futureParameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
-        futureParameters.fontParameters.size = 20;
-
         // generate vaga round bold font
         FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldWhiteParameters =
                 new FreetypeFontLoader.FreeTypeFontLoaderParameter();
@@ -201,19 +198,20 @@ public class Assets {
 
         // load font
         manager.load("fonts/font.ttf", BitmapFont.class, basicParameters);
-        manager.load("fonts/futureFont.ttf", BitmapFont.class, futureParameters);
         manager.load("fonts/vagaRoundBold.ttf", BitmapFont.class, vagaRoundBoldWhiteParameters);
         manager.load("fonts/vagaRoundBold.ttf", BitmapFont.class, vagaRoundBoldGreyParameters);
     }
 
     public void loadAssets() {
+        //sounds
+        clickSound = manager.get("sounds/click.ogg", Sound.class);
+
         // atlas
         atlasTileset = manager.get("atlas/tileset.atlas", TextureAtlas.class);
         atlasUI = manager.get("atlas/UI.atlas", TextureAtlas.class);
 
         // fonts
         basicFont = manager.get("fonts/font.ttf", BitmapFont.class);
-        futureFont = manager.get("fonts/futureFont.ttf", BitmapFont.class);
         vagaRoundBoldFont = manager.get("fonts/vagaRoundBold.ttf", BitmapFont.class);
 
         // UI
@@ -326,7 +324,6 @@ public class Assets {
         NinePatchDrawable largePressedBlueButtonNinePatch =
                 new NinePatchDrawable(new NinePatch(Assets.largePressedBlueButton, 12, 12, 12, 12));
 
-
         NinePatchDrawable smallGreenButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallGreenButton,
                 12, 12, 12, 12));
         NinePatchDrawable smallPressedGreenButtonNinePatch =
@@ -335,7 +332,6 @@ public class Assets {
                 12, 12, 12, 12));
         NinePatchDrawable largePressedGreenButtonNinePatch =
                 new NinePatchDrawable(new NinePatch(Assets.largePressedGreenButton, 12, 12, 12, 12));
-
 
         NinePatchDrawable smallYellowButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallYellowButton,
                 12, 12, 12, 12));
@@ -346,7 +342,6 @@ public class Assets {
         NinePatchDrawable largePressedYellowButtonNinePatch =
                 new NinePatchDrawable(new NinePatch(Assets.largePressedYellowButton, 12, 12, 12, 12));
 
-
         NinePatchDrawable smallRedButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallRedButton,
                 12, 12, 12, 12));
         NinePatchDrawable smallPressedRedButtonNinePatch =
@@ -356,17 +351,17 @@ public class Assets {
         NinePatchDrawable largePressedRedButtonNinePatch =
                 new NinePatchDrawable(new NinePatch(Assets.largePressedRedButton, 12, 12, 12, 12));
 
-
         basicFontLargeButtonStyle = new TextButton.TextButtonStyle(largeBlueButtonNinePatch,
-                largePressedGreenButtonNinePatch, largeBlueButtonNinePatch, basicFont);
-        futureFontLargeButtonStyle = new TextButton.TextButtonStyle(largeBlueButtonNinePatch,
-                largePressedGreenButtonNinePatch, largeBlueButtonNinePatch, vagaRoundBoldFont);
-        playButtonStyle = new ImageButton.ImageButtonStyle(largeYellowButtonNinePatch, largePressedBlueButtonNinePatch,
-                largePressedBlueButtonNinePatch, rightIcon, rightIcon, rightIcon);
-        homeButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
-                smallPressedGreenButtonNinePatch, homeIcon, homeIcon, homeIcon);
-        backButtonStyle = new ImageButton.ImageButtonStyle(largeBlueButtonNinePatch, largePressedGreenButtonNinePatch,
-                largePressedGreenButtonNinePatch, returnIcon, returnIcon, returnIcon);
+                largePressedBlueButtonNinePatch, largeBlueButtonNinePatch, basicFont);
+        vagaRoundBoldFontLargeButtonStyle = new TextButton.TextButtonStyle(largeBlueButtonNinePatch,
+                largePressedBlueButtonNinePatch, largeBlueButtonNinePatch, vagaRoundBoldFont);
+        playButtonStyle = new ImageButton.ImageButtonStyle(largeYellowButtonNinePatch,
+                largePressedYellowButtonNinePatch,
+                largePressedYellowButtonNinePatch, rightIcon, rightIcon, rightIcon);
+        homeButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
+                smallPressedBlueButtonNinePatch, homeIcon, homeIcon, homeIcon);
+        backButtonStyle = new ImageButton.ImageButtonStyle(largeBlueButtonNinePatch, largePressedBlueButtonNinePatch,
+                largePressedBlueButtonNinePatch, returnIcon, returnIcon, returnIcon);
         debugButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
                 smallPressedGreenButtonNinePatch, zoomIcon, zoomIcon, zoomIcon);
 
@@ -375,7 +370,7 @@ public class Assets {
                 12, 12, 12, 12));
         greyPanelStyle = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
                 greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldFont);
-        greyPanelStyle.fontColor = Color.LIGHT_GRAY;
+        greyPanelStyle.fontColor = Color.GRAY;
 
         // tileset
         oceanFloor = atlasTileset.findRegion("oceanFloor");

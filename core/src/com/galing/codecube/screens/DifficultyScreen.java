@@ -1,10 +1,12 @@
 package com.galing.codecube.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.Settings;
@@ -18,6 +20,16 @@ public class DifficultyScreen extends Screen {
 
     @Override
     public void draw(float delta) {
+        // clear screen
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.act();
+        stage.getBatch().begin();
+        stage.getBatch().draw(Assets.bg, 0, 0, stage.getWidth(), stage.getHeight());
+        stage.getBatch().end();
+
+        stage.draw();
     }
 
     @Override
@@ -27,10 +39,24 @@ public class DifficultyScreen extends Screen {
 
     @Override
     public void show() {
-        // create table
+        // create tables
         Table table = new Table();
         table.setFillParent(true);
         table.center();
+
+        Table backTable = new Table();
+        backTable.setFillParent(true);
+        backTable.bottom();
+
+        // create back button
+        ImageButton backButton = new ImageButton(Assets.backButtonStyle);
+        backButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Assets.clickSound.play();
+                game.setScreen(new MenuScreen(game));
+            }
+        });
 
         // create label
         TextButton selectedTitle =
@@ -38,14 +64,17 @@ public class DifficultyScreen extends Screen {
                         Assets.greyPanelStyle);
 
         // create buttons
-        TextButton easyButton = new TextButton(Difficulty.toString(Difficulty.EASY), Assets.futureFontLargeButtonStyle);
+        TextButton easyButton = new TextButton(Difficulty.toString(Difficulty.EASY),
+                Assets.vagaRoundBoldFontLargeButtonStyle);
         TextButton normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL),
-                Assets.futureFontLargeButtonStyle);
-        TextButton hardButton = new TextButton(Difficulty.toString(Difficulty.HARD), Assets.futureFontLargeButtonStyle);
+                Assets.vagaRoundBoldFontLargeButtonStyle);
+        TextButton hardButton = new TextButton(Difficulty.toString(Difficulty.HARD),
+                Assets.vagaRoundBoldFontLargeButtonStyle);
 
         easyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Assets.clickSound.play();
                 Settings.selectedDifficulty = Difficulty.EASY;
                 saveSettings();
             }
@@ -53,6 +82,7 @@ public class DifficultyScreen extends Screen {
         normalButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Assets.clickSound.play();
                 Settings.selectedDifficulty = Difficulty.NORMAL;
                 saveSettings();
             }
@@ -60,26 +90,28 @@ public class DifficultyScreen extends Screen {
         hardButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Assets.clickSound.play();
                 Settings.selectedDifficulty = Difficulty.HARD;
                 saveSettings();
             }
         });
 
-        // add background to table
-        table.setBackground(new TextureRegionDrawable(Assets.bg));
+        // add buttons and padding to tables
+        backTable.add(backButton).width(450).height(100).pad(125);
+        backTable.row();
 
-        // add buttons and padding to table
-        table.add(selectedTitle).padBottom(100);
+        table.add(selectedTitle);
         table.row();
-        table.add(easyButton).width(350).height(200).pad(25);
+        table.add(easyButton).width(350).height(150).pad(25);
         table.row();
-        table.add(normalButton).width(350).height(200).pad(25);
+        table.add(normalButton).width(350).height(150).pad(25);
         table.row();
-        table.add(hardButton).width(350).height(200).pad(25);
+        table.add(hardButton).width(350).height(150).pad(25);
         table.row();
 
         // add table to stage
         stage.addActor(table);
+        stage.addActor(backTable);
     }
 
     private void saveSettings() {

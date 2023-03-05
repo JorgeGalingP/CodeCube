@@ -20,7 +20,7 @@ public class HelpScreen extends Screen {
 
     @Override
     public void draw(float delta) {
-        //Clear screen
+        // clear screen
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -53,12 +53,10 @@ public class HelpScreen extends Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
+                Assets.clickSound.play();
                 game.setScreen(new MenuScreen(game));
             }
         });
-
-        backTable.add(backButton).width(350).height(200).pad(125);
-        backTable.row();
 
         // set textures
         TextButton one = new TextButton("Lorem ipsum dolor sit amet,\n consectetur adipiscing elit,\n sed do eiusmod " +
@@ -73,6 +71,9 @@ public class HelpScreen extends Screen {
                 "deserunt mollit anim id est laborum.", Assets.greyPanelStyle);
 
         // add buttons and padding to table
+        backTable.add(backButton).width(450).height(100).pad(125);
+        backTable.row();
+
         helpTable.add(one);
         helpTable.add(two);
         helpTable.add(three);
