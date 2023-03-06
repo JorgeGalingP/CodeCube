@@ -76,7 +76,7 @@ public class GameScreen extends Screen {
         homeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 game.setScreen(new ModeScreen(game));
             }
         });
@@ -87,7 +87,7 @@ public class GameScreen extends Screen {
         debugButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 board.setDebugMode();
             }
         });

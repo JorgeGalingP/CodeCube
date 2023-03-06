@@ -52,7 +52,7 @@ public class ModeScreen extends Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 game.setScreen(new MenuScreen(game));
             }
         });
@@ -69,21 +69,21 @@ public class ModeScreen extends Screen {
         sequenceButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 game.setScreen(new GameScreen(game, BoardType.SEQUENCE));
             }
         });
         stackButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 game.setScreen(new GameScreen(game, BoardType.STACK));
             }
         });
         queueButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 game.setScreen(new GameScreen(game, BoardType.QUEUE));
             }
         });

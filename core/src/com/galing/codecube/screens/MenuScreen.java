@@ -41,21 +41,21 @@ public class MenuScreen extends Screen {
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 game.setScreen(new ModeScreen(game));
             }
         });
         difficultyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
-                game.setScreen(new DifficultyScreen(game));
+                Assets.playClickSound();
+                game.setScreen(new OptionsScreen(game));
             }
         });
         helpButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 game.setScreen(new HelpScreen(game));
             }
         });

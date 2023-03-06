@@ -99,6 +99,10 @@ public class Assets {
     public static ImageButton.ImageButtonStyle homeButtonStyle;
     public static ImageButton.ImageButtonStyle backButtonStyle;
     public static ImageButton.ImageButtonStyle debugButtonStyle;
+    public static ImageButton.ImageButtonStyle musicOnButtonStyle;
+    public static ImageButton.ImageButtonStyle musicOffButtonStyle;
+    public static ImageButton.ImageButtonStyle audioOnButtonStyle;
+    public static ImageButton.ImageButtonStyle audioOffButtonStyle;
 
     public static AtlasRegion barrelsFloor;
     public static AtlasRegion campfireFloor;
@@ -186,7 +190,7 @@ public class Assets {
         vagaRoundBoldGray25Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
         vagaRoundBoldGray25Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
         vagaRoundBoldGray25Parameters.fontParameters.size = 25;
-        vagaRoundBoldGray25Parameters.fontParameters.color = Color.LIGHT_GRAY;
+        vagaRoundBoldGray25Parameters.fontParameters.color = Color.GRAY;
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldWhite30Parameters =
                 new FreetypeFontLoader.FreeTypeFontLoaderParameter();
@@ -202,7 +206,7 @@ public class Assets {
         vagaRoundBoldGray30Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
         vagaRoundBoldGray30Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
         vagaRoundBoldGray30Parameters.fontParameters.size = 30;
-        vagaRoundBoldGray30Parameters.fontParameters.color = Color.LIGHT_GRAY;
+        vagaRoundBoldGray30Parameters.fontParameters.color = Color.GRAY;
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldWhite35Parameters =
                 new FreetypeFontLoader.FreeTypeFontLoaderParameter();
@@ -218,7 +222,7 @@ public class Assets {
         vagaRoundBoldGray35Parameters.fontParameters.minFilter = Texture.TextureFilter.Linear;
         vagaRoundBoldGray35Parameters.fontParameters.magFilter = Texture.TextureFilter.Linear;
         vagaRoundBoldGray35Parameters.fontParameters.size = 35;
-        vagaRoundBoldGray35Parameters.fontParameters.color = Color.LIGHT_GRAY;
+        vagaRoundBoldGray35Parameters.fontParameters.color = Color.GRAY;
 
         // load font
         manager.load("vagaRoundBoldWhite25.ttf", BitmapFont.class, vagaRoundBoldWhite25Parameters);
@@ -395,6 +399,18 @@ public class Assets {
                 largePressedBlueButtonNinePatch, returnIcon, returnIcon, returnIcon);
         debugButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
                 smallPressedGreenButtonNinePatch, zoomIcon, zoomIcon, zoomIcon);
+        musicOnButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
+                smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, musicOnIcon, musicOnIcon, musicOnIcon);
+        musicOffButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
+                smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, musicOffIcon, musicOffIcon, musicOffIcon);
+        audioOnButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
+                smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, audioOnIcon, audioOnIcon, audioOnIcon);
+        audioOffButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
+                smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, audioOffIcon, audioOffIcon, audioOffIcon);
 
         // panel style
         NinePatchDrawable greyPanelNinePatchDrawable = new NinePatchDrawable(new NinePatch(Assets.greyPanel,
@@ -444,6 +460,11 @@ public class Assets {
         buttonFunctionVertical = atlasTileset.findRegion("buttonFunctionVertical");
 
         player = atlasTileset.findRegion("player");
+    }
+
+    public static void playClickSound() {
+        if (Settings.audio.equals("ON"))
+            clickSound.play();
     }
 
     public void selectMap(BoardType type) {

@@ -53,7 +53,7 @@ public class HelpScreen extends Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.clickSound.play();
+                Assets.playClickSound();
                 game.setScreen(new MenuScreen(game));
             }
         });
