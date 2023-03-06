@@ -98,24 +98,21 @@ public class OptionsScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                Settings.selectedDifficulty = Difficulty.EASY;
-                Settings.save();
+                Settings.modifyDifficulty(Difficulty.EASY);
             }
         });
         normalButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                Settings.selectedDifficulty = Difficulty.NORMAL;
-                Settings.save();
+                Settings.modifyDifficulty(Difficulty.NORMAL);
             }
         });
         hardButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                Settings.selectedDifficulty = Difficulty.HARD;
-                Settings.save();
+                Settings.modifyDifficulty(Difficulty.HARD);
             }
         });
 
@@ -124,8 +121,7 @@ public class OptionsScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                Settings.music = Settings.music.equals("ON") ? "OFF" : "ON";
-                Settings.save();
+                Settings.switchMusic();
             }
         });
 
@@ -134,8 +130,7 @@ public class OptionsScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                Settings.audio = Settings.audio.equals("ON") ? "OFF" : "ON";
-                Settings.save();
+                Settings.switchAudio();
             }
         });
 

@@ -24,4 +24,19 @@ public class Settings {
         preferences.putString("activeMusic", music);
         preferences.flush();
     }
+
+    public static void modifyDifficulty(Difficulty difficulty) {
+        Settings.selectedDifficulty = difficulty;
+        Settings.save();
+    }
+
+    public static void switchAudio() {
+        Settings.audio = Settings.audio.equals("ON") ? "OFF" : "ON";
+        Settings.save();
+    }
+
+    public static void switchMusic() {
+        Settings.music = Settings.music.equals("ON") ? "OFF" : "ON";
+        Settings.save();
+    }
 }

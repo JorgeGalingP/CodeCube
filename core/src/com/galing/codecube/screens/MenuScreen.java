@@ -1,5 +1,6 @@
 package com.galing.codecube.screens;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -64,7 +65,7 @@ public class MenuScreen extends Screen {
         table.setBackground(new TextureRegionDrawable(Assets.bg));
 
         // add buttons and padding to table
-        table.add(new Image(new TextureRegionDrawable(Assets.zoomIcon))).padBottom(100).height(500f).width(500f);
+        table.add(new Image(new TextureRegionDrawable(new Texture("images/titleLogo.png")))).padBottom(100).height(500f).width(500f);
         table.row();
         table.add(playButton).width(450).height(100).pad(25);
         table.row();

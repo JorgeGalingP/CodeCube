@@ -417,7 +417,6 @@ public class Assets {
                 12, 12, 12, 12));
         greyPanelStyle = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
                 greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldGray25);
-        greyPanelStyle.fontColor = Color.GRAY;
 
         // tileset
         oceanFloor = atlasTileset.findRegion("oceanFloor");

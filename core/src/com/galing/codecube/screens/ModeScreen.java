@@ -2,16 +2,21 @@ package com.galing.codecube.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.BoardType;
 
 public class ModeScreen extends Screen {
+
+    private Table modeTable;
 
     public ModeScreen(CodeCube game) {
         super(game);
@@ -38,14 +43,19 @@ public class ModeScreen extends Screen {
 
     @Override
     public void show() {
-        // create table
-        Table table = new Table();
-        table.setFillParent(true);
-        table.center();
+        // create tables
+        modeTable = new Table();
+        setModeTableBounds();
+        modeTable.top().padTop(50);
+        modeTable.background(new NinePatchDrawable(new NinePatch(Assets.greyPanel,
+                12, 12, 12, 12)));
 
         Table backTable = new Table();
         backTable.setFillParent(true);
         backTable.bottom();
+
+        // create labels
+        Label modeLabel = new Label("Elige una opción", new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
 
         // create back button
         ImageButton backButton = new ImageButton(Assets.backButtonStyle);
@@ -88,20 +98,34 @@ public class ModeScreen extends Screen {
             }
         });
 
+        // add buttons and padding to tables
+        modeTable.add(modeLabel).center().padBottom(150);
+        modeTable.row();
+        modeTable.add(sequenceButton).width(300).height(100).pad(25);
+        modeTable.row();
+        modeTable.add(stackButton).width(300).height(100).pad(25);
+        modeTable.row();
+        modeTable.add(queueButton).width(300).height(100).pad(25);
+        modeTable.row();
 
-        // add buttons and padding to table
         backTable.add(backButton).width(450).height(100).pad(125);
         backTable.row();
 
-        table.add(sequenceButton).width(350).height(150).pad(25);
-        table.row();
-        table.add(stackButton).width(350).height(150).pad(25);
-        table.row();
-        table.add(queueButton).width(350).height(150).pad(25);
-        table.row();
-
-        // add table to stage
-        stage.addActor(table);
+        // add difficultyTable to stage
+        stage.addActor(modeTable);
         stage.addActor(backTable);
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        setModeTableBounds();
+    }
+
+    private void setModeTableBounds() {
+        modeTable.setPosition(stage.getWidth() / 2 - (stage.getWidth() * 0.8f) / 2,
+                stage.getHeight() / 1.65f - (stage.getHeight() * 0.7f) / 2);
+        modeTable.setSize(stage.getWidth() * 0.8f,
+                stage.getHeight() * 0.7f);
     }
 }
