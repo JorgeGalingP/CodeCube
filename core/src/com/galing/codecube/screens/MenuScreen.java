@@ -35,7 +35,7 @@ public class MenuScreen extends Screen {
 
         // create buttons
         ImageButton playButton = new ImageButton(Assets.playButtonStyle);
-        TextButton difficultyButton = new TextButton("DIFICULTAD", Assets.vagaRoundBoldFontLargeButtonStyle);
+        TextButton difficultyButton = new TextButton("OPCIONES", Assets.vagaRoundBoldFontLargeButtonStyle);
         TextButton helpButton = new TextButton("¿CÓMO JUGAR?", Assets.vagaRoundBoldFontLargeButtonStyle);
 
         // add listeners to buttons
