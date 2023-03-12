@@ -65,7 +65,7 @@ public class Tile extends Actor {
         // perform in and out action
         addAction(Actions.sequence(
                 Actions.scaleTo(1.25f, 1.25f, .15f),
-                Actions.scaleTo(1f, 1f, .2f)));
+                Actions.scaleTo(.8f, .8f, .2f)));
     }
 
     public void addInOutPositionAction(Vector2 position) {
