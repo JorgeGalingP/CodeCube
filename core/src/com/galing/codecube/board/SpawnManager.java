@@ -2,7 +2,6 @@ package com.galing.codecube.board;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.objects.Box;
@@ -21,6 +20,12 @@ public class SpawnManager {
     }
 
     public void spawn(BoxType boxType) {
+        Box box = create(boxType);
+
+        box.addShowAction();
+    }
+
+    public Box create(BoxType boxType) {
         Vector2 coordinate = Vector2.Zero;
 
         switch (boxType) {
@@ -47,15 +52,13 @@ public class SpawnManager {
         }
 
         Box box = new Box(coordinate, boxType);
+
         activeBoxes.add(box);
 
         board.addActor(box);
         board.getGameControl().attachDragListener(box);
 
-        // TODO
-        box.addAction(Actions.sequence(
-                Actions.scaleTo(1.25f, 1.25f, .3f),
-                Actions.alpha(1f, .15f)));
+        return box;
     }
 
     public void free() {
@@ -67,6 +70,7 @@ public class SpawnManager {
             if (!box.isAlive()) {
                 activeBoxes.removeIndex(i);
                 box.addRemoveAction();
+                //box.addHandleControlAction();
             }
         }
     }

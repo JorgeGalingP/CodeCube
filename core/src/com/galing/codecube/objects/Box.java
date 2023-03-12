@@ -2,7 +2,6 @@ package com.galing.codecube.objects;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -43,9 +42,7 @@ public class Box extends Tile {
         clearControl();
         setRandomIdle();
 
-        alive = true;
-
-        setScale(0); // TODO
+        setAlive(true);
     }
 
     public ContainerType getControlType() {
@@ -83,11 +80,11 @@ public class Box extends Tile {
 
     public void setRandomIdle() {
         setRotation(random.nextInt(3 + 3 + 1) - 3);
-        setScale(1.25f);
+        setScale(1.5f);
     }
 
     public void setDraggedIdle() {
-        setScale(1.75f);
+        setScale(2f);
     }
 
     public void setPushedIdle() {
@@ -95,25 +92,34 @@ public class Box extends Tile {
         setRotation(0);
     }
 
+    public void addResetPositionAction() {
+        addAction(Actions.parallel(
+                moveTo(getCoordinate().x, getCoordinate().y, .3f),
+                Actions.run(this::setRandomIdle)
+        ));
+    }
+
+    public void addShowAction() {
+        addAction(Actions.parallel(
+                Actions.scaleTo(0, 0),
+                Actions.scaleTo(1.5f, 1.5f, .15f),
+                Actions.alpha(1f, .15f)));
+    }
+
+    // TODO WIP
+    public void addHandleControlAction() {
+        addAction(Actions.sequence(
+                Actions.scaleTo(1.25f, 1.25f, .15f),
+                Actions.scaleTo(.8f, .8f, .15f),
+                Actions.parallel(
+                        Actions.scaleTo(0, 0, .3f),
+                        Actions.alpha(0, .3f)), Actions.removeActor()));
+    }
+
     @Override
     public void addInOutAction() {
         addAction(Actions.sequence(
                 Actions.scaleTo(1.25f, 1.25f, .15f),
-                Actions.scaleTo(.8f, .8f, .2f)));
-    }
-
-    @Override
-    public void addResetPositionAction() {
-        setRandomIdle();
-        clearControl();
-        super.addResetPositionAction();
-    }
-
-    @Override
-    public void addRemoveAction() {
-        setRandomIdle();
-        clearControl();
-        super.addRemoveAction();
-        setAlive(false);
+                Actions.scaleTo(.8f, .8f, .15f)));
     }
 }

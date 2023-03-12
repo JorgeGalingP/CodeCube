@@ -122,11 +122,11 @@ public class Board extends Group {
                     functionControls);
 
         // spawn boxes of each type
-        spawnManager.spawn(BoxType.UP);
-        spawnManager.spawn(BoxType.RIGHT);
-        spawnManager.spawn(BoxType.LEFT);
-        spawnManager.spawn(BoxType.FUNCTION);
-        spawnManager.spawn(BoxType.NEGATION);
+        spawnManager.create(BoxType.UP);
+        spawnManager.create(BoxType.RIGHT);
+        spawnManager.create(BoxType.LEFT);
+        spawnManager.create(BoxType.FUNCTION);
+        spawnManager.create(BoxType.NEGATION);
     }
 
     public boolean isGameOver() {
@@ -351,7 +351,6 @@ public class Board extends Group {
                 && gameControl.hasSeveralFunctions())
             box.addInOutAction();
         else
-            //box.resetBox();
             box.setAlive(false);
     }
 

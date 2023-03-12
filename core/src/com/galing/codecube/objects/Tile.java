@@ -50,18 +50,14 @@ public class Tile extends Actor {
     }
 
     public void addRemoveAction() {
-        addAction(Actions.sequence(
-                Actions.scaleTo(.0f, .0f, .3f),
-                Actions.alpha(0, .1f),
-                Actions.removeActor()));
-    }
-
-    public void addResetPositionAction() {
-        addAction(moveTo(coordinate.x, coordinate.y, .3f));
+        addAction(Actions.sequence(Actions.parallel(
+                        Actions.scaleTo(0, 0, .3f),
+                        Actions.alpha(0, .3f)),
+                Actions.removeActor()
+        ));
     }
 
     public void addInOutAction() {
-        // perform in and out action
         addAction(Actions.sequence(
                 Actions.scaleTo(1.25f, 1.25f, .15f),
                 Actions.scaleTo(1f, 1f, .2f)));
@@ -73,7 +69,7 @@ public class Tile extends Actor {
         // perform in and out action with movement
         addAction(Actions.sequence(
                 Actions.scaleTo(1.5f, 1.5f, .3f),
-                Actions.scaleTo(.0f, .0f, .3f),
+                Actions.scaleTo(0, 0, .3f),
                 Actions.alpha(0, .1f),
                 Actions.moveTo(position.x, position.y, .3f),
                 Actions.alpha(1, .1f),
