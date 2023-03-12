@@ -174,9 +174,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && (lastTouch.y <= programButtonPosition.y + 1 + box.getHeight() / 2)
                         && box.getIsTouchable() == null
                         && getProgramSize() != programSize) {
-                    // push box to program control and spawn a new box
-                    addToProgram(box);
-                    spawnManager.spawn(box.getType());
+                    addToProgram(box); // push to program control
+                    spawnManager.spawn(box.getType()); // spawn a new box of same type
                 } else if (functionButtonPosition != null
                         && ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
                         && (lastTouch.x <= functionButtonPosition.x + 1 + box.getWidth() / 2)
@@ -184,16 +183,12 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && (lastTouch.y <= functionButtonPosition.y + 1 + box.getHeight() / 2)
                         && box.getIsTouchable() == null
                         && getFunctionSize() != functionSize)) {
-                    // push box to function control and spawn a new box
-                    addToFunction(box);
-                    spawnManager.spawn(box.getType());
+                    addToFunction(box); // push to function control
+                    spawnManager.spawn(box.getType()); // spawn a new box of same type
                 } else if (box.getIsTouchable() != null
                         && box.getControlType() != null) {
                     if (box.getIsTouchable()) {
-                        // pop peek element out and set back to original position
-                        remove(box);
-                        // TODO add animation: addAction(moveTo(coordinate.x, coordinate.y, .3f));
-                        box.alive = false;
+                        remove(box); // remove box and kill
                     }
                 } else {
                     // back to start

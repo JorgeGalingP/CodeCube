@@ -72,8 +72,8 @@ public class Queue extends Control<ArrayDeque<Box>> {
             handleFunctionTouchable();
         }
 
-        // back to start
-        box.addResetPositionAction();
+        // kill box
+        box.setAlive(false);
     }
 
     @Override

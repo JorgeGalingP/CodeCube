@@ -2,7 +2,6 @@ package com.galing.codecube.board;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -122,7 +121,7 @@ public class Board extends Group {
             this.gameControl = new Sequence(spawnManager, programButton, functionButton, programControls,
                     functionControls);
 
-        // create boxes
+        // spawn boxes of each type
         spawnManager.spawn(BoxType.UP);
         spawnManager.spawn(BoxType.RIGHT);
         spawnManager.spawn(BoxType.LEFT);
@@ -247,6 +246,10 @@ public class Board extends Group {
         }
     }
 
+    public void handleBoxes() {
+        spawnManager.free();
+    }
+
     public void setDebugMode() {
         this.player.debug = !this.player.debug;
         this.player.setListener();
@@ -271,12 +274,12 @@ public class Board extends Group {
                             handleMovement(box);
                         } else {
                             box = gameControl.removeFromProgram();
-                            box.resetBox();
+                            box.setAlive(false);
                         }
                         break;
                     case NEGATION:
                         box = gameControl.removeFromProgram();
-                        box.resetBox();
+                        box.setAlive(false);
 
                         inverse = !inverse;
                         break;
@@ -348,7 +351,12 @@ public class Board extends Group {
                 && gameControl.hasSeveralFunctions())
             box.addInOutAction();
         else
-            box.resetBox();
+            //box.resetBox();
+            box.setAlive(false);
+    }
+
+    public Controllable getGameControl() {
+        return gameControl;
     }
 
     private Vector2 getRandomPosition(Class<?> type) {
@@ -379,15 +387,5 @@ public class Board extends Group {
                 return false;
         }
         return true;
-    }
-
-    public Controllable getGameControl() {
-        return gameControl;
-    }
-
-    public void handleBoxes() {
-        spawnManager.free();
-
-        Gdx.app.log("B", spawnManager.getActiveBoxes().size + "");
     }
 }

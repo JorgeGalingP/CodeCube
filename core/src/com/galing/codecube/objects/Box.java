@@ -44,6 +44,8 @@ public class Box extends Tile {
         setRandomIdle();
 
         alive = true;
+
+        setScale(0); // TODO
     }
 
     public ContainerType getControlType() {
@@ -66,6 +68,14 @@ public class Box extends Tile {
         return type;
     }
 
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
     public void clearControl() {
         setControlType(null);
         setIsTouchable(null);
@@ -73,7 +83,7 @@ public class Box extends Tile {
 
     public void setRandomIdle() {
         setRotation(random.nextInt(3 + 3 + 1) - 3);
-        setScale(1.15f);
+        setScale(1.25f);
     }
 
     public void setDraggedIdle() {
@@ -85,8 +95,11 @@ public class Box extends Tile {
         setRotation(0);
     }
 
-    public void resetBox() {
-        addAction(Actions.sequence(moveTo(getCoordinate().x, getCoordinate().y, .3f), run(() -> alive = false)));
+    @Override
+    public void addInOutAction() {
+        addAction(Actions.sequence(
+                Actions.scaleTo(1.25f, 1.25f, .15f),
+                Actions.scaleTo(.8f, .8f, .2f)));
     }
 
     @Override
@@ -94,5 +107,13 @@ public class Box extends Tile {
         setRandomIdle();
         clearControl();
         super.addResetPositionAction();
+    }
+
+    @Override
+    public void addRemoveAction() {
+        setRandomIdle();
+        clearControl();
+        super.addRemoveAction();
+        setAlive(false);
     }
 }

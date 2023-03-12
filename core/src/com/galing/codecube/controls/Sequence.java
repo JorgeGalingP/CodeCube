@@ -68,8 +68,8 @@ public class Sequence extends Control<List<Box>> {
             handleFunctionTouchable();
         }
 
-        // back to start
-        box.addResetPositionAction();
+        // kill box
+        box.setAlive(false);
     }
 
     @Override
