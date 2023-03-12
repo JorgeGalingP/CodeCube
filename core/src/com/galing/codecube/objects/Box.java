@@ -1,8 +1,11 @@
 package com.galing.codecube.objects;
 
 import static com.badlogic.gdx.math.MathUtils.random;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.galing.codecube.Assets;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
@@ -12,37 +15,35 @@ public class Box extends Tile {
     public ContainerType containerType;
     public Boolean touchable;
     public BoxType type;
+    public boolean alive;
 
-    public Box(Vector2 coordinate, String variable) {
+    public Box(Vector2 coordinate, BoxType type) {
         super(coordinate);
 
-        setIsTouchable(null);
-        setControlType(null);
+        this.type = type;
 
-        switch (variable) {
-            case "up":
-                type = BoxType.UP;
+        switch (type) {
+            case UP:
                 setAtlasRegion(Assets.greenBox);
                 break;
-            case "right":
-                type = BoxType.RIGHT;
+            case RIGHT:
                 setAtlasRegion(Assets.blueBox);
                 break;
-            case "left":
-                type = BoxType.LEFT;
+            case LEFT:
                 setAtlasRegion(Assets.redBox);
                 break;
-            case "negation":
-                type = BoxType.NEGATION;
+            case NEGATION:
                 setAtlasRegion(Assets.greyBox);
                 break;
-            case "function":
-                type = BoxType.FUNCTION;
+            case FUNCTION:
                 setAtlasRegion(Assets.yellowBox);
                 break;
         }
 
+        clearControl();
         setRandomIdle();
+
+        alive = true;
     }
 
     public ContainerType getControlType() {
@@ -72,12 +73,20 @@ public class Box extends Tile {
 
     public void setRandomIdle() {
         setRotation(random.nextInt(3 + 3 + 1) - 3);
-        setScale(.93f);
+        setScale(1.15f);
+    }
+
+    public void setDraggedIdle() {
+        setScale(1.75f);
     }
 
     public void setPushedIdle() {
-        setRotation(0);
         setScale(.8f);
+        setRotation(0);
+    }
+
+    public void resetBox() {
+        addAction(Actions.sequence(moveTo(getCoordinate().x, getCoordinate().y, .3f), run(() -> alive = false)));
     }
 
     @Override

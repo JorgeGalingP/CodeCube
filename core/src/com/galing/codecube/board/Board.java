@@ -2,6 +2,7 @@ package com.galing.codecube.board;
 
 import static com.badlogic.gdx.math.MathUtils.random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -20,6 +21,7 @@ import com.galing.codecube.controls.Queue;
 import com.galing.codecube.controls.Sequence;
 import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.enums.TargetType;
 import com.galing.codecube.objects.Box;
@@ -64,6 +66,7 @@ public class Board extends Group {
     private final Array<Container> functionControls;
 
     private final Controllable gameControl;
+    private final SpawnManager spawnManager;
 
     private final Array<Vector2> playerMoves;
 
@@ -105,16 +108,26 @@ public class Board extends Group {
         initializeLayer("player");
         initializeLayer("boxes");
 
+        // spawn manager
+        spawnManager = new SpawnManager(this, stage);
+
         // initialize Control
         if (type.equals(BoardType.STACK))
-            this.gameControl = new Stack(programButton, functionButton, programControls, functionControls);
+            this.gameControl = new Stack(spawnManager, programButton, functionButton, programControls,
+                    functionControls);
         else if (type.equals(BoardType.QUEUE))
-            this.gameControl = new Queue(programButton, functionButton, programControls, functionControls);
+            this.gameControl = new Queue(spawnManager, programButton, functionButton, programControls,
+                    functionControls);
         else
-            this.gameControl = new Sequence(programButton, functionButton, programControls, functionControls);
+            this.gameControl = new Sequence(spawnManager, programButton, functionButton, programControls,
+                    functionControls);
 
-        // add drag listener for each box
-        Arrays.stream(this.getChildren().toArray()).filter(a -> a.getClass().equals(Box.class)).forEach(b -> gameControl.attachDragListener((Box) b));
+        // create boxes
+        spawnManager.spawn(BoxType.UP);
+        spawnManager.spawn(BoxType.RIGHT);
+        spawnManager.spawn(BoxType.LEFT);
+        spawnManager.spawn(BoxType.FUNCTION);
+        spawnManager.spawn(BoxType.NEGATION);
     }
 
     public boolean isGameOver() {
@@ -159,8 +172,7 @@ public class Board extends Group {
         this.state = BoardState.GAME_OVER;
     }
 
-    private Array<Tile> initializeLayer(String layerName) {
-        Array<Tile> tiles = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
+    private void initializeLayer(String layerName) {
         TiledMapTileLayer mapLayer = (TiledMapTileLayer) Assets.tileMap.getLayers().get(layerName);
 
         if (mapLayer != null) {
@@ -215,10 +227,6 @@ public class Board extends Group {
                                         if (((Button) tile).getType().equals(ContainerType.FUNCTION))
                                             functionButton = (Button) tile;
                                         break;
-                                    case "box":
-                                        tile = new Box(tilePosition,
-                                                mapTile.getProperties().get("variable").toString());
-                                        break;
                                     case "target":
                                         tile = new Target(getRandomPosition(Arrays.asList(Player.class, Target.class)),
                                                 mapTile.getProperties().get("color").toString());
@@ -237,8 +245,6 @@ public class Board extends Group {
                 }
             }
         }
-
-        return tiles;
     }
 
     public void setDebugMode() {
@@ -251,12 +257,12 @@ public class Board extends Group {
             if (!gameControl.isProgramEmpty()) {
                 Box box;
 
+                // iterate through game control
                 switch (gameControl.getNextBox().getType()) {
                     case UP:
                     case RIGHT:
                     case LEFT:
                         box = gameControl.removeFromProgram();
-
                         handleMovement(box);
                         break;
                     case FUNCTION:
@@ -265,12 +271,12 @@ public class Board extends Group {
                             handleMovement(box);
                         } else {
                             box = gameControl.removeFromProgram();
-                            box.addResetPositionAction();
+                            box.resetBox();
                         }
                         break;
                     case NEGATION:
                         box = gameControl.removeFromProgram();
-                        box.addResetPositionAction();
+                        box.resetBox();
 
                         inverse = !inverse;
                         break;
@@ -342,7 +348,7 @@ public class Board extends Group {
                 && gameControl.hasSeveralFunctions())
             box.addInOutAction();
         else
-            box.addResetPositionAction();
+            box.resetBox();
     }
 
     private Vector2 getRandomPosition(Class<?> type) {
@@ -373,5 +379,15 @@ public class Board extends Group {
                 return false;
         }
         return true;
+    }
+
+    public Controllable getGameControl() {
+        return gameControl;
+    }
+
+    public void handleBoxes() {
+        spawnManager.free();
+
+        Gdx.app.log("B", spawnManager.getActiveBoxes().size + "");
     }
 }

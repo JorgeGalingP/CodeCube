@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.board.SpawnManager;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
@@ -17,6 +18,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     private T program;
     private List<T> function;
 
+    private final SpawnManager spawnManager;
+
     private final Vector2 programButtonPosition;
     private final int programSize;
     private final Array<Container> programControls;
@@ -25,9 +28,11 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     private int functionSize;
     private Array<Container> functionControls;
 
-    public Control(Button programButton, Button functionButton,
+    public Control(SpawnManager spawnManager,
+                   Button programButton, Button functionButton,
                    Array<Container> programControls,
                    Array<Container> functionControls) {
+        this.spawnManager = spawnManager;
         this.programButtonPosition = programButton.getCoordinate();
         this.programSize = programControls.size;
         this.programControls = programControls;
@@ -153,6 +158,7 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         || (box.getIsTouchable()
                         && (box.getControlType().equals(ContainerType.PROGRAM) || box.getControlType().equals(ContainerType.FUNCTION)))) {
                     box.toFront();
+                    box.setDraggedIdle();
                     box.moveBy(x - box.getWidth() / 2, y - box.getHeight() / 2);
                 }
             }
@@ -168,8 +174,9 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && (lastTouch.y <= programButtonPosition.y + 1 + box.getHeight() / 2)
                         && box.getIsTouchable() == null
                         && getProgramSize() != programSize) {
-                    // push box to the stack
+                    // push box to program control and spawn a new box
                     addToProgram(box);
+                    spawnManager.spawn(box.getType());
                 } else if (functionButtonPosition != null
                         && ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
                         && (lastTouch.x <= functionButtonPosition.x + 1 + box.getWidth() / 2)
@@ -177,13 +184,16 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && (lastTouch.y <= functionButtonPosition.y + 1 + box.getHeight() / 2)
                         && box.getIsTouchable() == null
                         && getFunctionSize() != functionSize)) {
-                    // push box to the stack
+                    // push box to function control and spawn a new box
                     addToFunction(box);
+                    spawnManager.spawn(box.getType());
                 } else if (box.getIsTouchable() != null
                         && box.getControlType() != null) {
                     if (box.getIsTouchable()) {
-                        // pop peek element out of the stack and set back to original position
+                        // pop peek element out and set back to original position
                         remove(box);
+                        // TODO add animation: addAction(moveTo(coordinate.x, coordinate.y, .3f));
+                        box.alive = false;
                     }
                 } else {
                     // back to start

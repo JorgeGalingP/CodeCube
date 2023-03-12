@@ -5,6 +5,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.board.SpawnManager;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
@@ -15,9 +16,12 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 public class Queue extends Control<ArrayDeque<Box>> {
-    public Queue(Button programButton, Button functionButton, Array<Container> programControls,
+    public Queue(SpawnManager spawnManager,
+                 Button programButton,
+                 Button functionButton,
+                 Array<Container> programControls,
                  Array<Container> functionControls) {
-        super(programButton, functionButton, programControls, functionControls);
+        super(spawnManager, programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayDeque<>());
         setFunction(new ArrayList<>());
         getFunction().add(new ArrayDeque<>());

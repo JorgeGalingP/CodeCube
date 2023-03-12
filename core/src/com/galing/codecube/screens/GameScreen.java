@@ -132,6 +132,8 @@ public class GameScreen extends Screen {
 
     @Override
     public void update(float delta) {
+        board.handleBoxes();
+
         if (state == GameState.INIT) {
             if (Gdx.input.justTouched()) {
                 initTable.remove();

@@ -12,7 +12,7 @@ import com.galing.codecube.board.Board;
 
 public class Tile extends Actor {
 
-    final float SIZE = Board.TILE_SIZE * Board.UNIT_SCALE;
+    public static final float SIZE = Board.TILE_SIZE * Board.UNIT_SCALE;
 
     private AtlasRegion atlasRegion;
     private Vector2 coordinate;
@@ -29,7 +29,6 @@ public class Tile extends Actor {
         batch.draw(atlasRegion, getX(), getY(), getOriginX(), getOriginY(), SIZE, SIZE, getScaleX(), getScaleY(),
                 getRotation());
     }
-
 
     public Vector2 getCoordinate() {
         return coordinate;

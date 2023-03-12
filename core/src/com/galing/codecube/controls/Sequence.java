@@ -3,6 +3,7 @@ package com.galing.codecube.controls;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.board.SpawnManager;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
@@ -13,9 +14,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sequence extends Control<List<Box>> {
-    public Sequence(Button programButton, Button functionButton, Array<Container> programControls,
+    public Sequence(SpawnManager spawnManager,
+                    Button programButton,
+                    Button functionButton,
+                    Array<Container> programControls,
                     Array<Container> functionControls) {
-        super(programButton, functionButton, programControls, functionControls);
+        super(spawnManager, programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayList<>());
         setFunction(new ArrayList<>());
         getFunction().add(new ArrayList<>());

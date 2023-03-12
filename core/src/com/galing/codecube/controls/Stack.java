@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.board.SpawnManager;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
 import com.galing.codecube.objects.Box;
@@ -15,9 +16,12 @@ import java.util.ArrayList;
 
 public class Stack extends Control<java.util.Stack<Box>> {
 
-    public Stack(Button programButton, Button functionButton, Array<Container> programControls,
+    public Stack(SpawnManager spawnManager,
+                 Button programButton,
+                 Button functionButton,
+                 Array<Container> programControls,
                  Array<Container> functionControls) {
-        super(programButton, functionButton, programControls, functionControls);
+        super(spawnManager, programButton, functionButton, programControls, functionControls);
         setProgram(new java.util.Stack<>());
         setFunction(new ArrayList<>());
         getFunction().add(new java.util.Stack<>());
