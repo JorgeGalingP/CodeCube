@@ -1,5 +1,7 @@
 package com.galing.codecube.objects;
 
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -96,6 +98,13 @@ public class Player extends Tile {
         }
 
         return movementVector;
+    }
+
+    public void addMovePositionAction(Vector2 position) {
+        setCoordinate(position);
+
+        // perform move action
+        addAction(moveTo(position.x, position.y, .3f));
     }
 
     public void addRotationAction(Box box, boolean inverse) {

@@ -92,18 +92,18 @@ public class Box extends Tile {
         setRotation(0);
     }
 
-    public void addResetPositionAction() {
-        addAction(Actions.parallel(
-                moveTo(getCoordinate().x, getCoordinate().y, .3f),
-                Actions.run(this::setRandomIdle)
-        ));
-    }
-
     public void addShowAction() {
         addAction(Actions.parallel(
                 Actions.scaleTo(0, 0),
                 Actions.scaleTo(1.5f, 1.5f, .15f),
                 Actions.alpha(1f, .15f)));
+    }
+
+    public void addResetPositionAction() {
+        addAction(Actions.parallel(
+                moveTo(getCoordinate().x, getCoordinate().y, .3f),
+                Actions.run(this::setRandomIdle)
+        ));
     }
 
     // TODO WIP

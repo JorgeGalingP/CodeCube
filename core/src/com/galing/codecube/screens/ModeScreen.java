@@ -101,11 +101,11 @@ public class ModeScreen extends Screen {
         // add buttons and padding to tables
         modeTable.add(modeLabel).center().padBottom(150);
         modeTable.row();
-        modeTable.add(sequenceButton).width(300).height(100).pad(25);
+        modeTable.add(sequenceButton).width(300).height(100).pad(35);
         modeTable.row();
-        modeTable.add(stackButton).width(300).height(100).pad(25);
+        modeTable.add(stackButton).width(300).height(100).pad(35);
         modeTable.row();
-        modeTable.add(queueButton).width(300).height(100).pad(25);
+        modeTable.add(queueButton).width(300).height(100).pad(35);
         modeTable.row();
 
         backTable.add(backButton).width(450).height(100).pad(125);

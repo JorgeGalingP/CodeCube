@@ -1,7 +1,5 @@
 package com.galing.codecube.objects;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
-
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -42,13 +40,6 @@ public class Tile extends Actor {
         this.atlasRegion = atlasRegion;
     }
 
-    public void addMovePositionAction(Vector2 position) {
-        setCoordinate(position);
-
-        // perform move action
-        addAction(moveTo(position.x, position.y, .3f));
-    }
-
     public void addRemoveAction() {
         addAction(Actions.sequence(Actions.parallel(
                         Actions.scaleTo(0, 0, .3f),
@@ -61,19 +52,6 @@ public class Tile extends Actor {
         addAction(Actions.sequence(
                 Actions.scaleTo(1.25f, 1.25f, .15f),
                 Actions.scaleTo(1f, 1f, .2f)));
-    }
-
-    public void addInOutPositionAction(Vector2 position) {
-        setCoordinate(position);
-
-        // perform in and out action with movement
-        addAction(Actions.sequence(
-                Actions.scaleTo(1.5f, 1.5f, .3f),
-                Actions.scaleTo(0, 0, .3f),
-                Actions.alpha(0, .1f),
-                Actions.moveTo(position.x, position.y, .3f),
-                Actions.alpha(1, .1f),
-                Actions.scaleTo(1f, 1f, .3f)));
     }
 
     public boolean isEqualCoordinate(Vector2 position) {
