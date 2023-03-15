@@ -14,6 +14,7 @@ import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.Settings;
 import com.galing.codecube.enums.Difficulty;
+import com.galing.codecube.enums.Language;
 
 public class OptionsScreen extends Screen {
 
@@ -23,6 +24,8 @@ public class OptionsScreen extends Screen {
     private TextButton hardButton;
     private ImageButton musicButton;
     private ImageButton audioButton;
+    private TextButton enLanguageButton;
+    private TextButton esESLanguageButton;
 
     public OptionsScreen(CodeCube game) {
         super(game);
@@ -55,6 +58,10 @@ public class OptionsScreen extends Screen {
                 Assets.musicOnButtonStyle : Assets.musicOffButtonStyle);
         this.audioButton.setStyle(Settings.audio.equals("ON") ?
                 Assets.audioOnButtonStyle : Assets.audioOffButtonStyle);
+        this.enLanguageButton.setStyle(Settings.selectedLanguage.equals(Language.EN) ?
+                Assets.vagaRoundBoldFontLargeSelectedButtonStyle : Assets.vagaRoundBoldFontLargeButtonStyle);
+        this.esESLanguageButton.setStyle(Settings.selectedLanguage.equals(Language.ES_ES) ?
+                Assets.vagaRoundBoldFontLargeSelectedButtonStyle : Assets.vagaRoundBoldFontLargeButtonStyle);
     }
 
     @Override
@@ -74,6 +81,7 @@ public class OptionsScreen extends Screen {
         Label difficultyLabel = new Label("Dificultad", new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
         Label musicLabel = new Label("Música", new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
         Label audioLabel = new Label("Sonido", new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
+        Label languageLabel = new Label("Idioma", new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
         Label configurationLabel = new Label("Opciones", new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
 
         // create back button
@@ -92,6 +100,11 @@ public class OptionsScreen extends Screen {
         normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL),
                 Assets.vagaRoundBoldFontLargeButtonStyle);
         hardButton = new TextButton(Difficulty.toString(Difficulty.HARD),
+                Assets.vagaRoundBoldFontLargeButtonStyle);
+
+        enLanguageButton = new TextButton(Language.toString(Language.EN),
+                Assets.vagaRoundBoldFontLargeButtonStyle);
+        esESLanguageButton = new TextButton(Language.toString(Language.ES_ES),
                 Assets.vagaRoundBoldFontLargeButtonStyle);
 
         easyButton.addListener(new ClickListener() {
@@ -116,6 +129,21 @@ public class OptionsScreen extends Screen {
             }
         });
 
+        enLanguageButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Assets.playClickSound();
+                Settings.modifyLanguage(Language.EN);
+            }
+        });
+        esESLanguageButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Assets.playClickSound();
+                Settings.modifyLanguage(Language.ES_ES);
+            }
+        });
+
         musicButton = new ImageButton(Assets.musicOnButtonStyle);
         musicButton.addListener(new ClickListener() {
             @Override
@@ -137,16 +165,20 @@ public class OptionsScreen extends Screen {
         // add buttons and padding to tables
         difficultyTable.add(configurationLabel).colspan(4).center().padBottom(75);
         difficultyTable.row();
-        difficultyTable.add(difficultyLabel).pad(10).padBottom(50);
+        difficultyTable.add(difficultyLabel).center().pad(10).padBottom(50);
         difficultyTable.add(easyButton).width(100).height(50).pad(10).padBottom(50);
         difficultyTable.add(normalButton).width(100).height(50).pad(10).padBottom(50);
         difficultyTable.add(hardButton).width(100).height(50).pad(10).padBottom(50);
         difficultyTable.row();
         difficultyTable.add(musicLabel).colspan(2).center().pad(10).padBottom(50);
-        difficultyTable.add(musicButton).colspan(2).center().width(100).height(50).pad(10).padBottom(50);
+        difficultyTable.add(musicButton).colspan(2).width(100).height(50).pad(10).padBottom(50);
         difficultyTable.row();
         difficultyTable.add(audioLabel).colspan(2).center().pad(10).padBottom(50);
-        difficultyTable.add(audioButton).colspan(2).center().width(100).height(50).pad(10).padBottom(50);
+        difficultyTable.add(audioButton).colspan(2).width(100).height(50).pad(10).padBottom(50);
+        difficultyTable.row();
+        difficultyTable.add(languageLabel).colspan(1).center().pad(10).padBottom(50);
+        difficultyTable.add(enLanguageButton).colspan(1).width(100).height(50).pad(10).padBottom(50);
+        difficultyTable.add(esESLanguageButton).colspan(1).width(100).height(50).pad(10).padBottom(50);
         difficultyTable.row();
 
         backTable.add(backButton).width(450).height(100).pad(125);

@@ -2,6 +2,7 @@ package com.galing.codecube;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -19,7 +20,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.galing.codecube.enums.BoardType;
+
+import java.util.Locale;
 
 public class Assets {
     private final AssetManager manager;
@@ -28,6 +32,10 @@ public class Assets {
 
     public static TextureAtlas atlasTileset;
     public static TextureAtlas atlasUI;
+
+    public static I18NBundle selectedBundle;
+    public static I18NBundle bundleEn;
+    public static I18NBundle bundleEsES;
 
     public static BitmapFont vagaRoundBoldWhite25;
     public static BitmapFont vagaRoundBoldGray25;
@@ -156,6 +164,14 @@ public class Assets {
         manager.load("atlas/tileset.atlas", TextureAtlas.class);
         manager.load("atlas/UI.atlas", TextureAtlas.class);
 
+        // load translations
+        I18NBundleLoader.I18NBundleParameter localeParams = new I18NBundleLoader.I18NBundleParameter(Locale.ENGLISH,
+                "UTF-8");
+        I18NBundleLoader.I18NBundleParameter localeParamsEs = new I18NBundleLoader.I18NBundleParameter(
+                new Locale("es", "ES"), "ISO-8859-1");
+        manager.load("i18n/bundle_en", I18NBundle.class, localeParams);
+        manager.load("i18n/bundle_es_ES", I18NBundle.class, localeParamsEs);
+
         // set handle resolver for TMX files as TileMap
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 
@@ -240,6 +256,11 @@ public class Assets {
         // atlas
         atlasTileset = manager.get("atlas/tileset.atlas", TextureAtlas.class);
         atlasUI = manager.get("atlas/UI.atlas", TextureAtlas.class);
+
+        // translations
+        bundleEn = manager.get("i18n/bundle_en", I18NBundle.class);
+        bundleEsES = manager.get("i18n/bundle_es_ES", I18NBundle.class);
+        selectedBundle = bundleEn;
 
         // fonts
         vagaRoundBoldWhite25 = manager.get("vagaRoundBoldWhite25.ttf", BitmapFont.class);
@@ -474,5 +495,18 @@ public class Assets {
 
         tileMap = manager.get("stages/" + type.getType() + "_" +
                 Settings.selectedDifficulty.toString().toLowerCase() + ".tmx", TiledMap.class);
+    }
+
+    public static String selectString(String key) {
+        switch (Settings.selectedLanguage) {
+            case EN:
+                selectedBundle = bundleEn;
+                break;
+            case ES_ES:
+                selectedBundle = bundleEsES;
+                break;
+        }
+
+        return selectedBundle.get(key);
     }
 }
