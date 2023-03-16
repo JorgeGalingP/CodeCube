@@ -34,8 +34,8 @@ public class MenuScreen extends Screen {
         table.center();
 
         // create buttons
-        String optionsButtonTitle = Assets.selectString("menuScreenOptionsButton");
-        String helpButtonTitle = Assets.selectString("menuScreenHowPlay");
+        String optionsButtonTitle = Assets.selectString("MenuScreen_OptionsButton");
+        String helpButtonTitle = Assets.selectString("MenuScreen_HowToPlay");
         ImageButton playButton = new ImageButton(Assets.playButtonStyle);
         TextButton optionsButton = new TextButton(optionsButtonTitle, Assets.vagaRoundBoldFontLargeButtonStyle);
         TextButton helpButton = new TextButton(helpButtonTitle, Assets.vagaRoundBoldFontLargeButtonStyle);

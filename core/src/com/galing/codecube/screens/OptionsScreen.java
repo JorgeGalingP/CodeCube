@@ -23,9 +23,14 @@ public class OptionsScreen extends Screen {
     private TextButton normalButton;
     private TextButton hardButton;
     private ImageButton musicButton;
-    private ImageButton audioButton;
+    private ImageButton soundButton;
     private TextButton enLanguageButton;
     private TextButton esESLanguageButton;
+    private Label difficultyLabel;
+    private Label musicLabel;
+    private Label audioLabel;
+    private Label languageLabel;
+    private Label configurationLabel;
 
     public OptionsScreen(CodeCube game) {
         super(game);
@@ -56,7 +61,7 @@ public class OptionsScreen extends Screen {
                 Assets.vagaRoundBoldFontLargeSelectedButtonStyle : Assets.vagaRoundBoldFontLargeButtonStyle);
         this.musicButton.setStyle(Settings.music.equals("ON") ?
                 Assets.musicOnButtonStyle : Assets.musicOffButtonStyle);
-        this.audioButton.setStyle(Settings.audio.equals("ON") ?
+        this.soundButton.setStyle(Settings.audio.equals("ON") ?
                 Assets.audioOnButtonStyle : Assets.audioOffButtonStyle);
         this.enLanguageButton.setStyle(Settings.selectedLanguage.equals(Language.EN) ?
                 Assets.vagaRoundBoldFontLargeSelectedButtonStyle : Assets.vagaRoundBoldFontLargeButtonStyle);
@@ -78,11 +83,16 @@ public class OptionsScreen extends Screen {
         backTable.bottom();
 
         // create labels
-        Label difficultyLabel = new Label("Dificultad", new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
-        Label musicLabel = new Label("Música", new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
-        Label audioLabel = new Label("Sonido", new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
-        Label languageLabel = new Label("Idioma", new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
-        Label configurationLabel = new Label("Opciones", new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
+        difficultyLabel = new Label(Assets.selectString("OptionsScreen_DifficultyLabel"),
+                new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
+        musicLabel = new Label(Assets.selectString("OptionsScreen_MusicLabel"),
+                new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
+        audioLabel = new Label(Assets.selectString("OptionsScreen_SoundLabel"),
+                new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
+        languageLabel = new Label(Assets.selectString("OptionsScreen_LanguageLabel"),
+                new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
+        configurationLabel = new Label(Assets.selectString("OptionsScreen_OptionsLabel"),
+                new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
 
         // create back button
         ImageButton backButton = new ImageButton(Assets.backButtonStyle);
@@ -95,11 +105,11 @@ public class OptionsScreen extends Screen {
         });
 
         // create buttons
-        easyButton = new TextButton(Difficulty.toString(Difficulty.EASY),
+        easyButton = new TextButton(Assets.selectString("OptionsScreen_EasyButton"),
                 Assets.vagaRoundBoldFontLargeButtonStyle);
-        normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL),
+        normalButton = new TextButton(Assets.selectString("OptionsScreen_NormalButton"),
                 Assets.vagaRoundBoldFontLargeButtonStyle);
-        hardButton = new TextButton(Difficulty.toString(Difficulty.HARD),
+        hardButton = new TextButton(Assets.selectString("OptionsScreen_HardButton"),
                 Assets.vagaRoundBoldFontLargeButtonStyle);
 
         enLanguageButton = new TextButton(Language.toString(Language.EN),
@@ -134,6 +144,7 @@ public class OptionsScreen extends Screen {
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
                 Settings.modifyLanguage(Language.EN);
+                updateLanguage();
             }
         });
         esESLanguageButton.addListener(new ClickListener() {
@@ -141,6 +152,7 @@ public class OptionsScreen extends Screen {
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
                 Settings.modifyLanguage(Language.ES_ES);
+                updateLanguage();
             }
         });
 
@@ -153,8 +165,8 @@ public class OptionsScreen extends Screen {
             }
         });
 
-        audioButton = new ImageButton(Assets.audioOnButtonStyle);
-        audioButton.addListener(new ClickListener() {
+        soundButton = new ImageButton(Assets.audioOnButtonStyle);
+        soundButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
@@ -165,20 +177,20 @@ public class OptionsScreen extends Screen {
         // add buttons and padding to tables
         difficultyTable.add(configurationLabel).colspan(4).center().padBottom(75);
         difficultyTable.row();
-        difficultyTable.add(difficultyLabel).center().pad(10).padBottom(50);
-        difficultyTable.add(easyButton).width(100).height(50).pad(10).padBottom(50);
-        difficultyTable.add(normalButton).width(100).height(50).pad(10).padBottom(50);
-        difficultyTable.add(hardButton).width(100).height(50).pad(10).padBottom(50);
+        difficultyTable.add(difficultyLabel).center().pad(10).padBottom(75);
+        difficultyTable.add(easyButton).width(100).height(50).pad(10).padBottom(75);
+        difficultyTable.add(normalButton).width(100).height(50).pad(10).padBottom(75);
+        difficultyTable.add(hardButton).width(100).height(50).pad(10).padBottom(75);
         difficultyTable.row();
-        difficultyTable.add(musicLabel).colspan(2).center().pad(10).padBottom(50);
-        difficultyTable.add(musicButton).colspan(2).width(100).height(50).pad(10).padBottom(50);
+        difficultyTable.add(musicLabel).colspan(2).center().pad(10).padBottom(75);
+        difficultyTable.add(musicButton).colspan(2).width(100).height(50).pad(10).padBottom(75);
         difficultyTable.row();
-        difficultyTable.add(audioLabel).colspan(2).center().pad(10).padBottom(50);
-        difficultyTable.add(audioButton).colspan(2).width(100).height(50).pad(10).padBottom(50);
+        difficultyTable.add(audioLabel).colspan(2).center().pad(10).padBottom(75);
+        difficultyTable.add(soundButton).colspan(2).width(100).height(50).pad(10).padBottom(75);
         difficultyTable.row();
-        difficultyTable.add(languageLabel).colspan(1).center().pad(10).padBottom(50);
-        difficultyTable.add(enLanguageButton).colspan(1).width(100).height(50).pad(10).padBottom(50);
-        difficultyTable.add(esESLanguageButton).colspan(1).width(100).height(50).pad(10).padBottom(50);
+        difficultyTable.add(languageLabel).colspan(2).center().pad(10).padBottom(75);
+        difficultyTable.add(enLanguageButton).colspan(1).width(100).height(50).pad(10).padBottom(75);
+        difficultyTable.add(esESLanguageButton).colspan(1).width(100).height(50).pad(10).padBottom(75);
         difficultyTable.row();
 
         backTable.add(backButton).width(450).height(100).pad(125);
@@ -200,5 +212,17 @@ public class OptionsScreen extends Screen {
                 stage.getHeight() / 1.65f - (stage.getHeight() * 0.7f) / 2);
         difficultyTable.setSize(stage.getWidth() * 0.8f,
                 stage.getHeight() * 0.7f);
+    }
+
+    private void updateLanguage() {
+        difficultyLabel.setText(Assets.selectString("OptionsScreen_DifficultyLabel"));
+        musicLabel.setText(Assets.selectString("OptionsScreen_MusicLabel"));
+        audioLabel.setText(Assets.selectString("OptionsScreen_SoundLabel"));
+        languageLabel.setText(Assets.selectString("OptionsScreen_LanguageLabel"));
+        configurationLabel.setText(Assets.selectString("OptionsScreen_OptionsLabel"));
+
+        easyButton.setText(Assets.selectString("OptionsScreen_EasyButton"));
+        normalButton.setText(Assets.selectString("OptionsScreen_NormalButton"));
+        hardButton.setText(Assets.selectString("OptionsScreen_HardButton"));
     }
 }
