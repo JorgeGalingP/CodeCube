@@ -1,5 +1,7 @@
 package com.galing.codecube.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -19,6 +21,16 @@ public class MenuScreen extends Screen {
 
     @Override
     public void draw(float delta) {
+        // clear screen
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.act();
+        stage.getBatch().begin();
+        stage.getBatch().draw(Assets.bg, 0, 0, stage.getWidth(), stage.getHeight());
+        stage.getBatch().end();
+
+        stage.draw();
     }
 
     @Override
@@ -35,7 +47,7 @@ public class MenuScreen extends Screen {
 
         // create buttons
         String optionsButtonTitle = Assets.selectString("MenuScreen_OptionsButton");
-        String helpButtonTitle = Assets.selectString("MenuScreen_HowToPlay");
+        String helpButtonTitle = Assets.selectString("MenuScreen_HowToPlayButton");
         ImageButton playButton = new ImageButton(Assets.playButtonStyle);
         TextButton optionsButton = new TextButton(optionsButtonTitle, Assets.vagaRoundBoldFontLargeButtonStyle);
         TextButton helpButton = new TextButton(helpButtonTitle, Assets.vagaRoundBoldFontLargeButtonStyle);
@@ -62,9 +74,6 @@ public class MenuScreen extends Screen {
                 game.setScreen(new HelpScreen(game));
             }
         });
-
-        // add background to table
-        table.setBackground(new TextureRegionDrawable(Assets.bg));
 
         // add buttons and padding to table
         table.add(new Image(new TextureRegionDrawable(new Texture("images/titleLogo.png")))).padBottom(100).height(500f).width(500f);

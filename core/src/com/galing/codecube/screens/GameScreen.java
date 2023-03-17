@@ -32,12 +32,11 @@ public class GameScreen extends Screen {
     private final Stage stageGame;
     private final BoardType boardType;
 
+    private Table initTable;
     private final Button homeButton;
     private final Button debugButton;
 
     private final Board board;
-
-    private Table initTable;
 
     public GameScreen(final CodeCube game, BoardType boardType) {
         super(game);
@@ -104,18 +103,17 @@ public class GameScreen extends Screen {
 
         // set textures
         TextButton selectedTitle =
-                new TextButton("Has seleccionado " + BoardType.toString(boardType) + "\n con dificultad " + Difficulty.toString(Settings.selectedDifficulty),
-                        Assets.greyPanelStyle);
-        TextButton areYouReadyTitle = new TextButton("¿Estás preparado?", Assets.greyPanelStyle);
-        TextButton touchTitle = new TextButton("Pulsa para comenzar el juego.", Assets.greyPanelStyle);
+                new TextButton(Assets.formatString("GameScreen_SelectedTitle", BoardType.toString(boardType),
+                        Difficulty.toString(Settings.selectedDifficulty)), Assets.greyPanelStyleLarge);
+        TextButton touchTitle = new TextButton(Assets.selectString("GameScreen_SelectedTouch"),
+                Assets.greyPanelStyleLarge);
 
         // add background to table
         initTable.setBackground(new TextureRegionDrawable(Assets.bg));
 
         // add buttons and padding to table
-        initTable.add(selectedTitle).padBottom(25);
+        initTable.add(selectedTitle).padBottom(100);
         initTable.row();
-        initTable.add(areYouReadyTitle).padBottom(150);
         initTable.row();
         initTable.add(touchTitle).pad(25);
         initTable.row();

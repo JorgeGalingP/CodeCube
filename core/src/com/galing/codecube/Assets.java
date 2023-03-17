@@ -100,6 +100,7 @@ public class Assets {
     public static AtlasRegion zoomIcon;
 
     public static TextButton.TextButtonStyle greyPanelStyle;
+    public static TextButton.TextButtonStyle greyPanelStyleLarge;
 
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeButtonStyle;
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeSelectedButtonStyle;
@@ -438,6 +439,8 @@ public class Assets {
                 12, 12, 12, 12));
         greyPanelStyle = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
                 greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldGray25);
+        greyPanelStyleLarge = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
+                greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldGray35);
 
         // tileset
         oceanFloor = atlasTileset.findRegion("oceanFloor");
@@ -497,7 +500,7 @@ public class Assets {
                 Settings.selectedDifficulty.toString().toLowerCase() + ".tmx", TiledMap.class);
     }
 
-    public static String selectString(String key) {
+    private static void selectBundle() {
         switch (Settings.selectedLanguage) {
             case EN:
                 selectedBundle = bundleEn;
@@ -506,7 +509,17 @@ public class Assets {
                 selectedBundle = bundleEsES;
                 break;
         }
+    }
+
+    public static String selectString(String key) {
+        selectBundle();
 
         return selectedBundle.get(key);
+    }
+
+    public static String formatString(String key, Object... args) {
+        selectBundle();
+
+        return selectedBundle.format(key, args);
     }
 }
