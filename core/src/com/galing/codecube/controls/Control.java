@@ -28,10 +28,13 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     private int functionSize;
     private Array<Container> functionControls;
 
+    private Button programButton;
+
     public Control(SpawnManager spawnManager,
                    Button programButton, Button functionButton,
                    Array<Container> programControls,
                    Array<Container> functionControls) {
+        this.programButton = programButton;
         this.spawnManager = spawnManager;
         this.programButtonPosition = programButton.getCoordinate();
         this.programSize = programControls.size;

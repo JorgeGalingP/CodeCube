@@ -142,6 +142,14 @@ public class Board extends Group {
     }
 
     public void render() {
+        /*
+        if (Rumble.getRumbleTimeLeft() > 0) {
+            Rumble.tick(Gdx.graphics.getDeltaTime());
+            camera.translate(Rumble.getPos());
+        }
+
+        camera.setToOrtho(false, camera.viewportWidth, camera.viewportHeight);
+        */
         camera.update();
     }
 
@@ -299,9 +307,9 @@ public class Board extends Group {
                         && gameControl.isFunctionEmpty()) {
 
                     // check if player is in target's position
-                    if (player.isEqualCoordinate(winTarget.getCoordinate()))
+                    if (player.isEqualCoordinate(winTarget.getCoordinate())) {
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::resetTarget)));
-                    else
+                    } else
                         addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
                 }
             } else
@@ -364,9 +372,8 @@ public class Board extends Group {
 
     private Vector2 getRandomPosition(List<Class<?>> types) {
         Array<Vector2> positions = new Array<>(this.floor.size);
-        for (Tile floor : this.floor) {
+        for (Tile floor : this.floor)
             positions.add(floor.getCoordinate());
-        }
 
         if (!types.isEmpty()) {
             for (Actor tile : getChildren())

@@ -1,7 +1,5 @@
 package com.galing.codecube.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -16,20 +14,6 @@ public class HelpScreen extends Screen {
 
     public HelpScreen(CodeCube game) {
         super(game);
-    }
-
-    @Override
-    public void draw(float delta) {
-        // clear screen
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        stage.act();
-        stage.getBatch().begin();
-        stage.getBatch().draw(Assets.bg, 0, 0, stage.getWidth(), stage.getHeight());
-        stage.getBatch().end();
-
-        stage.draw();
     }
 
     @Override

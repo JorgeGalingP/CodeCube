@@ -11,14 +11,28 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Action;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.CodeCube;
 
 public class SplashScreen extends Screen {
 
+    private final Image splashImage;
+    private final Action splashAction;
+
     public SplashScreen(CodeCube game) {
         super(game);
+        splashImage = new Image(new TextureRegionDrawable(new Texture("images/logo.png")));
+        splashAction = sequence(alpha(0), scaleTo(.1f, .1f),
+                parallel(fadeIn(2f),
+                        scaleTo(1f, 1f, 2.25f, Interpolation.swing),
+                        moveTo(stage.getWidth() / 2 - splashImage.getWidth() / 2,
+                                stage.getHeight() / 2 - splashImage.getHeight() / 2, 2f, Interpolation.swing)),
+                delay(.5f),
+                scaleTo(1.5f, 1.5f, 1.25f, Interpolation.elasticOut),
+                delay(.5f),
+                run(() -> game.setScreen(new MenuScreen(game))));
     }
 
     @Override
@@ -32,19 +46,10 @@ public class SplashScreen extends Screen {
 
     @Override
     public void show() {
-        Image splashImage = new Image(new TextureRegionDrawable(new Texture("images/logo.png")));
         splashImage.setOrigin(splashImage.getWidth() / 2, splashImage.getHeight() / 2);
         splashImage.setPosition(stage.getWidth() / 2 - splashImage.getWidth() / 2,
                 stage.getHeight() + splashImage.getHeight());
-        splashImage.addAction(sequence(alpha(0), scaleTo(.1f, .1f),
-                parallel(fadeIn(2f),
-                        scaleTo(1f, 1f, 2.25f, Interpolation.swing),
-                        moveTo(stage.getWidth() / 2 - splashImage.getWidth() / 2,
-                                stage.getHeight() / 2 - splashImage.getHeight() / 2, 2f, Interpolation.swing)),
-                delay(.5f),
-                scaleTo(1.5f, 1.5f, 1.25f, Interpolation.elasticOut),
-                delay(.5f),
-                run(() -> game.setScreen(new MenuScreen(game)))));
+        splashImage.addAction(splashAction);
 
         stage.addActor(splashImage);
     }

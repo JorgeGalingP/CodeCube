@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 
 public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Screen, GestureDetector.GestureListener {
@@ -35,7 +36,18 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
-    public abstract void draw(float delta);
+    public void draw(float delta) {
+        // clear screen
+        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.act();
+        stage.getBatch().begin();
+        stage.getBatch().draw(Assets.bg, 0, 0, stage.getWidth(), stage.getHeight());
+        stage.getBatch().end();
+
+        stage.draw();
+    }
 
     public abstract void update(float delta);
 

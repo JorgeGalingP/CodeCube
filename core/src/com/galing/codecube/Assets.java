@@ -18,6 +18,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
@@ -99,6 +100,8 @@ public class Assets {
     public static AtlasRegion rightIcon;
     public static AtlasRegion zoomIcon;
 
+    public static Window.WindowStyle greyWindowStyle;
+
     public static TextButton.TextButtonStyle greyPanelStyle;
     public static TextButton.TextButtonStyle greyPanelStyleLarge;
 
@@ -106,12 +109,14 @@ public class Assets {
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeSelectedButtonStyle;
     public static ImageButton.ImageButtonStyle playButtonStyle;
     public static ImageButton.ImageButtonStyle homeButtonStyle;
+    public static ImageButton.ImageButtonStyle pauseButtonStyle;
     public static ImageButton.ImageButtonStyle backButtonStyle;
     public static ImageButton.ImageButtonStyle debugButtonStyle;
     public static ImageButton.ImageButtonStyle musicOnButtonStyle;
     public static ImageButton.ImageButtonStyle musicOffButtonStyle;
     public static ImageButton.ImageButtonStyle audioOnButtonStyle;
     public static ImageButton.ImageButtonStyle audioOffButtonStyle;
+    public static ImageButton.ImageButtonStyle windowCloseButtonStyle;
 
     public static AtlasRegion barrelsFloor;
     public static AtlasRegion campfireFloor;
@@ -372,6 +377,8 @@ public class Assets {
         TextureRegionDrawable zoomIcon = new TextureRegionDrawable(Assets.zoomIcon);
 
         // button styles
+        NinePatchDrawable redCircleButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.redCircleButton,
+                6, 6, 6, 6));
         NinePatchDrawable smallBlueButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallBlueButton,
                 12, 12, 12, 12));
         NinePatchDrawable smallPressedBlueButtonNinePatch =
@@ -412,11 +419,16 @@ public class Assets {
                 largePressedBlueButtonNinePatch, largeBlueButtonNinePatch, vagaRoundBoldWhite25);
         vagaRoundBoldFontLargeSelectedButtonStyle = new TextButton.TextButtonStyle(largeGreenButtonNinePatch,
                 largePressedGreenButtonNinePatch, largeGreenButtonNinePatch, vagaRoundBoldWhite25);
+        NinePatchDrawable greyPanelNinePatchDrawable = new NinePatchDrawable(new NinePatch(Assets.greyPanel,
+                12, 12, 12, 12));
+
         playButtonStyle = new ImageButton.ImageButtonStyle(largeYellowButtonNinePatch,
                 largePressedYellowButtonNinePatch,
                 largePressedYellowButtonNinePatch, rightIcon, rightIcon, rightIcon);
         homeButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
                 smallPressedBlueButtonNinePatch, homeIcon, homeIcon, homeIcon);
+        pauseButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, barsHorizontalIcon, barsHorizontalIcon, barsHorizontalIcon);
         backButtonStyle = new ImageButton.ImageButtonStyle(largeBlueButtonNinePatch, largePressedBlueButtonNinePatch,
                 largePressedBlueButtonNinePatch, returnIcon, returnIcon, returnIcon);
         debugButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
@@ -433,10 +445,14 @@ public class Assets {
         audioOffButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
                 smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, audioOffIcon, audioOffIcon, audioOffIcon);
+        windowCloseButtonStyle = new ImageButton.ImageButtonStyle(redCircleButtonNinePatch,
+                redCircleButtonNinePatch,
+                redCircleButtonNinePatch, whiteCrossIcon, whiteCrossIcon, whiteCrossIcon);
 
         // panel style
-        NinePatchDrawable greyPanelNinePatchDrawable = new NinePatchDrawable(new NinePatch(Assets.greyPanel,
-                12, 12, 12, 12));
+        greyWindowStyle = new com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle(Assets.vagaRoundBoldGray25,
+                Assets.vagaRoundBoldGray25.getColor(),
+                greyPanelNinePatchDrawable);
         greyPanelStyle = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
                 greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldGray25);
         greyPanelStyleLarge = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,

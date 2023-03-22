@@ -18,6 +18,7 @@ import com.galing.codecube.Settings;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.Difficulty;
+import com.galing.codecube.windows.CloseableWindow;
 
 public class GameScreen extends Screen {
 
@@ -58,7 +59,7 @@ public class GameScreen extends Screen {
 
         // initialize buttons
         ImageButton.ImageButtonStyle homeButtonStyle =
-                Assets.homeButtonStyle;
+                Assets.pauseButtonStyle;
         homeButtonStyle.imageDown.setMinHeight(50f);
         homeButtonStyle.imageUp.setMinWidth(50f);
         homeButtonStyle.imageChecked.setMinWidth(50f);
@@ -76,7 +77,8 @@ public class GameScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                game.setScreen(new ModeScreen(game));
+                CloseableWindow pauseWindow = new CloseableWindow(400, 300);
+                stage.addActor(pauseWindow);
             }
         });
 
@@ -124,6 +126,8 @@ public class GameScreen extends Screen {
 
     @Override
     public void draw(float delta) {
+        super.draw(delta);
+
         board.render();
         stageGame.draw();
     }
@@ -149,7 +153,7 @@ public class GameScreen extends Screen {
 
             homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
                     stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
-            debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 35,
+            debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 45,
                     stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
 
             if (state.equals(GameState.RUNNING) && board.isGameOver())
