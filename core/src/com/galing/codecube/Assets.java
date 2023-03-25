@@ -100,7 +100,7 @@ public class Assets {
     public static AtlasRegion rightIcon;
     public static AtlasRegion zoomIcon;
 
-    public static Window.WindowStyle greyWindowStyle;
+    public static Window.WindowStyle windowStyle;
 
     public static TextButton.TextButtonStyle greyPanelStyle;
     public static TextButton.TextButtonStyle greyPanelStyleLarge;
@@ -110,12 +110,14 @@ public class Assets {
     public static ImageButton.ImageButtonStyle playButtonStyle;
     public static ImageButton.ImageButtonStyle homeButtonStyle;
     public static ImageButton.ImageButtonStyle pauseButtonStyle;
-    public static ImageButton.ImageButtonStyle backButtonStyle;
+    public static ImageButton.ImageButtonStyle returnButtonStyle;
     public static ImageButton.ImageButtonStyle debugButtonStyle;
     public static ImageButton.ImageButtonStyle musicOnButtonStyle;
     public static ImageButton.ImageButtonStyle musicOffButtonStyle;
     public static ImageButton.ImageButtonStyle audioOnButtonStyle;
     public static ImageButton.ImageButtonStyle audioOffButtonStyle;
+    public static ImageButton.ImageButtonStyle exitLeftButtonStyle;
+    public static ImageButton.ImageButtonStyle exitLeftLargeButtonStyle;
     public static ImageButton.ImageButtonStyle windowCloseButtonStyle;
 
     public static AtlasRegion barrelsFloor;
@@ -429,8 +431,9 @@ public class Assets {
                 smallPressedBlueButtonNinePatch, homeIcon, homeIcon, homeIcon);
         pauseButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, barsHorizontalIcon, barsHorizontalIcon, barsHorizontalIcon);
-        backButtonStyle = new ImageButton.ImageButtonStyle(largeBlueButtonNinePatch, largePressedBlueButtonNinePatch,
-                largePressedBlueButtonNinePatch, returnIcon, returnIcon, returnIcon);
+
+        returnButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, returnIcon, returnIcon, returnIcon);
         debugButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
                 smallPressedGreenButtonNinePatch, zoomIcon, zoomIcon, zoomIcon);
         musicOnButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
@@ -445,14 +448,21 @@ public class Assets {
         audioOffButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
                 smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, audioOffIcon, audioOffIcon, audioOffIcon);
+        exitLeftButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
+                smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, exitLeftIcon, exitLeftIcon, exitLeftIcon);
+        exitLeftLargeButtonStyle = new ImageButton.ImageButtonStyle(largeBlueButtonNinePatch,
+                largePressedBlueButtonNinePatch,
+                largePressedBlueButtonNinePatch, exitLeftIcon, exitLeftIcon, exitLeftIcon);
         windowCloseButtonStyle = new ImageButton.ImageButtonStyle(redCircleButtonNinePatch,
                 redCircleButtonNinePatch,
                 redCircleButtonNinePatch, whiteCrossIcon, whiteCrossIcon, whiteCrossIcon);
 
         // panel style
-        greyWindowStyle = new com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle(Assets.vagaRoundBoldGray25,
+        windowStyle = new com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle(Assets.vagaRoundBoldGray25,
                 Assets.vagaRoundBoldGray25.getColor(),
-                greyPanelNinePatchDrawable);
+                new NinePatchDrawable(new NinePatch(Assets.bg,
+                        1, 1, 1, 1)));
         greyPanelStyle = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
                 greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldGray25);
         greyPanelStyleLarge = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,

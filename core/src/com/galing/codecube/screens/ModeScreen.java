@@ -42,7 +42,7 @@ public class ModeScreen extends Screen {
         Label modeLabel = new Label("Elige una opción", new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
 
         // create back button
-        ImageButton backButton = new ImageButton(Assets.backButtonStyle);
+        ImageButton backButton = new ImageButton(Assets.exitLeftLargeButtonStyle);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

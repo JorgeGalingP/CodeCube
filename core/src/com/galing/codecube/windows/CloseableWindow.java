@@ -1,41 +1,42 @@
 package com.galing.codecube.windows;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.galing.codecube.Assets;
+import com.galing.codecube.CodeCube;
+import com.galing.codecube.screens.Screen;
 
-public class CloseableWindow extends Window {
+public abstract class CloseableWindow extends Window {
+    CodeCube game;
+    Screen screen;
 
-    public CloseableWindow(int width, int height) {
-        super("", Assets.greyWindowStyle);
+    Table titleTable;
+    Table contentTable;
 
-        Button closeButton = new ImageButton(Assets.windowCloseButtonStyle);
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                close();
-            }
-        });
+    public CloseableWindow(final CodeCube game, Screen screen) {
+        super("", Assets.windowStyle);
 
-        getTitleTable().add(closeButton).size(35, 35);
+        this.game = game;
+        this.screen = screen;
 
-        setClip(false);
-        setTransform(true);
-        setSize(width, height);
-        setModal(true);
         setVisible(true);
-        setMovable(false);
-        setPosition(Gdx.graphics.getWidth() / 2f - this.getWidth() / 2,
-                Gdx.graphics.getHeight() / 2f - this.getHeight() / 2);
+        setFillParent(true);
+
+        setTitleTable();
+        setContentTable();
+
+        add(titleTable);
+        row();
+        add(contentTable);
     }
+
+    public abstract void setTitleTable();
+
+    public abstract void setContentTable();
 
     public void close() {
         addAction(Actions.sequence(
@@ -53,4 +54,15 @@ public class CloseableWindow extends Window {
 
         batch.setColor(Color.WHITE); // reset the original batch's color
     }
+
+    @Override
+    protected void drawBackground(Batch batch, float parentAlpha, float x, float y) {
+        super.drawBackground(batch, 0.5f, x, y);
+    }
+
+    @Override
+    protected void drawStageBackground(Batch batch, float parentAlpha, float x, float y, float width, float height) {
+        super.drawStageBackground(batch, 0.5f, x, y, width, height);
+    }
+
 }

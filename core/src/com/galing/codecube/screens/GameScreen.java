@@ -18,7 +18,7 @@ import com.galing.codecube.Settings;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.Difficulty;
-import com.galing.codecube.windows.CloseableWindow;
+import com.galing.codecube.windows.PauseWindow;
 
 public class GameScreen extends Screen {
 
@@ -77,8 +77,9 @@ public class GameScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                CloseableWindow pauseWindow = new CloseableWindow(400, 300);
-                stage.addActor(pauseWindow);
+
+                // add pause window
+                createPauseMenu();
             }
         });
 
@@ -185,10 +186,19 @@ public class GameScreen extends Screen {
             if (keycode == Input.Keys.ESCAPE)
                 setPause();
             if (keycode == Input.Keys.TAB)
-                board.resetTarget();
+                resetTarget();
         }
 
         return true;
+    }
+
+    private void createPauseMenu() {
+        setPause();
+        stage.addActor(new PauseWindow(game, this));
+    }
+
+    public void resetTarget() {
+        board.resetTarget();
     }
 
     public void setInit() {

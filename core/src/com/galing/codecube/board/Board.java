@@ -142,14 +142,6 @@ public class Board extends Group {
     }
 
     public void render() {
-        /*
-        if (Rumble.getRumbleTimeLeft() > 0) {
-            Rumble.tick(Gdx.graphics.getDeltaTime());
-            camera.translate(Rumble.getPos());
-        }
-
-        camera.setToOrtho(false, camera.viewportWidth, camera.viewportHeight);
-        */
         camera.update();
     }
 

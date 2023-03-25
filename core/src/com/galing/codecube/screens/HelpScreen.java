@@ -33,7 +33,7 @@ public class HelpScreen extends Screen {
         backTable.bottom();
 
         // create back button
-        ImageButton backButton = new ImageButton(Assets.backButtonStyle);
+        ImageButton backButton = new ImageButton(Assets.exitLeftLargeButtonStyle);
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
