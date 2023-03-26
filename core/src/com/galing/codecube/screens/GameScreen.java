@@ -8,16 +8,12 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
-import com.galing.codecube.Settings;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
-import com.galing.codecube.enums.Difficulty;
 import com.galing.codecube.windows.PauseWindow;
 
 public class GameScreen extends Screen {
@@ -31,7 +27,6 @@ public class GameScreen extends Screen {
 
     public GameState state;
     private final Stage stageGame;
-    private final BoardType boardType;
 
     private Table initTable;
     private final Button homeButton;
@@ -41,8 +36,6 @@ public class GameScreen extends Screen {
 
     public GameScreen(final CodeCube game, BoardType boardType) {
         super(game);
-
-        this.boardType = boardType;
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.update();
@@ -93,36 +86,8 @@ public class GameScreen extends Screen {
                 board.setDebugMode();
             }
         });
-    }
 
-    @Override
-    public void show() {
         setInit();
-
-        // create table
-        initTable = new Table();
-        initTable.setFillParent(true);
-        initTable.center();
-
-        // set textures
-        TextButton selectedTitle =
-                new TextButton(Assets.formatString("GameScreen_SelectedTitle", BoardType.toString(boardType),
-                        Difficulty.toString(Settings.selectedDifficulty)), Assets.greyPanelStyleLarge);
-        TextButton touchTitle = new TextButton(Assets.selectString("GameScreen_SelectedTouch"),
-                Assets.greyPanelStyleLarge);
-
-        // add background to table
-        initTable.setBackground(new TextureRegionDrawable(Assets.bg));
-
-        // add buttons and padding to table
-        initTable.add(selectedTitle).padBottom(100);
-        initTable.row();
-        initTable.row();
-        initTable.add(touchTitle).pad(25);
-        initTable.row();
-
-        // add table to stage
-        stage.addActor(initTable);
     }
 
     @Override
@@ -138,18 +103,16 @@ public class GameScreen extends Screen {
         board.handleBoxes();
 
         if (state == GameState.INIT) {
-            if (Gdx.input.justTouched()) {
-                initTable.remove();
+            // add actors
+            stageGame.addActor(board);
+            stage.addActor(homeButton);
+            stage.addActor(debugButton);
 
-                // add actors
-                stageGame.addActor(board);
-                stage.addActor(homeButton);
-                stage.addActor(debugButton);
-
-                setRunning();
-            }
+            setRunning();
         }
-        if (state != GameState.INIT && state != GameState.PAUSED) {
+
+        if (state != GameState.INIT
+                && state != GameState.PAUSED) {
             stageGame.act(delta);
 
             homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,

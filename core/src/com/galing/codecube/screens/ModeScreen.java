@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.windows.SelectionWindow;
 
 public class ModeScreen extends Screen {
 
@@ -64,21 +65,21 @@ public class ModeScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                game.setScreen(new GameScreen(game, BoardType.SEQUENCE));
+                createSelectionWindow(BoardType.SEQUENCE);
             }
         });
         stackButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                game.setScreen(new GameScreen(game, BoardType.STACK));
+                createSelectionWindow(BoardType.STACK);
             }
         });
         queueButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
-                game.setScreen(new GameScreen(game, BoardType.QUEUE));
+                createSelectionWindow(BoardType.QUEUE);
             }
         });
 
@@ -104,6 +105,10 @@ public class ModeScreen extends Screen {
     public void resize(int width, int height) {
         super.resize(width, height);
         setModeTableBounds();
+    }
+
+    private void createSelectionWindow(BoardType boardType) {
+        stage.addActor(new SelectionWindow(game, this, boardType));
     }
 
     private void setModeTableBounds() {

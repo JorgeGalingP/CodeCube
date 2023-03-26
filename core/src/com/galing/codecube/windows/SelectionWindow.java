@@ -9,14 +9,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.Settings;
+import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.Difficulty;
 import com.galing.codecube.screens.GameScreen;
-import com.galing.codecube.screens.MenuScreen;
+import com.galing.codecube.screens.ModeScreen;
 import com.galing.codecube.screens.Screen;
 
-public class PauseWindow extends CloseableWindow {
+public class SelectionWindow extends CloseableWindow {
 
-    public PauseWindow(final CodeCube game, Screen screen) {
+    BoardType boardType;
+
+    public SelectionWindow(final CodeCube game, Screen screen, BoardType boardType) {
         super(game, screen);
+
+        this.boardType = boardType;
 
         setTitleTable();
         setContentTable();
@@ -35,34 +42,36 @@ public class PauseWindow extends CloseableWindow {
 
         // create title table
         titleTable.center();
-        titleTable.add(closeButton).width(40).height(40).padLeft(350f).right();
+        titleTable.add(closeButton).size(40, 40).right().padLeft(425f);
     }
 
     @Override
     public void setContentTable() {
         // set buttons
         TextButton selectedTitle =
-                new TextButton(Assets.selectString("PauseWindow_Title"), Assets.greyPanelStyleLarge);
-        ImageButton homeButton = new ImageButton(Assets.exitLeftButtonStyle);
-        homeButton.addListener(new ClickListener() {
+                new TextButton(Assets.formatString("GameScreen_SelectedTitle",
+                        BoardType.toString(boardType),
+                        Difficulty.toString(Settings.selectedDifficulty)),
+                        Assets.greyPanelStyleLarge);
+        ImageButton acceptButton = new ImageButton(Assets.checkmarkButtonStyle);
+        acceptButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Assets.playClickSound();
+
+                // reset target
+                game.setScreen(new GameScreen(game, boardType));
+            }
+        });
+
+        ImageButton crossButton = new ImageButton(Assets.crossButtonStyle);
+        crossButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playClickSound();
 
                 // back to main menu
-                game.setScreen(new MenuScreen(game));
-            }
-        });
-
-        ImageButton resetButton = new ImageButton(Assets.returnButtonStyle);
-        resetButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // close pause window (and play parent's Assets.playClickSound())
-                close();
-
-                // reset target
-                ((GameScreen) screen).resetTarget();
+                game.setScreen(new ModeScreen(game));
             }
         });
 
@@ -73,13 +82,15 @@ public class PauseWindow extends CloseableWindow {
         contentTable.center();
         contentTable.add(selectedTitle).colspan(2).center().padBottom(25f);
         contentTable.row();
-        contentTable.add(homeButton).center().width(125).height(75).pad(25f);
-        contentTable.add(resetButton).center().width(125).height(75).pad(25f);
+        contentTable.add(acceptButton).center().pad(25f).width(150).height(75);
+        contentTable.add(crossButton).center().pad(25f).width(150).height(75);
     }
 
     @Override
     public void close() {
         super.close();
-        ((GameScreen) screen).setRunning();
+
+        // back to main menu
+        game.setScreen(new ModeScreen(game));
     }
 }

@@ -119,6 +119,8 @@ public class Assets {
     public static ImageButton.ImageButtonStyle exitLeftButtonStyle;
     public static ImageButton.ImageButtonStyle exitLeftLargeButtonStyle;
     public static ImageButton.ImageButtonStyle windowCloseButtonStyle;
+    public static ImageButton.ImageButtonStyle crossButtonStyle;
+    public static ImageButton.ImageButtonStyle checkmarkButtonStyle;
 
     public static AtlasRegion barrelsFloor;
     public static AtlasRegion campfireFloor;
@@ -380,7 +382,7 @@ public class Assets {
 
         // button styles
         NinePatchDrawable redCircleButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.redCircleButton,
-                6, 6, 6, 6));
+                8, 8, 8, 8));
         NinePatchDrawable smallBlueButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallBlueButton,
                 12, 12, 12, 12));
         NinePatchDrawable smallPressedBlueButtonNinePatch =
@@ -431,7 +433,6 @@ public class Assets {
                 smallPressedBlueButtonNinePatch, homeIcon, homeIcon, homeIcon);
         pauseButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, barsHorizontalIcon, barsHorizontalIcon, barsHorizontalIcon);
-
         returnButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, returnIcon, returnIcon, returnIcon);
         debugButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
@@ -456,7 +457,12 @@ public class Assets {
                 largePressedBlueButtonNinePatch, exitLeftIcon, exitLeftIcon, exitLeftIcon);
         windowCloseButtonStyle = new ImageButton.ImageButtonStyle(redCircleButtonNinePatch,
                 redCircleButtonNinePatch,
-                redCircleButtonNinePatch, whiteCrossIcon, whiteCrossIcon, whiteCrossIcon);
+                redCircleButtonNinePatch, crossIcon, crossIcon, crossIcon);
+        crossButtonStyle = new ImageButton.ImageButtonStyle(smallRedButtonNinePatch, smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, crossIcon, crossIcon, crossIcon);
+        checkmarkButtonStyle = new ImageButton.ImageButtonStyle(smallGreenButtonNinePatch,
+                smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, checkmarkIcon, checkmarkIcon, checkmarkIcon);
 
         // panel style
         windowStyle = new com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle(Assets.vagaRoundBoldGray25,

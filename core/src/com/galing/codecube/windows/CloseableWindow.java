@@ -26,8 +26,8 @@ public abstract class CloseableWindow extends Window {
         setVisible(true);
         setFillParent(true);
 
-        setTitleTable();
-        setContentTable();
+        titleTable = new Table();
+        contentTable = new Table();
 
         add(titleTable);
         row();
@@ -39,6 +39,8 @@ public abstract class CloseableWindow extends Window {
     public abstract void setContentTable();
 
     public void close() {
+        Assets.playClickSound();
+
         addAction(Actions.sequence(
                 Actions.fadeOut(.5f, Interpolation.fade),
                 Actions.run(() -> setVisible(false)))
@@ -47,7 +49,7 @@ public abstract class CloseableWindow extends Window {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Color color = getColor();
+        Color color = getColor(); // draw transparency
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 
         super.draw(batch, parentAlpha);
@@ -59,10 +61,4 @@ public abstract class CloseableWindow extends Window {
     protected void drawBackground(Batch batch, float parentAlpha, float x, float y) {
         super.drawBackground(batch, 0.5f, x, y);
     }
-
-    @Override
-    protected void drawStageBackground(Batch batch, float parentAlpha, float x, float y, float width, float height) {
-        super.drawStageBackground(batch, 0.5f, x, y, width, height);
-    }
-
 }
