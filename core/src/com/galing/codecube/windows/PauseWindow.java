@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.screens.GameScreen;
-import com.galing.codecube.screens.MenuScreen;
+import com.galing.codecube.screens.ModeScreen;
 import com.galing.codecube.screens.Screen;
 
 public class PauseWindow extends CloseableWindow {
@@ -50,7 +50,7 @@ public class PauseWindow extends CloseableWindow {
                 Assets.playClickSound();
 
                 // back to main menu
-                game.setScreen(new MenuScreen(game));
+                game.setScreen(new ModeScreen(game));
             }
         });
 

@@ -40,7 +40,8 @@ public class ModeScreen extends Screen {
         backTable.bottom();
 
         // create labels
-        Label modeLabel = new Label("Elige una opción", new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
+        Label modeLabel = new Label(Assets.selectString("ModeScreen_SelectLabel"),
+                new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
 
         // create back button
         ImageButton backButton = new ImageButton(Assets.exitLeftLargeButtonStyle);

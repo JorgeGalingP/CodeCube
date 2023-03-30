@@ -49,12 +49,14 @@ public abstract class CloseableWindow extends Window {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Color color = getColor(); // draw transparency
+        // maintain in batch current parent's alpha
+        Color color = getColor();
         batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
 
         super.draw(batch, parentAlpha);
 
-        batch.setColor(Color.WHITE); // reset the original batch's color
+        // reset the original batch's color
+        batch.setColor(Color.WHITE);
     }
 
     @Override

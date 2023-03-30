@@ -1,5 +1,7 @@
 package com.galing.codecube.enums;
 
+import com.galing.codecube.Assets;
+
 public enum BoardType {
     SEQUENCE("sequence"),
     STACK("stack"),
@@ -19,13 +21,13 @@ public enum BoardType {
         String type = "";
         switch (boardType) {
             case SEQUENCE:
-                type = "Lista";
+                type = Assets.selectString("BoardType_List");
                 break;
             case STACK:
-                type = "Pila";
+                type = Assets.selectString("BoardType_Stack");
                 break;
             case QUEUE:
-                type = "Cola";
+                type = Assets.selectString("BoardType_Queue");
                 break;
         }
 

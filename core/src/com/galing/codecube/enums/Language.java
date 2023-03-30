@@ -1,5 +1,7 @@
 package com.galing.codecube.enums;
 
+import com.galing.codecube.Assets;
+
 public enum Language {
     EN("en"),
     ES_ES("es_ES");
@@ -18,10 +20,10 @@ public enum Language {
         String type = "";
         switch (language) {
             case EN:
-                type = "English";
+                type = Assets.selectString("Language_en");
                 break;
             case ES_ES:
-                type = "Español";
+                type = Assets.selectString("Language_es_ES");
                 break;
         }
 

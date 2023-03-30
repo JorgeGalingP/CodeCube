@@ -1,5 +1,7 @@
 package com.galing.codecube.enums;
 
+import com.galing.codecube.Assets;
+
 public enum Difficulty {
     EASY("easy"),
     NORMAL("normal"),
@@ -19,13 +21,13 @@ public enum Difficulty {
         String type = "";
         switch (difficulty) {
             case EASY:
-                type = "Fácil";
+                type = Assets.selectString("Difficulty_Easy");
                 break;
             case NORMAL:
-                type = "Normal";
+                type = Assets.selectString("Difficulty_Normal");
                 break;
             case HARD:
-                type = "Difícil";
+                type = Assets.selectString("Difficulty_Hard");
                 break;
         }
 

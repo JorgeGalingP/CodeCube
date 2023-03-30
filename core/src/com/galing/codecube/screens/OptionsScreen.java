@@ -89,11 +89,11 @@ public class OptionsScreen extends Screen {
         });
 
         // create buttons
-        easyButton = new TextButton(Assets.selectString("OptionsScreen_EasyButton"),
+        easyButton = new TextButton(Difficulty.toString(Difficulty.EASY),
                 Assets.vagaRoundBoldFontLargeButtonStyle);
-        normalButton = new TextButton(Assets.selectString("OptionsScreen_NormalButton"),
+        normalButton = new TextButton(Difficulty.toString(Difficulty.NORMAL),
                 Assets.vagaRoundBoldFontLargeButtonStyle);
-        hardButton = new TextButton(Assets.selectString("OptionsScreen_HardButton"),
+        hardButton = new TextButton(Difficulty.toString(Difficulty.HARD),
                 Assets.vagaRoundBoldFontLargeButtonStyle);
 
         enLanguageButton = new TextButton(Language.toString(Language.EN),
@@ -205,8 +205,11 @@ public class OptionsScreen extends Screen {
         languageLabel.setText(Assets.selectString("OptionsScreen_LanguageLabel"));
         configurationLabel.setText(Assets.selectString("OptionsScreen_OptionsLabel"));
 
-        easyButton.setText(Assets.selectString("OptionsScreen_EasyButton"));
-        normalButton.setText(Assets.selectString("OptionsScreen_NormalButton"));
-        hardButton.setText(Assets.selectString("OptionsScreen_HardButton"));
+        easyButton.setText(Difficulty.toString(Difficulty.EASY));
+        normalButton.setText(Difficulty.toString(Difficulty.NORMAL));
+        hardButton.setText(Difficulty.toString(Difficulty.HARD));
+
+        enLanguageButton.setText(Language.toString(Language.EN));
+        esESLanguageButton.setText(Language.toString(Language.ES_ES));
     }
 }
