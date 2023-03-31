@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.objects.Box;
-import com.galing.codecube.objects.Tile;
 
 public class SpawnManager {
 
@@ -30,24 +29,19 @@ public class SpawnManager {
 
         switch (boxType) {
             case UP:
-                coordinate = new Vector2(stage.getWidth() / 2 - Tile.SIZE / 2,
-                        stage.getWidth() - stage.getWidth() * 0.75f);
+                coordinate = new Vector2(5.5f, 3);
                 break;
             case RIGHT:
-                coordinate = new Vector2(((stage.getWidth() / 2) * (1 / 3f)) - Tile.SIZE / 2,
-                        stage.getWidth() - stage.getWidth() * 0.75f);
+                coordinate = new Vector2(1.5f, 3);
                 break;
             case LEFT:
-                coordinate = new Vector2(((stage.getWidth() / 2) * (2 / 3f)) - Tile.SIZE / 2,
-                        stage.getWidth() - stage.getWidth() * 0.75f);
+                coordinate = new Vector2(3.5f, 3);
                 break;
             case NEGATION:
-                coordinate = new Vector2((stage.getWidth() / 2) + ((stage.getWidth() / 2) * (1 / 3f)) - Tile.SIZE / 2,
-                        stage.getWidth() - stage.getWidth() * 0.75f);
+                coordinate = new Vector2(7.5f, 3);
                 break;
             case FUNCTION:
-                coordinate = new Vector2((stage.getWidth() / 2) + ((stage.getWidth() / 2) * (2 / 3f)) - Tile.SIZE / 2,
-                        stage.getWidth() - stage.getWidth() * 0.75f);
+                coordinate = new Vector2(9.5f, 3);
                 break;
         }
 

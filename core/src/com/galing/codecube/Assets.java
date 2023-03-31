@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
@@ -102,8 +103,8 @@ public class Assets {
 
     public static Window.WindowStyle windowStyle;
 
-    public static TextButton.TextButtonStyle greyPanelStyle;
-    public static TextButton.TextButtonStyle greyPanelStyleLarge;
+    public static Label.LabelStyle greyPanelStyle;
+    public static Label.LabelStyle greyPanelStyleLarge;
 
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeButtonStyle;
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeSelectedButtonStyle;
@@ -469,10 +470,16 @@ public class Assets {
                 Assets.vagaRoundBoldGray25.getColor(),
                 new NinePatchDrawable(new NinePatch(Assets.bg,
                         1, 1, 1, 1)));
-        greyPanelStyle = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
-                greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldGray25);
-        greyPanelStyleLarge = new TextButton.TextButtonStyle(greyPanelNinePatchDrawable,
-                greyPanelNinePatchDrawable, greyPanelNinePatchDrawable, Assets.vagaRoundBoldGray35);
+
+        greyPanelStyle = new Label.LabelStyle();
+        greyPanelStyle.background = greyPanelNinePatchDrawable;
+        greyPanelStyle.font = Assets.vagaRoundBoldGray25;
+        greyPanelStyle.fontColor = Assets.vagaRoundBoldGray25.getColor();
+
+        greyPanelStyleLarge = new Label.LabelStyle();
+        greyPanelStyleLarge.background = greyPanelNinePatchDrawable;
+        greyPanelStyleLarge.font = Assets.vagaRoundBoldGray35;
+        greyPanelStyleLarge.fontColor = Assets.vagaRoundBoldGray35.getColor();
 
         // tileset
         oceanFloor = atlasTileset.findRegion("oceanFloor");

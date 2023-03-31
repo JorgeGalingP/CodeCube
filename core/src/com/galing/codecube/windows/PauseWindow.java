@@ -4,9 +4,10 @@ import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.screens.GameScreen;
@@ -41,8 +42,10 @@ public class PauseWindow extends CloseableWindow {
     @Override
     public void setContentTable() {
         // set buttons
-        TextButton selectedTitle =
-                new TextButton(Assets.selectString("PauseWindow_Title"), Assets.greyPanelStyleLarge);
+        Label selectedTitle =
+                new Label(Assets.selectString("PauseWindow_Title"), Assets.greyPanelStyleLarge);
+        selectedTitle.setAlignment(Align.center);
+
         ImageButton homeButton = new ImageButton(Assets.exitLeftButtonStyle);
         homeButton.addListener(new ClickListener() {
             @Override
