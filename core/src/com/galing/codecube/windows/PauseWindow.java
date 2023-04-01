@@ -1,18 +1,17 @@
 package com.galing.codecube.windows;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.screens.GameScreen;
 import com.galing.codecube.screens.ModeScreen;
 import com.galing.codecube.screens.Screen;
+import com.galing.codecube.widgets.GreyLabel;
 
 public class PauseWindow extends CloseableWindow {
 
@@ -42,8 +41,7 @@ public class PauseWindow extends CloseableWindow {
     @Override
     public void setContentTable() {
         // set buttons
-        Label selectedTitle =
-                new Label(Assets.selectString("PauseWindow_Title"), Assets.greyPanelStyleLarge);
+        Label selectedTitle = new GreyLabel(Assets.selectString("PauseWindow_Title"));
         selectedTitle.setAlignment(Align.center);
 
         ImageButton homeButton = new ImageButton(Assets.exitLeftButtonStyle);
@@ -70,8 +68,7 @@ public class PauseWindow extends CloseableWindow {
         });
 
         // create content table
-        contentTable.setBackground(new NinePatchDrawable(new NinePatch(Assets.greyPanel,
-                12, 12, 12, 12)));
+        contentTable.setBackground(Assets.greyPanelNinePatch);
 
         contentTable.center();
         contentTable.add(selectedTitle).colspan(2).center().padBottom(25f);

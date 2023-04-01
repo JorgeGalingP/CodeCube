@@ -108,7 +108,7 @@ public class Board extends Group {
         initializeLayer("boxes");
 
         // spawn manager
-        spawnManager = new SpawnManager(this, stage);
+        spawnManager = new SpawnManager(this);
 
         // initialize Control
         if (type.equals(BoardType.STACK))

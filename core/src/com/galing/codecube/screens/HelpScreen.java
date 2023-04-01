@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.widgets.GreyLabel;
 
 public class HelpScreen extends Screen {
     private ScrollPane scrollPane;
@@ -54,16 +55,16 @@ public class HelpScreen extends Screen {
         });
 
         // set textures
-        Label one = new Label("Lorem ipsum dolor sit amet,\n consectetur adipiscing elit,\n sed do eiusmod " +
-                "tempor incididunt ut labore et dolore magna aliqua.", Assets.greyPanelStyle);
-        Label two = new Label("Ut enim ad minim veniam,\n quis nostrud exercitation ullamco laboris nisi ut" +
+        Label one = new GreyLabel("Lorem ipsum dolor sit amet,\n consectetur adipiscing elit,\n sed do eiusmod " +
+                "tempor incididunt ut labore et dolore magna aliqua.");
+        Label two = new GreyLabel("Ut enim ad minim veniam,\n quis nostrud exercitation ullamco laboris nisi ut" +
                 " " +
-                "aliquip ex ea commodo consequat.", Assets.greyPanelStyle);
-        Label three = new Label("Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
-                "dolore eu fugiat nulla pariatur.", Assets.greyPanelStyle);
-        Label four = new Label("Excepteur sint occaecat cupidatat non proident,\n sunt in culpa qui officia" +
+                "aliquip ex ea commodo consequat.");
+        Label three = new GreyLabel("Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
+                "dolore eu fugiat nulla pariatur.");
+        Label four = new GreyLabel("Excepteur sint occaecat cupidatat non proident,\n sunt in culpa qui officia" +
                 " " +
-                "deserunt mollit anim id est laborum.", Assets.greyPanelStyle);
+                "deserunt mollit anim id est laborum.");
 
         one.setAlignment(Align.center);
         two.setAlignment(Align.center);

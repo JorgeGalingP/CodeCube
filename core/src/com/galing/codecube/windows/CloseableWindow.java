@@ -18,7 +18,8 @@ public abstract class CloseableWindow extends Window {
     Table contentTable;
 
     public CloseableWindow(final CodeCube game, Screen screen) {
-        super("", Assets.windowStyle);
+        super("", new WindowStyle(Assets.vagaRoundBoldGray25, Assets.vagaRoundBoldGray25.getColor(),
+                Assets.bgNinePatch));
 
         this.game = game;
         this.screen = screen;

@@ -17,9 +17,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
@@ -49,7 +47,8 @@ public class Assets {
     public static Sound clickSound;
 
     public static AtlasRegion bg;
-    public static AtlasRegion greyPanel;
+    public static NinePatchDrawable bgNinePatch;
+    public static NinePatchDrawable greyPanelNinePatch;
 
     public static AtlasRegion smallOutlineBlueButton;
     public static AtlasRegion largeOutlineBlueButton;
@@ -100,11 +99,6 @@ public class Assets {
     public static AtlasRegion checkmarkIcon;
     public static AtlasRegion rightIcon;
     public static AtlasRegion zoomIcon;
-
-    public static Window.WindowStyle windowStyle;
-
-    public static Label.LabelStyle greyPanelStyle;
-    public static Label.LabelStyle greyPanelStyleLarge;
 
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeButtonStyle;
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeSelectedButtonStyle;
@@ -283,7 +277,10 @@ public class Assets {
 
         // UI
         bg = atlasUI.findRegion("background");
-        greyPanel = atlasUI.findRegion("greyPanel");
+        bgNinePatch = new NinePatchDrawable(new NinePatch(Assets.bg,
+                1, 1, 1, 1));
+        greyPanelNinePatch = new NinePatchDrawable(new NinePatch(atlasUI.findRegion("greyPanel"),
+                12, 12, 12, 12));
 
         // buttons
         smallOutlineBlueButton = atlasUI.findRegion("smallOutlineBlueButton");
@@ -424,8 +421,6 @@ public class Assets {
                 largePressedBlueButtonNinePatch, largeBlueButtonNinePatch, vagaRoundBoldWhite25);
         vagaRoundBoldFontLargeSelectedButtonStyle = new TextButton.TextButtonStyle(largeGreenButtonNinePatch,
                 largePressedGreenButtonNinePatch, largeGreenButtonNinePatch, vagaRoundBoldWhite25);
-        NinePatchDrawable greyPanelNinePatchDrawable = new NinePatchDrawable(new NinePatch(Assets.greyPanel,
-                12, 12, 12, 12));
 
         playButtonStyle = new ImageButton.ImageButtonStyle(largeYellowButtonNinePatch,
                 largePressedYellowButtonNinePatch,
@@ -464,22 +459,6 @@ public class Assets {
         checkmarkButtonStyle = new ImageButton.ImageButtonStyle(smallGreenButtonNinePatch,
                 smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, checkmarkIcon, checkmarkIcon, checkmarkIcon);
-
-        // panel style
-        windowStyle = new com.badlogic.gdx.scenes.scene2d.ui.Window.WindowStyle(Assets.vagaRoundBoldGray25,
-                Assets.vagaRoundBoldGray25.getColor(),
-                new NinePatchDrawable(new NinePatch(Assets.bg,
-                        1, 1, 1, 1)));
-
-        greyPanelStyle = new Label.LabelStyle();
-        greyPanelStyle.background = greyPanelNinePatchDrawable;
-        greyPanelStyle.font = Assets.vagaRoundBoldGray25;
-        greyPanelStyle.fontColor = Assets.vagaRoundBoldGray25.getColor();
-
-        greyPanelStyleLarge = new Label.LabelStyle();
-        greyPanelStyleLarge.background = greyPanelNinePatchDrawable;
-        greyPanelStyleLarge.font = Assets.vagaRoundBoldGray35;
-        greyPanelStyleLarge.fontColor = Assets.vagaRoundBoldGray35.getColor();
 
         // tileset
         oceanFloor = atlasTileset.findRegion("oceanFloor");

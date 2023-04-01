@@ -1,18 +1,17 @@
 package com.galing.codecube.screens;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.Settings;
 import com.galing.codecube.enums.Difficulty;
 import com.galing.codecube.enums.Language;
+import com.galing.codecube.widgets.GreyLabel;
 
 public class OptionsScreen extends Screen {
 
@@ -59,24 +58,18 @@ public class OptionsScreen extends Screen {
         difficultyTable = new Table();
         setDifficultyTableBounds();
         difficultyTable.top().padTop(50);
-        difficultyTable.background(new NinePatchDrawable(new NinePatch(Assets.greyPanel,
-                12, 12, 12, 12)));
+        difficultyTable.background(Assets.greyPanelNinePatch);
 
         Table backTable = new Table();
         backTable.setFillParent(true);
         backTable.bottom();
 
         // create labels
-        difficultyLabel = new Label(Assets.selectString("OptionsScreen_DifficultyLabel"),
-                new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
-        musicLabel = new Label(Assets.selectString("OptionsScreen_MusicLabel"),
-                new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
-        audioLabel = new Label(Assets.selectString("OptionsScreen_SoundLabel"),
-                new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
-        languageLabel = new Label(Assets.selectString("OptionsScreen_LanguageLabel"),
-                new Label.LabelStyle(Assets.vagaRoundBoldGray25, null));
-        configurationLabel = new Label(Assets.selectString("OptionsScreen_OptionsLabel"),
-                new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
+        difficultyLabel = new GreyLabel(Assets.selectString("OptionsScreen_DifficultyLabel"));
+        musicLabel = new GreyLabel(Assets.selectString("OptionsScreen_MusicLabel"));
+        audioLabel = new GreyLabel(Assets.selectString("OptionsScreen_SoundLabel"));
+        languageLabel = new GreyLabel(Assets.selectString("OptionsScreen_LanguageLabel"));
+        configurationLabel = new GreyLabel(Assets.selectString("OptionsScreen_OptionsLabel"));
 
         // create back button
         ImageButton backButton = new ImageButton(Assets.exitLeftLargeButtonStyle);

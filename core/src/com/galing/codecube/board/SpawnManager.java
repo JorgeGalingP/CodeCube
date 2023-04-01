@@ -1,20 +1,18 @@
 package com.galing.codecube.board;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.objects.Box;
+import com.galing.codecube.objects.Tile;
 
 public class SpawnManager {
 
     private final Board board;
-    private final Stage stage;
     private final Array<Box> activeBoxes;
 
-    public SpawnManager(Board board, Stage stage) {
+    public SpawnManager(Board board) {
         this.board = board;
-        this.stage = stage;
         this.activeBoxes = new Array<>();
     }
 
@@ -29,19 +27,23 @@ public class SpawnManager {
 
         switch (boxType) {
             case UP:
-                coordinate = new Vector2(5.5f, 3);
+                coordinate = new Vector2(Board.NUM_TILES_WIDTH / 2f - Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 7f);
                 break;
             case RIGHT:
-                coordinate = new Vector2(1.5f, 3);
+                coordinate = new Vector2((Board.NUM_TILES_WIDTH / 2f * (1 / 3f)) - Tile.SIZE / 2f,
+                        Board.NUM_TILES_HEIGHT / 7f);
                 break;
             case LEFT:
-                coordinate = new Vector2(3.5f, 3);
+                coordinate = new Vector2((Board.NUM_TILES_WIDTH / 2f * (2 / 3f)) - Tile.SIZE / 2f,
+                        Board.NUM_TILES_HEIGHT / 7f);
                 break;
             case NEGATION:
-                coordinate = new Vector2(7.5f, 3);
+                coordinate = new Vector2((Board.NUM_TILES_WIDTH / 2f) + ((Board.NUM_TILES_WIDTH / 2f) * (1 / 3f)) -
+                        Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 7f);
                 break;
             case FUNCTION:
-                coordinate = new Vector2(9.5f, 3);
+                coordinate = new Vector2((Board.NUM_TILES_WIDTH / 2f) + ((Board.NUM_TILES_WIDTH / 2f) * (2 / 3f)) -
+                        Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 7f);
                 break;
         }
 

@@ -1,16 +1,15 @@
 package com.galing.codecube.screens;
 
-import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.widgets.GreyLabel;
 import com.galing.codecube.windows.SelectionWindow;
 
 public class ModeScreen extends Screen {
@@ -32,16 +31,14 @@ public class ModeScreen extends Screen {
         modeTable = new Table();
         setModeTableBounds();
         modeTable.top().padTop(50);
-        modeTable.background(new NinePatchDrawable(new NinePatch(Assets.greyPanel,
-                12, 12, 12, 12)));
+        modeTable.background(Assets.greyPanelNinePatch);
 
         Table backTable = new Table();
         backTable.setFillParent(true);
         backTable.bottom();
 
         // create labels
-        Label modeLabel = new Label(Assets.selectString("ModeScreen_SelectLabel"),
-                new Label.LabelStyle(Assets.vagaRoundBoldGray35, null));
+        Label modeLabel = new GreyLabel(Assets.selectString("ModeScreen_SelectLabel"));
 
         // create back button
         ImageButton backButton = new ImageButton(Assets.exitLeftLargeButtonStyle);
