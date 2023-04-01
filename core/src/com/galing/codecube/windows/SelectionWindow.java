@@ -51,7 +51,7 @@ public class SelectionWindow extends CloseableWindow {
         Label selectedTitle =
                 new GreyLabel(Assets.formatString("GameScreen_SelectedTitle",
                         BoardType.toString(boardType),
-                        Difficulty.toString(Settings.selectedDifficulty)));
+                        Difficulty.toString(Settings.selectedDifficulty)), false);
         selectedTitle.setAlignment(Align.center);
 
         ImageButton acceptButton = new ImageButton(Assets.checkmarkButtonStyle);

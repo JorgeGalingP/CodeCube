@@ -38,7 +38,7 @@ public class ModeScreen extends Screen {
         backTable.bottom();
 
         // create labels
-        Label modeLabel = new GreyLabel(Assets.selectString("ModeScreen_SelectLabel"));
+        Label modeLabel = new GreyLabel(Assets.selectString("ModeScreen_SelectLabel"), false);
 
         // create back button
         ImageButton backButton = new ImageButton(Assets.exitLeftLargeButtonStyle);

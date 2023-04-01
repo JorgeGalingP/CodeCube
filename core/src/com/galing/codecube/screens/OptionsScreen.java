@@ -65,11 +65,11 @@ public class OptionsScreen extends Screen {
         backTable.bottom();
 
         // create labels
-        difficultyLabel = new GreyLabel(Assets.selectString("OptionsScreen_DifficultyLabel"));
-        musicLabel = new GreyLabel(Assets.selectString("OptionsScreen_MusicLabel"));
-        audioLabel = new GreyLabel(Assets.selectString("OptionsScreen_SoundLabel"));
-        languageLabel = new GreyLabel(Assets.selectString("OptionsScreen_LanguageLabel"));
-        configurationLabel = new GreyLabel(Assets.selectString("OptionsScreen_OptionsLabel"));
+        difficultyLabel = new GreyLabel(Assets.selectString("OptionsScreen_DifficultyLabel"), false);
+        musicLabel = new GreyLabel(Assets.selectString("OptionsScreen_MusicLabel"), false);
+        audioLabel = new GreyLabel(Assets.selectString("OptionsScreen_SoundLabel"), false);
+        languageLabel = new GreyLabel(Assets.selectString("OptionsScreen_LanguageLabel"), false);
+        configurationLabel = new GreyLabel(Assets.selectString("OptionsScreen_OptionsLabel"), false);
 
         // create back button
         ImageButton backButton = new ImageButton(Assets.exitLeftLargeButtonStyle);

@@ -15,4 +15,15 @@ public class GreyLabel extends Label {
 
         setAlignment(Align.center);
     }
+
+    public GreyLabel(String text, boolean withBackground) {
+        super(text, new LabelStyle(Assets.vagaRoundBoldGray25, Assets.vagaRoundBoldGray25.getColor()));
+
+        LabelStyle labelStyle = getStyle();
+        if (withBackground)
+            labelStyle.background = Assets.greyPanelNinePatch;
+        setStyle(labelStyle);
+
+        setAlignment(Align.center);
+    }
 }

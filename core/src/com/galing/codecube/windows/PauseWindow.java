@@ -41,7 +41,7 @@ public class PauseWindow extends CloseableWindow {
     @Override
     public void setContentTable() {
         // set buttons
-        Label selectedTitle = new GreyLabel(Assets.selectString("PauseWindow_Title"));
+        Label selectedTitle = new GreyLabel(Assets.selectString("PauseWindow_Title"), false);
         selectedTitle.setAlignment(Align.center);
 
         ImageButton homeButton = new ImageButton(Assets.exitLeftButtonStyle);

@@ -27,23 +27,23 @@ public class SpawnManager {
 
         switch (boxType) {
             case UP:
-                coordinate = new Vector2(Board.NUM_TILES_WIDTH / 2f - Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 7f);
+                coordinate = new Vector2(Board.NUM_TILES_WIDTH / 2f - Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 6f);
                 break;
             case RIGHT:
                 coordinate = new Vector2((Board.NUM_TILES_WIDTH / 2f * (1 / 3f)) - Tile.SIZE / 2f,
-                        Board.NUM_TILES_HEIGHT / 7f);
+                        Board.NUM_TILES_HEIGHT / 6f);
                 break;
             case LEFT:
                 coordinate = new Vector2((Board.NUM_TILES_WIDTH / 2f * (2 / 3f)) - Tile.SIZE / 2f,
-                        Board.NUM_TILES_HEIGHT / 7f);
+                        Board.NUM_TILES_HEIGHT / 6f);
                 break;
             case NEGATION:
                 coordinate = new Vector2((Board.NUM_TILES_WIDTH / 2f) + ((Board.NUM_TILES_WIDTH / 2f) * (1 / 3f)) -
-                        Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 7f);
+                        Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 6f);
                 break;
             case FUNCTION:
                 coordinate = new Vector2((Board.NUM_TILES_WIDTH / 2f) + ((Board.NUM_TILES_WIDTH / 2f) * (2 / 3f)) -
-                        Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 7f);
+                        Tile.SIZE / 2f, Board.NUM_TILES_HEIGHT / 6f);
                 break;
         }
 
