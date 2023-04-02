@@ -56,15 +56,15 @@ public class HelpScreen extends Screen {
 
         // set textures
         Label one = new GreyLabel("Lorem ipsum dolor sit amet,\n consectetur adipiscing elit,\n sed do eiusmod " +
-                "tempor incididunt ut labore et dolore magna aliqua.");
+                "tempor incididunt ut labore et dolore magna aliqua.", true);
         Label two = new GreyLabel("Ut enim ad minim veniam,\n quis nostrud exercitation ullamco laboris nisi ut" +
                 " " +
-                "aliquip ex ea commodo consequat.");
+                "aliquip ex ea commodo consequat.", true);
         Label three = new GreyLabel("Duis aute irure dolor in reprehenderit in voluptate velit esse cillum " +
-                "dolore eu fugiat nulla pariatur.");
+                "dolore eu fugiat nulla pariatur.", true);
         Label four = new GreyLabel("Excepteur sint occaecat cupidatat non proident,\n sunt in culpa qui officia" +
                 " " +
-                "deserunt mollit anim id est laborum.");
+                "deserunt mollit anim id est laborum.", true);
 
         one.setAlignment(Align.center);
         two.setAlignment(Align.center);

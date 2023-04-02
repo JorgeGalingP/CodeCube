@@ -10,7 +10,6 @@ public class GreyLabel extends Label {
         super(text, new LabelStyle(Assets.vagaRoundBoldGray25, Assets.vagaRoundBoldGray25.getColor()));
 
         LabelStyle labelStyle = getStyle();
-        labelStyle.background = Assets.greyPanelNinePatch;
         setStyle(labelStyle);
 
         setAlignment(Align.center);

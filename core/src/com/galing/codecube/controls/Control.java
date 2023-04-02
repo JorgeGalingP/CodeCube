@@ -28,13 +28,10 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     private int functionSize;
     private Array<Container> functionControls;
 
-    private Button programButton;
-
     public Control(SpawnManager spawnManager,
                    Button programButton, Button functionButton,
                    Array<Container> programControls,
                    Array<Container> functionControls) {
-        this.programButton = programButton;
         this.spawnManager = spawnManager;
         this.programButtonPosition = programButton.getCoordinate();
         this.programSize = programControls.size;
@@ -156,7 +153,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
             @Override
             public void touchDragged(InputEvent event, float x, float y, int pointer) {
-                // only can be moved if is not in the stack or is the peek of it
+                // only can be moved if is not in the control
+                // or is the peek of it
                 if (box.getIsTouchable() == null
                         || (box.getIsTouchable()
                         && (box.getControlType().equals(ContainerType.PROGRAM) || box.getControlType().equals(ContainerType.FUNCTION)))) {
@@ -170,33 +168,27 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                 lastTouch.set(event.getStageX(), event.getStageY());
 
-                // is in target and is not in the stack
-                if ((lastTouch.x >= programButtonPosition.x - box.getWidth() / 2)
-                        && (lastTouch.x <= programButtonPosition.x + 1 + box.getWidth() / 2)
-                        && (lastTouch.y >= programButtonPosition.y - box.getHeight() / 2)
-                        && (lastTouch.y <= programButtonPosition.y + 1 + box.getHeight() / 2)
+                // only can be added if box is in button's bounds,
+                // can be touched
+                // and control has remain space
+                if (isBoxInButtonBounds(lastTouch, programButtonPosition, box)
                         && box.getIsTouchable() == null
                         && getProgramSize() != programSize) {
-                    addToProgram(box); // push to program control
-                    spawnManager.spawn(box.getType()); // spawn a new box of same type
+                    addToProgram(box);                          // push to program control
+                    spawnManager.spawn(box.getType());          // spawn a new box of same type
                 } else if (functionButtonPosition != null
-                        && ((lastTouch.x >= functionButtonPosition.x - box.getWidth() / 2)
-                        && (lastTouch.x <= functionButtonPosition.x + 1 + box.getWidth() / 2)
-                        && (lastTouch.y >= functionButtonPosition.y - box.getHeight() / 2)
-                        && (lastTouch.y <= functionButtonPosition.y + 1 + box.getHeight() / 2)
+                        && (isBoxInButtonBounds(lastTouch, functionButtonPosition, box)
                         && box.getIsTouchable() == null
+                        && !box.getType().equals(BoxType.FUNCTION)
                         && getFunctionSize() != functionSize)) {
-                    addToFunction(box); // push to function control
-                    spawnManager.spawn(box.getType()); // spawn a new box of same type
+                    addToFunction(box);                         // push to function control
+                    spawnManager.spawn(box.getType());          // spawn a new box of same type
                 } else if (box.getIsTouchable() != null
                         && box.getControlType() != null) {
-                    if (box.getIsTouchable()) {
-                        remove(box); // remove box and kill
-                    }
-                } else {
-                    // back to start
-                    box.addResetPositionAction();
-                }
+                    if (box.getIsTouchable())
+                        remove(box);                            // remove box only if is the first
+                } else
+                    box.addResetPositionAction();               // back to start
             }
 
             @Override
@@ -204,5 +196,12 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                 return true;
             }
         });
+    }
+
+    private boolean isBoxInButtonBounds(Vector2 lastTouch, Vector2 buttonPosition, Box box) {
+        return (lastTouch.x >= buttonPosition.x - box.getWidth() / 2)
+                && (lastTouch.x <= buttonPosition.x + 1 + box.getWidth() / 2)
+                && (lastTouch.y >= buttonPosition.y - box.getHeight() / 2)
+                && (lastTouch.y <= buttonPosition.y + 1 + box.getHeight() / 2);
     }
 }
