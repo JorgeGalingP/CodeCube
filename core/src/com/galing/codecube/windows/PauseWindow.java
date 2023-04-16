@@ -18,13 +18,12 @@ public class PauseWindow extends CloseableWindow {
     public PauseWindow(final CodeCube game, Screen screen) {
         super(game, screen);
 
-        setTitleTable();
-        setContentTable();
+        initialize();
     }
 
     @Override
-    public void setTitleTable() {
-        // set button
+    public void initialize() {
+        // set close button
         Button closeButton = new ImageButton(Assets.windowCloseButtonStyle);
         closeButton.addListener(new ClickListener() {
             @Override
@@ -35,11 +34,8 @@ public class PauseWindow extends CloseableWindow {
 
         // create title table
         titleTable.center();
-        titleTable.add(closeButton).width(40).height(40).padLeft(350f).right();
-    }
+        titleTable.add(closeButton).width(40).height(40).padLeft(400f).right();
 
-    @Override
-    public void setContentTable() {
         // set buttons
         Label selectedTitle = new GreyLabel(Assets.selectString("PauseWindow_Title"));
         selectedTitle.setAlignment(Align.center);

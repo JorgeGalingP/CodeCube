@@ -1,7 +1,6 @@
 package com.galing.codecube.windows;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -25,28 +24,11 @@ public class SelectionWindow extends CloseableWindow {
 
         this.boardType = boardType;
 
-        setTitleTable();
-        setContentTable();
+        initialize();
     }
 
     @Override
-    public void setTitleTable() {
-        // set button
-        Button closeButton = new ImageButton(Assets.windowCloseButtonStyle);
-        closeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                close();
-            }
-        });
-
-        // create title table
-        titleTable.center();
-        titleTable.add(closeButton).size(40, 40).right().padLeft(425f);
-    }
-
-    @Override
-    public void setContentTable() {
+    public void initialize() {
         // set buttons
         Label selectedTitle =
                 new GreyLabel(Assets.formatString("GameScreen_SelectedTitle",

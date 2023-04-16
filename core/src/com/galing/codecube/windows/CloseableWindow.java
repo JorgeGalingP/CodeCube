@@ -35,9 +35,7 @@ public abstract class CloseableWindow extends Window {
         add(contentTable);
     }
 
-    public abstract void setTitleTable();
-
-    public abstract void setContentTable();
+    public abstract void initialize();
 
     public void close() {
         Assets.playClickSound();
