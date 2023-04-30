@@ -23,7 +23,7 @@ public class PauseWindow extends CloseableWindow {
 
     @Override
     public void initialize() {
-        // set close button
+        // create close button
         Button closeButton = new ImageButton(Assets.windowCloseButtonStyle);
         closeButton.addListener(new ClickListener() {
             @Override
@@ -36,7 +36,7 @@ public class PauseWindow extends CloseableWindow {
         titleTable.center();
         titleTable.add(closeButton).width(40).height(40).padLeft(400f).right();
 
-        // set buttons
+        // create buttons
         Label selectedTitle = new GreyLabel(Assets.selectString("PauseWindow_Title"));
         selectedTitle.setAlignment(Align.center);
 
@@ -65,7 +65,6 @@ public class PauseWindow extends CloseableWindow {
 
         // create content table
         contentTable.setBackground(Assets.greyPanelNinePatch);
-
         contentTable.center();
         contentTable.add(selectedTitle).colspan(2).center().padBottom(25f);
         contentTable.row();

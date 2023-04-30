@@ -29,7 +29,7 @@ public class SelectionWindow extends CloseableWindow {
 
     @Override
     public void initialize() {
-        // set buttons
+        // create buttons
         Label selectedTitle =
                 new GreyLabel(Assets.formatString("GameScreen_SelectedTitle",
                         BoardType.toString(boardType),
@@ -60,7 +60,6 @@ public class SelectionWindow extends CloseableWindow {
 
         // create content table
         contentTable.setBackground(Assets.greyPanelNinePatch);
-
         contentTable.center();
         contentTable.add(selectedTitle).colspan(2).center().padBottom(25f);
         contentTable.row();

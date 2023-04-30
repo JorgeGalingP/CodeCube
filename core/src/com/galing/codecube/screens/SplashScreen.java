@@ -1,17 +1,11 @@
 package com.galing.codecube.screens;
 
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.alpha;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.delay;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.fadeIn;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.scaleTo;
-import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.CodeCube;
@@ -24,14 +18,20 @@ public class SplashScreen extends Screen {
     public SplashScreen(CodeCube game) {
         super(game);
         splashImage = new Image(new TextureRegionDrawable(new Texture("images/logo.png")));
-        splashAction = sequence(alpha(0), scaleTo(.1f, .1f),
-                parallel(fadeIn(2f),
-                        scaleTo(1f, 1f, 2.25f, Interpolation.swing),
-                        moveTo(stage.getWidth() / 2 - splashImage.getWidth() / 2,
-                                stage.getHeight() / 2 - splashImage.getHeight() / 2, 2f, Interpolation.swing)),
-                delay(.5f),
-                scaleTo(1.5f, 1.5f, 1.25f, Interpolation.elasticOut),
-                delay(.5f),
+
+        splashAction = Actions.sequence(
+                Actions.alpha(0),
+                Actions.scaleTo(.1f, .1f),
+                Actions.moveTo(stage.getWidth() / 2 - splashImage.getWidth() / 2,
+                        stage.getHeight() / 2 - splashImage.getHeight() / 2),
+                Actions.parallel(
+                        Actions.fadeIn(2f),
+                        Actions.scaleTo(1f, 1f, 1f, Interpolation.pow5Out),
+                        Actions.rotateBy(360, 1f, Interpolation.exp5Out)
+                ),
+                Actions.delay(.25f),
+                Actions.scaleTo(1.5f, 1.5f, 1.25f, Interpolation.elasticOut),
+                Actions.delay(.5f),
                 run(() -> game.setScreen(new MenuScreen(game))));
     }
 
