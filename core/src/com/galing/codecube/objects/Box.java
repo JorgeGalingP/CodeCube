@@ -11,9 +11,9 @@ import com.galing.codecube.enums.ContainerType;
 
 public class Box extends Tile {
 
+    public BoxType type;
     public ContainerType containerType;
     public Boolean touchable;
-    public BoxType type;
     public boolean alive;
 
     public Box(Vector2 coordinate, BoxType type) {

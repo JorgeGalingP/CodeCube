@@ -29,9 +29,6 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     private int functionSize;
     private Array<Container> functionControls;
 
-    private int holderSize;
-    private Array<Container> holderControls;
-
     public Control(SpawnManager spawnManager,
                    Button programButton, Button functionButton,
                    Array<Container> programControls,
@@ -43,8 +40,6 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         this.functionButtonPosition = null;
         this.functionSize = 0;
         this.functionControls = null;
-        this.holderSize = 0;
-        this.holderControls = null;
 
         if (functionControls != null
                 && !functionControls.isEmpty()) {
@@ -116,17 +111,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         return holder.isEmpty();
     }
 
-    public void copyHolder() {
-        this.holderSize = this.functionSize;
-        this.holderControls = this.functionControls;
-    }
-
-    public boolean onlyOneFunctionLeft() {
-        return (int) this.program.stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count() == 1;
-    }
-
-    public boolean hasFunctionLeft() {
-        return (int) this.program.stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count() > 0;
+    public int numberOfFunctionsLeft() {
+        return (int) getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
     }
 
     public void pushToProgram(Box box) {

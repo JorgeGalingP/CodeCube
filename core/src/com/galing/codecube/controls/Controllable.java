@@ -26,7 +26,7 @@ public interface Controllable {
 
     void attachDragListener(Box box);
 
-    boolean hasFunctionLeft();
+    int numberOfFunctionsLeft();
 
     void generateHolder();
 }

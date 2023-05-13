@@ -133,7 +133,7 @@ public class Board extends Group {
 
         if (player.canMove()) {
             if (this.state.equals(BoardState.WAIT)
-                    && gameControl.hasFunctionLeft()
+                    && gameControl.numberOfFunctionsLeft() > 0
                     && gameControl.isHolderEmpty())
                 gameControl.generateHolder();
 
@@ -283,7 +283,7 @@ public class Board extends Group {
                             box = gameControl.removeFromProgram();
                             box.setAlive(false);
 
-                            if (gameControl.hasFunctionLeft()
+                            if (gameControl.numberOfFunctionsLeft() > 0
                                     && gameControl.isHolderEmpty())
                                 gameControl.generateHolder();
                         }
@@ -370,9 +370,10 @@ public class Board extends Group {
     }
 
     private void handleAnimation(Box box) {
-        if (box.getControlType().equals(ContainerType.FUNCTION))
+        if (box.getControlType().equals(ContainerType.FUNCTION)
+                && gameControl.numberOfFunctionsLeft() > 1) {
             box.addInOutAction();
-        else
+        } else
             box.setAlive(false);
     }
 
