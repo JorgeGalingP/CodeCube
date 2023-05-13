@@ -30,7 +30,7 @@ public class Player extends Tile {
             public void clicked(InputEvent event, float x, float y) {
                 addAction(Actions.sequence(Actions.run(() -> addInOutAction()),
                         Actions.delay(.5f),
-                        Actions.run(() -> pressed = true)));
+                        Actions.run(() -> setPressed(true))));
             }
         };
 

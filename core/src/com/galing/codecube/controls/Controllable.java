@@ -4,9 +4,13 @@ import com.galing.codecube.objects.Box;
 
 public interface Controllable {
 
+    void show();
+
     boolean isProgramEmpty();
 
     boolean isFunctionEmpty();
+
+    boolean isHolderEmpty();
 
     Box getNextBox();
 
@@ -22,5 +26,7 @@ public interface Controllable {
 
     void attachDragListener(Box box);
 
-    boolean hasSeveralFunctions();
+    boolean hasFunctionLeft();
+
+    void generateHolder();
 }

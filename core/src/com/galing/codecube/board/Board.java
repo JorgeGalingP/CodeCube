@@ -16,9 +16,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.Assets;
 import com.galing.codecube.controls.Controllable;
-import com.galing.codecube.controls.Queue;
 import com.galing.codecube.controls.Sequence;
-import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
@@ -41,7 +39,7 @@ import java.util.List;
 public class Board extends Group {
 
     private enum BoardState {
-        RUNNING, GAME_OVER;
+        WAIT, RUNNING, GAME_OVER;
     }
 
     public static final float TILE_SIZE = 64f;
@@ -81,7 +79,7 @@ public class Board extends Group {
         this.tiledRender = new OrthogonalTiledMapRenderer(Assets.tileMap, UNIT_SCALE);
 
         // initialize Board variables
-        this.state = BoardState.RUNNING;
+        this.state = BoardState.WAIT;
         this.inverse = false;
 
         // initialize Tile variables
@@ -105,21 +103,21 @@ public class Board extends Group {
         // initialize objects layer on top
         initializeLayer("objects");
         initializeLayer("player");
-        initializeLayer("boxes");
 
         // spawn manager
         spawnManager = new SpawnManager(this);
 
         // initialize Control
+        /*
         if (type.equals(BoardType.STACK))
             this.gameControl = new Stack(spawnManager, programButton, functionButton, programControls,
                     functionControls);
         else if (type.equals(BoardType.QUEUE))
             this.gameControl = new Queue(spawnManager, programButton, functionButton, programControls,
                     functionControls);
-        else
-            this.gameControl = new Sequence(spawnManager, programButton, functionButton, programControls,
-                    functionControls);
+        else*/
+        this.gameControl = new Sequence(spawnManager, programButton, functionButton, programControls,
+                functionControls);
 
         // spawn boxes of each type
         spawnManager.create(BoxType.UP);
@@ -129,16 +127,21 @@ public class Board extends Group {
         spawnManager.create(BoxType.NEGATION);
     }
 
-    public boolean isGameOver() {
-        return state.equals(BoardState.GAME_OVER);
-    }
-
     @Override
     public void act(float delta) {
         super.act(delta);
 
-        if (player.canMove())
+        if (player.canMove()) {
+            if (this.state.equals(BoardState.WAIT)
+                    && gameControl.hasFunctionLeft()
+                    && gameControl.isHolderEmpty())
+                gameControl.generateHolder();
+
+            this.state = BoardState.RUNNING;
             movePlayer();
+        }
+
+        // Gdx.app.log("B", this.state.toString());
     }
 
     public void render() {
@@ -167,8 +170,12 @@ public class Board extends Group {
         winTarget.addInOutPositionAction(getRandomPosition(Player.class));
     }
 
-    private void setBoardStateGameOver() {
-        this.state = BoardState.GAME_OVER;
+    private void setRunning() {
+        this.state = BoardState.RUNNING;
+    }
+
+    public boolean isGameOver() {
+        return state.equals(BoardState.GAME_OVER);
     }
 
     private void initializeLayer(String layerName) {
@@ -260,7 +267,7 @@ public class Board extends Group {
             if (!gameControl.isProgramEmpty()) {
                 Box box;
 
-                // iterate through game control
+                // iterate through game control's movements
                 switch (gameControl.getNextBox().getType()) {
                     case UP:
                     case RIGHT:
@@ -269,12 +276,16 @@ public class Board extends Group {
                         handleMovement(box);
                         break;
                     case FUNCTION:
-                        if (!gameControl.isFunctionEmpty()) {
+                        if (!gameControl.isHolderEmpty()) {
                             box = gameControl.removeFromFunction();
                             handleMovement(box);
                         } else {
                             box = gameControl.removeFromProgram();
                             box.setAlive(false);
+
+                            if (gameControl.hasFunctionLeft()
+                                    && gameControl.isHolderEmpty())
+                                gameControl.generateHolder();
                         }
                         break;
                     case NEGATION:
@@ -285,27 +296,38 @@ public class Board extends Group {
                         break;
                 }
 
+                gameControl.show();
+
                 player.resetStateTime();
 
                 // if player reach fail target
-                for (Target target : failTargets)
+                for (Target target : failTargets) {
                     if (player.isEqualCoordinate(target.getCoordinate())) {
-                        player.addRemoveAction();
-                        addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
+                        player.addRemoveAction(); // remove player
+                        addAction(Actions.sequence(Actions.delay(.5f),
+                                Actions.run(() -> this.state = BoardState.GAME_OVER)));
                     }
+                }
 
                 // if movement is finished
                 if (gameControl.isProgramEmpty()
                         && gameControl.isFunctionEmpty()) {
-
                     // check if player is in target's position
                     if (player.isEqualCoordinate(winTarget.getCoordinate())) {
-                        addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::resetTarget)));
+                        addAction(Actions.sequence(Actions.delay(.5f),
+                                Actions.run(() -> {
+                                            resetTarget();
+                                            this.state = BoardState.WAIT;
+                                        }
+                                )));
                     } else
-                        addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
+                        addAction(Actions.sequence(Actions.delay(.5f),
+                                Actions.run(() -> this.state = BoardState.GAME_OVER)));
                 }
-            } else
+            } else {
                 player.setPressed(false);
+                this.state = BoardState.WAIT;
+            }
         }
     }
 
@@ -328,7 +350,8 @@ public class Board extends Group {
                     player.addMovePositionAction(newPosition);
                 } else
                     // if next tile is a wall, then set game over
-                    addAction(Actions.sequence(Actions.delay(.5f), Actions.run(this::setBoardStateGameOver)));
+                    addAction(Actions.sequence(Actions.delay(.5f),
+                            Actions.run(() -> this.state = BoardState.GAME_OVER)));
 
                 inverse = false;
                 break;
@@ -347,8 +370,7 @@ public class Board extends Group {
     }
 
     private void handleAnimation(Box box) {
-        if (box.getControlType().equals(ContainerType.FUNCTION)
-                && gameControl.hasSeveralFunctions())
+        if (box.getControlType().equals(ContainerType.FUNCTION))
             box.addInOutAction();
         else
             box.setAlive(false);

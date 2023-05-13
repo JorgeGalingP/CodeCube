@@ -13,7 +13,6 @@ import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
 import java.util.ArrayDeque;
-import java.util.ArrayList;
 
 public class Queue extends Control<ArrayDeque<Box>> {
     public Queue(SpawnManager spawnManager,
@@ -23,8 +22,8 @@ public class Queue extends Control<ArrayDeque<Box>> {
                  Array<Container> functionControls) {
         super(spawnManager, programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayDeque<>());
-        setFunction(new ArrayList<>());
-        getFunction().add(new ArrayDeque<>());
+        setFunction(new ArrayDeque<>());
+        setHolder(new ArrayDeque<>());
     }
 
     @Override
@@ -42,17 +41,17 @@ public class Queue extends Control<ArrayDeque<Box>> {
                 getProgramControls().get(getProgramControls().size - getProgramSize()).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
 
-        if (box.getType().equals(BoxType.FUNCTION)
+        /*if (box.getType().equals(BoxType.FUNCTION)
                 && numberOfFunctions() != getFunction().size()) {
-            getFunction().add(new ArrayDeque<>(getFunction().get(0)));
-        }
+              getFunction().add(new ArrayDeque<>(getFunction().get(0)));
+        }*/
     }
 
     @Override
     public void addToFunction(Box box) {
         pushToFunction(box);
 
-        getFunction().forEach(f -> f.addLast(box));
+        //getFunction().forEach(f -> f.addLast(box));
 
         Vector2 newPosition =
                 getFunctionControls().get(getFunctionControls().size - getFunctionSize()).getCoordinate();
@@ -65,9 +64,9 @@ public class Queue extends Control<ArrayDeque<Box>> {
             getProgram().remove(box);
 
             handleProgramTouchable();
-            removeFunctionMethod(box);
+            //removeFunctionMethod(box);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
-            getFunction().forEach(function -> function.remove(box));
+            //getFunction().forEach(function -> function.remove(box));
 
             handleFunctionTouchable();
         }
@@ -82,7 +81,7 @@ public class Queue extends Control<ArrayDeque<Box>> {
         if (getProgramSize() > 0)
             getProgram().forEach(this::addSlideAction);
 
-        removeFunctionMethod(box);
+        //removeFunctionMethod(box);
         handleProgramTouchable();
 
         return box;
@@ -92,10 +91,10 @@ public class Queue extends Control<ArrayDeque<Box>> {
     public Box removeFromFunction() {
         int count =
                 (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
-        Box box = getFunction().get(count - 1).removeFirst();
+        Box box = null;// = getFunction().get(count - 1).removeFirst();
 
-        if (getFunctionSize() > 0 && !hasSeveralFunctions())
-            getFunction().forEach(f -> f.forEach(this::addSlideAction));
+        //if (getFunctionSize() > 0 && !hasSeveralFunctions())
+        //getFunction().forEach(f -> f.forEach(this::addSlideAction));
 
         handleFunctionTouchable();
 
@@ -110,8 +109,13 @@ public class Queue extends Control<ArrayDeque<Box>> {
 
     @Override
     public void handleFunctionTouchable() {
-        if (getFunctionSize() > 0)
-            getFunction().get(0).getLast().setIsTouchable(true);
+        //if (getFunctionSize() > 0)
+        //getFunction().get(0).getLast().setIsTouchable(true);
+    }
+
+    @Override
+    public void generateHolder() {
+
     }
 
     private void addSlideAction(Box box) {

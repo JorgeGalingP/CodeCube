@@ -12,8 +12,6 @@ import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
-import java.util.ArrayList;
-
 public class Stack extends Control<java.util.Stack<Box>> {
 
     public Stack(SpawnManager spawnManager,
@@ -23,8 +21,8 @@ public class Stack extends Control<java.util.Stack<Box>> {
                  Array<Container> functionControls) {
         super(spawnManager, programButton, functionButton, programControls, functionControls);
         setProgram(new java.util.Stack<>());
-        setFunction(new ArrayList<>());
-        getFunction().add(new java.util.Stack<>());
+        setFunction(new java.util.Stack<>());
+        setHolder(new java.util.Stack<>());
     }
 
     @Override
@@ -39,17 +37,13 @@ public class Stack extends Control<java.util.Stack<Box>> {
 
         Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
         addBounceAction(box, newPosition);
-
-        if (box.getType().equals(BoxType.FUNCTION)
-                && numberOfFunctions() != getFunction().size())
-            getFunction().add((java.util.Stack<Box>) getFunction().get(0).clone());
     }
 
     @Override
     public void addToFunction(Box box) {
         pushToFunction(box);
 
-        getFunction().forEach(f -> f.push(box));
+        //getFunction().forEach(f -> f.push(box));
 
         Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
         addBounceAction(box, newPosition);
@@ -61,9 +55,9 @@ public class Stack extends Control<java.util.Stack<Box>> {
             getProgram().pop();
 
             handleProgramTouchable();
-            removeFunctionMethod(box);
+            //  removeFunctionMethod(box);
         } else if (box.getControlType().equals(ContainerType.FUNCTION)) {
-            getFunction().forEach(java.util.Stack::pop);
+            //getFunction().forEach(java.util.Stack::pop);
 
             handleFunctionTouchable();
         }
@@ -76,7 +70,7 @@ public class Stack extends Control<java.util.Stack<Box>> {
     public Box removeFromProgram() {
         Box box = getProgram().pop();
 
-        removeFunctionMethod(box);
+        //removeFunctionMethod(box);
         handleProgramTouchable();
 
         return box;
@@ -87,7 +81,7 @@ public class Stack extends Control<java.util.Stack<Box>> {
         int count =
                 (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
 
-        Box box = getFunction().get(count - 1).pop();
+        Box box = null;//getFunction().get(count - 1).pop();
         handleFunctionTouchable();
 
         return box;
@@ -101,8 +95,13 @@ public class Stack extends Control<java.util.Stack<Box>> {
 
     @Override
     public void handleFunctionTouchable() {
-        if (getFunctionSize() > 0)
-            getFunction().get(0).get(getFunctionSize() - 1).setIsTouchable(true);
+        //if (getFunctionSize() > 0)
+        //getFunction().get(0).get(getFunctionSize() - 1).setIsTouchable(true);
+    }
+
+    @Override
+    public void generateHolder() {
+
     }
 
     private void addBounceAction(Box box, Vector2 position) {

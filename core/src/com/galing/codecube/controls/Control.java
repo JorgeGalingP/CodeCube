@@ -1,5 +1,6 @@
 package com.galing.codecube.controls;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -12,11 +13,11 @@ import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
 import java.util.Collection;
-import java.util.List;
 
 public abstract class Control<T extends Collection<Box>> implements Controllable {
     private T program;
-    private List<T> function;
+    private T function;
+    private T holder;
 
     private final SpawnManager spawnManager;
 
@@ -27,6 +28,9 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     private Vector2 functionButtonPosition;
     private int functionSize;
     private Array<Container> functionControls;
+
+    private int holderSize;
+    private Array<Container> holderControls;
 
     public Control(SpawnManager spawnManager,
                    Button programButton, Button functionButton,
@@ -39,6 +43,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         this.functionButtonPosition = null;
         this.functionSize = 0;
         this.functionControls = null;
+        this.holderSize = 0;
+        this.holderControls = null;
 
         if (functionControls != null
                 && !functionControls.isEmpty()) {
@@ -64,12 +70,20 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         this.program = program;
     }
 
-    public List<T> getFunction() {
+    public T getFunction() {
         return function;
     }
 
-    public void setFunction(List<T> function) {
+    public void setFunction(T function) {
         this.function = function;
+    }
+
+    public T getHolder() {
+        return holder;
+    }
+
+    public void setHolder(T holder) {
+        this.holder = holder;
     }
 
     public int getProgramSize() {
@@ -77,12 +91,11 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     }
 
     public int getFunctionSize() {
-        int count = numberOfFunctions();
+        return function.size();
+    }
 
-        if (count > 0)
-            return function.get(count - 1).size();
-
-        return function.get(0).size();
+    public int getHolderSize() {
+        return holder.size();
     }
 
     public boolean isProgramEmpty() {
@@ -90,20 +103,30 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     }
 
     public boolean isFunctionEmpty() {
-        int count = numberOfFunctions();
-
-        if (count > 0)
-            return function.get(count - 1).isEmpty();
-
-        return function.get(0).isEmpty();
+        return function.isEmpty();
     }
 
-    public boolean hasSeveralFunctions() {
-        return (int) this.program.stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count() > 1;
+    public void show() {
+        Gdx.app.log("P", program.toString());
+        Gdx.app.log("F", function.toString());
+        Gdx.app.log("H", holder.toString());
     }
 
-    public int numberOfFunctions() {
-        return (int) this.getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
+    public boolean isHolderEmpty() {
+        return holder.isEmpty();
+    }
+
+    public void copyHolder() {
+        this.holderSize = this.functionSize;
+        this.holderControls = this.functionControls;
+    }
+
+    public boolean onlyOneFunctionLeft() {
+        return (int) this.program.stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count() == 1;
+    }
+
+    public boolean hasFunctionLeft() {
+        return (int) this.program.stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count() > 0;
     }
 
     public void pushToProgram(Box box) {
@@ -117,18 +140,11 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     public void pushToFunction(Box box) {
         if (!isFunctionEmpty())
-            getFunction().forEach(f -> f.forEach(b -> b.setIsTouchable(false)));
+            getFunction().forEach(b -> b.setIsTouchable(false));
 
         box.setIsTouchable(true);
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
-    }
-
-    public void removeFunctionMethod(Box box) {
-        if (box.getType().equals(BoxType.FUNCTION)
-                && getFunction().size() > 1) {
-            getFunction().remove(getFunction().size() - 1);
-        }
     }
 
     public abstract Box getNextBox();
@@ -146,6 +162,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     public abstract void handleProgramTouchable();
 
     public abstract void handleFunctionTouchable();
+
+    public abstract void generateHolder();
 
     public void attachDragListener(Box box) {
         box.addListener(new DragListener() {
