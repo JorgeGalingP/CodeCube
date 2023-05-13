@@ -311,7 +311,9 @@ public class Board extends Group {
 
                 // if movement is finished
                 if (gameControl.isProgramEmpty()
-                        && gameControl.isFunctionEmpty()) {
+                        && gameControl.isHolderEmpty()) {
+                    gameControl.resetFunction();
+
                     // check if player is in target's position
                     if (player.isEqualCoordinate(winTarget.getCoordinate())) {
                         addAction(Actions.sequence(Actions.delay(.5f),

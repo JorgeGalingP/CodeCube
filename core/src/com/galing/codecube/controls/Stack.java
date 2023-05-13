@@ -104,6 +104,11 @@ public class Stack extends Control<java.util.Stack<Box>> {
 
     }
 
+    @Override
+    public void resetFunction() {
+
+    }
+
     private void addBounceAction(Box box, Vector2 position) {
         MoveToAction action = Actions.action(MoveToAction.class);
         action.setPosition(position.x, position.y);

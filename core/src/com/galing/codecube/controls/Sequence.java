@@ -93,9 +93,14 @@ public class Sequence extends Control<List<Box>> {
 
     @Override
     public void generateHolder() {
-        if (numberOfFunctionsLeft() == 1)
+        /*if (numberOfFunctionsLeft() == 1)
             setHolder(getFunction()); // point to function itself
-        else
-            setHolder(new ArrayList<>(getFunction()));
+        else*/
+        setHolder(new ArrayList<>(getFunction()));
+    }
+
+    @Override
+    public void resetFunction() {
+        setFunction(new ArrayList<>());
     }
 }

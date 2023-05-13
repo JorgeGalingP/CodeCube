@@ -18,6 +18,8 @@ public interface Controllable {
 
     void addToFunction(Box box);
 
+    void resetFunction();
+
     void remove(Box box);
 
     Box removeFromProgram();

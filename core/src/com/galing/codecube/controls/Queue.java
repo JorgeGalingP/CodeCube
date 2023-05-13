@@ -118,6 +118,11 @@ public class Queue extends Control<ArrayDeque<Box>> {
 
     }
 
+    @Override
+    public void resetFunction() {
+
+    }
+
     private void addSlideAction(Box box) {
         box.addAction(moveTo(box.getX() + 1, box.getY(), .3f));
     }
