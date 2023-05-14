@@ -52,7 +52,7 @@ public class Sequence extends Control<List<Box>> {
     }
 
     @Override
-    public void remove(Box box) {
+    public void kill(Box box) {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().remove(box);
 

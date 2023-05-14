@@ -52,7 +52,7 @@ public class Stack extends Control<java.util.Stack<Box>> {
     }
 
     @Override
-    public void remove(Box box) {
+    public void kill(Box box) {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().pop();
 

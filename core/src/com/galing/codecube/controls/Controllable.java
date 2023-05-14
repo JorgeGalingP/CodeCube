@@ -22,7 +22,7 @@ public interface Controllable {
 
     int countFunction();
 
-    void remove(Box box);
+    void kill(Box box);
 
     Box removeFromProgram();
 

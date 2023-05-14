@@ -69,6 +69,7 @@ public class SpawnManager {
                 break;
         }
 
+        // create box
         Box box = new Box(coordinate, boxType);
 
         activeBoxes.add(box);

@@ -55,7 +55,7 @@ public class Queue extends Control<ArrayDeque<Box>> {
     }
 
     @Override
-    public void remove(Box box) {
+    public void kill(Box box) {
         if (box.getControlType().equals(ContainerType.PROGRAM)) {
             getProgram().remove(box);
 

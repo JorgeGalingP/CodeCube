@@ -1,6 +1,5 @@
 package com.galing.codecube.controls;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
@@ -129,7 +128,7 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     public abstract void addToFunction(Box box);
 
-    public abstract void remove(Box box);
+    public abstract void kill(Box box);
 
     public abstract Box removeFromProgram();
 
@@ -150,8 +149,7 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                 // only can be moved if is not in the control
                 // or is the peek of it
                 if (box.getIsTouchable() == null
-                        || (box.getIsTouchable()
-                        && (box.getControlType().equals(ContainerType.PROGRAM) || box.getControlType().equals(ContainerType.FUNCTION)))) {
+                        || (box.getIsTouchable() && (box.getControlType().equals(ContainerType.PROGRAM) || box.getControlType().equals(ContainerType.FUNCTION)))) {
                     box.toFront();
                     box.setDraggedIdle();
                     box.moveBy(x - box.getWidth() / 2, y - box.getHeight() / 2);
@@ -180,7 +178,7 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                 } else if (box.getIsTouchable() != null
                         && box.getControlType() != null) {
                     if (box.getIsTouchable())
-                        remove(box);                            // remove box only if is the first
+                        kill(box);                              // remove box only if is the first
                 } else
                     box.addResetPositionAction();               // back to start
             }
