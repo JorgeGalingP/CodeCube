@@ -31,18 +31,22 @@ public class Sequence extends Control<List<Box>> {
 
     @Override
     public void addToProgram(Box box) {
+        // add box to program logically
         pushToProgram(box);
         getProgram().add(box);
 
+        // add box to program container
         Vector2 newPosition = getProgramControls().get(getProgramSize() - 1).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
 
     @Override
     public void addToFunction(Box box) {
+        // add box to function logically
         pushToFunction(box);
         getFunction().add(box);
 
+        // add box to function container
         Vector2 newPosition = getFunctionControls().get(getFunctionSize() - 1).getCoordinate();
         box.addAction(Actions.sequence(Actions.moveTo(newPosition.x, newPosition.y, 0.15f)));
     }
@@ -87,15 +91,12 @@ public class Sequence extends Control<List<Box>> {
 
     @Override
     public void handleFunctionTouchable() {
-        if (getFunctionSize() > 0 && getHolderSize() > 0)
-            getHolder().get(getHolderSize() - 1).setIsTouchable(true);
+        if (getFunctionSize() > 0)
+            getFunction().get(getFunctionSize() - 1).setIsTouchable(true);
     }
 
     @Override
-    public void generateHolder() {
-        /*if (numberOfFunctionsLeft() == 1)
-            setHolder(getFunction()); // point to function itself
-        else*/
+    public void copyFunction() {
         setHolder(new ArrayList<>(getFunction()));
     }
 

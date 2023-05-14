@@ -16,7 +16,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.Assets;
 import com.galing.codecube.controls.Controllable;
+import com.galing.codecube.controls.Queue;
 import com.galing.codecube.controls.Sequence;
+import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
@@ -53,6 +55,7 @@ public class Board extends Group {
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
+    private BoardType type;
     private BoardState state;
     private boolean inverse;
 
@@ -79,6 +82,7 @@ public class Board extends Group {
         this.tiledRender = new OrthogonalTiledMapRenderer(Assets.tileMap, UNIT_SCALE);
 
         // initialize Board variables
+        this.type = type;
         this.state = BoardState.WAIT;
         this.inverse = false;
 
@@ -108,16 +112,15 @@ public class Board extends Group {
         spawnManager = new SpawnManager(this);
 
         // initialize Control
-        /*
         if (type.equals(BoardType.STACK))
             this.gameControl = new Stack(spawnManager, programButton, functionButton, programControls,
                     functionControls);
         else if (type.equals(BoardType.QUEUE))
             this.gameControl = new Queue(spawnManager, programButton, functionButton, programControls,
                     functionControls);
-        else*/
-        this.gameControl = new Sequence(spawnManager, programButton, functionButton, programControls,
-                functionControls);
+        else
+            this.gameControl = new Sequence(spawnManager, programButton, functionButton, programControls,
+                    functionControls);
 
         // spawn boxes of each type
         spawnManager.create(BoxType.UP);
@@ -133,15 +136,13 @@ public class Board extends Group {
 
         if (player.canMove()) {
             if (this.state.equals(BoardState.WAIT)
-                    && gameControl.numberOfFunctionsLeft() > 0
+                    && gameControl.countFunction() > 0
                     && gameControl.isHolderEmpty())
-                gameControl.generateHolder();
+                gameControl.copyFunction();
 
             this.state = BoardState.RUNNING;
             movePlayer();
         }
-
-        // Gdx.app.log("B", this.state.toString());
     }
 
     public void render() {
@@ -166,12 +167,12 @@ public class Board extends Group {
         matrix.dispose();
     }
 
-    public void resetTarget() {
-        winTarget.addInOutPositionAction(getRandomPosition(Player.class));
+    public BoardType getType() {
+        return type;
     }
 
-    private void setRunning() {
-        this.state = BoardState.RUNNING;
+    public void resetTarget() {
+        winTarget.addInOutPositionAction(getRandomPosition(Player.class));
     }
 
     public boolean isGameOver() {
@@ -283,9 +284,9 @@ public class Board extends Group {
                             box = gameControl.removeFromProgram();
                             box.setAlive(false);
 
-                            if (gameControl.numberOfFunctionsLeft() > 0
+                            if (gameControl.countFunction() > 0
                                     && gameControl.isHolderEmpty())
-                                gameControl.generateHolder();
+                                gameControl.copyFunction();
                         }
                         break;
                     case NEGATION:
@@ -295,8 +296,6 @@ public class Board extends Group {
                         inverse = !inverse;
                         break;
                 }
-
-                gameControl.show();
 
                 player.resetStateTime();
 
@@ -373,7 +372,7 @@ public class Board extends Group {
 
     private void handleAnimation(Box box) {
         if (box.getControlType().equals(ContainerType.FUNCTION)
-                && gameControl.numberOfFunctionsLeft() > 1) {
+                && gameControl.countFunction() > 1) {
             box.addInOutAction();
         } else
             box.setAlive(false);

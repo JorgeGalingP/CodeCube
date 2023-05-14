@@ -89,10 +89,6 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         return function.size();
     }
 
-    public int getHolderSize() {
-        return holder.size();
-    }
-
     public boolean isProgramEmpty() {
         return program.isEmpty();
     }
@@ -101,17 +97,11 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         return function.isEmpty();
     }
 
-    public void show() {
-        Gdx.app.log("P", program.toString());
-        Gdx.app.log("F", function.toString());
-        Gdx.app.log("H", holder.toString());
-    }
-
     public boolean isHolderEmpty() {
         return holder.isEmpty();
     }
 
-    public int numberOfFunctionsLeft() {
+    public int countFunction() {
         return (int) getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
     }
 
@@ -149,7 +139,7 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     public abstract void handleFunctionTouchable();
 
-    public abstract void generateHolder();
+    public abstract void copyFunction();
 
     public void attachDragListener(Box box) {
         box.addListener(new DragListener() {

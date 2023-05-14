@@ -4,8 +4,6 @@ import com.galing.codecube.objects.Box;
 
 public interface Controllable {
 
-    void show();
-
     boolean isProgramEmpty();
 
     boolean isFunctionEmpty();
@@ -18,7 +16,11 @@ public interface Controllable {
 
     void addToFunction(Box box);
 
+    void copyFunction();
+
     void resetFunction();
+
+    int countFunction();
 
     void remove(Box box);
 
@@ -27,8 +29,4 @@ public interface Controllable {
     Box removeFromFunction();
 
     void attachDragListener(Box box);
-
-    int numberOfFunctionsLeft();
-
-    void generateHolder();
 }
