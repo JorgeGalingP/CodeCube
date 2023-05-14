@@ -106,29 +106,10 @@ public class Box extends Tile {
         ));
     }
 
-    // TODO WIP
-    public void addHandleControlAction() {
-        addAction(Actions.sequence(
-                Actions.scaleTo(1.25f, 1.25f, .15f),
-                Actions.scaleTo(.8f, .8f, .15f),
-                Actions.parallel(
-                        Actions.scaleTo(0, 0, .3f),
-                        Actions.alpha(0, .3f)), Actions.removeActor()));
-    }
-
     @Override
     public void addInOutAction() {
         addAction(Actions.sequence(
                 Actions.scaleTo(1.25f, 1.25f, .15f),
                 Actions.scaleTo(.8f, .8f, .15f)));
-    }
-
-    @Override
-    public String toString() {
-        return "Box{" +
-                "containerType=" + containerType +
-                ", touchable=" + touchable +
-                ", type=" + type +
-                '}';
     }
 }

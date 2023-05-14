@@ -82,14 +82,15 @@ public class SpawnManager {
 
     public void free() {
         Box box;
-        int len = activeBoxes.size;
+        int size = activeBoxes.size;
 
-        for (int i = len; --i >= 0; ) {
+        // iterate through active boxes
+        for (int i = size; --i >= 0; ) {
             box = activeBoxes.get(i);
+
             if (!box.isAlive()) {
                 activeBoxes.removeIndex(i);
                 box.addRemoveAction();
-                //box.addHandleControlAction();
             }
         }
     }
