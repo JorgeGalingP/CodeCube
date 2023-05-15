@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.Assets;
@@ -28,7 +27,6 @@ public class GameScreen extends Screen {
     public GameState state;
     private final Stage stageGame;
 
-    private Table initTable;
     private final Button homeButton;
     private final Button debugButton;
 
@@ -66,6 +64,8 @@ public class GameScreen extends Screen {
         homeButton = new ImageButton(homeButtonStyle);
         homeButton.setSize(stage.getViewport().getWorldWidth() * .1f,
                 stage.getViewport().getWorldWidth() * .1f);
+        homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
+                stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
         homeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -79,6 +79,8 @@ public class GameScreen extends Screen {
         debugButton = new ImageButton(debugButtonStyle);
         debugButton.setSize(stage.getViewport().getWorldWidth() * .1f,
                 stage.getViewport().getWorldWidth() * .1f);
+        debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 45,
+                stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
         debugButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -93,7 +95,6 @@ public class GameScreen extends Screen {
     @Override
     public void draw(float delta) {
         super.draw(delta);
-
         board.render();
         stageGame.draw();
     }
@@ -108,19 +109,17 @@ public class GameScreen extends Screen {
             stage.addActor(homeButton);
             stage.addActor(debugButton);
 
+            // running
             setRunning();
         }
 
-        if (state != GameState.INIT
-                && state != GameState.PAUSED) {
+        if (state.equals(GameState.RUNNING)) {
             stageGame.act(delta);
 
-            homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
-                    stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
-            debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 45,
-                    stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
+            // set disabled depending board's running state
+            debugButton.setDisabled(board.isRunning());
 
-            if (state.equals(GameState.RUNNING) && board.isGameOver())
+            if (board.isGameOver())
                 setGameOver();
         }
     }
@@ -130,12 +129,20 @@ public class GameScreen extends Screen {
         super.resize(width, height);
         board.resize(width, height);
         stageGame.getViewport().update(width, height, false);
+
+        // update buttons position
+        homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
+                stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
+        debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 45,
+                stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
     }
 
     @Override
     public void dispose() {
         super.dispose();
         board.dispose();
+        stageGame.dispose();
+        stage.dispose();
     }
 
     @Override

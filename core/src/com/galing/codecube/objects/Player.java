@@ -43,6 +43,26 @@ public class Player extends Tile {
         stateTime += delta;
     }
 
+    public boolean getDebug() {
+        return this.debug;
+    }
+
+    public void setDebug(boolean debug) {
+        this.debug = debug;
+    }
+
+    public void resetStateTime() {
+        stateTime = 0;
+    }
+
+    public void setPressed(boolean pressed) {
+        this.pressed = pressed;
+    }
+
+    public boolean canMove() {
+        return pressed && stateTime >= 1f;
+    }
+
     public void setListener() {
         removeListener(this.listener);
 
@@ -123,17 +143,5 @@ public class Player extends Tile {
                 addAction(action);
                 break;
         }
-    }
-
-    public void resetStateTime() {
-        stateTime = 0;
-    }
-
-    public void setPressed(boolean pressed) {
-        this.pressed = pressed;
-    }
-
-    public boolean canMove() {
-        return pressed && stateTime >= 1f;
     }
 }

@@ -26,6 +26,7 @@ public class SpawnManager {
     public Box create(BoxType boxType) {
         Vector2 coordinate = Vector2.Zero;
 
+        // calculate coordinate of each box
         switch (boxType) {
             case UP:
                 if (board.getType().equals(BoardType.STACK))
@@ -69,7 +70,7 @@ public class SpawnManager {
                 break;
         }
 
-        // create box
+        // create box with new coordinate
         Box box = new Box(coordinate, boxType);
 
         activeBoxes.add(box);

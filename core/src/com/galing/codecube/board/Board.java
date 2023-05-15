@@ -55,7 +55,7 @@ public class Board extends Group {
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
-    private BoardType type;
+    private final BoardType type;
     private BoardState state;
     private boolean inverse;
 
@@ -135,12 +135,12 @@ public class Board extends Group {
         super.act(delta);
 
         if (player.canMove()) {
-            if (this.state.equals(BoardState.WAIT)
+            if (state.equals(BoardState.WAIT)
                     && gameControl.countFunction() > 0
                     && gameControl.isHolderEmpty())
-                gameControl.copyFunction();
+                gameControl.copyFunction(); // first, copy function on holder
 
-            this.state = BoardState.RUNNING;
+            state = BoardState.RUNNING;
             movePlayer();
         }
     }
@@ -173,6 +173,10 @@ public class Board extends Group {
 
     public void resetTarget() {
         winTarget.addInOutPositionAction(getRandomPosition(Player.class));
+    }
+
+    public boolean isRunning() {
+        return state.equals(BoardState.RUNNING);
     }
 
     public boolean isGameOver() {
@@ -259,12 +263,12 @@ public class Board extends Group {
     }
 
     public void setDebugMode() {
-        this.player.debug = !this.player.debug;
-        this.player.setListener();
+        player.setDebug(!player.getDebug());
+        player.setListener();
     }
 
     private void movePlayer() {
-        if (state == BoardState.RUNNING) {
+        if (state.equals(BoardState.RUNNING)) {
             if (!gameControl.isProgramEmpty()) {
                 Box box;
 
@@ -410,4 +414,5 @@ public class Board extends Group {
         }
         return true;
     }
+
 }
