@@ -148,4 +148,14 @@ public class Player extends Tile {
                 break;
         }
     }
+
+    @Override
+    public void addRemoveAction() {
+        addAction(Actions.sequence(Actions.parallel(
+                        Actions.scaleTo(0, 0, .3f),
+                        Actions.alpha(0, .3f)),
+                Actions.run(Assets::playPlayerKill),
+                Actions.removeActor()
+        ));
+    }
 }

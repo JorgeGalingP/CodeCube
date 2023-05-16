@@ -112,4 +112,14 @@ public class Box extends Tile {
                 Actions.scaleTo(1.25f, 1.25f, .15f),
                 Actions.scaleTo(.8f, .8f, .15f)));
     }
+
+    @Override
+    public void addRemoveAction() {
+        addAction(Actions.sequence(Actions.parallel(
+                        Actions.scaleTo(0, 0, .3f),
+                        Actions.alpha(0, .3f),
+                        Actions.run(Assets::playBoxKill)),
+                Actions.removeActor()
+        ));
+    }
 }

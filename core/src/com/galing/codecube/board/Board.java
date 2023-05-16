@@ -306,11 +306,8 @@ public class Board extends Group {
 
                 // if player reach fail target
                 for (Target target : failTargets) {
-                    if (player.isEqualCoordinate(target.getCoordinate())) {
-                        player.addRemoveAction(); // remove player
-                        addAction(Actions.sequence(Actions.delay(.5f),
-                                Actions.run(() -> this.state = BoardState.GAME_OVER)));
-                    }
+                    if (player.isEqualCoordinate(target.getCoordinate()))
+                        killPlayer();
                 }
 
                 // if movement is finished
@@ -327,14 +324,21 @@ public class Board extends Group {
                                         }
                                 )));
                     } else
-                        addAction(Actions.sequence(Actions.delay(.5f),
-                                Actions.run(() -> this.state = BoardState.GAME_OVER)));
+                        killPlayer();
                 }
             } else {
                 player.setPressed(false);
                 this.state = BoardState.WAIT;
             }
         }
+    }
+
+    private void killPlayer() {
+        addAction(Actions.sequence(
+                Actions.delay(.5f),
+                Actions.run(() -> player.addRemoveAction()),
+                Actions.delay(.75f),
+                Actions.run(() -> this.state = BoardState.GAME_OVER)));
     }
 
     private void handleMovement(Box box) {

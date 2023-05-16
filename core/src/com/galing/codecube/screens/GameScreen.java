@@ -105,24 +105,28 @@ public class GameScreen extends Screen {
 
         board.handleBoxes();
 
-        if (state == GameState.INIT) {
-            // add actors
-            stageGame.addActor(board);
-            stage.addActor(homeButton);
-            stage.addActor(debugButton);
+        switch (state) {
+            case INIT:
+                // add actors
+                stageGame.addActor(board);
+                stage.addActor(homeButton);
+                stage.addActor(debugButton);
 
-            // running
-            setRunning();
-        }
+                // running
+                setRunning();
+                break;
+            case RUNNING:
+                stageGame.act(delta);
 
-        if (state.equals(GameState.RUNNING)) {
-            stageGame.act(delta);
+                // set disabled depending board's running state
+                debugButton.setDisabled(board.isRunning());
 
-            // set disabled depending board's running state
-            debugButton.setDisabled(board.isRunning());
-
-            if (board.isGameOver())
-                setGameOver();
+                if (board.isGameOver())
+                    setGameOver();
+                break;
+            case GAME_OVER:
+                game.setScreen(new MenuScreen(game));
+                break;
         }
     }
 
@@ -200,7 +204,5 @@ public class GameScreen extends Screen {
     private void setGameOver() {
         state = GameState.GAME_OVER;
         Gdx.app.log("GAME_STATE", state.toString());
-        // Gdx.app.exit();
-        game.setScreen(new MenuScreen(game));
     }
 }

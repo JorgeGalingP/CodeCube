@@ -49,6 +49,7 @@ public class Assets {
     public static Sound playerTapSound;
     public static Sound playerMovementSound;
     public static Sound playerTurnSound;
+    public static Sound playerKillSound;
     public static Sound boxProgramAddSound;
     public static Sound boxFunctionAddSound;
     public static Sound boxKillSound;
@@ -176,6 +177,7 @@ public class Assets {
         manager.load("sounds/player_tap.wav", Sound.class);
         manager.load("sounds/player_movement.wav", Sound.class);
         manager.load("sounds/player_turn.mp3", Sound.class);
+        manager.load("sounds/player_kill.mp3", Sound.class);
         manager.load("sounds/box_program_add.mp3", Sound.class);
         manager.load("sounds/box_function_add.mp3", Sound.class);
         manager.load("sounds/box_kill.mp3", Sound.class);
@@ -279,6 +281,7 @@ public class Assets {
         playerTapSound = manager.get("sounds/player_tap.wav", Sound.class);
         playerMovementSound = manager.get("sounds/player_movement.wav", Sound.class);
         playerTurnSound = manager.get("sounds/player_turn.mp3", Sound.class);
+        playerKillSound = manager.get("sounds/player_kill.mp3", Sound.class);
         boxProgramAddSound = manager.get("sounds/box_program_add.mp3", Sound.class);
         boxFunctionAddSound = manager.get("sounds/box_function_add.mp3", Sound.class);
         boxKillSound = manager.get("sounds/box_kill.mp3", Sound.class);
@@ -554,6 +557,11 @@ public class Assets {
     public static void playPlayerTurn() {
         if (Settings.audio.equals("ON"))
             playerTurnSound.play(.25f);
+    }
+
+    public static void playPlayerKill() {
+        if (Settings.audio.equals("ON"))
+            playerKillSound.play(.25f);
     }
 
     public static void playProgramBoxAdd() {

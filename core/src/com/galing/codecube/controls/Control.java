@@ -184,12 +184,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                     Assets.playFunctionBoxAdd();
                 } else if (box.getIsTouchable() != null
                         && box.getControlType() != null) {
-                    if (box.getIsTouchable()) {
+                    if (box.getIsTouchable())
                         kill(box);                              // remove box only if is the first
-                        // play sound
-                        Assets.playBoxKill();
-                    }
-
                 } else
                     box.addResetPositionAction();               // back to start
             }
