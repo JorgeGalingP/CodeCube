@@ -101,6 +101,8 @@ public class GameScreen extends Screen {
 
     @Override
     public void update(float delta) {
+        Assets.playGameMusic();
+
         board.handleBoxes();
 
         if (state == GameState.INIT) {

@@ -22,7 +22,7 @@ public class ModeScreen extends Screen {
 
     @Override
     public void update(float delta) {
-
+        Assets.playMenuMusic();
     }
 
     @Override

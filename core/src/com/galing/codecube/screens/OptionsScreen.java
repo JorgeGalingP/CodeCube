@@ -35,6 +35,8 @@ public class OptionsScreen extends Screen {
 
     @Override
     public void update(float delta) {
+        Assets.playMenuMusic();
+
         // reset styles
         this.easyButton.setStyle(Settings.selectedDifficulty.equals(Difficulty.EASY) ?
                 Assets.vagaRoundBoldFontLargeSelectedButtonStyle : Assets.vagaRoundBoldFontLargeButtonStyle);

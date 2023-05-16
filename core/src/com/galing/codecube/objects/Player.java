@@ -1,6 +1,7 @@
 package com.galing.codecube.objects;
 
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.run;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -28,7 +29,10 @@ public class Player extends Tile {
         this.listener = new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                addAction(Actions.sequence(Actions.run(() -> addInOutAction()),
+                addAction(Actions.sequence(
+                        Actions.parallel(
+                                Actions.run(() -> addInOutAction()),
+                                Actions.run(Assets::playPlayerTap)),
                         Actions.delay(.5f),
                         Actions.run(() -> setPressed(true))));
             }
@@ -120,11 +124,11 @@ public class Player extends Tile {
         return movementVector;
     }
 
-    public void addMovePositionAction(Vector2 position) {
+    public void addMoveAction(Vector2 position) {
         setCoordinate(position);
 
         // perform move action
-        addAction(moveTo(position.x, position.y, .3f));
+        addAction(Actions.parallel(moveTo(position.x, position.y, .3f), run(Assets::playPlayerMovement)));
     }
 
     public void addRotationAction(Box box, boolean inverse) {
@@ -134,13 +138,13 @@ public class Player extends Tile {
                 action = Actions.rotateTo((getRotation() + (inverse ? -90f : 90f)) % 360,
                         .25f);
                 action.setUseShortestDirection(true);
-                addAction(action);
+                addAction(Actions.parallel(action, run(Assets::playPlayerTurn)));
                 break;
             case RIGHT:
                 action = Actions.rotateTo((getRotation() + (inverse ? 90f : -90f)) % 360,
                         .25f);
                 action.setUseShortestDirection(true);
-                addAction(action);
+                addAction(Actions.parallel(action, run(Assets::playPlayerTurn)));
                 break;
         }
     }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
@@ -45,6 +46,14 @@ public class Assets {
     public static BitmapFont vagaRoundBoldGray35;
 
     public static Sound clickSound;
+    public static Sound playerTapSound;
+    public static Sound playerMovementSound;
+    public static Sound playerTurnSound;
+    public static Sound boxProgramAddSound;
+    public static Sound boxFunctionAddSound;
+    public static Sound boxKillSound;
+    public static Music menuMusic;
+    public static Music gameMusic;
 
     public static AtlasRegion bg;
     public static NinePatchDrawable bgNinePatch;
@@ -164,6 +173,16 @@ public class Assets {
     public void queueAssets() {
         // load sounds
         manager.load("sounds/click.ogg", Sound.class);
+        manager.load("sounds/player_tap.wav", Sound.class);
+        manager.load("sounds/player_movement.wav", Sound.class);
+        manager.load("sounds/player_turn.mp3", Sound.class);
+        manager.load("sounds/box_program_add.mp3", Sound.class);
+        manager.load("sounds/box_function_add.mp3", Sound.class);
+        manager.load("sounds/box_kill.mp3", Sound.class);
+
+        // load music
+        manager.load("music/menu.mp3", Music.class);
+        manager.load("music/play.mp3", Music.class);
 
         // load atlas
         manager.load("atlas/tileset.atlas", TextureAtlas.class);
@@ -257,6 +276,20 @@ public class Assets {
     public void loadAssets() {
         //sounds
         clickSound = manager.get("sounds/click.ogg", Sound.class);
+        playerTapSound = manager.get("sounds/player_tap.wav", Sound.class);
+        playerMovementSound = manager.get("sounds/player_movement.wav", Sound.class);
+        playerTurnSound = manager.get("sounds/player_turn.mp3", Sound.class);
+        boxProgramAddSound = manager.get("sounds/box_program_add.mp3", Sound.class);
+        boxFunctionAddSound = manager.get("sounds/box_function_add.mp3", Sound.class);
+        boxKillSound = manager.get("sounds/box_kill.mp3", Sound.class);
+
+        //music
+        menuMusic = manager.get("music/menu.mp3", Music.class);
+        menuMusic.setLooping(true);
+        menuMusic.setVolume(.25f);
+        gameMusic = manager.get("music/play.mp3", Music.class);
+        gameMusic.setLooping(true);
+        gameMusic.setVolume(.25f);
 
         // atlas
         atlasTileset = manager.get("atlas/tileset.atlas", TextureAtlas.class);
@@ -506,6 +539,60 @@ public class Assets {
     public static void playClickSound() {
         if (Settings.audio.equals("ON"))
             clickSound.play();
+    }
+
+    public static void playPlayerTap() {
+        if (Settings.audio.equals("ON"))
+            playerTapSound.play();
+    }
+
+    public static void playPlayerMovement() {
+        if (Settings.audio.equals("ON"))
+            playerMovementSound.play(.25f);
+    }
+
+    public static void playPlayerTurn() {
+        if (Settings.audio.equals("ON"))
+            playerTurnSound.play(.25f);
+    }
+
+    public static void playProgramBoxAdd() {
+        if (Settings.audio.equals("ON"))
+            boxProgramAddSound.play(.5f);
+    }
+
+    public static void playFunctionBoxAdd() {
+        if (Settings.audio.equals("ON"))
+            boxFunctionAddSound.play(.5f);
+    }
+
+    public static void playBoxKill() {
+        if (Settings.audio.equals("ON"))
+            boxKillSound.play(.5f);
+    }
+
+    public static void playMenuMusic() {
+        if (Settings.music.equals("OFF"))
+            menuMusic.pause();
+        else if (Settings.music.equals("ON")
+                && !menuMusic.isPlaying()) {
+            if (gameMusic.isPlaying())
+                gameMusic.pause();
+
+            menuMusic.play();
+        }
+    }
+
+    public static void playGameMusic() {
+        if (Settings.music.equals("OFF"))
+            gameMusic.pause();
+        else if (Settings.music.equals("ON")
+                && !gameMusic.isPlaying()) {
+            if (menuMusic.isPlaying())
+                menuMusic.pause();
+
+            gameMusic.play();
+        }
     }
 
     public void selectMap(BoardType type) {

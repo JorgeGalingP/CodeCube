@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Array;
+import com.galing.codecube.Assets;
 import com.galing.codecube.board.SpawnManager;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
@@ -100,6 +101,24 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         return holder.isEmpty();
     }
 
+    public abstract Box getNextBox();
+
+    public abstract void addToProgram(Box box);
+
+    public abstract void addToFunction(Box box);
+
+    public abstract void kill(Box box);
+
+    public abstract Box removeFromProgram();
+
+    public abstract Box removeFromFunction();
+
+    public abstract void handleProgramTouchable();
+
+    public abstract void handleFunctionTouchable();
+
+    public abstract void copyFunction();
+
     public int countFunction() {
         return (int) getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();
     }
@@ -121,24 +140,6 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
         box.setControlType(ContainerType.FUNCTION);
         box.setPushedIdle();
     }
-
-    public abstract Box getNextBox();
-
-    public abstract void addToProgram(Box box);
-
-    public abstract void addToFunction(Box box);
-
-    public abstract void kill(Box box);
-
-    public abstract Box removeFromProgram();
-
-    public abstract Box removeFromFunction();
-
-    public abstract void handleProgramTouchable();
-
-    public abstract void handleFunctionTouchable();
-
-    public abstract void copyFunction();
 
     public void attachDragListener(Box box) {
         box.addListener(new DragListener() {
@@ -168,6 +169,9 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && getProgramSize() != programSize) {
                     addToProgram(box);                          // push to program control
                     spawnManager.spawn(box.getType());          // spawn a new box of same type
+
+                    // play sound
+                    Assets.playProgramBoxAdd();
                 } else if (functionButtonPosition != null
                         && (isBoxInButtonBounds(lastTouch, functionButtonPosition, box)
                         && box.getIsTouchable() == null
@@ -175,10 +179,17 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         && getFunctionSize() != functionSize)) {
                     addToFunction(box);                         // push to function control
                     spawnManager.spawn(box.getType());          // spawn a new box of same type
+
+                    // play sound
+                    Assets.playFunctionBoxAdd();
                 } else if (box.getIsTouchable() != null
                         && box.getControlType() != null) {
-                    if (box.getIsTouchable())
+                    if (box.getIsTouchable()) {
                         kill(box);                              // remove box only if is the first
+                        // play sound
+                        Assets.playBoxKill();
+                    }
+
                 } else
                     box.addResetPositionAction();               // back to start
             }

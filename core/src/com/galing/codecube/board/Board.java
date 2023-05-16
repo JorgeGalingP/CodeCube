@@ -271,9 +271,10 @@ public class Board extends Group {
         if (state.equals(BoardState.RUNNING)) {
             if (!gameControl.isProgramEmpty()) {
                 Box box;
+                BoxType boxType = gameControl.getNextBox().getType();
 
                 // iterate through game control's movements
-                switch (gameControl.getNextBox().getType()) {
+                switch (boxType) {
                     case UP:
                     case RIGHT:
                     case LEFT:
@@ -339,6 +340,8 @@ public class Board extends Group {
     private void handleMovement(Box box) {
         switch (box.getType()) {
             case UP:
+                Assets.playPlayerMovement();
+
                 Vector2 movement = player.getMovement(box);
                 if (inverse) {
                     movement.x = -movement.x;
@@ -352,7 +355,7 @@ public class Board extends Group {
                     playerMoves.add(newPosition);
 
                     handleAnimation(box);
-                    player.addMovePositionAction(newPosition);
+                    player.addMoveAction(newPosition);
                 } else
                     // if next tile is a wall, then set game over
                     addAction(Actions.sequence(Actions.delay(.5f),
