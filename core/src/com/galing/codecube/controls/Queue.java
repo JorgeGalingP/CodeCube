@@ -31,6 +31,23 @@ public class Queue extends Control<ArrayDeque<Box>> {
     }
 
     @Override
+    public void reset() {
+        if (!isProgramEmpty())
+            for (Box box : getProgram()) {
+                box.setAlive(false);
+            }
+
+        if (!isFunctionEmpty())
+            for (Box box : getFunction()) {
+                box.setAlive(false);
+            }
+
+        setProgram(new ArrayDeque<>());
+        setFunction(new ArrayDeque<>());
+        setHolder(new ArrayDeque<>());
+    }
+
+    @Override
     public void addToProgram(Box box) {
         // add box to program logically
         pushToProgram(box);

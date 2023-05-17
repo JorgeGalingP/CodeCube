@@ -14,12 +14,13 @@ import com.galing.codecube.CodeCube;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.SoundType;
+import com.galing.codecube.windows.GameOverWindow;
 import com.galing.codecube.windows.PauseWindow;
 
 public class GameScreen extends Screen {
 
     private enum GameState {
-        INIT, RUNNING, PAUSED, GAME_OVER;
+        INIT, RUNNING, PAUSED, GAME_OVER,
     }
 
     public static final int VIEWPORT_WIDTH = 12;
@@ -126,7 +127,8 @@ public class GameScreen extends Screen {
                     setGameOver();
                 break;
             case GAME_OVER:
-                game.setScreen(new MenuScreen(game));
+                // add game over window
+                createGameOverMenu();
                 break;
         }
     }
@@ -174,8 +176,17 @@ public class GameScreen extends Screen {
         stage.addActor(new PauseWindow(game, this));
     }
 
+    private void createGameOverMenu() {
+        setPause();
+        stage.addActor(new GameOverWindow(game, this));
+    }
+
     public void resetTarget() {
         board.resetTarget();
+    }
+
+    public void resetGame() {
+        board.resetGameOver();
     }
 
     public void setInit() {
@@ -186,7 +197,8 @@ public class GameScreen extends Screen {
     }
 
     public void setPause() {
-        if (state == GameState.RUNNING) {
+        if (state == GameState.RUNNING
+                || state == GameState.GAME_OVER) {
             state = GameState.PAUSED;
             Gdx.app.log("GAME_STATE", state.toString());
         } else if (state == GameState.PAUSED) {

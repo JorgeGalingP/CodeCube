@@ -110,6 +110,7 @@ public class Assets {
     public static AtlasRegion checkmarkIcon;
     public static AtlasRegion rightIcon;
     public static AtlasRegion zoomIcon;
+    public static AtlasRegion rewindIcon;
 
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeButtonStyle;
     public static TextButton.TextButtonStyle vagaRoundBoldFontLargeSelectedButtonStyle;
@@ -117,6 +118,7 @@ public class Assets {
     public static ImageButton.ImageButtonStyle homeButtonStyle;
     public static ImageButton.ImageButtonStyle pauseButtonStyle;
     public static ImageButton.ImageButtonStyle returnButtonStyle;
+    public static ImageButton.ImageButtonStyle rewindButtonStyle;
     public static ImageButton.ImageButtonStyle debugButtonStyle;
     public static ImageButton.ImageButtonStyle musicOnButtonStyle;
     public static ImageButton.ImageButtonStyle musicOffButtonStyle;
@@ -371,6 +373,7 @@ public class Assets {
         checkmarkIcon = atlasUI.findRegion("checkmark");
         rightIcon = atlasUI.findRegion("right");
         zoomIcon = atlasUI.findRegion("zoom");
+        rewindIcon = atlasUI.findRegion("rewind");
 
         // buttons
         TextureRegionDrawable smallBlueButton = new TextureRegionDrawable(Assets.smallBlueButton);
@@ -414,6 +417,7 @@ public class Assets {
         TextureRegionDrawable checkmarkIcon = new TextureRegionDrawable(Assets.checkmarkIcon);
         TextureRegionDrawable rightIcon = new TextureRegionDrawable(Assets.rightIcon);
         TextureRegionDrawable zoomIcon = new TextureRegionDrawable(Assets.zoomIcon);
+        TextureRegionDrawable rewindIcon = new TextureRegionDrawable(Assets.rewindIcon);
 
         // button styles
         NinePatchDrawable redCircleButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.redCircleButton,
@@ -468,6 +472,8 @@ public class Assets {
                 smallBlueButtonNinePatch, barsHorizontalIcon, barsHorizontalIcon, barsHorizontalIcon);
         returnButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, returnIcon, returnIcon, returnIcon);
+        rewindButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, rewindIcon, rewindIcon, rewindIcon);
         debugButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch, smallPressedGreenButtonNinePatch,
                 smallPressedGreenButtonNinePatch, zoomIcon, zoomIcon, zoomIcon);
         musicOnButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,

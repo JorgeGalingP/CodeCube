@@ -30,6 +30,23 @@ public class Sequence extends Control<List<Box>> {
     }
 
     @Override
+    public void reset() {
+        if (!isProgramEmpty())
+            for (Box box : getProgram()) {
+                box.setAlive(false);
+            }
+
+        if (!isFunctionEmpty())
+            for (Box box : getFunction()) {
+                box.setAlive(false);
+            }
+
+        setProgram(new ArrayList<>());
+        setFunction(new ArrayList<>());
+        setHolder(new ArrayList<>());
+    }
+
+    @Override
     public void addToProgram(Box box) {
         // add box to program logically
         pushToProgram(box);

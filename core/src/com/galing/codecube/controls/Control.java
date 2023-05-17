@@ -104,6 +104,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
 
     public abstract Box getNextBox();
 
+    public abstract void reset();
+
     public abstract void addToProgram(Box box);
 
     public abstract void addToFunction(Box box);
@@ -119,6 +121,8 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
     public abstract void handleFunctionTouchable();
 
     public abstract void copyFunction();
+
+    public abstract void resetFunction();
 
     public int countFunction() {
         return (int) getProgram().stream().filter(box -> box.getType().equals(BoxType.FUNCTION)).count();

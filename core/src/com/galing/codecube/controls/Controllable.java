@@ -12,6 +12,8 @@ public interface Controllable {
 
     Box getNextBox();
 
+    void reset();
+
     void addToProgram(Box box);
 
     void addToFunction(Box box);

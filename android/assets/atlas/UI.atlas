@@ -1,19 +1,19 @@
 
 UI.png
-size: 1207, 516
+size: 1206, 516
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
 audioOff
   rotate: false
-  xy: 1092, 414
+  xy: 516, 414
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 audioOn
   rotate: false
-  xy: 822, 10
+  xy: 1026, 414
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
@@ -27,308 +27,315 @@ background
   index: -1
 barsHorizontal
   rotate: false
-  xy: 810, 265
+  xy: 516, 108
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 blueBoxCheckmark
   rotate: false
-  xy: 1167, 338
+  xy: 1014, 236
   size: 38, 36
   orig: 38, 36
   offset: 0, 0
   index: -1
 blueBoxCross
   rotate: false
-  xy: 1167, 376
+  xy: 1014, 274
   size: 38, 36
   orig: 38, 36
   offset: 0, 0
   index: -1
 checkmark
   rotate: false
-  xy: 1014, 312
+  xy: 618, 414
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 cross
   rotate: false
-  xy: 516, 167
+  xy: 924, 312
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 exclamation
   rotate: false
-  xy: 924, 108
+  xy: 720, 312
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 exitLeft
   rotate: false
-  xy: 924, 6
+  xy: 720, 210
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 gear
   rotate: false
-  xy: 720, 163
+  xy: 618, 6
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 greyCheckmarkGrey
   rotate: false
-  xy: 771, 39
+  xy: 1179, 472
   size: 21, 20
   orig: 21, 20
   offset: 0, 0
   index: -1
 greyCheckmarkWhite
   rotate: false
-  xy: 1167, 316
+  xy: 1179, 494
   size: 21, 20
   orig: 21, 20
   offset: 0, 0
   index: -1
 greyCrossGrey
   rotate: false
-  xy: 1167, 296
+  xy: 1179, 452
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 greyCrossWhite
   rotate: false
-  xy: 1187, 296
+  xy: 1179, 432
   size: 18, 18
   orig: 18, 18
   offset: 0, 0
   index: -1
 greyPanel
   rotate: false
-  xy: 720, 61
+  xy: 720, 414
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 home
   rotate: false
-  xy: 822, 112
+  xy: 822, 414
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 information
   rotate: false
-  xy: 912, 214
+  xy: 516, 6
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 largeBlueButton
   rotate: false
-  xy: 708, 414
+  xy: 1014, 129
   size: 190, 49
   orig: 190, 49
   offset: 0, 0
   index: -1
 largeGreenButton
   rotate: false
-  xy: 900, 465
+  xy: 822, 108
   size: 190, 49
   orig: 190, 49
   offset: 0, 0
   index: -1
 largeOutlineBlueButton
   rotate: false
-  xy: 708, 465
+  xy: 822, 210
   size: 190, 49
   orig: 190, 49
   offset: 0, 0
   index: -1
 largeOutlineYellowButton
   rotate: false
-  xy: 516, 465
+  xy: 822, 261
   size: 190, 49
   orig: 190, 49
   offset: 0, 0
   index: -1
 largePressedBlueButton
   rotate: false
-  xy: 516, 269
+  xy: 822, 14
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
 largePressedGreenButton
   rotate: false
-  xy: 900, 418
+  xy: 1014, 35
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
 largePressedRedButton
   rotate: false
-  xy: 516, 316
+  xy: 1014, 82
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
 largePressedYellowButton
   rotate: false
-  xy: 708, 367
+  xy: 822, 61
   size: 190, 45
   orig: 190, 45
   offset: 0, 0
   index: -1
 largeRedButton
   rotate: false
-  xy: 516, 363
+  xy: 822, 159
   size: 190, 49
   orig: 190, 49
   offset: 0, 0
   index: -1
 largeYellowButton
   rotate: false
-  xy: 516, 414
+  xy: 1014, 180
   size: 190, 49
   orig: 190, 49
   offset: 0, 0
   index: -1
 menuList
   rotate: false
-  xy: 912, 316
+  xy: 618, 312
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 musicOff
   rotate: false
-  xy: 1026, 108
+  xy: 720, 108
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 musicOn
   rotate: false
-  xy: 1026, 6
+  xy: 720, 6
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 question
   rotate: false
-  xy: 516, 65
+  xy: 516, 312
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 redCircle
   rotate: false
-  xy: 873, 227
+  xy: 1054, 231
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 return
   rotate: false
-  xy: 618, 163
+  xy: 618, 108
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+rewind
+  rotate: false
+  xy: 822, 312
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 1014, 210
+  xy: 618, 210
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 share
   rotate: false
-  xy: 618, 61
+  xy: 924, 414
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 smallBlueButton
   rotate: false
-  xy: 1116, 261
+  xy: 1128, 465
   size: 49, 49
   orig: 49, 49
   offset: 0, 0
   index: -1
 smallGreenButton
   rotate: false
-  xy: 1116, 363
+  xy: 1128, 363
   size: 49, 49
   orig: 49, 49
   offset: 0, 0
   index: -1
 smallOutlineBlueButton
   rotate: false
-  xy: 1116, 312
+  xy: 1026, 312
   size: 49, 49
   orig: 49, 49
   offset: 0, 0
   index: -1
 smallOutlineYellowButton
   rotate: false
-  xy: 516, 14
+  xy: 1026, 363
   size: 49, 49
   orig: 49, 49
   offset: 0, 0
   index: -1
 smallPressedBlueButton
   rotate: false
-  xy: 1116, 214
+  xy: 1128, 316
   size: 49, 45
   orig: 49, 45
   offset: 0, 0
   index: -1
 smallPressedGreenButton
   rotate: false
-  xy: 669, 14
+  xy: 1077, 269
   size: 49, 45
   orig: 49, 45
   offset: 0, 0
   index: -1
 smallPressedRedButton
   rotate: false
-  xy: 720, 14
+  xy: 1128, 269
   size: 49, 45
   orig: 49, 45
   offset: 0, 0
   index: -1
 smallPressedYellowButton
   rotate: false
-  xy: 618, 14
+  xy: 1077, 316
   size: 49, 45
   orig: 49, 45
   offset: 0, 0
   index: -1
 smallRedButton
   rotate: false
-  xy: 822, 214
+  xy: 1128, 414
   size: 49, 49
   orig: 49, 49
   offset: 0, 0
   index: -1
 smallYellowButton
   rotate: false
-  xy: 567, 14
+  xy: 1077, 363
   size: 49, 49
   orig: 49, 49
   offset: 0, 0
   index: -1
 zoom
   rotate: false
-  xy: 708, 265
+  xy: 516, 210
   size: 100, 100
   orig: 100, 100
   offset: 0, 0

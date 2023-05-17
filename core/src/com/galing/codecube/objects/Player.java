@@ -19,12 +19,13 @@ public class Player extends Tile {
     public boolean debug;
     public EventListener listener;
 
-    public Player(Vector2 coordinate) {
+    public Player(Vector2 coordinate, float rotation) {
         super(coordinate);
         stateTime = 1f;
         pressed = false;
         debug = false;
 
+        setRotation(rotation);
         setAtlasRegion(Assets.player);
 
         this.listener = new ClickListener() {
@@ -155,9 +156,9 @@ public class Player extends Tile {
     @Override
     public void addRemoveAction() {
         addAction(Actions.sequence(Actions.parallel(
-                        Actions.scaleTo(0, 0, .3f),
-                        Actions.alpha(0, .3f)),
-                Actions.run(() -> Assets.playSound(SoundType.PlayerKillSound)),
+                        Actions.scaleTo(0, 0, .5f),
+                        Actions.alpha(0, .5f),
+                        Actions.run(() -> Assets.playSound(SoundType.PlayerKillSound))),
                 Actions.removeActor()
         ));
     }

@@ -30,6 +30,23 @@ public class Stack extends Control<java.util.Stack<Box>> {
     }
 
     @Override
+    public void reset() {
+        if (!isProgramEmpty())
+            for (Box box : getProgram()) {
+                box.setAlive(false);
+            }
+
+        if (!isFunctionEmpty())
+            for (Box box : getFunction()) {
+                box.setAlive(false);
+            }
+
+        setProgram(new java.util.Stack<>());
+        setFunction(new java.util.Stack<>());
+        setHolder(new java.util.Stack<>());
+    }
+
+    @Override
     public void addToProgram(Box box) {
         // add box to program logically
         pushToProgram(box);

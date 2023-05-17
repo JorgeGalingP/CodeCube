@@ -20,6 +20,7 @@ public class Tile extends Actor {
         setOrigin(Align.center);
         setCoordinate(coordinate);
         setPosition(coordinate.x, coordinate.y);
+        setVisible(true);
     }
 
     @Override
@@ -38,6 +39,17 @@ public class Tile extends Actor {
 
     public void setAtlasRegion(AtlasRegion atlasRegion) {
         this.atlasRegion = atlasRegion;
+    }
+
+    public void addAppearAction() {
+        addAction(Actions.sequence(
+                Actions.parallel(
+                        Actions.scaleTo(0, 0),
+                        Actions.alpha(0)),
+                Actions.sequence(Actions.parallel(
+                        Actions.scaleTo(1, 1, .3f),
+                        Actions.alpha(1, .3f)))
+        ));
     }
 
     public void addRemoveAction() {

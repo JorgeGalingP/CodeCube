@@ -73,6 +73,8 @@ public class Board extends Group {
 
     private Player player;
     private Target winTarget;
+    private Vector2 lastPlayerPosition;
+    private Float lastPlayerRotation;
     private final Array<Target> failTargets;
     private final Matrix matrix;
 
@@ -86,6 +88,8 @@ public class Board extends Group {
         this.type = type;
         this.state = BoardState.WAIT;
         this.inverse = false;
+        this.lastPlayerPosition = new Vector2(Vector2.Zero);
+        this.lastPlayerRotation = null;
 
         // initialize Tile variables
         this.playerMoves = new Array<>(NUM_FLOOR_TILES_WIDTH * NUM_FLOOR_TILES_HEIGHT);
@@ -184,6 +188,21 @@ public class Board extends Group {
         return state.equals(BoardState.GAME_OVER);
     }
 
+    public void resetGameOver() {
+        if (state.equals(BoardState.GAME_OVER)) {
+            state = BoardState.WAIT;
+
+            if (lastPlayerPosition != Vector2.Zero
+                    && lastPlayerRotation != null)
+                player = new Player(lastPlayerPosition, lastPlayerRotation);
+            else
+                player = new Player(getRandomPosition(Target.class), 0);
+
+            addActor(player);
+            player.addAppearAction();
+        }
+    }
+
     private void initializeLayer(String layerName) {
         TiledMapTileLayer mapLayer = (TiledMapTileLayer) Assets.tileMap.getLayers().get(layerName);
 
@@ -215,8 +234,12 @@ public class Board extends Group {
                                                 mapTile.getProperties().get("subtype").toString());
                                         break;
                                     case "player":
-                                        tile = new Player(getRandomPosition(Target.class));
+                                        tile = new Player(getRandomPosition(Target.class), 0);
                                         player = (Player) tile;
+
+                                        // save last player variables
+                                        lastPlayerPosition.set(player.getCoordinate());
+                                        lastPlayerRotation = player.getRotation();
                                         break;
                                     case "control":
                                         tile = new Container(tilePosition,
@@ -318,6 +341,11 @@ public class Board extends Group {
 
                     // check if player is in target's position
                     if (player.isEqualCoordinate(winTarget.getCoordinate())) {
+                        // save last player variables
+                        lastPlayerPosition.set(player.getCoordinate());
+                        lastPlayerRotation = player.getRotation();
+
+                        // add action
                         addAction(Actions.sequence(Actions.delay(.5f),
                                 Actions.run(() -> {
                                             resetTarget();
@@ -361,10 +389,17 @@ public class Board extends Group {
 
                     handleAnimation(box);
                     player.addMoveAction(newPosition);
-                } else
-                    // if next tile is a wall, then set game over
-                    addAction(Actions.sequence(Actions.delay(.5f),
-                            Actions.run(() -> this.state = BoardState.GAME_OVER)));
+                } else {
+                    // if next tile is a wall, then kill player and current box
+                    box.setAlive(false);
+                    killPlayer();
+
+                    // move player
+                    player.addMoveAction(newPosition);
+
+                    // reset program and function controls
+                    gameControl.reset();
+                }
 
                 inverse = false;
                 break;
