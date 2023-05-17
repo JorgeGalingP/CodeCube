@@ -547,7 +547,7 @@ public class Assets {
                     clickSound.play();
                     break;
                 case PlayerTapSound:
-                    playerTapSound.play();
+                    playerTapSound.play(.5f);
                     break;
                 case PlayerMovementSound:
                     playerMovementSound.play(.25f);
