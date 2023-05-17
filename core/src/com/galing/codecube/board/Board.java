@@ -390,12 +390,12 @@ public class Board extends Group {
                     handleAnimation(box);
                     player.addMoveAction(newPosition);
                 } else {
+                    // move player
+                    player.addMoveAction(newPosition);
+
                     // if next tile is a wall, then kill player and current box
                     box.setAlive(false);
                     killPlayer();
-
-                    // move player
-                    player.addMoveAction(newPosition);
 
                     // reset program and function controls
                     gameControl.reset();
