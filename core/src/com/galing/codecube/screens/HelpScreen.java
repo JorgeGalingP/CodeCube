@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.widgets.GreyLabel;
 
 public class HelpScreen extends Screen {
@@ -49,7 +50,7 @@ public class HelpScreen extends Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 game.setScreen(new MenuScreen(game));
             }
         });

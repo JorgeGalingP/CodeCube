@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.enums.SoundType;
 
 public class MenuScreen extends Screen {
 
@@ -40,21 +41,21 @@ public class MenuScreen extends Screen {
         playButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 game.setScreen(new ModeScreen(game));
             }
         });
         optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 game.setScreen(new OptionsScreen(game));
             }
         });
         helpButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 game.setScreen(new HelpScreen(game));
             }
         });

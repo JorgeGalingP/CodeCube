@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.widgets.GreyLabel;
 import com.galing.codecube.windows.SelectionWindow;
 
@@ -45,7 +46,7 @@ public class ModeScreen extends Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 game.setScreen(new MenuScreen(game));
             }
         });
@@ -62,21 +63,21 @@ public class ModeScreen extends Screen {
         sequenceButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 createSelectionWindow(BoardType.SEQUENCE);
             }
         });
         stackButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 createSelectionWindow(BoardType.STACK);
             }
         });
         queueButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 createSelectionWindow(BoardType.QUEUE);
             }
         });

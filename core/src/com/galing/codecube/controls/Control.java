@@ -8,6 +8,7 @@ import com.galing.codecube.Assets;
 import com.galing.codecube.board.SpawnManager;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
+import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
@@ -167,27 +168,29 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                 if (isBoxInButtonBounds(lastTouch, programButtonPosition, box)
                         && box.getIsTouchable() == null
                         && getProgramSize() != programSize) {
-                    addToProgram(box);                          // push to program control
-                    spawnManager.spawn(box.getType());          // spawn a new box of same type
+                    addToProgram(box);                              // push to program control
+                    spawnManager.spawn(box.getType());              // spawn a new box of same type
 
                     // play sound
-                    Assets.playProgramBoxAdd();
+                    Assets.playSound(SoundType.BoxProgramAddSound);
                 } else if (functionButtonPosition != null
                         && (isBoxInButtonBounds(lastTouch, functionButtonPosition, box)
                         && box.getIsTouchable() == null
                         && !box.getType().equals(BoxType.FUNCTION)
                         && getFunctionSize() != functionSize)) {
-                    addToFunction(box);                         // push to function control
-                    spawnManager.spawn(box.getType());          // spawn a new box of same type
+                    addToFunction(box);                             // push to function control
+                    spawnManager.spawn(box.getType());              // spawn a new box of same type
 
                     // play sound
-                    Assets.playFunctionBoxAdd();
+                    Assets.playSound(SoundType.BoxFunctionAddSound);
                 } else if (box.getIsTouchable() != null
                         && box.getControlType() != null) {
-                    if (box.getIsTouchable())
-                        kill(box);                              // remove box only if is the first
+                    if (box.getIsTouchable()) {
+                        kill(box);                                  // remove box only if is the first
+                        Assets.playSound(SoundType.BoxKillSound);   // and play sound
+                    }
                 } else
-                    box.addResetPositionAction();               // back to start
+                    box.addResetPositionAction();                   // back to start
             }
 
             @Override

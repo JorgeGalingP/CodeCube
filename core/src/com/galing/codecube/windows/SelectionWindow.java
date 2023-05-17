@@ -10,6 +10,7 @@ import com.galing.codecube.CodeCube;
 import com.galing.codecube.Settings;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.Difficulty;
+import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.screens.GameScreen;
 import com.galing.codecube.screens.ModeScreen;
 import com.galing.codecube.screens.Screen;
@@ -40,7 +41,7 @@ public class SelectionWindow extends CloseableWindow {
         acceptButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
 
                 // reset target
                 game.setScreen(new GameScreen(game, boardType));
@@ -51,7 +52,7 @@ public class SelectionWindow extends CloseableWindow {
         crossButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
 
                 // back to main menu
                 game.setScreen(new ModeScreen(game));

@@ -13,6 +13,7 @@ import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.windows.PauseWindow;
 
 public class GameScreen extends Screen {
@@ -69,7 +70,7 @@ public class GameScreen extends Screen {
         homeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
 
                 // add pause window
                 createPauseMenu();
@@ -84,7 +85,7 @@ public class GameScreen extends Screen {
         debugButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 board.setDebugMode();
             }
         });

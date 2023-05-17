@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.galing.codecube.Assets;
 import com.galing.codecube.enums.BoxType;
+import com.galing.codecube.enums.SoundType;
 
 public class Player extends Tile {
     public float stateTime;
@@ -32,7 +33,7 @@ public class Player extends Tile {
                 addAction(Actions.sequence(
                         Actions.parallel(
                                 Actions.run(() -> addInOutAction()),
-                                Actions.run(Assets::playPlayerTap)),
+                                Actions.run(() -> Assets.playSound(SoundType.PlayerTapSound))),
                         Actions.delay(.5f),
                         Actions.run(() -> setPressed(true))));
             }
@@ -128,7 +129,9 @@ public class Player extends Tile {
         setCoordinate(position);
 
         // perform move action
-        addAction(Actions.parallel(moveTo(position.x, position.y, .3f), run(Assets::playPlayerMovement)));
+        addAction(Actions.parallel(
+                moveTo(position.x, position.y, .3f),
+                run(() -> Assets.playSound(SoundType.PlayerMovementSound))));
     }
 
     public void addRotationAction(Box box, boolean inverse) {
@@ -138,13 +141,13 @@ public class Player extends Tile {
                 action = Actions.rotateTo((getRotation() + (inverse ? -90f : 90f)) % 360,
                         .25f);
                 action.setUseShortestDirection(true);
-                addAction(Actions.parallel(action, run(Assets::playPlayerTurn)));
+                addAction(Actions.parallel(action, run(() -> Assets.playSound(SoundType.PlayerTurnSound))));
                 break;
             case RIGHT:
                 action = Actions.rotateTo((getRotation() + (inverse ? 90f : -90f)) % 360,
                         .25f);
                 action.setUseShortestDirection(true);
-                addAction(Actions.parallel(action, run(Assets::playPlayerTurn)));
+                addAction(Actions.parallel(action, run(() -> Assets.playSound(SoundType.PlayerTurnSound))));
                 break;
         }
     }
@@ -154,7 +157,7 @@ public class Player extends Tile {
         addAction(Actions.sequence(Actions.parallel(
                         Actions.scaleTo(0, 0, .3f),
                         Actions.alpha(0, .3f)),
-                Actions.run(Assets::playPlayerKill),
+                Actions.run(() -> Assets.playSound(SoundType.PlayerKillSound)),
                 Actions.removeActor()
         ));
     }

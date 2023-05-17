@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
+import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.screens.Screen;
 
 public abstract class CloseableWindow extends Window {
@@ -38,7 +39,7 @@ public abstract class CloseableWindow extends Window {
     public abstract void initialize();
 
     public void close() {
-        Assets.playClickSound();
+        Assets.playSound(SoundType.ClickSound);
 
         addAction(Actions.sequence(
                 Actions.fadeOut(.5f, Interpolation.fade),

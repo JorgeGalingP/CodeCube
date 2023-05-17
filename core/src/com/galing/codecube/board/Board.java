@@ -22,6 +22,7 @@ import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
+import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.enums.TargetType;
 import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
@@ -344,7 +345,7 @@ public class Board extends Group {
     private void handleMovement(Box box) {
         switch (box.getType()) {
             case UP:
-                Assets.playPlayerMovement();
+                Assets.playSound(SoundType.PlayerMovementSound);
 
                 Vector2 movement = player.getMovement(box);
                 if (inverse) {

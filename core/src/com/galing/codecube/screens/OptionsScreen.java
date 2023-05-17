@@ -11,6 +11,7 @@ import com.galing.codecube.CodeCube;
 import com.galing.codecube.Settings;
 import com.galing.codecube.enums.Difficulty;
 import com.galing.codecube.enums.Language;
+import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.widgets.GreyLabel;
 
 public class OptionsScreen extends Screen {
@@ -78,7 +79,7 @@ public class OptionsScreen extends Screen {
         backButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 game.setScreen(new MenuScreen(game));
             }
         });
@@ -99,21 +100,21 @@ public class OptionsScreen extends Screen {
         easyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 Settings.modifyDifficulty(Difficulty.EASY);
             }
         });
         normalButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 Settings.modifyDifficulty(Difficulty.NORMAL);
             }
         });
         hardButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 Settings.modifyDifficulty(Difficulty.HARD);
             }
         });
@@ -121,7 +122,7 @@ public class OptionsScreen extends Screen {
         enLanguageButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 Settings.modifyLanguage(Language.EN);
                 updateLanguage();
             }
@@ -129,7 +130,7 @@ public class OptionsScreen extends Screen {
         esESLanguageButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 Settings.modifyLanguage(Language.ES_ES);
                 updateLanguage();
             }
@@ -139,7 +140,7 @@ public class OptionsScreen extends Screen {
         musicButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 Settings.switchMusic();
             }
         });
@@ -148,7 +149,7 @@ public class OptionsScreen extends Screen {
         soundButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Assets.playClickSound();
+                Assets.playSound(SoundType.ClickSound);
                 Settings.switchAudio();
             }
         });

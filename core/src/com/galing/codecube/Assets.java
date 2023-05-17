@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.galing.codecube.enums.BoardType;
+import com.galing.codecube.enums.SoundType;
 
 import java.util.Locale;
 
@@ -539,44 +540,35 @@ public class Assets {
         player = atlasTileset.findRegion("player");
     }
 
-    public static void playClickSound() {
-        if (Settings.audio.equals("ON"))
-            clickSound.play();
-    }
-
-    public static void playPlayerTap() {
-        if (Settings.audio.equals("ON"))
-            playerTapSound.play();
-    }
-
-    public static void playPlayerMovement() {
-        if (Settings.audio.equals("ON"))
-            playerMovementSound.play(.25f);
-    }
-
-    public static void playPlayerTurn() {
-        if (Settings.audio.equals("ON"))
-            playerTurnSound.play(.25f);
-    }
-
-    public static void playPlayerKill() {
-        if (Settings.audio.equals("ON"))
-            playerKillSound.play(.25f);
-    }
-
-    public static void playProgramBoxAdd() {
-        if (Settings.audio.equals("ON"))
-            boxProgramAddSound.play(.5f);
-    }
-
-    public static void playFunctionBoxAdd() {
-        if (Settings.audio.equals("ON"))
-            boxFunctionAddSound.play(.5f);
-    }
-
-    public static void playBoxKill() {
-        if (Settings.audio.equals("ON"))
-            boxKillSound.play(.5f);
+    public static void playSound(SoundType type) {
+        if (Settings.audio.equals("ON")) {
+            switch (type) {
+                case ClickSound:
+                    clickSound.play();
+                    break;
+                case PlayerTapSound:
+                    playerTapSound.play();
+                    break;
+                case PlayerMovementSound:
+                    playerMovementSound.play(.25f);
+                    break;
+                case PlayerTurnSound:
+                    playerTurnSound.play(.25f);
+                    break;
+                case PlayerKillSound:
+                    playerKillSound.play(.5f);
+                    break;
+                case BoxProgramAddSound:
+                    boxProgramAddSound.play(.25f);
+                    break;
+                case BoxFunctionAddSound:
+                    boxFunctionAddSound.play(.25f);
+                    break;
+                case BoxKillSound:
+                    boxKillSound.play(.25f);
+                    break;
+            }
+        }
     }
 
     public static void playMenuMusic() {
