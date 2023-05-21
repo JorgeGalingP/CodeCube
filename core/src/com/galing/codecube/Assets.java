@@ -43,6 +43,8 @@ public class Assets {
     public static I18NBundle bundleEsES;
 
     public static ParticleEffect confettiParticle;
+    public static ParticleEffect confettiParticleRight;
+    public static ParticleEffect confettiParticleLeft;
 
     public static BitmapFont vagaRoundBoldWhite25;
     public static BitmapFont vagaRoundBoldGray25;
@@ -52,6 +54,7 @@ public class Assets {
     public static BitmapFont vagaRoundBoldGray35;
 
     public static Sound clickSound;
+    public static Sound confettiSound;
     public static Sound playerTapSound;
     public static Sound playerMovementSound;
     public static Sound playerTurnSound;
@@ -182,6 +185,7 @@ public class Assets {
     public void queueAssets() {
         // load sounds
         manager.load("sounds/click.ogg", Sound.class);
+        manager.load("sounds/confetti.ogg", Sound.class);
         manager.load("sounds/player_tap.wav", Sound.class);
         manager.load("sounds/player_movement.wav", Sound.class);
         manager.load("sounds/player_turn.mp3", Sound.class);
@@ -204,6 +208,8 @@ public class Assets {
                 new ParticleEffectLoader.ParticleEffectParameter();
         particleEffectParameter.atlasFile = "atlas/confetti.atlas";
         manager.load("particles/confetti.p", ParticleEffect.class, particleEffectParameter);
+        manager.load("particles/confetti_right.p", ParticleEffect.class, particleEffectParameter);
+        manager.load("particles/confetti_left.p", ParticleEffect.class, particleEffectParameter);
 
         // load translations
         I18NBundleLoader.I18NBundleParameter localeParams = new I18NBundleLoader.I18NBundleParameter(Locale.ENGLISH,
@@ -293,6 +299,7 @@ public class Assets {
     public void loadAssets() {
         // sounds
         clickSound = manager.get("sounds/click.ogg", Sound.class);
+        confettiSound = manager.get("sounds/confetti.ogg", Sound.class);
         playerTapSound = manager.get("sounds/player_tap.wav", Sound.class);
         playerMovementSound = manager.get("sounds/player_movement.wav", Sound.class);
         playerTurnSound = manager.get("sounds/player_turn.mp3", Sound.class);
@@ -321,6 +328,8 @@ public class Assets {
 
         // particles
         confettiParticle = manager.get("particles/confetti.p", ParticleEffect.class);
+        confettiParticleRight = manager.get("particles/confetti_right.p", ParticleEffect.class);
+        confettiParticleLeft = manager.get("particles/confetti_left.p", ParticleEffect.class);
 
         // fonts
         vagaRoundBoldWhite25 = manager.get("vagaRoundBoldWhite25.ttf", BitmapFont.class);
@@ -567,6 +576,9 @@ public class Assets {
             switch (type) {
                 case ClickSound:
                     clickSound.play();
+                    break;
+                case ConfettiSound:
+                    confettiSound.play(.5f);
                     break;
                 case PlayerTapSound:
                     playerTapSound.play(.5f);

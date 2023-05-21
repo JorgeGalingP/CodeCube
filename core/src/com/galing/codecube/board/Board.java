@@ -358,7 +358,10 @@ public class Board extends Group {
 
                         // add action
                         addAction(Actions.sequence(
-                                Actions.delay(1.5f),
+                                Actions.parallel(
+                                        Actions.run(() -> Assets.playSound(SoundType.ConfettiSound)),
+                                        Actions.delay(1.5f)
+                                ),
                                 Actions.run(() -> {
                                             resetTarget();
                                             state = BoardState.WAIT;
@@ -431,9 +434,9 @@ public class Board extends Group {
 
     private void handleAnimation(Box box) {
         if (box.getControlType().equals(ContainerType.FUNCTION)
-                && gameControl.countFunction() > 1) {
+                && gameControl.countFunction() > 1)
             box.addInOutAction();
-        } else
+        else
             box.setAlive(false);
     }
 

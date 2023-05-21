@@ -95,6 +95,8 @@ public class GameScreen extends Screen {
 
         // start particle
         Assets.confettiParticle.start();
+        Assets.confettiParticleRight.start();
+        Assets.confettiParticleLeft.start();
     }
 
     @Override
@@ -104,14 +106,27 @@ public class GameScreen extends Screen {
         stageGame.draw();
 
         if (board.isWin()) {
-            Assets.confettiParticle.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+            Assets.confettiParticle.setPosition(stage.getViewport().getWorldWidth() / 2f,
+                    stage.getViewport().getWorldHeight() / 2f);
+            Assets.confettiParticleRight.setPosition(stage.getViewport().getWorldWidth(),
+                    0);
+            Assets.confettiParticleLeft.setPosition(0,
+                    0);
+
             Assets.confettiParticle.update(delta);
+            Assets.confettiParticleRight.update(delta);
+            Assets.confettiParticleLeft.update(delta);
 
             batch.begin();
             Assets.confettiParticle.draw(batch, delta);
+            Assets.confettiParticleRight.draw(batch, delta);
+            Assets.confettiParticleLeft.draw(batch, delta);
             batch.end();
-        } else
+        } else {
             Assets.confettiParticle.reset();
+            Assets.confettiParticleRight.reset();
+            Assets.confettiParticleLeft.reset();
+        }
     }
 
     @Override
