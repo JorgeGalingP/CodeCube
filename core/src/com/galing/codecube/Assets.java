@@ -3,6 +3,7 @@ package com.galing.codecube;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.I18NBundleLoader;
+import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -34,10 +36,13 @@ public class Assets {
 
     public static TextureAtlas atlasTileset;
     public static TextureAtlas atlasUI;
+    public static TextureAtlas atlasConfetti;
 
     public static I18NBundle selectedBundle;
     public static I18NBundle bundleEn;
     public static I18NBundle bundleEsES;
+
+    public static ParticleEffect confettiParticle;
 
     public static BitmapFont vagaRoundBoldWhite25;
     public static BitmapFont vagaRoundBoldGray25;
@@ -192,6 +197,13 @@ public class Assets {
         // load atlas
         manager.load("atlas/tileset.atlas", TextureAtlas.class);
         manager.load("atlas/UI.atlas", TextureAtlas.class);
+        manager.load("atlas/confetti.atlas", TextureAtlas.class);
+
+        // load particles
+        ParticleEffectLoader.ParticleEffectParameter particleEffectParameter =
+                new ParticleEffectLoader.ParticleEffectParameter();
+        particleEffectParameter.atlasFile = "atlas/confetti.atlas";
+        manager.load("particles/confetti.p", ParticleEffect.class, particleEffectParameter);
 
         // load translations
         I18NBundleLoader.I18NBundleParameter localeParams = new I18NBundleLoader.I18NBundleParameter(Locale.ENGLISH,
@@ -279,7 +291,7 @@ public class Assets {
     }
 
     public void loadAssets() {
-        //sounds
+        // sounds
         clickSound = manager.get("sounds/click.ogg", Sound.class);
         playerTapSound = manager.get("sounds/player_tap.wav", Sound.class);
         playerMovementSound = manager.get("sounds/player_movement.wav", Sound.class);
@@ -289,7 +301,7 @@ public class Assets {
         boxFunctionAddSound = manager.get("sounds/box_function_add.mp3", Sound.class);
         boxKillSound = manager.get("sounds/box_kill.mp3", Sound.class);
 
-        //music
+        // music
         menuMusic = manager.get("music/menu.mp3", Music.class);
         menuMusic.setLooping(true);
         menuMusic.setVolume(.25f);
@@ -300,11 +312,15 @@ public class Assets {
         // atlas
         atlasTileset = manager.get("atlas/tileset.atlas", TextureAtlas.class);
         atlasUI = manager.get("atlas/UI.atlas", TextureAtlas.class);
+        atlasConfetti = manager.get("atlas/confetti.atlas", TextureAtlas.class);
 
         // translations
         bundleEn = manager.get("i18n/bundle_en", I18NBundle.class);
         bundleEsES = manager.get("i18n/bundle_es_ES", I18NBundle.class);
         selectedBundle = bundleEn;
+
+        // particles
+        confettiParticle = manager.get("particles/confetti.p", ParticleEffect.class);
 
         // fonts
         vagaRoundBoldWhite25 = manager.get("vagaRoundBoldWhite25.ttf", BitmapFont.class);

@@ -1,0 +1,41 @@
+
+confetti.png
+size: 262, 54
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+cross
+  rotate: false
+  xy: 210, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+minus
+  rotate: false
+  xy: 2, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+plus
+  rotate: false
+  xy: 54, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 158, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+stop
+  rotate: false
+  xy: 106, 2
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1

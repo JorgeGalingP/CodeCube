@@ -42,7 +42,7 @@ import java.util.List;
 public class Board extends Group {
 
     private enum BoardState {
-        WAIT, RUNNING, GAME_OVER;
+        WAIT, RUNNING, WIN, GAME_OVER;
     }
 
     public static final float TILE_SIZE = 64f;
@@ -114,7 +114,7 @@ public class Board extends Group {
         initializeLayer("player");
 
         // spawn manager
-        spawnManager = new SpawnManager(this);
+        this.spawnManager = new SpawnManager(this);
 
         // initialize Control
         if (type.equals(BoardType.STACK))
@@ -128,11 +128,15 @@ public class Board extends Group {
                     functionControls);
 
         // spawn boxes of each type
-        spawnManager.create(BoxType.UP);
-        spawnManager.create(BoxType.RIGHT);
-        spawnManager.create(BoxType.LEFT);
-        spawnManager.create(BoxType.FUNCTION);
-        spawnManager.create(BoxType.NEGATION);
+        this.spawnManager.create(BoxType.UP);
+        this.spawnManager.create(BoxType.RIGHT);
+        this.spawnManager.create(BoxType.LEFT);
+        this.spawnManager.create(BoxType.FUNCTION);
+        this.spawnManager.create(BoxType.NEGATION);
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     @Override
@@ -182,6 +186,10 @@ public class Board extends Group {
 
     public boolean isRunning() {
         return state.equals(BoardState.RUNNING);
+    }
+
+    public boolean isWin() {
+        return state.equals(BoardState.WIN);
     }
 
     public boolean isGameOver() {
@@ -345,11 +353,15 @@ public class Board extends Group {
                         lastPlayerPosition.set(player.getCoordinate());
                         lastPlayerRotation = player.getRotation();
 
+                        // win
+                        state = BoardState.WIN;
+
                         // add action
-                        addAction(Actions.sequence(Actions.delay(.5f),
+                        addAction(Actions.sequence(
+                                Actions.delay(1.5f),
                                 Actions.run(() -> {
                                             resetTarget();
-                                            this.state = BoardState.WAIT;
+                                            state = BoardState.WAIT;
                                         }
                                 )));
                     } else
@@ -357,7 +369,7 @@ public class Board extends Group {
                 }
             } else {
                 player.setPressed(false);
-                this.state = BoardState.WAIT;
+                state = BoardState.WAIT;
             }
         }
     }
@@ -367,7 +379,7 @@ public class Board extends Group {
                 Actions.delay(.5f),
                 Actions.run(() -> player.addRemoveAction()),
                 Actions.delay(.75f),
-                Actions.run(() -> this.state = BoardState.GAME_OVER)));
+                Actions.run(() -> state = BoardState.GAME_OVER)));
     }
 
     private void handleMovement(Box box) {
@@ -434,8 +446,8 @@ public class Board extends Group {
     }
 
     private Vector2 getRandomPosition(List<Class<?>> types) {
-        Array<Vector2> positions = new Array<>(this.floor.size);
-        for (Tile floor : this.floor)
+        Array<Vector2> positions = new Array<>(floor.size);
+        for (Tile floor : floor)
             positions.add(floor.getCoordinate());
 
         if (!types.isEmpty()) {

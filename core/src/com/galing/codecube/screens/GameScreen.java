@@ -92,6 +92,9 @@ public class GameScreen extends Screen {
         });
 
         setInit();
+
+        // start particle
+        Assets.confettiParticle.start();
     }
 
     @Override
@@ -99,6 +102,16 @@ public class GameScreen extends Screen {
         super.draw(delta);
         board.render();
         stageGame.draw();
+
+        if (board.isWin()) {
+            Assets.confettiParticle.setPosition(Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+            Assets.confettiParticle.update(delta);
+
+            batch.begin();
+            Assets.confettiParticle.draw(batch, delta);
+            batch.end();
+        } else
+            Assets.confettiParticle.reset();
     }
 
     @Override
