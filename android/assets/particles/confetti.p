@@ -1,17 +1,19 @@
-Confetti
+Untitled
 - Delay -
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
 - Duration - 
 lowMin: 1500.0
 lowMax: 1500.0
 - Count - 
 min: 0
-max: 300
+max: 500
 - Emission - 
 lowMin: 0.0
 lowMax: 0.0
-highMin: 200.0
-highMax: 200.0
+highMin: 350.0
+highMax: 350.0
 relative: false
 scalingCount: 1
 scaling0: 1.0
@@ -79,23 +81,23 @@ active: false
 active: true
 lowMin: 0.0
 lowMax: 0.0
-highMin: 150.0
-highMax: 751.0
-relative: false
+highMin: 0.0
+highMax: 800.0
+relative: true
 scalingCount: 3
 scaling0: 0.0
 scaling1: 1.0
 scaling2: 1.0
 timelineCount: 3
 timeline0: 0.0
-timeline1: 0.6849315
+timeline1: 0.39726028
 timeline2: 1.0
 - Angle - 
 active: true
 lowMin: 0.0
 lowMax: 0.0
-highMin: 15.0
-highMax: -355.0
+highMin: 45.0
+highMax: 145.0
 relative: false
 scalingCount: 3
 scaling0: 1.0
@@ -106,15 +108,26 @@ timeline0: 0.0
 timeline1: 0.999
 timeline2: 1.0
 - Rotation - 
-active: false
+active: true
+lowMin: 0.0
+lowMax: 0.0
+highMin: 45.0
+highMax: 45.0
+relative: false
+scalingCount: 2
+scaling0: 0.0
+scaling1: 1.0
+timelineCount: 2
+timeline0: 0.0
+timeline1: 1.0
 - Wind - 
 active: false
 - Gravity - 
 active: true
 lowMin: 0.0
 lowMax: 0.0
-highMin: 0.0
-highMax: 0.0
+highMin: -350.0
+highMax: -350.0
 relative: false
 scalingCount: 3
 scaling0: 0.0
@@ -122,7 +135,7 @@ scaling1: 1.0
 scaling2: 1.0
 timelineCount: 3
 timeline0: 0.0
-timeline1: 0.001
+timeline1: 0.51369864
 timeline2: 1.0
 - Tint - 
 colorsCount: 30
@@ -192,9 +205,7 @@ behind: false
 premultipliedAlpha: false
 spriteMode: random
 - Image Paths -
-cross.png
 minus.png
-plus.png
 star.png
 stop.png
 

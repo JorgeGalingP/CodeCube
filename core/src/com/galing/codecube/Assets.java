@@ -43,8 +43,6 @@ public class Assets {
     public static I18NBundle bundleEsES;
 
     public static ParticleEffect confettiParticle;
-    public static ParticleEffect confettiParticleRight;
-    public static ParticleEffect confettiParticleLeft;
 
     public static BitmapFont vagaRoundBoldWhite25;
     public static BitmapFont vagaRoundBoldGray25;
@@ -208,8 +206,6 @@ public class Assets {
                 new ParticleEffectLoader.ParticleEffectParameter();
         particleEffectParameter.atlasFile = "atlas/confetti.atlas";
         manager.load("particles/confetti.p", ParticleEffect.class, particleEffectParameter);
-        manager.load("particles/confetti_right.p", ParticleEffect.class, particleEffectParameter);
-        manager.load("particles/confetti_left.p", ParticleEffect.class, particleEffectParameter);
 
         // load translations
         I18NBundleLoader.I18NBundleParameter localeParams = new I18NBundleLoader.I18NBundleParameter(Locale.ENGLISH,
@@ -328,8 +324,6 @@ public class Assets {
 
         // particles
         confettiParticle = manager.get("particles/confetti.p", ParticleEffect.class);
-        confettiParticleRight = manager.get("particles/confetti_right.p", ParticleEffect.class);
-        confettiParticleLeft = manager.get("particles/confetti_left.p", ParticleEffect.class);
 
         // fonts
         vagaRoundBoldWhite25 = manager.get("vagaRoundBoldWhite25.ttf", BitmapFont.class);
