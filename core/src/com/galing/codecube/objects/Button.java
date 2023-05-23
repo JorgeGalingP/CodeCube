@@ -36,6 +36,7 @@ public class Button extends Tile {
                 }
                 break;
         }
+
         // make button more big
         scaleBy(0.25f);
     }

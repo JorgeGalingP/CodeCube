@@ -11,6 +11,7 @@ public class Settings {
     public static Language selectedLanguage;
     public static String audio;
     public static String music;
+    public static String tutorial;
 
     private final static Preferences preferences = Gdx.app.getPreferences("com.galing.codecube");
 
@@ -20,6 +21,7 @@ public class Settings {
         selectedLanguage = Language.valueOf(preferences.getString("selectedLanguage", Language.ES_ES.toString()));
         audio = preferences.getString("activeAudio", "ON");
         music = preferences.getString("activeMusic", "ON");
+        tutorial = preferences.getString("tutorial", "ON");
     }
 
     public static void save() {
@@ -27,6 +29,7 @@ public class Settings {
         preferences.putString("selectedLanguage", String.valueOf(selectedLanguage));
         preferences.putString("activeSounds", audio);
         preferences.putString("activeMusic", music);
+        preferences.putString("tutorial", tutorial);
         preferences.flush();
     }
 
@@ -47,6 +50,11 @@ public class Settings {
 
     public static void switchMusic() {
         Settings.music = Settings.music.equals("ON") ? "OFF" : "ON";
+        Settings.save();
+    }
+
+    public static void switchTutorial() {
+        Settings.tutorial = Settings.tutorial.equals("ON") ? "OFF" : "ON";
         Settings.save();
     }
 }

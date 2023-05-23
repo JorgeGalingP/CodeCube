@@ -32,7 +32,7 @@ public class Target extends Tile {
         this.type = type;
     }
 
-    public void addInOutPositionAction(Vector2 position) {
+    public void pinchPositionAction(Vector2 position) {
         setCoordinate(position);
 
         // perform in and out action with movement

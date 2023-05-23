@@ -20,7 +20,7 @@ public class SpawnManager {
     public void spawn(BoxType boxType) {
         Box box = create(boxType);
 
-        box.addShowAction();
+        box.showAction();
     }
 
     public Box create(BoxType boxType) {
@@ -91,7 +91,7 @@ public class SpawnManager {
 
             if (!box.isAlive()) {
                 activeBoxes.removeIndex(i);
-                box.addRemoveAction();
+                box.removeAction();
             }
         }
     }

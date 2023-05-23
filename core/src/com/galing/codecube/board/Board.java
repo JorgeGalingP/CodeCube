@@ -56,6 +56,7 @@ public class Board extends Group {
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
+    private final Stage stage;
     private final BoardType type;
     private BoardState state;
     private boolean inverse;
@@ -80,6 +81,7 @@ public class Board extends Group {
 
     public Board(Stage stage, BoardType type) {
         // initialize main variables
+        this.stage = stage;
         this.camera = (OrthographicCamera) stage.getCamera();
         this.viewport = stage.getViewport();
         this.tiledRender = new OrthogonalTiledMapRenderer(Assets.tileMap, UNIT_SCALE);
@@ -181,7 +183,7 @@ public class Board extends Group {
     }
 
     public void resetTarget() {
-        winTarget.addInOutPositionAction(getRandomPosition(Player.class));
+        winTarget.pinchPositionAction(getRandomPosition(Player.class));
     }
 
     public boolean isRunning() {
@@ -206,8 +208,7 @@ public class Board extends Group {
             else
                 player = new Player(getRandomPosition(Target.class), 0);
 
-            addActor(player);
-            player.addAppearAction();
+            player.showAction(this);
         }
     }
 
@@ -380,7 +381,7 @@ public class Board extends Group {
     private void killPlayer() {
         addAction(Actions.sequence(
                 Actions.delay(.5f),
-                Actions.run(() -> player.addRemoveAction()),
+                Actions.run(() -> player.removeAction()),
                 Actions.delay(.75f),
                 Actions.run(() -> state = BoardState.GAME_OVER)));
     }
@@ -435,7 +436,7 @@ public class Board extends Group {
     private void handleAnimation(Box box) {
         if (box.getControlType().equals(ContainerType.FUNCTION)
                 && gameControl.countFunction() > 1)
-            box.addInOutAction();
+            box.pinchAction();
         else
             box.setAlive(false);
     }

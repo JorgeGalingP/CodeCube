@@ -22,11 +22,13 @@ public class OptionsScreen extends Screen {
     private TextButton hardButton;
     private ImageButton musicButton;
     private ImageButton soundButton;
+    private ImageButton tutorialButton;
     private TextButton enLanguageButton;
     private TextButton esESLanguageButton;
     private Label difficultyLabel;
     private Label musicLabel;
     private Label audioLabel;
+    private Label tutorialLabel;
     private Label languageLabel;
     private Label configurationLabel;
 
@@ -49,6 +51,8 @@ public class OptionsScreen extends Screen {
                 Assets.musicOnButtonStyle : Assets.musicOffButtonStyle);
         this.soundButton.setStyle(Settings.audio.equals("ON") ?
                 Assets.audioOnButtonStyle : Assets.audioOffButtonStyle);
+        this.tutorialButton.setStyle(Settings.tutorial.equals("ON") ?
+                Assets.tutorialOnButtonStyle : Assets.tutorialOffButtonStyle);
         this.enLanguageButton.setStyle(Settings.selectedLanguage.equals(Language.EN) ?
                 Assets.vagaRoundBoldFontLargeSelectedButtonStyle : Assets.vagaRoundBoldFontLargeButtonStyle);
         this.esESLanguageButton.setStyle(Settings.selectedLanguage.equals(Language.ES_ES) ?
@@ -71,6 +75,7 @@ public class OptionsScreen extends Screen {
         difficultyLabel = new GreyLabel(Assets.selectString("OptionsScreen_DifficultyLabel"));
         musicLabel = new GreyLabel(Assets.selectString("OptionsScreen_MusicLabel"));
         audioLabel = new GreyLabel(Assets.selectString("OptionsScreen_SoundLabel"));
+        tutorialLabel = new GreyLabel(Assets.selectString("OptionsScreen_TutorialLabel"));
         languageLabel = new GreyLabel(Assets.selectString("OptionsScreen_LanguageLabel"));
         configurationLabel = new GreyLabel(Assets.selectString("OptionsScreen_OptionsLabel"));
 
@@ -154,6 +159,15 @@ public class OptionsScreen extends Screen {
             }
         });
 
+        tutorialButton = new ImageButton(Assets.tutorialOnButtonStyle);
+        tutorialButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Assets.playSound(SoundType.ClickSound);
+                Settings.switchTutorial();
+            }
+        });
+
         // add buttons and padding to tables
         difficultyTable.add(configurationLabel).colspan(4).center().padBottom(75);
         difficultyTable.row();
@@ -167,6 +181,9 @@ public class OptionsScreen extends Screen {
         difficultyTable.row();
         difficultyTable.add(audioLabel).colspan(2).center().pad(10).padBottom(75);
         difficultyTable.add(soundButton).colspan(2).width(100).height(50).pad(10).padBottom(75);
+        difficultyTable.row();
+        difficultyTable.add(tutorialLabel).colspan(2).center().pad(10).padBottom(75);
+        difficultyTable.add(tutorialButton).colspan(2).width(100).height(50).pad(10).padBottom(75);
         difficultyTable.row();
         difficultyTable.add(languageLabel).colspan(2).center().pad(10).padBottom(75);
         difficultyTable.add(enLanguageButton).colspan(1).width(100).height(50).pad(10).padBottom(75);

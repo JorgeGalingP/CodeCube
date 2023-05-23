@@ -130,6 +130,8 @@ public class Assets {
     public static ImageButton.ImageButtonStyle musicOffButtonStyle;
     public static ImageButton.ImageButtonStyle audioOnButtonStyle;
     public static ImageButton.ImageButtonStyle audioOffButtonStyle;
+    public static ImageButton.ImageButtonStyle tutorialOnButtonStyle;
+    public static ImageButton.ImageButtonStyle tutorialOffButtonStyle;
     public static ImageButton.ImageButtonStyle exitLeftButtonStyle;
     public static ImageButton.ImageButtonStyle exitLeftLargeButtonStyle;
     public static ImageButton.ImageButtonStyle windowCloseButtonStyle;
@@ -507,6 +509,12 @@ public class Assets {
         audioOffButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
                 smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, audioOffIcon, audioOffIcon, audioOffIcon);
+        tutorialOnButtonStyle = new ImageButton.ImageButtonStyle(smallGreenButtonNinePatch,
+                smallPressedGreenButtonNinePatch,
+                smallBlueButtonNinePatch, checkmarkIcon, checkmarkIcon, checkmarkIcon);
+        tutorialOffButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
+                smallPressedBlueButtonNinePatch,
+                smallBlueButtonNinePatch, crossIcon, crossIcon, crossIcon);
         exitLeftButtonStyle = new ImageButton.ImageButtonStyle(smallBlueButtonNinePatch,
                 smallPressedBlueButtonNinePatch,
                 smallBlueButtonNinePatch, exitLeftIcon, exitLeftIcon, exitLeftIcon);

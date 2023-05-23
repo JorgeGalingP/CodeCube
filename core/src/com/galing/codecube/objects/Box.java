@@ -92,14 +92,14 @@ public class Box extends Tile {
         setRotation(0);
     }
 
-    public void addShowAction() {
+    public void showAction() {
         addAction(Actions.parallel(
                 Actions.scaleTo(0, 0),
                 Actions.scaleTo(1.5f, 1.5f, .15f),
                 Actions.alpha(1f, .15f)));
     }
 
-    public void addResetPositionAction() {
+    public void resetAction() {
         addAction(Actions.parallel(
                 moveTo(getCoordinate().x, getCoordinate().y, .3f),
                 Actions.run(this::setRandomIdle)
@@ -107,7 +107,7 @@ public class Box extends Tile {
     }
 
     @Override
-    public void addInOutAction() {
+    public void pinchAction() {
         addAction(Actions.sequence(
                 Actions.scaleTo(1.25f, 1.25f, .15f),
                 Actions.scaleTo(.8f, .8f, .15f)));

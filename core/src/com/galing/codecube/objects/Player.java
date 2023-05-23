@@ -14,6 +14,7 @@ import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.SoundType;
 
 public class Player extends Tile {
+
     public float stateTime;
     public boolean pressed;
     public boolean debug;
@@ -33,7 +34,7 @@ public class Player extends Tile {
             public void clicked(InputEvent event, float x, float y) {
                 addAction(Actions.sequence(
                         Actions.parallel(
-                                Actions.run(() -> addInOutAction()),
+                                Actions.run(() -> pinchAction()),
                                 Actions.run(() -> Assets.playSound(SoundType.PlayerTapSound))),
                         Actions.delay(.5f),
                         Actions.run(() -> setPressed(true))));
@@ -76,7 +77,7 @@ public class Player extends Tile {
             this.listener = new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    addAction(Actions.sequence(Actions.run(() -> addInOutAction()),
+                    addAction(Actions.sequence(Actions.run(() -> pinchAction()),
                             Actions.delay(.5f),
                             Actions.run(() -> pressed = true),
                             Actions.delay(.5f),
@@ -87,7 +88,7 @@ public class Player extends Tile {
             this.listener = new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    addAction(Actions.sequence(Actions.run(() -> addInOutAction()),
+                    addAction(Actions.sequence(Actions.run(() -> pinchAction()),
                             Actions.delay(.5f),
                             Actions.run(() -> pressed = true)));
                 }
@@ -154,7 +155,7 @@ public class Player extends Tile {
     }
 
     @Override
-    public void addRemoveAction() {
+    public void removeAction() {
         addAction(Actions.sequence(Actions.parallel(
                         Actions.scaleTo(0, 0, .5f),
                         Actions.alpha(0, .5f),

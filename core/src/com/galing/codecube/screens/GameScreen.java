@@ -91,10 +91,12 @@ public class GameScreen extends Screen {
             }
         });
 
-        setInit();
-
-        // start particle
+        // start particles
         Assets.confettiParticle.start();
+        Assets.confettiParticle.setPosition(stage.getViewport().getWorldWidth() / 2f,
+                stage.getViewport().getWorldHeight() / 2f);
+
+        setInit();
     }
 
     @Override
@@ -104,9 +106,6 @@ public class GameScreen extends Screen {
         stageGame.draw();
 
         if (board.isWin()) {
-            Assets.confettiParticle.setPosition(stage.getViewport().getWorldWidth() / 2f,
-                    stage.getViewport().getWorldHeight() / 2f);
-
             Assets.confettiParticle.update(delta);
 
             batch.begin();

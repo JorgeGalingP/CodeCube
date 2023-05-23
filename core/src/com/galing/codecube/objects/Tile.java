@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Align;
 import com.galing.codecube.board.Board;
@@ -41,7 +42,8 @@ public class Tile extends Actor {
         this.atlasRegion = atlasRegion;
     }
 
-    public void addAppearAction() {
+    public void showAction(Group group) {
+        group.addActor(this);
         addAction(Actions.sequence(
                 Actions.parallel(
                         Actions.scaleTo(0, 0),
@@ -52,7 +54,7 @@ public class Tile extends Actor {
         ));
     }
 
-    public void addRemoveAction() {
+    public void removeAction() {
         addAction(Actions.sequence(Actions.parallel(
                         Actions.scaleTo(0, 0, .3f),
                         Actions.alpha(0, .3f)),
@@ -60,7 +62,7 @@ public class Tile extends Actor {
         ));
     }
 
-    public void addInOutAction() {
+    public void pinchAction() {
         addAction(Actions.sequence(
                 Actions.scaleTo(1.25f, 1.25f, .15f),
                 Actions.scaleTo(1f, 1f, .2f)));

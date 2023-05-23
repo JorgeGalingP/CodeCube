@@ -194,7 +194,7 @@ public abstract class Control<T extends Collection<Box>> implements Controllable
                         Assets.playSound(SoundType.BoxKillSound);   // and play sound
                     }
                 } else
-                    box.addResetPositionAction();                   // back to start
+                    box.resetAction();                   // back to start
             }
 
             @Override
