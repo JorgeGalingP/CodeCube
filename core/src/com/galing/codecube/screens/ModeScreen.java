@@ -11,7 +11,7 @@ import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.widgets.GreyLabel;
-import com.galing.codecube.windows.SelectionWindow;
+import com.galing.codecube.windows.GameInitWindow;
 
 public class ModeScreen extends Screen {
 
@@ -107,7 +107,7 @@ public class ModeScreen extends Screen {
     }
 
     private void createSelectionWindow(BoardType boardType) {
-        stage.addActor(new SelectionWindow(game, this, boardType));
+        stage.addActor(new GameInitWindow(game, this, boardType));
     }
 
     private void setModeTableBounds() {

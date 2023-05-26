@@ -16,11 +16,11 @@ import com.galing.codecube.screens.ModeScreen;
 import com.galing.codecube.screens.Screen;
 import com.galing.codecube.widgets.GreyLabel;
 
-public class SelectionWindow extends CloseableWindow {
+public class GameInitWindow extends CloseableWindow {
 
     BoardType boardType;
 
-    public SelectionWindow(final CodeCube game, Screen screen, BoardType boardType) {
+    public GameInitWindow(final CodeCube game, Screen screen, BoardType boardType) {
         super(game, screen);
 
         this.boardType = boardType;
