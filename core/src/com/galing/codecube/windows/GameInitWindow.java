@@ -14,6 +14,7 @@ import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.screens.GameScreen;
 import com.galing.codecube.screens.ModeScreen;
 import com.galing.codecube.screens.Screen;
+import com.galing.codecube.screens.TutorialScreen;
 import com.galing.codecube.widgets.GreyLabel;
 
 public class GameInitWindow extends CloseableWindow {
@@ -43,8 +44,12 @@ public class GameInitWindow extends CloseableWindow {
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(SoundType.ClickSound);
 
-                // reset target
-                game.setScreen(new GameScreen(game, boardType));
+                // init game
+                if (Settings.tutorial.equals("ON"))
+                    game.setScreen(new TutorialScreen(game, boardType));
+                else
+                    game.setScreen(new GameScreen(game, boardType));
+
             }
         });
 

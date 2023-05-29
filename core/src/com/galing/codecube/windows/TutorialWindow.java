@@ -9,13 +9,14 @@ import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.screens.Screen;
+import com.galing.codecube.screens.TutorialScreen;
 import com.galing.codecube.widgets.GreyLabel;
 
-public class AcceptWindow extends CloseableWindow {
+public class TutorialWindow extends CloseableWindow {
 
     private final String title;
 
-    public AcceptWindow(final CodeCube game, Screen screen, String title) {
+    public TutorialWindow(final CodeCube game, Screen screen, String title) {
         super(game, screen);
 
         this.title = title;
@@ -51,5 +52,7 @@ public class AcceptWindow extends CloseableWindow {
     @Override
     public void close() {
         super.close();
+
+        ((TutorialScreen) screen).nextPhase();
     }
 }
