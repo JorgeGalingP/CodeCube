@@ -13,6 +13,7 @@ import com.galing.codecube.CodeCube;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.SoundType;
+import com.galing.codecube.windows.TutorialPauseWindow;
 import com.galing.codecube.windows.TutorialWindow;
 
 public class TutorialScreen extends Screen {
@@ -20,8 +21,9 @@ public class TutorialScreen extends Screen {
     private enum GameState {
         INIT,
         WELCOME,
-        PHASE_1, PHASE_2, PHASE_3, PHASE_4,
+        PHASE_1, PHASE_2, PHASE_3, PHASE_4, PHASE_5, PHASE_6, PHASE_7, PHASE_8,
         PHASE_1_WINDOW, PHASE_2_WINDOW, PHASE_3_WINDOW, PHASE_4_WINDOW,
+        PHASE_5_WINDOW, PHASE_6_WINDOW, PHASE_7_WINDOW, PHASE_8_WINDOW,
         END,
     }
 
@@ -74,9 +76,6 @@ public class TutorialScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(SoundType.ClickSound);
-
-                // add pause window
-                // TODO createPauseMenu();
             }
         });
 
@@ -151,22 +150,31 @@ public class TutorialScreen extends Screen {
 
                 setWelcome();
 
-                // welcome
                 stage.addActor(new TutorialWindow(game, this, "Welcome!"));
                 break;
             case PHASE_1:
-                if (homeButton.isPressed()) {
-                    setWindowPhase(1);
-                    stage.addActor(new TutorialWindow(game, this, "Phase 1"));
-                }
+                setWindowPhase(1);
+                stage.addActor(new TutorialWindow(game, this, "Introduction"));
                 break;
             case PHASE_2:
                 setWindowPhase(2);
-                stage.addActor(new TutorialWindow(game, this, "Phase 2"));
+                stage.addActor(new TutorialWindow(game, this, "Touch pause button"));
                 break;
             case PHASE_3:
-                setWindowPhase(3);
-                stage.addActor(new TutorialWindow(game, this, "Phase 3"));
+                if (homeButton.isPressed()) {
+                    setWindowPhase(3);
+                    stage.addActor(new TutorialPauseWindow(game, this));
+                }
+                break;
+            case PHASE_4:
+                setWindowPhase(4);
+                stage.addActor(new TutorialWindow(game, this, "Good job!. Now, touch debug button"));
+                break;
+            case PHASE_5:
+                if (debugButton.isPressed()) {
+                    setWindowPhase(5);
+                    stage.addActor(new TutorialWindow(game, this, "Good!"));
+                }
                 break;
             case END:
                 // back to main menu
@@ -224,6 +232,15 @@ public class TutorialScreen extends Screen {
             case PHASE_3_WINDOW:
                 setPhase(4);
                 break;
+            case PHASE_4_WINDOW:
+                setPhase(5);
+                break;
+            case PHASE_5_WINDOW:
+                setPhase(6);
+                break;
+            case PHASE_6_WINDOW:
+                setPhase(7);
+                break;
         }
     }
 
@@ -238,6 +255,18 @@ public class TutorialScreen extends Screen {
                     break;
                 case 3:
                     state = GameState.PHASE_3;
+                    break;
+                case 4:
+                    state = GameState.PHASE_4;
+                    break;
+                case 5:
+                    state = GameState.PHASE_5;
+                    break;
+                case 6:
+                    state = GameState.PHASE_6;
+                    break;
+                case 7:
+                    state = GameState.PHASE_7;
                     break;
             }
             Gdx.app.log("GAME_STATE", state.toString());
@@ -255,6 +284,15 @@ public class TutorialScreen extends Screen {
                     break;
                 case 3:
                     state = GameState.PHASE_3_WINDOW;
+                    break;
+                case 4:
+                    state = GameState.PHASE_4_WINDOW;
+                    break;
+                case 5:
+                    state = GameState.PHASE_5_WINDOW;
+                    break;
+                case 6:
+                    state = GameState.PHASE_6_WINDOW;
                     break;
             }
             Gdx.app.log("GAME_STATE", state.toString());
