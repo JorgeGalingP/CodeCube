@@ -43,7 +43,7 @@ public abstract class CloseableWindow extends Window {
 
         addAction(Actions.sequence(
                 Actions.fadeOut(.5f, Interpolation.fade),
-                Actions.run(() -> setVisible(false)))
+                Actions.run(this::remove))
         );
     }
 

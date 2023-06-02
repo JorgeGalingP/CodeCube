@@ -54,5 +54,7 @@ public class TutorialWindow extends CloseableWindow {
         super.close();
 
         ((TutorialScreen) screen).nextPhase();
+
+
     }
 }

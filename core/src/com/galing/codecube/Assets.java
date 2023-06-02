@@ -415,6 +415,9 @@ public class Assets {
         TextureRegionDrawable largeRedButton = new TextureRegionDrawable(Assets.largeRedButton);
         TextureRegionDrawable largePressedRedButton = new TextureRegionDrawable(Assets.largePressedRedButton);
 
+        TextureRegionDrawable largeOutlineBlueButton = new TextureRegionDrawable(Assets.largeOutlineBlueButton);
+        TextureRegionDrawable largeOutlineYellowButton = new TextureRegionDrawable(Assets.largeOutlineYellowButton);
+
         // icons
         TextureRegionDrawable greyCheckmarkIcon = new TextureRegionDrawable(Assets.greyCheckmarkIcon);
         TextureRegionDrawable greyCrossIcon = new TextureRegionDrawable(Assets.greyCrossIcon);
@@ -451,6 +454,8 @@ public class Assets {
                 12, 12, 12, 12));
         NinePatchDrawable largePressedBlueButtonNinePatch =
                 new NinePatchDrawable(new NinePatch(Assets.largePressedBlueButton, 12, 12, 12, 12));
+        NinePatchDrawable largeOutlineBlueButtonNinePatch =
+                new NinePatchDrawable(new NinePatch(Assets.largeOutlineBlueButton, 12, 12, 12, 12));
 
         NinePatchDrawable smallGreenButtonNinePatch = new NinePatchDrawable(new NinePatch(Assets.smallGreenButton,
                 12, 12, 12, 12));

@@ -130,7 +130,12 @@ public class TutorialScreen extends Screen {
 
         if (state.equals(GameState.PHASE_1)
                 || state.equals(GameState.PHASE_2)
-                || state.equals(GameState.PHASE_3)) {
+                || state.equals(GameState.PHASE_3)
+                || state.equals(GameState.PHASE_4)
+                || state.equals(GameState.PHASE_5)
+                || state.equals(GameState.PHASE_6)
+                || state.equals(GameState.PHASE_7)
+                || state.equals(GameState.PHASE_8)) {
             stageGame.act(delta);
 
             // set disabled depending board's running state
@@ -175,6 +180,20 @@ public class TutorialScreen extends Screen {
                     setWindowPhase(5);
                     stage.addActor(new TutorialWindow(game, this, "Good!"));
                 }
+                break;
+            case PHASE_6:
+                setWindowPhase(6);
+                stage.addActor(new TutorialWindow(game, this, "Drag a box to the main program"));
+                break;
+            case PHASE_7:
+                if (!board.getGameControl().isProgramEmpty()) {
+                    setWindowPhase(7);
+                    stage.addActor(new TutorialWindow(game, this, "Bien hecho!"));
+                }
+                break;
+            case PHASE_8:
+                setWindowPhase(8);
+                stage.addActor(new TutorialWindow(game, this, "Intenta llegar al objetivo"));
                 break;
             case END:
                 // back to main menu
@@ -241,6 +260,12 @@ public class TutorialScreen extends Screen {
             case PHASE_6_WINDOW:
                 setPhase(7);
                 break;
+            case PHASE_7_WINDOW:
+                setPhase(8);
+                break;
+            case PHASE_8_WINDOW:
+                setPhase(-1);
+                break;
         }
     }
 
@@ -268,6 +293,12 @@ public class TutorialScreen extends Screen {
                 case 7:
                     state = GameState.PHASE_7;
                     break;
+                case 8:
+                    state = GameState.PHASE_8;
+                    break;
+                case -1:
+                    state = GameState.END;
+                    break;
             }
             Gdx.app.log("GAME_STATE", state.toString());
         }
@@ -293,6 +324,12 @@ public class TutorialScreen extends Screen {
                     break;
                 case 6:
                     state = GameState.PHASE_6_WINDOW;
+                    break;
+                case 7:
+                    state = GameState.PHASE_7_WINDOW;
+                    break;
+                case 8:
+                    state = GameState.PHASE_8_WINDOW;
                     break;
             }
             Gdx.app.log("GAME_STATE", state.toString());

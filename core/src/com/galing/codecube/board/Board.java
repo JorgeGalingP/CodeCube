@@ -56,7 +56,6 @@ public class Board extends Group {
     private final OrthographicCamera camera;
     private final Viewport viewport;
 
-    private final Stage stage;
     private final BoardType type;
     private BoardState state;
     private boolean inverse;
@@ -81,7 +80,6 @@ public class Board extends Group {
 
     public Board(Stage stage, BoardType type) {
         // initialize main variables
-        this.stage = stage;
         this.camera = (OrthographicCamera) stage.getCamera();
         this.viewport = stage.getViewport();
         this.tiledRender = new OrthogonalTiledMapRenderer(Assets.tileMap, UNIT_SCALE);
@@ -196,6 +194,10 @@ public class Board extends Group {
 
     public boolean isGameOver() {
         return state.equals(BoardState.GAME_OVER);
+    }
+
+    public boolean isEmpty(){
+        return programControls.isEmpty();
     }
 
     public void resetGameOver() {
