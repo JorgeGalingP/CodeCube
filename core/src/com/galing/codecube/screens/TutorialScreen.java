@@ -2,18 +2,13 @@ package com.galing.codecube.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
-import com.galing.codecube.enums.SoundType;
-import com.galing.codecube.windows.TutorialPauseWindow;
 import com.galing.codecube.windows.TutorialWindow;
 
 public class TutorialScreen extends Screen {
@@ -21,9 +16,10 @@ public class TutorialScreen extends Screen {
     private enum GameState {
         INIT,
         WELCOME,
-        PHASE_1, PHASE_2, PHASE_3, PHASE_4, PHASE_5, PHASE_6, PHASE_7, PHASE_8,
+        PHASE_1, PHASE_2, PHASE_3, PHASE_4, PHASE_5, PHASE_6, PHASE_7,
         PHASE_1_WINDOW, PHASE_2_WINDOW, PHASE_3_WINDOW, PHASE_4_WINDOW,
-        PHASE_5_WINDOW, PHASE_6_WINDOW, PHASE_7_WINDOW, PHASE_8_WINDOW,
+        PHASE_5_WINDOW, PHASE_6_WINDOW, PHASE_7_WINDOW,
+        WIN,
         END,
     }
 
@@ -32,9 +28,6 @@ public class TutorialScreen extends Screen {
 
     public GameState state;
     private final Stage stageGame;
-
-    private final Button homeButton;
-    private final Button debugButton;
 
     private final Board board;
 
@@ -53,44 +46,7 @@ public class TutorialScreen extends Screen {
         // load board
         game.getAssets().selectMap(boardType);
         board = new Board(stageGame, boardType);
-
-        // initialize buttons
-        ImageButton.ImageButtonStyle homeButtonStyle =
-                Assets.pauseButtonStyle;
-        homeButtonStyle.imageDown.setMinHeight(50f);
-        homeButtonStyle.imageUp.setMinWidth(50f);
-        homeButtonStyle.imageChecked.setMinWidth(50f);
-
-        ImageButton.ImageButtonStyle debugButtonStyle =
-                Assets.debugButtonStyle;
-        debugButtonStyle.imageDown.setMinHeight(50f);
-        debugButtonStyle.imageUp.setMinWidth(50f);
-        debugButtonStyle.imageChecked.setMinWidth(50f);
-
-        homeButton = new ImageButton(homeButtonStyle);
-        homeButton.setSize(stage.getViewport().getWorldWidth() * .1f,
-                stage.getViewport().getWorldWidth() * .1f);
-        homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
-                stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
-        homeButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Assets.playSound(SoundType.ClickSound);
-            }
-        });
-
-        debugButton = new ImageButton(debugButtonStyle);
-        debugButton.setSize(stage.getViewport().getWorldWidth() * .1f,
-                stage.getViewport().getWorldWidth() * .1f);
-        debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 45,
-                stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
-        debugButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Assets.playSound(SoundType.ClickSound);
-                board.setDebugMode();
-            }
-        });
+        board.getWinTarget().setVisible(false);
 
         // start particles
         Assets.confettiParticle.start();
@@ -135,11 +91,9 @@ public class TutorialScreen extends Screen {
                 || state.equals(GameState.PHASE_5)
                 || state.equals(GameState.PHASE_6)
                 || state.equals(GameState.PHASE_7)
-                || state.equals(GameState.PHASE_8)) {
+                || state.equals(GameState.PHASE_3_WINDOW)
+                || state.equals(GameState.PHASE_5_WINDOW)) {
             stageGame.act(delta);
-
-            // set disabled depending board's running state
-            debugButton.setDisabled(board.isRunning());
 
             if (board.isGameOver())
                 setEnd();
@@ -150,50 +104,54 @@ public class TutorialScreen extends Screen {
             case INIT:
                 // add actors
                 stageGame.addActor(board);
-                stage.addActor(homeButton);
-                stage.addActor(debugButton);
 
                 setWelcome();
 
-                stage.addActor(new TutorialWindow(game, this, "Welcome!"));
+                stage.addActor(new TutorialWindow(game, this, "Welcome to Code Cube!"));
                 break;
             case PHASE_1:
                 setWindowPhase(1);
-                stage.addActor(new TutorialWindow(game, this, "Introduction"));
+                stage.addActor(new TutorialWindow(game, this, "The goal is to reach the green target"));
                 break;
             case PHASE_2:
-                setWindowPhase(2);
-                stage.addActor(new TutorialWindow(game, this, "Touch pause button"));
+                setWindowPhase(2);// generate green target
+                stage.addActor(new TutorialWindow(game, this, "Go generate a green target!"));
                 break;
             case PHASE_3:
-                if (homeButton.isPressed()) {
-                    setWindowPhase(3);
-                    stage.addActor(new TutorialPauseWindow(game, this));
-                }
+                setWindowPhase(3);
+                stage.addAction(Actions.sequence(
+                        Actions.run(board::regenerateTarget),
+                        Actions.delay(2f),
+                        Actions.run(() -> stage.addActor(
+                                new TutorialWindow(game, this, "Here is the green target!")))
+                ));
                 break;
             case PHASE_4:
                 setWindowPhase(4);
-                stage.addActor(new TutorialWindow(game, this, "Good job!. Now, touch debug button"));
+                stage.addActor(new TutorialWindow(game, this, "Now, drag a box to the main program"));
+
                 break;
             case PHASE_5:
-                if (debugButton.isPressed()) {
+                if (!board.getGameControl().isProgramEmpty()) {
                     setWindowPhase(5);
-                    stage.addActor(new TutorialWindow(game, this, "Good!"));
+                    stage.addAction(Actions.sequence(
+                            Actions.delay(2f),
+                            Actions.run(() -> stage.addActor(new TutorialWindow(game, this, "Nice!")))
+                    ));
                 }
                 break;
             case PHASE_6:
                 setWindowPhase(6);
-                stage.addActor(new TutorialWindow(game, this, "Drag a box to the main program"));
+                stage.addActor(new TutorialWindow(game, this, "Try to reach the target"));
                 break;
             case PHASE_7:
-                if (!board.getGameControl().isProgramEmpty()) {
+                if (board.isWin()) {
                     setWindowPhase(7);
-                    stage.addActor(new TutorialWindow(game, this, "Bien hecho!"));
+                    stage.addActor(new TutorialWindow(game, this, "Good job! You win!"));
                 }
                 break;
-            case PHASE_8:
-                setWindowPhase(8);
-                stage.addActor(new TutorialWindow(game, this, "Intenta llegar al objetivo"));
+            case WIN:
+                stage.addActor(new TutorialWindow(game, this, "Tutorial finished!"));
                 break;
             case END:
                 // back to main menu
@@ -207,12 +165,6 @@ public class TutorialScreen extends Screen {
         super.resize(width, height);
         board.resize(width, height);
         stageGame.getViewport().update(width, height, false);
-
-        // update buttons position
-        homeButton.setPosition(stage.getViewport().getWorldWidth() - homeButton.getWidth() - 25,
-                stage.getViewport().getWorldHeight() - homeButton.getHeight() - 25);
-        debugButton.setPosition(stage.getViewport().getWorldWidth() - debugButton.getWidth() * 2 - 45,
-                stage.getViewport().getWorldHeight() - debugButton.getHeight() - 25);
     }
 
     @Override
@@ -239,6 +191,9 @@ public class TutorialScreen extends Screen {
 
     public void nextPhase() {
         switch (state) {
+            case WIN:
+                setPhase(-1); // finish tutorial
+                break;
             case WELCOME:
                 setPhase(1);
                 break;
@@ -261,10 +216,7 @@ public class TutorialScreen extends Screen {
                 setPhase(7);
                 break;
             case PHASE_7_WINDOW:
-                setPhase(8);
-                break;
-            case PHASE_8_WINDOW:
-                setPhase(-1);
+                setPhase(0);
                 break;
         }
     }
@@ -272,6 +224,12 @@ public class TutorialScreen extends Screen {
     public void setPhase(int n) {
         if (state != GameState.END) {
             switch (n) {
+                case -1:
+                    state = GameState.END;
+                    break;
+                case 0:
+                    state = GameState.WIN;
+                    break;
                 case 1:
                     state = GameState.PHASE_1;
                     break;
@@ -293,12 +251,7 @@ public class TutorialScreen extends Screen {
                 case 7:
                     state = GameState.PHASE_7;
                     break;
-                case 8:
-                    state = GameState.PHASE_8;
-                    break;
-                case -1:
-                    state = GameState.END;
-                    break;
+
             }
             Gdx.app.log("GAME_STATE", state.toString());
         }
@@ -327,9 +280,6 @@ public class TutorialScreen extends Screen {
                     break;
                 case 7:
                     state = GameState.PHASE_7_WINDOW;
-                    break;
-                case 8:
-                    state = GameState.PHASE_8_WINDOW;
                     break;
             }
             Gdx.app.log("GAME_STATE", state.toString());

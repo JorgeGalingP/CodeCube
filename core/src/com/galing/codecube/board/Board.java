@@ -139,6 +139,10 @@ public class Board extends Group {
         return player;
     }
 
+    public Target getWinTarget() {
+        return winTarget;
+    }
+
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -184,6 +188,10 @@ public class Board extends Group {
         winTarget.pinchPositionAction(getRandomPosition(Player.class));
     }
 
+    public void regenerateTarget() {
+        winTarget.showPositionAction(getRandomPosition(Player.class));
+    }
+
     public boolean isRunning() {
         return state.equals(BoardState.RUNNING);
     }
@@ -196,7 +204,7 @@ public class Board extends Group {
         return state.equals(BoardState.GAME_OVER);
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return programControls.isEmpty();
     }
 
@@ -280,6 +288,7 @@ public class Board extends Group {
                                             winTarget = (Target) tile;
                                         else
                                             failTargets.add((Target) tile);
+
                                         break;
                                 }
 

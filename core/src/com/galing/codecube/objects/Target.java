@@ -32,6 +32,20 @@ public class Target extends Tile {
         this.type = type;
     }
 
+    public void showPositionAction(Vector2 position) {
+        setCoordinate(position);
+
+        addAction(Actions.sequence(
+                Actions.parallel(
+                        Actions.visible(true),
+                        Actions.scaleTo(0, 0),
+                        Actions.alpha(0)),
+                Actions.sequence(Actions.parallel(
+                        Actions.scaleTo(1, 1, .3f),
+                        Actions.alpha(1, .3f)))
+        ));
+    }
+
     public void pinchPositionAction(Vector2 position) {
         setCoordinate(position);
 
