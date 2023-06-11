@@ -4,16 +4,19 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
 
 public class LoadingScreen extends Screen {
 
     private final ShapeRenderer shapeRenderer;
+    private final Assets assets;
 
     public LoadingScreen(CodeCube game) {
         super(game);
 
         this.shapeRenderer = new ShapeRenderer();
+        this.assets = Assets.getInstance();
     }
 
     @Override
@@ -22,8 +25,8 @@ public class LoadingScreen extends Screen {
 
     @Override
     public void update(float delta) {
-        if (game.getAssetManager().update()) {
-            game.getAssets().loadAssets();
+        if (assets.getAssetManager().update()) {
+            assets.loadAssets();
             game.setScreen(new SplashScreen(game));
         }
     }
@@ -41,14 +44,14 @@ public class LoadingScreen extends Screen {
 
         shapeRenderer.setColor(Color.BLUE);
         shapeRenderer.rect(32, stage.getHeight() / 2 - 8,
-                game.getAssetManager().getProgress() * (stage.getWidth() - 64), 16);
+                assets.getAssetManager().getProgress() * (stage.getWidth() - 64), 16);
         shapeRenderer.end();
     }
 
     @Override
     public void show() {
         shapeRenderer.setProjectionMatrix(camera.combined);
-        game.getAssets().queueAssets();
+        assets.queueAssets();
     }
 
     @Override

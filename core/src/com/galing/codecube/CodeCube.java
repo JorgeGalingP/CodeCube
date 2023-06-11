@@ -1,7 +1,6 @@
 package com.galing.codecube;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -14,8 +13,6 @@ public class CodeCube extends Game {
     private Stage stage;
     private OrthographicCamera camera;
     private SpriteBatch batch;
-    private Assets assets;
-    public AssetManager assetManager;
 
     @Override
     public void create() {
@@ -32,10 +29,6 @@ public class CodeCube extends Game {
         // load settings
         Settings.load();
 
-        // load assets
-        assetManager = new AssetManager();
-        assets = new Assets(assetManager);
-
         // set screen to main game
         setScreen(new LoadingScreen(this));
     }
@@ -44,7 +37,7 @@ public class CodeCube extends Game {
     public void dispose() {
         stage.dispose();
         batch.dispose();
-        assetManager.dispose();
+        Assets.getInstance().dispose();
     }
 
     public Stage getStage() {
@@ -57,13 +50,5 @@ public class CodeCube extends Game {
 
     public SpriteBatch getBatch() {
         return batch;
-    }
-
-    public Assets getAssets() {
-        return assets;
-    }
-
-    public AssetManager getAssetManager() {
-        return assetManager;
     }
 }

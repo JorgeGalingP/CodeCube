@@ -5,7 +5,7 @@ import com.badlogic.gdx.Preferences;
 import com.galing.codecube.enums.Difficulty;
 import com.galing.codecube.enums.Language;
 
-public class Settings {
+public final class Settings {
 
     public static Difficulty selectedDifficulty;
     public static Language selectedLanguage;

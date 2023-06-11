@@ -44,7 +44,7 @@ public class TutorialScreen extends Screen {
         inputMultiplexer.addProcessor(stageGame);
 
         // load board
-        game.getAssets().selectMap(boardType);
+        Assets.getInstance().selectMap(boardType);
         board = new Board(stageGame, boardType);
         board.getWinTarget().setVisible(false);
 

@@ -47,7 +47,7 @@ public class GameScreen extends Screen {
         inputMultiplexer.addProcessor(stageGame);
 
         // load board
-        game.getAssets().selectMap(boardType);
+        Assets.getInstance().selectMap(boardType);
         board = new Board(stageGame, boardType);
 
         // initialize buttons

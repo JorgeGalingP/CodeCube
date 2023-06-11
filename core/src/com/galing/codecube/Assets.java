@@ -29,8 +29,8 @@ import com.galing.codecube.enums.SoundType;
 
 import java.util.Locale;
 
-public class Assets {
-    private final AssetManager manager;
+public final class Assets {
+    private final AssetManager assetManager;
 
     public static TiledMap tileMap;
 
@@ -178,63 +178,72 @@ public class Assets {
 
     public static AtlasRegion player;
 
-    public Assets(AssetManager manager) {
-        this.manager = manager;
+    private static Assets instance = null;
+
+    private Assets(AssetManager manager) {
+        this.assetManager = manager;
+    }
+
+    public static synchronized Assets getInstance() {
+        if (instance == null)
+            instance = new Assets(new AssetManager());
+
+        return instance;
     }
 
     public void queueAssets() {
         // load sounds
-        manager.load("sounds/click.ogg", Sound.class);
-        manager.load("sounds/confetti.ogg", Sound.class);
-        manager.load("sounds/player_tap.wav", Sound.class);
-        manager.load("sounds/player_movement.wav", Sound.class);
-        manager.load("sounds/player_turn.mp3", Sound.class);
-        manager.load("sounds/player_kill.mp3", Sound.class);
-        manager.load("sounds/box_program_add.mp3", Sound.class);
-        manager.load("sounds/box_function_add.mp3", Sound.class);
-        manager.load("sounds/box_kill.mp3", Sound.class);
+        assetManager.load("sounds/click.ogg", Sound.class);
+        assetManager.load("sounds/confetti.ogg", Sound.class);
+        assetManager.load("sounds/player_tap.wav", Sound.class);
+        assetManager.load("sounds/player_movement.wav", Sound.class);
+        assetManager.load("sounds/player_turn.mp3", Sound.class);
+        assetManager.load("sounds/player_kill.mp3", Sound.class);
+        assetManager.load("sounds/box_program_add.mp3", Sound.class);
+        assetManager.load("sounds/box_function_add.mp3", Sound.class);
+        assetManager.load("sounds/box_kill.mp3", Sound.class);
 
         // load music
-        manager.load("music/menu.mp3", Music.class);
-        manager.load("music/play.mp3", Music.class);
+        assetManager.load("music/menu.mp3", Music.class);
+        assetManager.load("music/play.mp3", Music.class);
 
         // load atlas
-        manager.load("atlas/tileset.atlas", TextureAtlas.class);
-        manager.load("atlas/UI.atlas", TextureAtlas.class);
-        manager.load("atlas/confetti.atlas", TextureAtlas.class);
+        assetManager.load("atlas/tileset.atlas", TextureAtlas.class);
+        assetManager.load("atlas/UI.atlas", TextureAtlas.class);
+        assetManager.load("atlas/confetti.atlas", TextureAtlas.class);
 
         // load particles
         ParticleEffectLoader.ParticleEffectParameter particleEffectParameter =
                 new ParticleEffectLoader.ParticleEffectParameter();
         particleEffectParameter.atlasFile = "atlas/confetti.atlas";
-        manager.load("particles/confetti.p", ParticleEffect.class, particleEffectParameter);
+        assetManager.load("particles/confetti.p", ParticleEffect.class, particleEffectParameter);
 
         // load translations
         I18NBundleLoader.I18NBundleParameter localeParams = new I18NBundleLoader.I18NBundleParameter(Locale.ENGLISH,
                 "UTF-8");
         I18NBundleLoader.I18NBundleParameter localeParamsEs = new I18NBundleLoader.I18NBundleParameter(
                 new Locale("es", "ES"), "ISO-8859-1");
-        manager.load("i18n/bundle_en", I18NBundle.class, localeParams);
-        manager.load("i18n/bundle_es_ES", I18NBundle.class, localeParamsEs);
+        assetManager.load("i18n/bundle_en", I18NBundle.class, localeParams);
+        assetManager.load("i18n/bundle_es_ES", I18NBundle.class, localeParamsEs);
 
         // set handle resolver for TMX files as TileMap
-        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        assetManager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
 
         // load stages
-        manager.load("stages/sequence_easy.tmx", TiledMap.class);
-        manager.load("stages/sequence_normal.tmx", TiledMap.class);
-        manager.load("stages/sequence_hard.tmx", TiledMap.class);
-        manager.load("stages/stack_easy.tmx", TiledMap.class);
-        manager.load("stages/stack_normal.tmx", TiledMap.class);
-        manager.load("stages/stack_hard.tmx", TiledMap.class);
-        manager.load("stages/queue_easy.tmx", TiledMap.class);
-        manager.load("stages/queue_normal.tmx", TiledMap.class);
-        manager.load("stages/queue_hard.tmx", TiledMap.class);
+        assetManager.load("stages/sequence_easy.tmx", TiledMap.class);
+        assetManager.load("stages/sequence_normal.tmx", TiledMap.class);
+        assetManager.load("stages/sequence_hard.tmx", TiledMap.class);
+        assetManager.load("stages/stack_easy.tmx", TiledMap.class);
+        assetManager.load("stages/stack_normal.tmx", TiledMap.class);
+        assetManager.load("stages/stack_hard.tmx", TiledMap.class);
+        assetManager.load("stages/queue_easy.tmx", TiledMap.class);
+        assetManager.load("stages/queue_normal.tmx", TiledMap.class);
+        assetManager.load("stages/queue_hard.tmx", TiledMap.class);
 
         // set handle resolver for TTF files as BitmapFont
         FileHandleResolver resolver = new InternalFileHandleResolver();
-        manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
-        manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+        assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
         // generate vaga round bold font
         FreetypeFontLoader.FreeTypeFontLoaderParameter vagaRoundBoldWhite25Parameters =
@@ -286,54 +295,54 @@ public class Assets {
         vagaRoundBoldGray35Parameters.fontParameters.color = Color.GRAY;
 
         // load font
-        manager.load("vagaRoundBoldWhite25.ttf", BitmapFont.class, vagaRoundBoldWhite25Parameters);
-        manager.load("vagaRoundBoldGray25.ttf", BitmapFont.class, vagaRoundBoldGray25Parameters);
-        manager.load("vagaRoundBoldWhite30.ttf", BitmapFont.class, vagaRoundBoldWhite30Parameters);
-        manager.load("vagaRoundBoldGray30.ttf", BitmapFont.class, vagaRoundBoldGray30Parameters);
-        manager.load("vagaRoundBoldWhite35.ttf", BitmapFont.class, vagaRoundBoldWhite35Parameters);
-        manager.load("vagaRoundBoldGray35.ttf", BitmapFont.class, vagaRoundBoldGray35Parameters);
+        assetManager.load("vagaRoundBoldWhite25.ttf", BitmapFont.class, vagaRoundBoldWhite25Parameters);
+        assetManager.load("vagaRoundBoldGray25.ttf", BitmapFont.class, vagaRoundBoldGray25Parameters);
+        assetManager.load("vagaRoundBoldWhite30.ttf", BitmapFont.class, vagaRoundBoldWhite30Parameters);
+        assetManager.load("vagaRoundBoldGray30.ttf", BitmapFont.class, vagaRoundBoldGray30Parameters);
+        assetManager.load("vagaRoundBoldWhite35.ttf", BitmapFont.class, vagaRoundBoldWhite35Parameters);
+        assetManager.load("vagaRoundBoldGray35.ttf", BitmapFont.class, vagaRoundBoldGray35Parameters);
     }
 
     public void loadAssets() {
         // sounds
-        clickSound = manager.get("sounds/click.ogg", Sound.class);
-        confettiSound = manager.get("sounds/confetti.ogg", Sound.class);
-        playerTapSound = manager.get("sounds/player_tap.wav", Sound.class);
-        playerMovementSound = manager.get("sounds/player_movement.wav", Sound.class);
-        playerTurnSound = manager.get("sounds/player_turn.mp3", Sound.class);
-        playerKillSound = manager.get("sounds/player_kill.mp3", Sound.class);
-        boxProgramAddSound = manager.get("sounds/box_program_add.mp3", Sound.class);
-        boxFunctionAddSound = manager.get("sounds/box_function_add.mp3", Sound.class);
-        boxKillSound = manager.get("sounds/box_kill.mp3", Sound.class);
+        clickSound = assetManager.get("sounds/click.ogg", Sound.class);
+        confettiSound = assetManager.get("sounds/confetti.ogg", Sound.class);
+        playerTapSound = assetManager.get("sounds/player_tap.wav", Sound.class);
+        playerMovementSound = assetManager.get("sounds/player_movement.wav", Sound.class);
+        playerTurnSound = assetManager.get("sounds/player_turn.mp3", Sound.class);
+        playerKillSound = assetManager.get("sounds/player_kill.mp3", Sound.class);
+        boxProgramAddSound = assetManager.get("sounds/box_program_add.mp3", Sound.class);
+        boxFunctionAddSound = assetManager.get("sounds/box_function_add.mp3", Sound.class);
+        boxKillSound = assetManager.get("sounds/box_kill.mp3", Sound.class);
 
         // music
-        menuMusic = manager.get("music/menu.mp3", Music.class);
+        menuMusic = assetManager.get("music/menu.mp3", Music.class);
         menuMusic.setLooping(true);
         menuMusic.setVolume(.25f);
-        gameMusic = manager.get("music/play.mp3", Music.class);
+        gameMusic = assetManager.get("music/play.mp3", Music.class);
         gameMusic.setLooping(true);
         gameMusic.setVolume(.25f);
 
         // atlas
-        atlasTileset = manager.get("atlas/tileset.atlas", TextureAtlas.class);
-        atlasUI = manager.get("atlas/UI.atlas", TextureAtlas.class);
-        atlasConfetti = manager.get("atlas/confetti.atlas", TextureAtlas.class);
+        atlasTileset = assetManager.get("atlas/tileset.atlas", TextureAtlas.class);
+        atlasUI = assetManager.get("atlas/UI.atlas", TextureAtlas.class);
+        atlasConfetti = assetManager.get("atlas/confetti.atlas", TextureAtlas.class);
 
         // translations
-        bundleEn = manager.get("i18n/bundle_en", I18NBundle.class);
-        bundleEsES = manager.get("i18n/bundle_es_ES", I18NBundle.class);
+        bundleEn = assetManager.get("i18n/bundle_en", I18NBundle.class);
+        bundleEsES = assetManager.get("i18n/bundle_es_ES", I18NBundle.class);
         selectedBundle = bundleEn;
 
         // particles
-        confettiParticle = manager.get("particles/confetti.p", ParticleEffect.class);
+        confettiParticle = assetManager.get("particles/confetti.p", ParticleEffect.class);
 
         // fonts
-        vagaRoundBoldWhite25 = manager.get("vagaRoundBoldWhite25.ttf", BitmapFont.class);
-        vagaRoundBoldGray25 = manager.get("vagaRoundBoldGray25.ttf", BitmapFont.class);
-        vagaRoundBoldWhite30 = manager.get("vagaRoundBoldWhite30.ttf", BitmapFont.class);
-        vagaRoundBoldGray30 = manager.get("vagaRoundBoldGray30.ttf", BitmapFont.class);
-        vagaRoundBoldWhite35 = manager.get("vagaRoundBoldWhite35.ttf", BitmapFont.class);
-        vagaRoundBoldGray35 = manager.get("vagaRoundBoldGray35.ttf", BitmapFont.class);
+        vagaRoundBoldWhite25 = assetManager.get("vagaRoundBoldWhite25.ttf", BitmapFont.class);
+        vagaRoundBoldGray25 = assetManager.get("vagaRoundBoldGray25.ttf", BitmapFont.class);
+        vagaRoundBoldWhite30 = assetManager.get("vagaRoundBoldWhite30.ttf", BitmapFont.class);
+        vagaRoundBoldGray30 = assetManager.get("vagaRoundBoldGray30.ttf", BitmapFont.class);
+        vagaRoundBoldWhite35 = assetManager.get("vagaRoundBoldWhite35.ttf", BitmapFont.class);
+        vagaRoundBoldGray35 = assetManager.get("vagaRoundBoldGray35.ttf", BitmapFont.class);
 
         // UI
         bg = atlasUI.findRegion("background");
@@ -578,6 +587,15 @@ public class Assets {
         player = atlasTileset.findRegion("player");
     }
 
+    public AssetManager getAssetManager() {
+        return assetManager;
+    }
+
+    public void dispose() {
+        if (instance != null)
+            assetManager.dispose();
+    }
+
     public static void playSound(SoundType type) {
         if (Settings.audio.equals("ON")) {
             switch (type) {
@@ -642,7 +660,7 @@ public class Assets {
             tileMap = null;
         }
 
-        tileMap = manager.get("stages/" + type.getType() + "_" +
+        tileMap = assetManager.get("stages/" + type.getType() + "_" +
                 Settings.selectedDifficulty.toString().toLowerCase() + ".tmx", TiledMap.class);
     }
 
