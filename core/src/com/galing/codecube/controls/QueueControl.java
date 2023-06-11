@@ -13,12 +13,12 @@ import com.galing.codecube.objects.Container;
 
 import java.util.ArrayDeque;
 
-public class Queue extends Control<ArrayDeque<Box>> {
-    public Queue(SpawnManager spawnManager,
-                 Button programButton,
-                 Button functionButton,
-                 Array<Container> programControls,
-                 Array<Container> functionControls) {
+public class QueueControl extends Control<ArrayDeque<Box>> {
+    public QueueControl(SpawnManager spawnManager,
+                        Button programButton,
+                        Button functionButton,
+                        Array<Container> programControls,
+                        Array<Container> functionControls) {
         super(spawnManager, programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayDeque<>());
         setFunction(new ArrayDeque<>());

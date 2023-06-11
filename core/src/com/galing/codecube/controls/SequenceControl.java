@@ -12,12 +12,13 @@ import com.galing.codecube.objects.Container;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sequence extends Control<List<Box>> {
-    public Sequence(SpawnManager spawnManager,
-                    Button programButton,
-                    Button functionButton,
-                    Array<Container> programControls,
-                    Array<Container> functionControls) {
+public class SequenceControl extends Control<List<Box>> {
+
+    public SequenceControl(SpawnManager spawnManager,
+                           Button programButton,
+                           Button functionButton,
+                           Array<Container> programControls,
+                           Array<Container> functionControls) {
         super(spawnManager, programButton, functionButton, programControls, functionControls);
         setProgram(new ArrayList<>());
         setFunction(new ArrayList<>());

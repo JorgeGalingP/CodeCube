@@ -11,13 +11,13 @@ import com.galing.codecube.objects.Box;
 import com.galing.codecube.objects.Button;
 import com.galing.codecube.objects.Container;
 
-public class Stack extends Control<java.util.Stack<Box>> {
+public class StackControl extends Control<java.util.Stack<Box>> {
 
-    public Stack(SpawnManager spawnManager,
-                 Button programButton,
-                 Button functionButton,
-                 Array<Container> programControls,
-                 Array<Container> functionControls) {
+    public StackControl(SpawnManager spawnManager,
+                        Button programButton,
+                        Button functionButton,
+                        Array<Container> programControls,
+                        Array<Container> functionControls) {
         super(spawnManager, programButton, functionButton, programControls, functionControls);
         setProgram(new java.util.Stack<>());
         setFunction(new java.util.Stack<>());

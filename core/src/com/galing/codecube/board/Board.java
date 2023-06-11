@@ -15,10 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.galing.codecube.Assets;
+import com.galing.codecube.controls.ControlFactory;
 import com.galing.codecube.controls.Controllable;
-import com.galing.codecube.controls.Queue;
-import com.galing.codecube.controls.Sequence;
-import com.galing.codecube.controls.Stack;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.BoxType;
 import com.galing.codecube.enums.ContainerType;
@@ -117,15 +115,9 @@ public class Board extends Group {
         this.spawnManager = new SpawnManager(this);
 
         // initialize Control
-        if (type.equals(BoardType.STACK))
-            this.gameControl = new Stack(spawnManager, programButton, functionButton, programControls,
-                    functionControls);
-        else if (type.equals(BoardType.QUEUE))
-            this.gameControl = new Queue(spawnManager, programButton, functionButton, programControls,
-                    functionControls);
-        else
-            this.gameControl = new Sequence(spawnManager, programButton, functionButton, programControls,
-                    functionControls);
+        this.gameControl = ControlFactory.createControl(type, spawnManager, programButton, functionButton,
+                programControls,
+                functionControls);
 
         // spawn boxes of each type
         this.spawnManager.create(BoxType.UP);
