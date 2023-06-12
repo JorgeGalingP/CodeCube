@@ -10,6 +10,6 @@ public class DesktopLauncher {
         config.setForegroundFPS(60);
         config.setTitle("Code Cube");
         config.setWindowedMode(768, 1280);
-        new Lwjgl3Application(new CodeCube(), config);
+        new Lwjgl3Application(CodeCube.getInstance(), config);
     }
 }

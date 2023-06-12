@@ -8,14 +8,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.galing.codecube.Assets;
 import com.galing.codecube.CodeCube;
-import com.galing.codecube.screens.Screen;
 import com.galing.codecube.screens.TutorialScreen;
 import com.galing.codecube.widgets.GreyLabel;
 
 public class TutorialPauseWindow extends CloseableWindow {
 
-    public TutorialPauseWindow(final CodeCube game, Screen screen) {
-        super(game, screen);
+    public TutorialPauseWindow() {
+        super();
 
         initialize();
     }
@@ -55,6 +54,6 @@ public class TutorialPauseWindow extends CloseableWindow {
     @Override
     public void close() {
         super.close();
-        ((TutorialScreen) screen).setPhase(4);
+        ((TutorialScreen) CodeCube.getInstance().getScreen()).setPhase(4);
     }
 }

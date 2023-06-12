@@ -7,23 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.galing.codecube.Assets;
-import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.SoundType;
-import com.galing.codecube.screens.Screen;
 
 public abstract class CloseableWindow extends Window {
-    CodeCube game;
-    Screen screen;
-
     Table titleTable;
     Table contentTable;
 
-    public CloseableWindow(final CodeCube game, Screen screen) {
+    public CloseableWindow() {
         super("", new WindowStyle(Assets.vagaRoundBoldGray25, Assets.vagaRoundBoldGray25.getColor(),
                 Assets.bgNinePatch));
-
-        this.game = game;
-        this.screen = screen;
 
         setVisible(true);
         setFillParent(true);

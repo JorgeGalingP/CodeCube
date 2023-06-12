@@ -14,8 +14,8 @@ import com.galing.codecube.enums.SoundType;
 
 public class MenuScreen extends Screen {
 
-    public MenuScreen(CodeCube game) {
-        super(game);
+    public MenuScreen() {
+        super();
     }
 
     @Override
@@ -42,21 +42,21 @@ public class MenuScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(SoundType.ClickSound);
-                game.setScreen(new ModeScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new ModeScreen());
             }
         });
         optionsButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(SoundType.ClickSound);
-                game.setScreen(new OptionsScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new OptionsScreen());
             }
         });
         helpButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(SoundType.ClickSound);
-                game.setScreen(new HelpScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new HelpScreen());
             }
         });
 

@@ -31,8 +31,8 @@ public class TutorialScreen extends Screen {
 
     private final Board board;
 
-    public TutorialScreen(final CodeCube game, BoardType boardType) {
-        super(game);
+    public TutorialScreen(BoardType boardType) {
+        super();
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.update();
@@ -107,15 +107,15 @@ public class TutorialScreen extends Screen {
 
                 setWelcome();
 
-                stage.addActor(new TutorialWindow(game, this, "Welcome to Code Cube!"));
+                stage.addActor(new TutorialWindow("Welcome to Code Cube!"));
                 break;
             case PHASE_1:
                 setWindowPhase(1);
-                stage.addActor(new TutorialWindow(game, this, "The goal is to reach the green target"));
+                stage.addActor(new TutorialWindow("The goal is to reach the green target"));
                 break;
             case PHASE_2:
                 setWindowPhase(2);// generate green target
-                stage.addActor(new TutorialWindow(game, this, "Go generate a green target!"));
+                stage.addActor(new TutorialWindow("Go generate a green target!"));
                 break;
             case PHASE_3:
                 setWindowPhase(3);
@@ -123,12 +123,12 @@ public class TutorialScreen extends Screen {
                         Actions.run(board::regenerateTarget),
                         Actions.delay(2f),
                         Actions.run(() -> stage.addActor(
-                                new TutorialWindow(game, this, "Here is the green target!")))
+                                new TutorialWindow("Here is the green target!")))
                 ));
                 break;
             case PHASE_4:
                 setWindowPhase(4);
-                stage.addActor(new TutorialWindow(game, this, "Now, drag a box to the main program"));
+                stage.addActor(new TutorialWindow("Now, drag a box to the main program"));
 
                 break;
             case PHASE_5:
@@ -136,26 +136,26 @@ public class TutorialScreen extends Screen {
                     setWindowPhase(5);
                     stage.addAction(Actions.sequence(
                             Actions.delay(2f),
-                            Actions.run(() -> stage.addActor(new TutorialWindow(game, this, "Nice!")))
+                            Actions.run(() -> stage.addActor(new TutorialWindow("Nice!")))
                     ));
                 }
                 break;
             case PHASE_6:
                 setWindowPhase(6);
-                stage.addActor(new TutorialWindow(game, this, "Try to reach the target"));
+                stage.addActor(new TutorialWindow("Try to reach the target"));
                 break;
             case PHASE_7:
                 if (board.isWin()) {
                     setWindowPhase(7);
-                    stage.addActor(new TutorialWindow(game, this, "Good job! You win!"));
+                    stage.addActor(new TutorialWindow("Good job! You win!"));
                 }
                 break;
             case WIN:
-                stage.addActor(new TutorialWindow(game, this, "Tutorial finished!"));
+                stage.addActor(new TutorialWindow("Tutorial finished!"));
                 break;
             case END:
                 // back to main menu
-                game.setScreen(new ModeScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new ModeScreen());
                 break;
         }
     }

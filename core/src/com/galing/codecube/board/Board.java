@@ -196,10 +196,6 @@ public class Board extends Group {
         return state.equals(BoardState.GAME_OVER);
     }
 
-    public boolean isEmpty() {
-        return programControls.isEmpty();
-    }
-
     public void resetGameOver() {
         if (state.equals(BoardState.GAME_OVER)) {
             state = BoardState.WAIT;

@@ -16,8 +16,8 @@ public class TutorialWindow extends CloseableWindow {
 
     private final String title;
 
-    public TutorialWindow(final CodeCube game, Screen screen, String title) {
-        super(game, screen);
+    public TutorialWindow(String title) {
+        super();
 
         this.title = title;
 
@@ -53,7 +53,7 @@ public class TutorialWindow extends CloseableWindow {
     public void close() {
         super.close();
 
-        ((TutorialScreen) screen).nextPhase();
+        ((TutorialScreen) CodeCube.getInstance().getScreen()).nextPhase();
 
 
     }

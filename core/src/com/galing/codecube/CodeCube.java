@@ -8,11 +8,17 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.screens.LoadingScreen;
 import com.galing.codecube.screens.Screen;
 
-public class CodeCube extends Game {
+public final class CodeCube extends Game {
 
+    private static CodeCube instance;
+    private Screen currentScreen;
     private Stage stage;
     private OrthographicCamera camera;
     private SpriteBatch batch;
+
+    private CodeCube() {
+        instance = null;
+    }
 
     @Override
     public void create() {
@@ -20,7 +26,7 @@ public class CodeCube extends Game {
         camera.setToOrtho(false, Screen.WIDTH, Screen.HEIGHT);
         camera.update();
 
-        // initialize stage with ScreenViewport
+        // initialize stage with ExtendViewport
         stage = new Stage(new ExtendViewport(Screen.WIDTH, Screen.HEIGHT, camera));
 
         // initialize spritebatch
@@ -30,14 +36,31 @@ public class CodeCube extends Game {
         Settings.load();
 
         // set screen to main game
-        setScreen(new LoadingScreen(this));
+        setCurrentScreen(new LoadingScreen());
     }
 
     @Override
     public void dispose() {
         stage.dispose();
         batch.dispose();
+        currentScreen.dispose();
         Assets.getInstance().dispose();
+    }
+
+    public static synchronized CodeCube getInstance() {
+        if (instance == null)
+            instance = new CodeCube();
+
+        return instance;
+    }
+
+    public void setCurrentScreen(Screen screen) {
+        this.currentScreen = screen;
+        instance.setScreen(screen);
+    }
+
+    public Screen getScreen() {
+        return currentScreen;
     }
 
     public Stage getStage() {

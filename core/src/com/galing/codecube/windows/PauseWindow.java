@@ -11,13 +11,12 @@ import com.galing.codecube.CodeCube;
 import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.screens.GameScreen;
 import com.galing.codecube.screens.ModeScreen;
-import com.galing.codecube.screens.Screen;
 import com.galing.codecube.widgets.GreyLabel;
 
 public class PauseWindow extends CloseableWindow {
 
-    public PauseWindow(final CodeCube game, Screen screen) {
-        super(game, screen);
+    public PauseWindow() {
+        super();
 
         initialize();
     }
@@ -48,7 +47,7 @@ public class PauseWindow extends CloseableWindow {
                 Assets.playSound(SoundType.ClickSound);
 
                 // back to main menu
-                game.setScreen(new ModeScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new ModeScreen());
             }
         });
 
@@ -60,7 +59,7 @@ public class PauseWindow extends CloseableWindow {
                 close();
 
                 // reset target
-                ((GameScreen) screen).resetTarget();
+                ((GameScreen) CodeCube.getInstance().getScreen()).resetTarget();
             }
         });
 
@@ -76,6 +75,6 @@ public class PauseWindow extends CloseableWindow {
     @Override
     public void close() {
         super.close();
-        ((GameScreen) screen).setRunning();
+        ((GameScreen) CodeCube.getInstance().getScreen()).setRunning();
     }
 }

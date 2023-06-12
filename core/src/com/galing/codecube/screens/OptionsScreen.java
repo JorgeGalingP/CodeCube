@@ -32,8 +32,8 @@ public class OptionsScreen extends Screen {
     private Label languageLabel;
     private Label configurationLabel;
 
-    public OptionsScreen(CodeCube game) {
-        super(game);
+    public OptionsScreen() {
+        super();
     }
 
     @Override
@@ -85,7 +85,7 @@ public class OptionsScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(SoundType.ClickSound);
-                game.setScreen(new MenuScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new MenuScreen());
             }
         });
 

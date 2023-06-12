@@ -178,10 +178,11 @@ public final class Assets {
 
     public static AtlasRegion player;
 
-    private static Assets instance = null;
+    private static Assets instance;
 
     private Assets(AssetManager manager) {
-        this.assetManager = manager;
+        instance = null;
+        assetManager = manager;
     }
 
     public static synchronized Assets getInstance() {
@@ -592,8 +593,8 @@ public final class Assets {
     }
 
     public void dispose() {
-        if (instance != null)
-            assetManager.dispose();
+        tileMap.dispose();
+        assetManager.dispose();
     }
 
     public static void playSound(SoundType type) {

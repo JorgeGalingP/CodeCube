@@ -17,8 +17,8 @@ public class ModeScreen extends Screen {
 
     private Table modeTable;
 
-    public ModeScreen(CodeCube game) {
-        super(game);
+    public ModeScreen() {
+        super();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ModeScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(SoundType.ClickSound);
-                game.setScreen(new MenuScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new MenuScreen());
             }
         });
 
@@ -107,7 +107,7 @@ public class ModeScreen extends Screen {
     }
 
     private void createSelectionWindow(BoardType boardType) {
-        stage.addActor(new GameInitWindow(game, this, boardType));
+        stage.addActor(new GameInitWindow(boardType));
     }
 
     private void setModeTableBounds() {

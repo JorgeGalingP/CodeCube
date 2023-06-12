@@ -13,7 +13,6 @@ import com.galing.codecube.enums.Difficulty;
 import com.galing.codecube.enums.SoundType;
 import com.galing.codecube.screens.GameScreen;
 import com.galing.codecube.screens.ModeScreen;
-import com.galing.codecube.screens.Screen;
 import com.galing.codecube.screens.TutorialScreen;
 import com.galing.codecube.widgets.GreyLabel;
 
@@ -21,8 +20,8 @@ public class GameInitWindow extends CloseableWindow {
 
     BoardType boardType;
 
-    public GameInitWindow(final CodeCube game, Screen screen, BoardType boardType) {
-        super(game, screen);
+    public GameInitWindow(BoardType boardType) {
+        super();
 
         this.boardType = boardType;
 
@@ -46,9 +45,9 @@ public class GameInitWindow extends CloseableWindow {
 
                 // init game
                 if (Settings.tutorial.equals("ON"))
-                    game.setScreen(new TutorialScreen(game, boardType));
+                    CodeCube.getInstance().setCurrentScreen(new TutorialScreen(boardType));
                 else
-                    game.setScreen(new GameScreen(game, boardType));
+                    CodeCube.getInstance().setCurrentScreen(new GameScreen(boardType));
 
             }
         });
@@ -60,7 +59,7 @@ public class GameInitWindow extends CloseableWindow {
                 Assets.playSound(SoundType.ClickSound);
 
                 // back to main menu
-                game.setScreen(new ModeScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new ModeScreen());
             }
         });
 
@@ -78,6 +77,6 @@ public class GameInitWindow extends CloseableWindow {
         super.close();
 
         // back to main menu
-        game.setScreen(new ModeScreen(game));
+        CodeCube.getInstance().setCurrentScreen(new ModeScreen());
     }
 }

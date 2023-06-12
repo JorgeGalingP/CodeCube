@@ -12,8 +12,8 @@ public class LoadingScreen extends Screen {
     private final ShapeRenderer shapeRenderer;
     private final Assets assets;
 
-    public LoadingScreen(CodeCube game) {
-        super(game);
+    public LoadingScreen() {
+        super();
 
         this.shapeRenderer = new ShapeRenderer();
         this.assets = Assets.getInstance();
@@ -27,7 +27,7 @@ public class LoadingScreen extends Screen {
     public void update(float delta) {
         if (assets.getAssetManager().update()) {
             assets.loadAssets();
-            game.setScreen(new SplashScreen(game));
+            CodeCube.getInstance().setCurrentScreen(new SplashScreen());
         }
     }
 

@@ -18,8 +18,8 @@ import com.galing.codecube.widgets.GreyLabel;
 public class HelpScreen extends Screen {
     private ScrollPane scrollPane;
 
-    public HelpScreen(CodeCube game) {
-        super(game);
+    public HelpScreen() {
+        super();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class HelpScreen extends Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Assets.playSound(SoundType.ClickSound);
-                game.setScreen(new MenuScreen(game));
+                CodeCube.getInstance().setCurrentScreen(new MenuScreen());
             }
         });
 

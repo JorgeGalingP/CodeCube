@@ -15,8 +15,8 @@ public class SplashScreen extends Screen {
     private final Image splashImage;
     private final Action splashAction;
 
-    public SplashScreen(CodeCube game) {
-        super(game);
+    public SplashScreen() {
+        super();
         splashImage = new Image(new TextureRegionDrawable(new Texture("images/logo.png")));
 
         splashAction = Actions.sequence(
@@ -32,7 +32,7 @@ public class SplashScreen extends Screen {
                 Actions.delay(.25f),
                 Actions.scaleTo(1.5f, 1.5f, 1.25f, Interpolation.elasticOut),
                 Actions.delay(.5f),
-                run(() -> game.setScreen(new MenuScreen(game))));
+                run(() -> CodeCube.getInstance().setCurrentScreen(new MenuScreen())));
     }
 
     @Override

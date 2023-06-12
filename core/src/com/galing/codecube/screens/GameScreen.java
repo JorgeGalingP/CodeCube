@@ -10,7 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.galing.codecube.Assets;
-import com.galing.codecube.CodeCube;
 import com.galing.codecube.board.Board;
 import com.galing.codecube.enums.BoardType;
 import com.galing.codecube.enums.SoundType;
@@ -34,8 +33,8 @@ public class GameScreen extends Screen {
 
     private final Board board;
 
-    public GameScreen(final CodeCube game, BoardType boardType) {
-        super(game);
+    public GameScreen(BoardType boardType) {
+        super();
         OrthographicCamera camera = new OrthographicCamera(VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         camera.update();
@@ -187,12 +186,12 @@ public class GameScreen extends Screen {
 
     private void createPauseMenu() {
         setPause();
-        stage.addActor(new PauseWindow(game, this));
+        stage.addActor(new PauseWindow());
     }
 
     private void createGameOverMenu() {
         setPause();
-        stage.addActor(new GameOverWindow(game, this));
+        stage.addActor(new GameOverWindow());
     }
 
     public void resetTarget() {
